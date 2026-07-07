@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pengguna & Peran — CMS Konten KLH/BPLH</title>
+<meta name="description" content="Kelola pengguna CMS KLH/BPLH — empat peran berjenjang dengan matriks izin dan alur persetujuan.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="app">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/cms.js"></script>
+<script src="assets/js/components/cmsshell.js"></script>
+
+<klh-sidebar></klh-sidebar>
+<div class="app-main">
+  <klh-topbar judul="Pengguna &amp; Peran"></klh-topbar>
+
+  <main id="konten" class="content">
+    <div class="page-head" data-reveal>
+      <div>
+        <h1>Pengguna &amp; Peran</h1>
+        <p class="lead">Empat peran berjenjang — <strong>Admin Utama → Kontributor</strong>. Kontributor tidak dapat menerbitkan: semua tulisan melewati review.</p>
+      </div>
+      <div class="aksi">
+        <button class="btn btn-primary" type="button" id="btn-undang"><klh-icon name="people" class="icon icon--sm"></klh-icon> Undang pengguna</button>
+      </div>
+    </div>
+
+    <div class="role-grid" id="role-grid" data-reveal></div>
+
+    <section class="panel" data-reveal aria-label="Matriks izin per peran" style="margin-top:var(--s6)">
+      <div class="panel__head"><h2>Matriks izin</h2><span class="ket">Ya = diizinkan · — = tidak</span></div>
+      <div class="panel__body" style="padding-top:var(--s3)">
+        <div class="tbl-wrap" style="border:0">
+          <table class="tbl" aria-label="Matriks izin per peran">
+            <thead><tr id="mx-head"><th scope="col">Izin</th></tr></thead>
+            <tbody id="mx-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" data-reveal aria-label="Daftar pengguna" style="margin-top:var(--s6)">
+      <div class="panel__head"><h2>Pengguna terdaftar</h2></div>
+      <div class="panel__body" style="padding-top:var(--s3)">
+        <div class="tbl-wrap" style="border:0">
+          <table class="tbl" aria-label="Daftar pengguna CMS">
+            <thead><tr><th scope="col">Pengguna</th><th scope="col">Peran</th><th scope="col">Unit</th><th scope="col">Aktif terakhir</th><th scope="col">Status</th></tr></thead>
+            <tbody id="tb-pengguna"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — nama dan akun fiktif; perubahan peran bersifat simulasi prototipe.</p>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var C = KLH.cms;
+
+  document.getElementById('role-grid').innerHTML = C.peran.map(function (p) {
+    return '<div class="role-card card panel"><div class="kanal-card__head">' +
+      '<span class="kanal-card__ic">' + KLH.iconSVG(p.id === 'admin' ? 'shield' : (p.id === 'ppid' ? 'document' : (p.id === 'editor' ? 'newspaper' : 'user')), 'icon') + '</span>' +
+      '<span><h3 style="margin:0;font-size:var(--t-h4)">' + p.nama + '</h3><small>' + p.jumlah + ' pengguna</small></span></div>' +
+      '<p style="margin:0;font-size:var(--t-sm);color:var(--ink-500)">' + p.ket + '</p></div>';
+  }).join('');
+
+  var head = document.getElementById('mx-head');
+  C.peran.forEach(function (p) {
+    var th = document.createElement('th');
+    th.scope = 'col'; th.textContent = p.nama;
+    head.appendChild(th);
+  });
+  document.getElementById('mx-body').innerHTML = C.izin.map(function (z) {
+    var sel = ['admin', 'editor', 'ppid', 'kontributor'].map(function (k) {
+      return '<td>' + (z[k]
+        ? '<span class="matrix-ya">' + KLH.iconSVG('check', 'icon icon--sm') + ' Ya</span>'
+        : '<span class="matrix-tidak">— Tidak</span>') + '</td>';
+    }).join('');
+    return '<tr><td><strong>' + z.label + '</strong></td>' + sel + '</tr>';
+  }).join('');
+
+  document.getElementById('tb-pengguna').innerHTML = C.pengguna.map(function (u) {
+    return '<tr><td><span style="display:inline-flex;align-items:center;gap:var(--s3)"><span class="avatar" aria-hidden="true">' + u.inisial + '</span>' +
+      '<span><strong>' + u.nama + '</strong><br><span style="font-size:var(--t-xs);color:var(--ink-400)">' + u.email + '</span></span></span></td>' +
+      '<td>' + u.peran + '</td><td>' + u.unit + '</td>' +
+      '<td class="mono" style="font-family:var(--font-mono);font-size:var(--t-xs);white-space:nowrap">' + KLH.fmtDateTime(u.aktif) + '</td>' +
+      '<td>' + (u.status === 'aktif'
+        ? '<span class="badge bg-success"><span class="dot" aria-hidden="true"></span>Aktif</span>'
+        : '<span class="badge bg-neutral">Nonaktif</span>') + '</td></tr>';
+  }).join('');
+
+  document.getElementById('btn-undang').addEventListener('click', function () {
+    KLH.toast('Formulir undangan pengguna dibuka pada versi produksi — simulasi prototipe.', 'info');
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Konten Website Utama — CMS Konten KLH/BPLH</title>
+<meta name="description" content="Kelola berita, pengumuman, dan halaman program Website Utama KLH/BPLH — filter status, cari, dan sunting.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="app">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/cms.js"></script>
+<script src="assets/js/components/cmsshell.js"></script>
+
+<klh-sidebar></klh-sidebar>
+<div class="app-main">
+  <klh-topbar judul="Konten Website Utama"></klh-topbar>
+
+  <main id="konten" class="content">
+    <div class="page-head" data-reveal>
+      <div>
+        <h1>Konten Website Utama</h1>
+        <p class="lead">Berita, pengumuman, dan materi program yang tayang di <strong>Website Utama KLH/BPLH</strong>. Alur: Draf → Review → Terbit/Terjadwal.</p>
+      </div>
+      <div class="aksi">
+        <a class="btn btn-primary" href="konten-edit.html"><klh-icon name="newspaper" class="icon icon--sm"></klh-icon> Tulis konten</a>
+      </div>
+    </div>
+
+    <div class="toolbar panel" data-reveal>
+      <div class="tb-search" role="search" style="position:static;max-width:320px;flex:1">
+        <klh-icon name="search" class="icon icon--sm"></klh-icon>
+        <input type="search" id="cari" placeholder="Cari judul atau ID…" aria-label="Cari konten">
+      </div>
+      <div class="filterbar" style="border:0;background:none;padding:0" role="group" aria-label="Filter status">
+        <button class="fchip on" type="button" data-st="semua" aria-pressed="true">Semua</button>
+        <button class="fchip" type="button" data-st="terbit" aria-pressed="false">Terbit</button>
+        <button class="fchip" type="button" data-st="review" aria-pressed="false">Menunggu Review</button>
+        <button class="fchip" type="button" data-st="terjadwal" aria-pressed="false">Terjadwal</button>
+        <button class="fchip" type="button" data-st="draf" aria-pressed="false">Draf</button>
+      </div>
+      <label class="sr-only" for="f-kat">Filter kategori</label>
+      <select class="select" id="f-kat" style="max-width:180px">
+        <option value="">Semua kategori</option>
+        <option>Berita</option><option>Pengumuman</option><option>Program</option>
+      </select>
+    </div>
+
+    <section class="panel" data-reveal aria-label="Daftar konten">
+      <div class="panel__body" style="padding-top:var(--s3)">
+        <div class="tbl-wrap" style="border:0">
+          <table class="tbl" aria-label="Daftar konten Website Utama">
+            <thead><tr>
+              <th scope="col">Judul</th><th scope="col">Kategori</th><th scope="col">Penulis</th>
+              <th scope="col">Status</th><th scope="col">Diperbarui</th><th scope="col"><span class="sr-only">Aksi</span></th>
+            </tr></thead>
+            <tbody id="tb-konten"></tbody>
+          </table>
+        </div>
+        <p id="kosong" class="demo-note" hidden><klh-icon name="search" class="icon icon--sm"></klh-icon> Tidak ada konten yang cocok dengan filter/kata kunci.</p>
+      </div>
+    </section>
+
+    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — aksi hapus/terbitkan pada prototipe ini bersifat simulasi dan tidak menyimpan permanen.</p>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var data = KLH.cms.artikel.slice();
+  var stAktif = 'semua', kat = '', q = '';
+
+  var tb = document.getElementById('tb-konten');
+  var kosong = document.getElementById('kosong');
+
+  function render() {
+    var rows = data.filter(function (a) {
+      return (stAktif === 'semua' || a.status === stAktif) &&
+             (!kat || a.kategori === kat) &&
+             (!q || (a.judul + ' ' + a.id).toLowerCase().indexOf(q) !== -1);
+    });
+    tb.innerHTML = rows.map(function (a) {
+      return '<tr data-id="' + a.id + '">' +
+        '<td><strong>' + a.judul + '</strong><br><span class="mono" style="font-family:var(--font-mono);font-size:var(--t-xs);color:var(--ink-400)">' + a.id + '</span></td>' +
+        '<td>' + a.kategori + '</td>' +
+        '<td>' + a.penulis + '</td>' +
+        '<td>' + KLH.statusBadge(a.status) + '</td>' +
+        '<td class="mono" style="font-family:var(--font-mono);font-size:var(--t-xs);white-space:nowrap">' + KLH.fmtDateTime(a.t) + '</td>' +
+        '<td><div class="row-aksi">' +
+          '<a href="konten-edit.html?id=' + a.id + '" aria-label="Sunting ' + a.id + '" title="Sunting">' + KLH.iconSVG('document', 'icon icon--sm') + '</a>' +
+          '<button type="button" class="hapus" data-hapus="' + a.id + '" aria-label="Hapus ' + a.id + '" title="Hapus">' + KLH.iconSVG('close', 'icon icon--sm') + '</button>' +
+        '</div></td></tr>';
+    }).join('');
+    kosong.hidden = rows.length > 0;
+  }
+
+  /* Filter status via chip + dukung ?status= dari halaman lain */
+  var chips = document.querySelectorAll('[data-st]');
+  function setStatus(st) {
+    stAktif = st;
+    Array.prototype.forEach.call(chips, function (c) {
+      var on = c.getAttribute('data-st') === st;
+      c.classList.toggle('on', on);
+      c.setAttribute('aria-pressed', String(on));
+    });
+    render();
+  }
+  Array.prototype.forEach.call(chips, function (c) {
+    c.addEventListener('click', function () { setStatus(c.getAttribute('data-st')); });
+  });
+  var qsStatus = KLH.qs('status');
+  if (qsStatus && document.querySelector('[data-st="' + qsStatus + '"]')) setStatus(qsStatus);
+
+  document.getElementById('f-kat').addEventListener('change', function () { kat = this.value; render(); });
+  document.getElementById('cari').addEventListener('input', function () { q = this.value.trim().toLowerCase(); render(); });
+
+  /* Hapus (simulasi + konfirmasi) */
+  tb.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-hapus]');
+    if (!btn) return;
+    var id = btn.getAttribute('data-hapus');
+    var item = data.filter(function (a) { return a.id === id; })[0];
+    if (item && window.confirm('Hapus "' + item.judul + '"?\nAksi ini simulasi prototipe.')) {
+      data = data.filter(function (a) { return a.id !== id; });
+      render();
+      KLH.toast('Konten <strong>' + id + '</strong> dihapus (simulasi).');
+    }
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — CMS Konten KLH/BPLH</title>
+<meta name="description" content="Dashboard CMS Konten KLH/BPLH — ringkasan konten tiga produk digital, antrean review, dan aktivitas terakhir.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="app">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/cms.js"></script>
+<script src="assets/js/components/cmsshell.js"></script>
+
+<klh-sidebar></klh-sidebar>
+<div class="app-main">
+  <klh-topbar judul="Dashboard"></klh-topbar>
+
+  <main id="konten" class="content">
+    <div class="page-head" data-reveal>
+      <div>
+        <h1>Dashboard Konten</h1>
+        <p class="lead">Ringkasan konten <strong>Website Utama · PPID · Omni Channel</strong> — seluruh entri adalah konten contoh.</p>
+      </div>
+      <div class="aksi">
+        <a class="btn btn-primary" href="konten-edit.html"><klh-icon name="newspaper" class="icon icon--sm"></klh-icon> Tulis konten baru</a>
+      </div>
+    </div>
+
+    <div class="kpi-grid" data-reveal>
+      <div class="kpi panel"><span class="kpi__ic" style="background:var(--g-100);color:var(--g-700)"><klh-icon name="newspaper" class="icon"></klh-icon></span>
+        <div><span class="kpi__val" id="kpi-terbit">0</span><span class="kpi__lbl">Konten terbit</span></div></div>
+      <div class="kpi panel"><span class="kpi__ic" style="background:var(--warning-bg);color:var(--warning)"><klh-icon name="eye" class="icon"></klh-icon></span>
+        <div><span class="kpi__val" id="kpi-review">0</span><span class="kpi__lbl">Menunggu review</span></div></div>
+      <div class="kpi panel"><span class="kpi__ic" style="background:var(--info-bg);color:var(--infoc)"><klh-icon name="document" class="icon"></klh-icon></span>
+        <div><span class="kpi__val" id="kpi-dip">0</span><span class="kpi__lbl">DIP PPID terbit</span></div></div>
+      <div class="kpi panel"><span class="kpi__ic" style="background:var(--o-100);color:var(--o-700)"><klh-icon name="folder" class="icon"></klh-icon></span>
+        <div><span class="kpi__val" id="kpi-media">0</span><span class="kpi__lbl">Berkas media</span></div></div>
+    </div>
+
+    <div class="dash-grid" data-reveal>
+      <section class="panel" aria-labelledby="h-review">
+        <div class="panel__head"><h2 id="h-review">Menunggu review</h2><a class="btn btn-ghost btn-sm" href="konten.html?status=review">Lihat semua</a></div>
+        <div class="panel__body">
+          <div class="tbl-wrap" style="border:0">
+            <table class="tbl" aria-label="Daftar konten menunggu review">
+              <thead><tr><th scope="col">Konten</th><th scope="col">Produk</th><th scope="col">Dikirim</th><th scope="col"><span class="sr-only">Aksi</span></th></tr></thead>
+              <tbody id="tb-review"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="h-log">
+        <div class="panel__head"><h2 id="h-log">Aktivitas terakhir</h2></div>
+        <div class="panel__body"><ul class="log-list" id="log-list"></ul></div>
+      </section>
+    </div>
+
+    <section class="panel" data-reveal aria-labelledby="h-produk" style="margin-top:var(--s6)">
+      <div class="panel__head"><h2 id="h-produk">Produk yang dikelola</h2><span class="ket">Pratinjau membuka prototipe produk terkait</span></div>
+      <div class="panel__body">
+        <div class="produk-grid" id="produk-grid">
+          <div class="kanal-card card">
+            <div class="kanal-card__head"><span class="kanal-card__ic"><klh-icon name="globe" class="icon"></klh-icon></span>
+              <span><h3 style="margin:0;font-size:var(--t-h4)">Website Utama</h3><small>Berita, halaman profil, program, agenda</small></span></div>
+            <div class="kanal-card__meta"><span>Terbit <span class="mono" id="pj-web">0</span></span><span>Review <span class="mono" id="pr-web">0</span></span></div>
+            <div class="kanal-card__aksi"><a class="btn btn-outline btn-sm" href="konten.html">Kelola</a><a class="btn btn-ghost btn-sm" href="../klh-website-utama/index.html">Pratinjau</a></div>
+          </div>
+          <div class="kanal-card card">
+            <div class="kanal-card__head"><span class="kanal-card__ic"><klh-icon name="document" class="icon"></klh-icon></span>
+              <span><h3 style="margin:0;font-size:var(--t-h4)">PPID</h3><small>DIP/DIK, regulasi, FAQ layanan informasi</small></span></div>
+            <div class="kanal-card__meta"><span>Terbit <span class="mono" id="pj-ppid">0</span></span><span>Review <span class="mono" id="pr-ppid">0</span></span></div>
+            <div class="kanal-card__aksi"><a class="btn btn-outline btn-sm" href="ppid.html">Kelola</a><a class="btn btn-ghost btn-sm" href="../klh-ppid-web/index.html">Pratinjau</a></div>
+          </div>
+          <div class="kanal-card card">
+            <div class="kanal-card__head"><span class="kanal-card__ic"><klh-icon name="inbox" class="icon"></klh-icon></span>
+              <span><h3 style="margin:0;font-size:var(--t-h4)">Omni Channel</h3><small>Template balasan &amp; konten chatbot dikelola di dashboardnya</small></span></div>
+            <div class="kanal-card__meta"><span class="badge bg-neutral">Dikelola terpisah</span></div>
+            <div class="kanal-card__aksi"><a class="btn btn-ghost btn-sm" href="../klh-omni-dashboard/login.html">Buka Omni Dashboard</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — angka dan entri pada dashboard ini bersifat simulasi prototipe.</p>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var C = KLH.cms;
+
+  document.getElementById('kpi-terbit').textContent = C.artikel.filter(function (a) { return a.status === 'terbit'; }).length;
+  document.getElementById('kpi-review').textContent =
+    C.artikel.concat(C.dip, C.faq, C.regulasi, C.agenda).filter(function (x) { return x.status === 'review'; }).length;
+  document.getElementById('kpi-dip').textContent = C.dip.filter(function (d) { return d.status === 'terbit'; }).length;
+  document.getElementById('kpi-media').textContent = C.media.length;
+
+  document.getElementById('pj-web').textContent = C.artikel.filter(function (a) { return a.status === 'terbit'; }).length;
+  document.getElementById('pr-web').textContent = C.artikel.filter(function (a) { return a.status === 'review'; }).length;
+  document.getElementById('pj-ppid').textContent = C.dip.concat(C.faq, C.regulasi).filter(function (x) { return x.status === 'terbit'; }).length;
+  document.getElementById('pr-ppid').textContent = C.dip.concat(C.faq, C.regulasi).filter(function (x) { return x.status === 'review'; }).length;
+
+  /* Antrean review: artikel + DIP + FAQ */
+  var antre = []
+    .concat(C.artikel.filter(function (a) { return a.status === 'review'; }).map(function (a) {
+      return { judul: a.judul, produk: 'web', t: a.t, url: 'konten-edit.html?id=' + a.id };
+    }))
+    .concat(C.dip.filter(function (d) { return d.status === 'review'; }).map(function (d) {
+      return { judul: d.judul, produk: 'ppid', t: d.t + 'T09:00:00', url: 'ppid.html' };
+    }))
+    .concat(C.faq.filter(function (f) { return f.status === 'review'; }).map(function (f) {
+      return { judul: f.q, produk: 'ppid', t: '2026-07-06T15:12:00', url: 'ppid.html#faq' };
+    }));
+  document.getElementById('tb-review').innerHTML = antre.map(function (r) {
+    return '<tr><td><strong>' + r.judul + '</strong></td><td>' + KLH.produkBadge(r.produk) + '</td>' +
+      '<td class="mono" style="font-family:var(--font-mono);font-size:var(--t-xs)">' + KLH.fmtDateTime(r.t) + '</td>' +
+      '<td><a class="btn btn-outline btn-sm" href="' + r.url + '">Tinjau</a></td></tr>';
+  }).join('') || '<tr><td colspan="4">Tidak ada konten menunggu review — semua beres.</td></tr>';
+
+  document.getElementById('log-list').innerHTML = C.aktivitas.map(function (l) {
+    var ini = (l.siapa.match(/\b\w/g) || []).slice(0, 2).join('').toUpperCase();
+    return '<li><span class="avatar" aria-hidden="true">' + ini + '</span>' +
+      '<div><strong>' + l.siapa + '</strong> ' + l.aksi + ' — ' + l.obj +
+      '<time>' + KLH.fmtDateTime(l.t) + '</time></div></li>';
+  }).join('');
+})();
+</script>
+</body>
+</html>

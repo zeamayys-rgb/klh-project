@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pustaka Media — CMS Konten KLH/BPLH</title>
+<meta name="description" content="Pustaka media CMS KLH/BPLH — foto dan berkas dengan teks alternatif wajib untuk aksesibilitas.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="app">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/cms.js"></script>
+<script src="assets/js/components/cmsshell.js"></script>
+
+<klh-sidebar></klh-sidebar>
+<div class="app-main">
+  <klh-topbar judul="Pustaka Media"></klh-topbar>
+
+  <main id="konten" class="content">
+    <div class="page-head" data-reveal>
+      <div>
+        <h1>Pustaka Media</h1>
+        <p class="lead">Foto &amp; berkas yang dipakai lintas produk. <strong>Teks alternatif wajib</strong> di setiap unggahan — syarat WCAG 2.1 AA.</p>
+      </div>
+    </div>
+
+    <div class="dash-grid dash-grid--rev" data-reveal>
+      <section class="panel" aria-labelledby="h-unggah">
+        <div class="panel__head"><h2 id="h-unggah">Unggah media</h2></div>
+        <div class="panel__body">
+          <div class="dropzone" role="button" tabindex="0" aria-label="Unggah media — klik atau seret berkas">
+            <div><klh-icon name="download" class="icon icon--lg"></klh-icon><br><strong>Seret berkas ke sini</strong> atau klik untuk memilih<br><span style="font-size:var(--t-xs)">JPG/PNG/PDF · maks 5 MB</span></div>
+          </div>
+          <div class="field" style="margin-top:var(--s4)">
+            <label for="m-alt">Teks alternatif <span class="req" aria-hidden="true">*</span></label>
+            <input class="input" id="m-alt" placeholder="Deskripsi isi gambar untuk pembaca layar" aria-describedby="m-alt-err">
+            <span class="errmsg" id="m-alt-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Teks alternatif wajib diisi sebelum mengunggah.</span>
+          </div>
+          <button class="btn btn-primary" type="button" id="btn-unggah" style="width:100%">Unggah (simulasi)</button>
+          <p class="hint" style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s3)">Unggahan tanpa teks alternatif ditolak sistem — bukan sekadar imbauan.</p>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="h-galeri">
+        <div class="panel__head"><h2 id="h-galeri">Semua media <span class="badge bg-neutral" id="n-media">0</span></h2>
+          <div class="tb-search" role="search" style="position:static;max-width:240px">
+            <klh-icon name="search" class="icon icon--sm"></klh-icon>
+            <input type="search" id="m-cari" placeholder="Cari nama/alt…" aria-label="Cari media">
+          </div>
+        </div>
+        <div class="panel__body">
+          <div class="media-grid" id="media-grid"></div>
+          <p id="m-kosong" class="demo-note" hidden><klh-icon name="search" class="icon icon--sm"></klh-icon> Tidak ada media yang cocok.</p>
+        </div>
+      </section>
+    </div>
+
+    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — 9 foto berasal dari pustaka berita prototipe Website Utama.</p>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var data = KLH.cms.media.slice();
+  var grid = document.getElementById('media-grid');
+  var q = '';
+
+  function render() {
+    var rows = data.filter(function (m) {
+      return !q || (m.file + ' ' + m.alt).toLowerCase().indexOf(q) !== -1;
+    });
+    grid.innerHTML = rows.map(function (m) {
+      return '<figure class="media-card">' +
+        '<img src="assets/img/media/' + m.file + '" alt="' + m.alt + '" loading="lazy">' +
+        '<figcaption><span class="fname">' + m.file + '</span><span class="falt">' + m.alt + '</span>' +
+        '<span class="fmeta"><span>' + m.ukuran + '</span><span>' + KLH.fmtDate(m.t) + '</span></span></figcaption></figure>';
+    }).join('');
+    document.getElementById('n-media').textContent = rows.length;
+    document.getElementById('m-kosong').hidden = rows.length > 0;
+  }
+  document.getElementById('m-cari').addEventListener('input', function () {
+    q = this.value.trim().toLowerCase(); render();
+  });
+
+  document.getElementById('btn-unggah').addEventListener('click', function () {
+    var alt = document.getElementById('m-alt');
+    var err = document.getElementById('m-alt-err');
+    if (!alt.value.trim()) {
+      err.hidden = false; alt.closest('.field').classList.add('err'); alt.setAttribute('aria-invalid', 'true'); alt.focus();
+      return;
+    }
+    err.hidden = true; alt.closest('.field').classList.remove('err'); alt.setAttribute('aria-invalid', 'false');
+    KLH.toast('Media diunggah dengan alt: <strong>' + alt.value.trim() + '</strong> (simulasi).');
+    alt.value = '';
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

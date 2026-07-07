@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agenda & Kegiatan — CMS Konten KLH/BPLH</title>
+<meta name="description" content="Kelola agenda, hari lingkungan, dan hari libur yang tampil di kalender Website Utama KLH/BPLH.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="app">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/cms.js"></script>
+<script src="assets/js/components/cmsshell.js"></script>
+
+<klh-sidebar></klh-sidebar>
+<div class="app-main">
+  <klh-topbar judul="Agenda &amp; Kegiatan"></klh-topbar>
+
+  <main id="konten" class="content">
+    <div class="page-head" data-reveal>
+      <div>
+        <h1>Agenda &amp; Kegiatan</h1>
+        <p class="lead">Entri di sini tampil pada <strong>kalender agenda Website Utama</strong> — tiga jenis: agenda kegiatan, hari lingkungan, dan hari libur.</p>
+      </div>
+    </div>
+
+    <div class="dash-grid" data-reveal>
+      <section class="panel" aria-label="Daftar agenda">
+        <div class="panel__head"><h2>Daftar entri — Juli 2026</h2>
+          <span class="ket"><span class="badge bg-info">agenda</span> <span class="badge bg-success">hari lingkungan</span> <span class="badge bg-danger">libur</span></span>
+        </div>
+        <div class="panel__body" style="padding-top:var(--s3)">
+          <div class="tbl-wrap" style="border:0">
+            <table class="tbl" aria-label="Daftar agenda dan kegiatan">
+              <thead><tr><th scope="col">Tanggal</th><th scope="col">Judul</th><th scope="col">Jenis</th><th scope="col">Lokasi</th><th scope="col">Status</th><th scope="col"><span class="sr-only">Aksi</span></th></tr></thead>
+              <tbody id="tb-agenda"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="h-tambah">
+        <div class="panel__head"><h2 id="h-tambah">Tambah entri</h2></div>
+        <div class="panel__body">
+          <form id="form-agenda" novalidate>
+            <div class="field">
+              <label for="a-judul">Judul <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" id="a-judul" placeholder="Nama kegiatan / peringatan" aria-describedby="a-judul-err">
+              <span class="errmsg" id="a-judul-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Judul wajib diisi.</span>
+            </div>
+            <div class="field">
+              <label for="a-tgl">Tanggal <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" id="a-tgl" type="date" min="2026-07-01" aria-describedby="a-tgl-err">
+              <span class="errmsg" id="a-tgl-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Pilih tanggal kegiatan.</span>
+            </div>
+            <div class="field">
+              <label for="a-jenis">Jenis</label>
+              <select class="select" id="a-jenis">
+                <option value="agenda">Agenda kegiatan</option>
+                <option value="hari">Hari lingkungan</option>
+                <option value="libur">Hari libur</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="a-lokasi">Lokasi (opsional)</label>
+              <input class="input" id="a-lokasi" placeholder="Tempat / tautan daring">
+            </div>
+            <button class="btn btn-primary" type="submit" style="width:100%"><klh-icon name="calendar" class="icon icon--sm"></klh-icon> Tambahkan ke kalender</button>
+            <p class="hint" style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s3)">Entri baru berstatus <strong>Menunggu Review</strong> hingga disetujui Editor.</p>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — penambahan/penghapusan agenda bersifat simulasi prototipe.</p>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var data = KLH.cms.agenda.slice().sort(function (a, b) { return a.mulai < b.mulai ? -1 : 1; });
+  var tb = document.getElementById('tb-agenda');
+  var JB = { agenda: 'bg-info', hari: 'bg-success', libur: 'bg-danger' };
+  var JL = { agenda: 'Agenda', hari: 'Hari lingkungan', libur: 'Libur' };
+
+  function render() {
+    tb.innerHTML = data.map(function (g, i) {
+      return '<tr>' +
+        '<td class="mono" style="font-family:var(--font-mono);white-space:nowrap">' + KLH.fmtDate(g.mulai) + '</td>' +
+        '<td><strong>' + g.judul + '</strong></td>' +
+        '<td><span class="badge ' + (JB[g.jenis] || 'bg-neutral') + '">' + (JL[g.jenis] || g.jenis) + '</span></td>' +
+        '<td>' + g.lokasi + '</td>' +
+        '<td>' + KLH.statusBadge(g.status) + '</td>' +
+        '<td><div class="row-aksi"><button type="button" class="hapus" data-i="' + i + '" aria-label="Hapus ' + g.judul + '" title="Hapus">' + KLH.iconSVG('close', 'icon icon--sm') + '</button></div></td></tr>';
+    }).join('');
+  }
+  tb.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-i]');
+    if (!btn) return;
+    var i = parseInt(btn.getAttribute('data-i'), 10);
+    if (window.confirm('Hapus "' + data[i].judul + '"? Aksi ini simulasi prototipe.')) {
+      data.splice(i, 1); render();
+      KLH.toast('Entri agenda dihapus (simulasi).');
+    }
+  });
+
+  function setErr(fid, tampil) {
+    var input = document.getElementById(fid);
+    var err = document.getElementById(fid + '-err');
+    var field = input ? input.closest('.field') : null;
+    if (field) field.classList.toggle('err', !!tampil);
+    if (err) err.hidden = !tampil;
+    input.setAttribute('aria-invalid', String(!!tampil));
+    return !tampil;
+  }
+  document.getElementById('form-agenda').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var judul = document.getElementById('a-judul');
+    var tgl = document.getElementById('a-tgl');
+    var ok = true;
+    ok = setErr('a-judul', !judul.value.trim()) && ok;
+    ok = setErr('a-tgl', !tgl.value) && ok;
+    if (!ok) { this.querySelector('[aria-invalid="true"]').focus(); return; }
+    data.push({
+      id: 'AGD-BARU', judul: judul.value.trim(),
+      jenis: document.getElementById('a-jenis').value,
+      mulai: tgl.value,
+      lokasi: document.getElementById('a-lokasi').value.trim() || '—',
+      status: 'review'
+    });
+    data.sort(function (a, b) { return a.mulai < b.mulai ? -1 : 1; });
+    render();
+    this.reset();
+    KLH.toast('Entri ditambahkan dengan status <strong>Menunggu Review</strong> (simulasi).');
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

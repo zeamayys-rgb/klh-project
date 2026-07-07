@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masuk — CMS Konten KLH/BPLH</title>
+<meta name="description" content="Masuk ke CMS Konten KLH/BPLH — platform internal pengelolaan konten Website Utama, PPID, dan Omni Channel.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="login">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/cms.js"></script>
+
+<div class="login-wrap">
+  <div class="login-side">
+    <span id="side-leaf"></span>
+    <a class="brand" href="login.html">
+      <img class="brand__logo" src="assets/img/klh-logo.png" alt="Lambang KLH/BPLH">
+      <span><span class="brand__name">CMS Konten</span>
+      <span class="brand__sub">Kementerian Lingkungan Hidup / BPLH · Internal</span></span>
+    </a>
+    <span class="eyebrow" style="color:var(--g-300);margin:0">Satu pintu pengelolaan konten</span>
+    <h1>Kelola informasi tiga produk digital dari satu meja</h1>
+    <p>Berita &amp; halaman Website Utama, DIP/FAQ/regulasi PPID, agenda, dan pustaka media — dengan alur Draf → Review → Terbit yang tercatat.</p>
+    <ul class="fitur">
+      <li><klh-icon name="newspaper" class="icon icon--sm"></klh-icon> Konten Website Utama dengan penjadwalan tayang</li>
+      <li><klh-icon name="document" class="icon icon--sm"></klh-icon> DIP, DIK, regulasi &amp; FAQ PPID terverifikasi</li>
+      <li><klh-icon name="eye" class="icon icon--sm"></klh-icon> Alur persetujuan berjenjang &amp; log aktivitas</li>
+    </ul>
+  </div>
+
+  <main id="konten" class="login-main">
+    <form class="card login-card" id="form-masuk" novalidate>
+      <h2 style="margin-bottom:var(--s1)">Masuk ke CMS</h2>
+      <p class="sub">Gunakan akun pegawai yang terdaftar. Akses hanya untuk pengelola konten berwenang.</p>
+
+      <div class="field">
+        <label for="email">Email kedinasan</label>
+        <input class="input" id="email" name="email" type="email" autocomplete="username" placeholder="nama@klh.go.id" aria-describedby="email-err">
+        <span class="errmsg" id="email-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Masukkan alamat email kedinasan yang valid.</span>
+      </div>
+      <div class="field">
+        <label for="sandi">Kata sandi</label>
+        <input class="input" id="sandi" name="sandi" type="password" autocomplete="current-password" placeholder="••••••••" aria-describedby="sandi-err">
+        <span class="errmsg" id="sandi-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Kata sandi minimal 8 karakter.</span>
+      </div>
+
+      <div class="field">
+        <div class="captcha-box">
+          <input type="checkbox" id="captcha" aria-describedby="captcha-err">
+          <label for="captcha" style="margin:0;font-weight:500">Saya bukan robot</label>
+          <span class="cap-brand"><klh-icon name="shield" class="icon"></klh-icon><br>captcha demo</span>
+        </div>
+        <span class="errmsg" id="captcha-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Centang verifikasi captcha terlebih dahulu.</span>
+      </div>
+
+      <button class="btn btn-primary btn-lg" type="submit" style="width:100%">Masuk <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></button>
+      <p class="login-atau">Demo prototipe — isian apa pun yang valid akan diterima.</p>
+      <p class="sub" style="font-size:var(--t-xs)"><klh-icon name="lock" class="icon icon--sm"></klh-icon> Produksi memakai SSO instansi + MFA (lihat Modul 03). Seluruh data pada prototipe ini adalah <strong>konten contoh</strong>.</p>
+    </form>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var leaf = document.getElementById('side-leaf');
+  if (leaf) leaf.outerHTML = KLH.leafmark();
+
+  function setErr(id, tampil) {
+    var input = document.getElementById(id);
+    var err = document.getElementById(id + '-err');
+    var field = input ? input.closest('.field') : null;
+    if (field) field.classList.toggle('err', !!tampil);
+    if (err) err.hidden = !tampil;
+    if (input && input.setAttribute) input.setAttribute('aria-invalid', String(!!tampil));
+    return !tampil;
+  }
+  document.getElementById('form-masuk').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = document.getElementById('email');
+    var sandi = document.getElementById('sandi');
+    var cap = document.getElementById('captcha');
+    var ok = true;
+    ok = setErr('email', !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value.trim())) && ok;
+    ok = setErr('sandi', sandi.value.length < 8) && ok;
+    ok = setErr('captcha', !cap.checked) && ok;
+    if (!ok) {
+      var pertama = this.querySelector('[aria-invalid="true"]');
+      if (pertama) pertama.focus();
+      return;
+    }
+    var nama = email.value.split('@')[0].replace(/[._-]+/g, ' ').replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+    KLH.session.set({
+      nama: nama || 'Admin CMS',
+      inisial: (nama.match(/\b\w/g) || ['A', 'D']).slice(0, 2).join('').toUpperCase(),
+      peran: 'Editor Konten',
+      email: email.value.trim()
+    });
+    location.href = 'index.html';
+  });
+})();
+</script>
+</body>
+</html>
