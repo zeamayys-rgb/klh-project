@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layanan — KLH/BPLH</title>
+<meta name="description" content="Layanan publik Kementerian Lingkungan Hidup / BPLH.">
+<link rel="icon" type="image/png" href="../../assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/base.css">
+<link rel="stylesheet" href="../../assets/css/components.css">
+<link rel="stylesheet" href="../../assets/css/pages.css">
+</head>
+<body data-kelompok="regulasi-pembelajaran">
+<script>window.KLH_ROOT = '../../';</script>
+<script src="../../assets/js/components/icons.js"></script>
+<script src="../../assets/js/data/menu.js"></script>
+<script src="../../assets/js/data/content.js"></script>
+<script src="../../assets/js/data/layanan.js"></script>
+<script src="../../assets/js/components/navbar.js"></script>
+<script src="../../assets/js/components/footer.js"></script>
+<script src="../../assets/js/components/widgets.js"></script>
+
+<klh-navbar active="layanan"></klh-navbar>
+
+<main id="konten">
+  <section class="page-hero" id="lk-hero"><!-- diisi renderer --></section>
+
+  <section class="section">
+    <div class="container" style="display:grid;gap:var(--s10)">
+      <div class="card" id="lk-list" style="overflow:hidden"><!-- daftar layanan --></div>
+      <div id="lk-steps"></div>
+      <div id="lk-note"></div>
+      <div>
+        <span class="eyebrow">Kelompok lainnya</span>
+        <div class="filterbar" id="lk-others"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="../../assets/js/pages/layanan-kelompok.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var cur = document.body.getAttribute('data-kelompok');
+  document.getElementById('lk-others').innerHTML = Object.keys(KLH.layanan)
+    .filter(function (k) { return k !== cur; })
+    .map(function (k) { return '<a class="fchip" href="' + k + '.html">' + KLH.layanan[k].title + '</a>'; })
+    .join('') + '<a class="fchip" href="index.html">Semua Layanan</a>';
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manajemen Kanal — Omni Channel KLH/BPLH</title>
+<meta name="description" content="Manajemen kanal Omni Channel KLH/BPLH — status koneksi WhatsApp, Instagram, Facebook, X, email, web form, dan SP4N-LAPOR!.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="app">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/omni.js"></script>
+<script src="assets/js/components/appshell.js"></script>
+
+<klh-sidebar></klh-sidebar>
+<div class="app-main">
+  <klh-topbar judul="Manajemen Kanal"></klh-topbar>
+
+  <main id="konten" class="content">
+    <div class="page-head" data-reveal>
+      <div>
+        <h1>Manajemen Kanal</h1>
+        <p class="lead">Status koneksi 7 kanal resmi &amp; sinkronisasi pesan masuk. Data contoh prototipe.</p>
+      </div>
+      <div class="aksi">
+        <button class="btn btn-primary" type="button" id="btn-sinkron"><klh-icon name="history" class="icon icon--sm"></klh-icon> Sinkronkan semua</button>
+      </div>
+    </div>
+
+    <div id="kanal-alert"></div>
+    <div class="kanal-grid" id="kanal-grid"></div>
+
+    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — status koneksi &amp; tombol integrasi adalah simulasi antarmuka.</p>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var o = KLH.omni;
+
+  var STATUS = {
+    terhubung: { badge: '<span class="badge bg-success">', icon: 'check', label: 'Terhubung' },
+    gangguan:  { badge: '<span class="badge bg-warning">', icon: 'warning', label: 'Gangguan' },
+    terputus:  { badge: '<span class="badge bg-danger">', icon: 'close', label: 'Terputus' }
+  };
+  function badge(st) {
+    var s = STATUS[st] || STATUS.terhubung;
+    return s.badge + KLH.iconSVG(s.icon, 'icon').replace('class="icon"', 'class="icon" style="width:13px;height:13px"') + ' ' + s.label + '</span>';
+  }
+
+  var putus = o.koneksi.filter(function (k) { return k.status !== 'terhubung'; });
+  if (putus.length) {
+    document.getElementById('kanal-alert').innerHTML =
+      '<div class="alert alert-warning" data-reveal style="margin-bottom:var(--s5)">' + KLH.iconSVG('warning', 'icon icon--sm') +
+      '<div><strong>' + putus.length + ' kanal butuh perhatian.</strong>' +
+      putus.map(function (k) { return KLH.kanalInfo(k.id).label + ' (' + k.status + ')'; }).join(' · ') +
+      ' — pesan baru pada kanal terputus tidak masuk ke inbox sampai disambungkan ulang.</div></div>';
+  }
+
+  function render() {
+    document.getElementById('kanal-grid').innerHTML = o.koneksi.map(function (k, i) {
+      var info = KLH.kanalInfo(k.id);
+      /* tanpa data-reveal: grid ini dirender ulang saat status berubah,
+         elemen baru tidak di-observe lagi oleh IntersectionObserver */
+      return '<div class="card kanal-card">' +
+        '<div class="kanal-card__head">' +
+          '<span class="kanal-card__ic">' + KLH.iconSVG(info.icon) + '</span>' +
+          '<div style="min-width:0"><h3>' + info.label + '</h3><small>' + k.akun + '</small></div>' +
+          '<span style="margin-left:auto">' + badge(k.status) + '</span>' +
+        '</div>' +
+        (k.ket ? '<p style="font-size:var(--t-xs);color:var(--warning);margin:0;display:flex;gap:6px;align-items:center">' + KLH.iconSVG('warning', 'icon icon--sm') + k.ket + '</p>' : '') +
+        '<div class="kanal-card__meta">' +
+          '<span>Sinkron terakhir <span class="mono">' + KLH.fmtTime(k.sinkron) + '</span></span>' +
+          '<span>Pesan hari ini <span class="mono">' + k.pesanHariIni + '</span></span>' +
+        '</div>' +
+        '<div class="kanal-card__aksi">' +
+          (k.status === 'terputus'
+            ? '<button class="btn btn-primary btn-sm" type="button" data-sambung="' + i + '">' + KLH.iconSVG('key', 'icon icon--sm') + ' Otorisasi ulang</button>'
+            : '<button class="btn btn-outline btn-sm" type="button" data-tes="' + i + '">' + KLH.iconSVG('check', 'icon icon--sm') + ' Tes koneksi</button>') +
+          '<button class="btn btn-ghost btn-sm" type="button" data-atur="' + i + '">' + KLH.iconSVG('settings', 'icon icon--sm') + ' Pengaturan</button>' +
+        '</div></div>';
+    }).join('');
+  }
+  render();
+
+  document.getElementById('kanal-grid').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-sambung],[data-tes],[data-atur]');
+    if (!b) return;
+    var i = parseInt(b.getAttribute('data-sambung') || b.getAttribute('data-tes') || b.getAttribute('data-atur'), 10);
+    var k = o.koneksi[i];
+    var label = KLH.kanalInfo(k.id).label;
+    if (b.hasAttribute('data-sambung')) {
+      k.status = 'terhubung'; k.ket = ''; k.sinkron = KLH.demoNowIso();
+      render();
+      document.getElementById('kanal-alert').innerHTML = '';
+      KLH.toast('<strong>' + label + ' tersambung kembali (demo).</strong> Antrean pesan mulai disinkronkan.');
+    } else if (b.hasAttribute('data-tes')) {
+      KLH.toast('<strong>Tes koneksi ' + label + ' berhasil (demo)</strong> — latensi 220 ms.', 'info');
+    } else {
+      KLH.toast('<strong>Pengaturan ' + label + ' (simulasi).</strong> Pada sistem sebenarnya, konfigurasi webhook/token terbuka.', 'info');
+    }
+  });
+
+  document.getElementById('btn-sinkron').addEventListener('click', function () {
+    o.koneksi.forEach(function (k) { if (k.status === 'terhubung') k.sinkron = KLH.demoNowIso(); });
+    render();
+    KLH.toast('<strong>Sinkronisasi manual dijalankan (demo)</strong> untuk semua kanal terhubung.');
+  });
+})();
+</script>
+</body>
+</html>

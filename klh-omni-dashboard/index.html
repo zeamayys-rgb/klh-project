@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Omni Channel KLH/BPLH</title>
+<meta name="description" content="Dashboard KPI Omni Channel KLH/BPLH — statistik interaksi, performa sistem, dan grafik aktivitas lintas 7 kanal.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="app">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/omni.js"></script>
+<script src="assets/js/components/appshell.js"></script>
+<script src="assets/js/vendor/chart.umd.js"></script>
+
+<klh-sidebar></klh-sidebar>
+<div class="app-main">
+  <klh-topbar judul="Dashboard"></klh-topbar>
+
+  <main id="konten" class="content">
+    <div class="page-head" data-reveal>
+      <div>
+        <h1>Selamat pagi, Ratna 👋</h1>
+        <p class="lead">Ringkasan layanan Senin, 7 Juli 2026 — seluruh angka adalah <strong>konten contoh</strong> prototipe.</p>
+      </div>
+      <div class="aksi">
+        <a class="btn btn-outline" href="reporting.html"><klh-icon name="chartline" class="icon icon--sm"></klh-icon> Lihat laporan</a>
+        <a class="btn btn-primary" href="inbox.html"><klh-icon name="inbox" class="icon icon--sm"></klh-icon> Buka inbox</a>
+      </div>
+    </div>
+
+    <!-- KPI strip (WF-04 / HF-OMNI-01) -->
+    <div class="kpi-grid" id="kpi-grid"></div>
+
+    <!-- Grafik aktivitas + distribusi kanal -->
+    <div class="dash-grid">
+      <section class="panel" data-reveal aria-label="Grafik aktivitas 7 hari">
+        <div class="panel__head">
+          <h2>Aktivitas interaksi — 7 hari terakhir</h2>
+          <span class="ket">Masuk vs selesai ditangani</span>
+        </div>
+        <div class="panel__body"><div class="chart-box"><canvas id="chart-aktivitas" role="img" aria-label="Grafik garis interaksi masuk dan selesai per hari, 1 sampai 7 Juli 2026"></canvas></div></div>
+      </section>
+      <section class="panel" data-reveal aria-label="Distribusi kanal">
+        <div class="panel__head">
+          <h2>Distribusi kanal</h2>
+          <span class="ket">30 hari terakhir</span>
+        </div>
+        <div class="panel__body"><div class="chart-box"><canvas id="chart-kanal" role="img" aria-label="Grafik donat porsi interaksi per kanal: WhatsApp 34 persen, SP4N-LAPOR 19 persen, email 16 persen, web form 12 persen, Instagram 9 persen, Facebook 6 persen, X 4 persen"></canvas></div></div>
+      </section>
+    </div>
+
+    <div class="dash-grid dash-grid--rev">
+      <!-- Performa sistem -->
+      <section class="panel" data-reveal aria-label="Performa sistem">
+        <div class="panel__head"><h2>Performa sistem</h2><a class="ket" href="kanal.html">Kelola kanal →</a></div>
+        <div class="panel__body">
+          <ul class="sys-list" id="sys-list"></ul>
+          <hr style="margin:var(--s4) 0">
+          <ul class="sys-list" id="visit-list"></ul>
+        </div>
+      </section>
+
+      <!-- Tiket perlu perhatian -->
+      <section class="panel" data-reveal aria-label="Tiket perlu perhatian">
+        <div class="panel__head">
+          <h2>Perlu perhatian — SLA mendekati / lewat tenggat</h2>
+          <a class="ket" href="tiket.html">Semua tiket →</a>
+        </div>
+        <div class="panel__body" style="padding-top:var(--s3)">
+          <div class="tbl-wrap" style="border:0">
+            <table class="tbl" aria-label="Tiket dengan SLA mendekati atau melewati tenggat">
+              <thead><tr><th scope="col">Tiket</th><th scope="col">Kanal</th><th scope="col">Prioritas</th><th scope="col">SLA</th></tr></thead>
+              <tbody id="tkt-perhatian"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Prototipe UI — data dashboard adalah konten contoh, bukan data operasional.</p>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var o = KLH.omni;
+
+  /* ---- KPI ---- */
+  var arahIc = { naik: 'escalate', turun: 'chevdown', tetap: 'arrowright' };
+  document.getElementById('kpi-grid').innerHTML = o.kpi.map(function (k) {
+    return '<div class="card kpi" data-reveal>' +
+      '<div class="kpi__top"><span class="kpi__ic">' + KLH.iconSVG(k.icon) + '</span>' +
+      '<span class="kpi__delta kpi__delta--' + k.arah + '">' + KLH.iconSVG(arahIc[k.arah] || 'arrowright', 'icon icon--sm') + ' ' + k.delta + '</span></div>' +
+      '<span class="kpi__val">' + k.nilai + '</span>' +
+      '<span class="kpi__lbl">' + k.label + '</span>' +
+      '<span class="kpi__ket">' + k.ket + '</span></div>';
+  }).join('');
+
+  /* ---- Performa sistem + pengunjung ---- */
+  document.getElementById('sys-list').innerHTML = o.sistem.map(function (s) {
+    var ic = s.status === 'ok' ? 'check' : 'warning';
+    var cls = s.status === 'ok' ? 'sys-ok' : 'sys-warn';
+    return '<li><span>' + s.label + '</span><span class="val ' + cls + '">' +
+      KLH.iconSVG(ic, 'icon icon--sm') + ' ' + s.nilai + '</span></li>';
+  }).join('');
+  document.getElementById('visit-list').innerHTML = [
+    ['Pengunjung situs hari ini', o.pengunjung.hariIni],
+    ['Sesi', o.pengunjung.sesi],
+    ['Durasi rata-rata', o.pengunjung.durasi],
+    ['Jam puncak', o.pengunjung.puncak]
+  ].map(function (r) {
+    return '<li><span>' + r[0] + '</span><span class="val">' + r[1] + '</span></li>';
+  }).join('');
+
+  /* ---- Tiket perlu perhatian ---- */
+  var perhatian = o.tiket.filter(function (t) {
+    if (t.status === 'Closed') return false;
+    var s = KLH.slaState(t);
+    return s.cls === 'warn' || s.cls === 'late';
+  });
+  document.getElementById('tkt-perhatian').innerHTML = perhatian.length ? perhatian.map(function (t) {
+    return '<tr><td><a class="tkt-id" href="tiket-detail.html?t=' + t.id + '">' + t.id + '</a>' +
+      '<span class="tkt-subjek" style="font-size:var(--t-sm)">' + t.subjek + '</span></td>' +
+      '<td>' + KLH.kanalBadge(t.kanal) + '</td>' +
+      '<td>' + KLH.prioBadge(t.prioritas) + '</td>' +
+      '<td>' + KLH.slaBadge(t) + '</td></tr>';
+  }).join('') : '<tr><td colspan="4" style="color:var(--ink-400)">Tidak ada tiket yang mendekati tenggat — kerja bagus! 🎉</td></tr>';
+
+  /* ---- Chart.js (inline UMD, animation:false) ---- */
+  KLH.chartDefaults();
+  var pal = KLH.chartPalet;
+  new Chart(document.getElementById('chart-aktivitas'), {
+    type: 'line',
+    data: {
+      labels: o.aktivitas.label,
+      datasets: [
+        { label: 'Masuk', data: o.aktivitas.masuk, borderColor: pal[0], backgroundColor: 'rgba(0,89,82,.08)', fill: true, tension: .35, pointRadius: 3, borderWidth: 2 },
+        { label: 'Selesai', data: o.aktivitas.selesai, borderColor: pal[1], backgroundColor: 'transparent', tension: .35, pointRadius: 3, borderWidth: 2, borderDash: [5, 4] }
+      ]
+    },
+    options: {
+      maintainAspectRatio: false,
+      scales: { y: { beginAtZero: true, ticks: { precision: 0 } } },
+      plugins: { legend: { position: 'bottom' } }
+    }
+  });
+  new Chart(document.getElementById('chart-kanal'), {
+    type: 'doughnut',
+    data: {
+      labels: o.distribusiKanal.label,
+      datasets: [{ data: o.distribusiKanal.nilai, backgroundColor: pal, borderWidth: 2, borderColor: '#fff' }]
+    },
+    options: {
+      maintainAspectRatio: false, cutout: '62%',
+      plugins: { legend: { position: 'bottom' } }
+    }
+  });
+})();
+</script>
+</body>
+</html>

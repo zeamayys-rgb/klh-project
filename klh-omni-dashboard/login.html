@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masuk — Omni Channel Dashboard KLH/BPLH</title>
+<meta name="description" content="Masuk ke Omni Channel Dashboard KLH/BPLH — platform internal pengelolaan kanal komunikasi publik.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="login">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/omni.js"></script>
+
+<div class="login-wrap">
+  <div class="login-side">
+    <span id="side-leaf"></span>
+    <a class="brand" href="login.html">
+      <img class="brand__logo" src="assets/img/klh-logo.png" alt="Lambang KLH/BPLH">
+      <span><span class="brand__name">Omni Channel Dashboard</span>
+      <span class="brand__sub">Kementerian Lingkungan Hidup / BPLH · Internal</span></span>
+    </a>
+    <span class="eyebrow" style="color:var(--g-300);margin:0">Platform layanan terpadu</span>
+    <h1>Tujuh kanal komunikasi warga, satu meja kerja</h1>
+    <p>WhatsApp, Instagram, Facebook, X, email, web form, dan SP4N-LAPOR! terhubung dalam satu inbox dengan SLA yang terpantau.</p>
+    <ul class="fitur">
+      <li><klh-icon name="inbox" class="icon icon--sm"></klh-icon> Unified Inbox lintas 7 kanal resmi</li>
+      <li><klh-icon name="clock" class="icon icon--sm"></klh-icon> Ticketing dengan SLA timer &amp; eskalasi</li>
+      <li><klh-icon name="shield" class="icon icon--sm"></klh-icon> MFA, SSO instansi, dan audit trail</li>
+    </ul>
+  </div>
+
+  <main id="konten" class="login-main">
+    <!-- Langkah 1 — kredensial -->
+    <form class="card login-card" id="form-masuk" novalidate>
+      <h2 style="margin-bottom:var(--s1)">Masuk ke Dashboard</h2>
+      <p class="sub">Gunakan akun pegawai yang terdaftar. Akses hanya untuk petugas berwenang.</p>
+
+      <div class="field">
+        <label for="email">Email kedinasan</label>
+        <input class="input" id="email" name="email" type="email" autocomplete="username" placeholder="nama@klh.go.id" aria-describedby="email-err">
+        <span class="errmsg" id="email-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Masukkan alamat email kedinasan yang valid.</span>
+      </div>
+
+      <div class="field">
+        <label for="sandi">Kata sandi</label>
+        <input class="input" id="sandi" name="sandi" type="password" autocomplete="current-password" placeholder="Minimal 8 karakter" aria-describedby="sandi-err">
+        <span class="errmsg" id="sandi-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Kata sandi minimal 8 karakter.</span>
+      </div>
+
+      <!-- Captcha: placeholder visual saja (prototipe, bukan captcha aktif) -->
+      <div class="field">
+        <label for="captcha">Verifikasi keamanan</label>
+        <div class="captcha-box">
+          <input type="checkbox" id="captcha" aria-describedby="captcha-err">
+          <label for="captcha" style="font-weight:500;font-size:var(--t-sm);cursor:pointer">Saya bukan robot</label>
+          <span class="cap-brand"><klh-icon name="shield" class="icon"></klh-icon><br>placeholder<br>captcha</span>
+        </div>
+        <span class="errmsg" id="captcha-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Centang verifikasi "Saya bukan robot" terlebih dahulu.</span>
+      </div>
+
+      <div id="masuk-alert" aria-live="polite"></div>
+
+      <button class="btn btn-primary btn-lg" type="submit" style="width:100%">
+        <klh-icon name="arrowright" class="icon icon--sm"></klh-icon> Lanjut ke verifikasi
+      </button>
+
+      <div class="login-atau">atau</div>
+      <div class="login-sso">
+        <button class="btn btn-outline" type="button" id="btn-sso" style="width:100%">
+          <klh-icon name="institution" class="icon icon--sm"></klh-icon> Masuk dengan SSO Instansi
+        </button>
+      </div>
+      <p style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s5)">Prototipe — login demo client-side, tanpa autentikasi sebenarnya. Email &amp; sandi apa pun yang valid akan diterima.</p>
+    </form>
+
+    <!-- Langkah 2 — MFA (placeholder OTP demo) -->
+    <form class="card login-card" id="form-mfa" novalidate hidden>
+      <h2 style="margin-bottom:var(--s1)">Verifikasi dua langkah</h2>
+      <p class="sub">Masukkan 6 digit kode OTP dari aplikasi autentikator Anda. <strong>Demo:</strong> kode apa pun 6 digit diterima, mis. <code>246810</code>.</p>
+
+      <fieldset class="field" id="otp" style="border:0;padding:0;margin:0 0 var(--s5)">
+        <legend class="sr-only">Kode OTP 6 digit</legend>
+        <div class="otp-row" id="otp-row">
+          <input class="input" inputmode="numeric" maxlength="1" aria-label="Digit 1">
+          <input class="input" inputmode="numeric" maxlength="1" aria-label="Digit 2">
+          <input class="input" inputmode="numeric" maxlength="1" aria-label="Digit 3">
+          <input class="input" inputmode="numeric" maxlength="1" aria-label="Digit 4">
+          <input class="input" inputmode="numeric" maxlength="1" aria-label="Digit 5">
+          <input class="input" inputmode="numeric" maxlength="1" aria-label="Digit 6">
+        </div>
+        <span class="errmsg" id="otp-err" hidden style="margin-top:var(--s2)"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Lengkapi 6 digit kode OTP.</span>
+      </fieldset>
+
+      <div id="mfa-alert" aria-live="polite"></div>
+
+      <button class="btn btn-primary btn-lg" type="submit" style="width:100%">
+        <klh-icon name="key" class="icon icon--sm"></klh-icon> Verifikasi &amp; masuk
+      </button>
+      <div class="form-foot" style="display:flex;justify-content:space-between;margin-top:var(--s4)">
+        <button class="btn btn-ghost btn-sm" type="button" id="btn-balik"><klh-icon name="arrowleft" class="icon icon--sm"></klh-icon> Kembali</button>
+        <button class="btn btn-ghost btn-sm" type="button" id="btn-kirim-ulang">Kirim ulang kode</button>
+      </div>
+    </form>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  document.getElementById('side-leaf').outerHTML = KLH.leafmark();
+
+  var fMasuk = document.getElementById('form-masuk');
+  var fMfa = document.getElementById('form-mfa');
+
+  function setErr(id, on) {
+    var field = document.getElementById(id).closest('.field, fieldset');
+    var msg = document.getElementById(id + '-err');
+    if (field) field.classList.toggle('err', on);
+    msg.hidden = !on;
+    return !on;
+  }
+
+  fMasuk.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = document.getElementById('email').value.trim();
+    var sandi = document.getElementById('sandi').value;
+    var cap = document.getElementById('captcha').checked;
+    var ok = true;
+    ok = setErr('email', !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) && ok;
+    ok = setErr('sandi', sandi.length < 8) && ok;
+    ok = setErr('captcha', !cap) && ok;
+    if (!ok) return;
+    fMasuk.hidden = true;
+    fMfa.hidden = false;
+    fMfa.querySelector('.otp-row input').focus();
+  });
+
+  document.getElementById('btn-balik').addEventListener('click', function () {
+    fMfa.hidden = true;
+    fMasuk.hidden = false;
+  });
+  document.getElementById('btn-kirim-ulang').addEventListener('click', function () {
+    document.getElementById('mfa-alert').innerHTML =
+      '<div class="alert alert-info" style="margin-bottom:var(--s4)">' + KLH.iconSVG('envelope', 'icon icon--sm') +
+      '<div><strong>Kode baru dikirim (simulasi).</strong>Pada sistem sebenarnya, kode OTP baru dikirim ke perangkat terdaftar.</div></div>';
+  });
+
+  /* OTP: pindah fokus otomatis antar digit */
+  var otp = document.querySelectorAll('#otp-row input');
+  Array.prototype.forEach.call(otp, function (inp, i) {
+    inp.addEventListener('input', function () {
+      inp.value = inp.value.replace(/\D/g, '').slice(0, 1);
+      if (inp.value && otp[i + 1]) otp[i + 1].focus();
+    });
+    inp.addEventListener('keydown', function (e) {
+      if (e.key === 'Backspace' && !inp.value && otp[i - 1]) otp[i - 1].focus();
+    });
+  });
+
+  function masukBerhasil(metode) {
+    var email = document.getElementById('email').value.trim() || KLH.omni.agen.email;
+    var nama = KLH.omni.agen.nama;
+    KLH.session.set({ nama: nama, inisial: KLH.omni.agen.inisial, peran: KLH.omni.agen.peran, email: email, metode: metode, masuk: new Date().toISOString() });
+    var tujuan = KLH.qs('lanjut') || 'index.html';
+    var wadah = fMfa.hidden ? 'masuk-alert' : 'mfa-alert';
+    document.getElementById(wadah).innerHTML =
+      '<div class="alert alert-success" style="margin-bottom:var(--s4)">' + KLH.iconSVG('check', 'icon icon--sm') +
+      '<div><strong>Berhasil masuk.</strong>Mengalihkan ke dashboard…</div></div>';
+    setTimeout(function () { window.location.href = tujuan; }, 700);
+  }
+
+  fMfa.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var kode = Array.prototype.map.call(otp, function (i) { return i.value; }).join('');
+    if (!setErr('otp', kode.length !== 6)) return;
+    masukBerhasil('MFA (OTP)');
+  });
+
+  document.getElementById('btn-sso').addEventListener('click', function () {
+    document.getElementById('masuk-alert').innerHTML =
+      '<div class="alert alert-info" style="margin-bottom:var(--s4)">' + KLH.iconSVG('institution', 'icon icon--sm') +
+      '<div><strong>SSO instansi (simulasi).</strong>Pada sistem sebenarnya, Anda diarahkan ke halaman masuk tunggal instansi.</div></div>';
+    setTimeout(function () { masukBerhasil('SSO'); }, 900);
+  });
+})();
+</script>
+</body>
+</html>

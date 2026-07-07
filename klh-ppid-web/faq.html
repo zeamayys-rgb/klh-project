@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — PPID KLH/BPLH</title>
+<meta name="description" content="Pertanyaan yang sering diajukan seputar layanan informasi publik PPID KLH/BPLH.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/menu.js"></script>
+<script src="assets/js/data/ppid.js"></script>
+<script src="assets/js/components/navbar.js"></script>
+<script src="assets/js/components/footer.js"></script>
+<script src="assets/js/components/widgets.js"></script>
+
+<klh-navbar active="faq"></klh-navbar>
+
+<main id="konten">
+  <section class="page-hero" style="padding-block:var(--s10) var(--s10)">
+    <div class="container">
+      <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+        <li><a href="index.html">Beranda</a></li>
+        <li aria-current="page">FAQ</li>
+      </ol></nav>
+      <span class="eyebrow">Bantuan</span>
+      <h1>Pertanyaan yang Sering Diajukan</h1>
+      <p class="lead">Jawaban ringkas seputar hak atas informasi, alur permohonan, dan jalur keberatan.</p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container" style="max-width:820px">
+      <div id="faq-list"></div>
+
+      <div class="cta-box card card__body" style="margin-top:var(--s10);display:flex;gap:var(--s5);align-items:center;flex-wrap:wrap">
+        <span class="tonal tonal--green" style="width:52px;height:52px;display:grid;place-items:center;border-radius:var(--r-md);flex:none"><klh-icon name="speech" class="icon"></klh-icon></span>
+        <div style="flex:1;min-width:220px">
+          <h2 class="h4" style="margin-bottom:2px">Belum menemukan jawaban?</h2>
+          <p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">Tanyakan pada Asisten PPID (tombol chat kanan bawah) atau hubungi ppid@kemenlh.go.id.</p>
+        </div>
+        <a class="btn btn-primary" href="konsultasi.html"><klh-icon name="people" class="icon icon--sm"></klh-icon> Ajukan Konsultasi</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  /* Accordion aksesibel: button + aria-expanded + panel hidden */
+  document.getElementById('faq-list').innerHTML = KLH.ppid.faq.map(function (f, i) {
+    return '<div class="acc" data-reveal>' +
+      '<h2 style="margin:0;font-size:inherit"><button class="acc__btn" type="button" aria-expanded="false" aria-controls="faq-p' + i + '" id="faq-b' + i + '">' +
+        '<span>' + f.q + '</span><span class="caret">' + KLH.iconSVG('chevdown', 'icon icon--sm') + '</span></button></h2>' +
+      '<div class="acc__panel" id="faq-p' + i + '" role="region" aria-labelledby="faq-b' + i + '" hidden><p style="max-width:none">' + f.a + '</p></div>' +
+      '</div>';
+  }).join('');
+
+  Array.prototype.forEach.call(document.querySelectorAll('.acc__btn'), function (btn) {
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      document.getElementById(btn.getAttribute('aria-controls')).hidden = open;
+    });
+  });
+})();
+</script>
+</body>
+</html>

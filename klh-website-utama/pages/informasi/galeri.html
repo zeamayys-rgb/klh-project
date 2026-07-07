@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video &amp; Podcast — KLH/BPLH</title>
+<meta name="description" content="Kanal audio-visual resmi KLH/BPLH: dokumenter, tutorial layanan, dan podcast Bincang Bumi.">
+<link rel="icon" type="image/png" href="../../assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/base.css">
+<link rel="stylesheet" href="../../assets/css/components.css">
+<link rel="stylesheet" href="../../assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '../../';</script>
+<script src="../../assets/js/components/icons.js"></script>
+<script src="../../assets/js/data/menu.js"></script>
+<script src="../../assets/js/data/content.js"></script>
+<script src="../../assets/js/components/navbar.js"></script>
+<script src="../../assets/js/components/footer.js"></script>
+<script src="../../assets/js/components/widgets.js"></script>
+
+<klh-navbar active="informasi"></klh-navbar>
+
+<main id="konten">
+  <section class="page-hero" style="padding-bottom:var(--s12)">
+    <div class="container">
+      <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+        <li><a href="../../index.html">Beranda</a></li>
+        <li><a href="indeks.html?m=berita">Informasi &amp; Publikasi</a></li>
+        <li aria-current="page">Video &amp; Podcast</li>
+      </ol></nav>
+      <span class="eyebrow">Informasi &amp; Publikasi</span>
+      <h1>Video &amp; Podcast</h1>
+      <p class="lead">Dokumenter lapangan, tutorial layanan digital, dan podcast <em>Bincang Bumi</em> — kanal resmi KLH/BPLH.</p>
+    </div>
+    <span id="hero-leaf"></span>
+  </section>
+
+  <section class="section">
+    <div class="container idx-layout">
+      <nav class="idx-side" aria-label="Modul informasi" id="m-side"></nav>
+
+      <div>
+        <div class="filterbar" role="group" aria-label="Saring jenis konten" style="margin-bottom:var(--s6)">
+          <button class="fchip on" data-f="semua" aria-pressed="true" type="button">Semua</button>
+          <button class="fchip" data-f="Video" aria-pressed="false" type="button">Video</button>
+          <button class="fchip" data-f="Podcast" aria-pressed="false" type="button">Podcast</button>
+          <span style="margin-left:auto;font-size:var(--t-sm);color:var(--ink-500)" id="g-count" aria-live="polite"></span>
+        </div>
+
+        <div class="grid grid--2" id="g-list" aria-live="polite"></div>
+
+        <div class="alert alert-info" style="margin-top:var(--s8)">
+          <klh-icon name="play" class="icon icon--sm"></klh-icon>
+          <div><strong>Pratinjau antarmuka.</strong>Pemutar video/podcast akan tertaut ke kanal resmi (YouTube/Spotify) atau media server internal — menunggu konfirmasi tim teknis.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="../../assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  document.getElementById('hero-leaf').outerHTML = KLH.leafmark();
+
+  document.getElementById('m-side').innerHTML = KLH.modules.map(function (m) {
+    var href = m.href ? (window.KLH_ROOT + m.href) : ('indeks.html?m=' + m.slug);
+    return '<a href="' + href + '"' + (m.slug === 'video' ? ' class="on" aria-current="page"' : '') + '>' +
+      KLH.iconSVG(m.icon, 'icon icon--sm') + m.label + '</a>';
+  }).join('');
+
+  var list = document.getElementById('g-list');
+  var count = document.getElementById('g-count');
+
+  function card(v) {
+    return '<a class="card news-card vid-card" href="#" onclick="return false" aria-label="' + v.title + ' (' + v.jenis + ', durasi ' + v.durasi + ')" data-reveal>' +
+      '<div class="news-card__media ' + v.ph + '">' + KLH.iconSVG(v.icon, 'icon icon--lg') +
+        '<span class="dur">' + v.durasi + '</span></div>' +
+      '<div class="news-card__body">' +
+        '<div class="news-card__meta">' +
+          '<span class="badge ' + (v.jenis === 'Podcast' ? 'bg-info' : 'bg-success') + '">' + v.jenis + '</span>' +
+          '<time datetime="' + v.date + '">' + KLH.fmtDate(v.date) + '</time>' +
+          '<span>' + KLH.iconSVG('eye', 'icon').replace('class="icon"', 'class="icon" style="width:13px;height:13px;vertical-align:-2px"') + ' ' + KLH.fmtViews(v.views) + '</span>' +
+        '</div>' +
+        '<h3>' + v.title + '</h3>' +
+      '</div></a>';
+  }
+
+  function render(f) {
+    var shown = KLH.videos.filter(function (v) { return f === 'semua' || v.jenis === f; });
+    count.textContent = shown.length + ' konten ditampilkan';
+    list.innerHTML = shown.map(card).join('');
+    Array.prototype.forEach.call(list.querySelectorAll('[data-reveal]'), function (n) { n.classList.add('is-in'); });
+  }
+  render('semua');
+
+  Array.prototype.forEach.call(document.querySelectorAll('.fchip'), function (b) {
+    b.addEventListener('click', function () {
+      Array.prototype.forEach.call(document.querySelectorAll('.fchip'), function (x) {
+        x.classList.remove('on'); x.setAttribute('aria-pressed', 'false');
+      });
+      b.classList.add('on'); b.setAttribute('aria-pressed', 'true');
+      render(b.getAttribute('data-f'));
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regulasi — PPID KLH/BPLH</title>
+<meta name="description" content="Dasar hukum keterbukaan informasi publik: UU 14/2008, PP 61/2010, Peraturan Komisi Informasi, dan regulasi terkait.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/menu.js"></script>
+<script src="assets/js/data/ppid.js"></script>
+<script src="assets/js/components/navbar.js"></script>
+<script src="assets/js/components/footer.js"></script>
+<script src="assets/js/components/widgets.js"></script>
+
+<klh-navbar active="regulasi"></klh-navbar>
+
+<main id="konten">
+  <section class="page-hero" style="padding-block:var(--s10) var(--s10)">
+    <div class="container">
+      <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+        <li><a href="index.html">Beranda</a></li>
+        <li aria-current="page">Regulasi</li>
+      </ol></nav>
+      <span class="eyebrow">Dasar Hukum</span>
+      <h1>Regulasi Keterbukaan Informasi</h1>
+      <p class="lead">Landasan hukum yang menjamin hak Anda atas informasi publik dan mengatur standar layanan PPID.</p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container" style="max-width:900px">
+      <div id="regulasi-list" style="display:grid;gap:var(--s4)"></div>
+      <div class="alert alert-info" style="margin-top:var(--s8)">
+        <klh-icon name="scale" class="icon icon--sm"></klh-icon>
+        <div><strong>Naskah lengkap.</strong>Salinan resmi peraturan dapat diakses melalui <a href="https://jdihn.go.id" target="_blank" rel="noopener noreferrer" data-ext>JDIH Nasional <span class="sr-only">(membuka situs lain)</span></a> atau dimintakan melalui <a href="permohonan.html">permohonan informasi</a>.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  document.getElementById('regulasi-list').innerHTML = KLH.ppid.regulasi.map(function (r) {
+    return '<article class="card card__body" data-reveal style="display:flex;gap:var(--s5);align-items:flex-start;flex-wrap:wrap">' +
+      '<span class="tonal tonal--green" style="width:48px;height:48px;display:grid;place-items:center;border-radius:var(--r-md);flex:none">' + KLH.iconSVG('scale') + '</span>' +
+      '<div style="flex:1;min-width:240px">' +
+        '<div style="display:flex;gap:var(--s2);flex-wrap:wrap;align-items:center;margin-bottom:var(--s1)">' +
+          '<span class="badge bg-brand">' + r.jenis + '</span>' +
+          '<span class="badge bg-neutral">' + r.tahun + '</span>' +
+        '</div>' +
+        '<h2 class="h4" style="margin-bottom:2px">' + r.no + '</h2>' +
+        '<p style="font-weight:600;font-size:var(--t-sm);margin-bottom:var(--s2)">' + r.judul + '</p>' +
+        '<p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">' + r.ket + '</p>' +
+      '</div></article>';
+  }).join('');
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beranda — Kementerian Lingkungan Hidup / BPLH</title>
+<meta name="description" content="Portal resmi Kementerian Lingkungan Hidup / Badan Pengendalian Lingkungan Hidup — layanan publik, program lingkungan, dan informasi terbuka untuk warga.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/menu.js"></script>
+<script src="assets/js/data/content.js"></script>
+<script src="assets/js/components/navbar.js"></script>
+<script src="assets/js/components/footer.js"></script>
+<script src="assets/js/components/widgets.js"></script>
+
+<klh-navbar active="beranda"></klh-navbar>
+
+<main id="konten">
+
+  <!-- ===== HERO: Layanan Cepat + slideshow berita (UR-HOME-01) ===== -->
+  <section class="home-hero" aria-labelledby="hero-title">
+    <div class="container home-hero__grid">
+      <div>
+        <span class="eyebrow" style="color:var(--klh-green-300)">Kementerian Lingkungan Hidup / BPLH</span>
+        <h1 id="hero-title">Layanan lingkungan hidup, <em>kini semudah satu klik.</em></h1>
+        <p class="lead">Laporkan pencemaran, ajukan informasi publik, urus perizinan, dan ikuti program lingkungan — semuanya dari satu portal resmi.</p>
+        <div class="home-hero__cta">
+          <a class="btn btn-primary btn-lg" href="pages/layanan/pengaduan-aspirasi.html">
+            <klh-icon name="megaphone" class="icon icon--sm"></klh-icon> Lapor Pencemaran
+          </a>
+          <a class="btn btn--inverse btn-lg" href="pages/layanan/data-lab-pengujian.html">
+            <klh-icon name="drop" class="icon icon--sm"></klh-icon> Cek Kualitas Udara &amp; Air
+          </a>
+        </div>
+        <div class="hero-quick">
+          <a href="pages/ppid.html"><klh-icon name="folder" class="icon icon--sm"></klh-icon> Ajukan Informasi (PPID)</a>
+          <a href="pages/layanan/perizinan-pengadaan.html"><klh-icon name="institution" class="icon icon--sm"></klh-icon> Perizinan PTSP</a>
+          <a href="pages/program/index.html"><klh-icon name="sprout" class="icon icon--sm"></klh-icon> Ikut Program</a>
+        </div>
+      </div>
+
+      <div class="slideshow" id="hero-slides" aria-roledescription="carousel" aria-label="Sorotan berita terbaru">
+        <!-- Slide diisi JS dari KLH.articles -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Statistik ringkas ===== -->
+  <div class="container stat-pull">
+    <div class="card" style="border-radius:var(--r-xl)">
+      <div class="stat-strip">
+        <div class="stat" data-reveal><div class="val">96<small>%</small></div><div class="lbl">Pengaduan ditindaklanjuti tepat waktu</div></div>
+        <div class="stat" data-reveal><div class="val">3<small> hari</small></div><div class="lbl">Rata-rata respons permohonan informasi</div></div>
+        <div class="stat" data-reveal><div class="val">34<small> kota</small></div><div class="lbl">Pemantauan kualitas udara kontinu</div></div>
+        <div class="stat" data-reveal><div class="val">12<small> rb+</small></div><div class="lbl">Komunitas Kampung Iklim terdaftar</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 7 Layanan Kementerian (KAK WEB-MAIN-LAY) ===== -->
+  <section class="section" aria-labelledby="layanan-title">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Layanan Publik</span>
+          <h2 id="layanan-title">Tujuh layanan utama untuk Anda</h2>
+          <p class="lead">Dikelompokkan berdasarkan kebutuhan warga — tautan bertanda <klh-icon name="external" class="icon" style="width:14px;height:14px"></klh-icon> membuka situs lain.</p>
+        </div>
+        <a class="btn btn-outline" href="pages/layanan/index.html">Semua Layanan <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></a>
+      </div>
+
+      <div class="grid grid--4" id="svc-grid">
+        <a class="card svc-card card__body" href="pages/layanan/perizinan-pengadaan.html" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="institution"></klh-icon></span>
+          <div><h3 class="h4-style" style="font-size:var(--t-h4)">PTSP Perizinan</h3><p>Perizinan lingkungan terpadu satu pintu bagi pelaku usaha.</p></div>
+          <span class="svc-card__foot">Buka layanan <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></span>
+        </a>
+        <a class="card svc-card card__body" href="pages/layanan/pengaduan-aspirasi.html" data-reveal>
+          <span class="svc-card__icon svc-card__icon--earth"><klh-icon name="megaphone"></klh-icon></span>
+          <div><h3 style="font-size:var(--t-h4)">Pengaduan Lingkungan</h3><p>Laporkan pencemaran &amp; kerusakan, pantau sampai tuntas.</p></div>
+          <span class="svc-card__foot">Buka layanan <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></span>
+        </a>
+        <a class="card svc-card card__body" href="https://www.lapor.go.id" target="_blank" rel="noopener noreferrer" data-reveal>
+          <span class="svc-card__icon svc-card__icon--sky"><klh-icon name="speech"></klh-icon></span>
+          <div><h3 style="font-size:var(--t-h4)">SP4N-LAPOR! <span class="ext-note"><klh-icon name="external" class="icon" style="width:13px;height:13px"></klh-icon> situs lain</span></h3><p>Kanal pengaduan nasional lintas instansi pemerintah.</p></div>
+          <span class="svc-card__foot">Kunjungi situs <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></span>
+        </a>
+        <a class="card svc-card card__body" href="https://idxcarbon.co.id" target="_blank" rel="noopener noreferrer" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="chartline"></klh-icon></span>
+          <div><h3 style="font-size:var(--t-h4)">Bursa Karbon <span class="ext-note"><klh-icon name="external" class="icon" style="width:13px;height:13px"></klh-icon> situs lain</span></h3><p>Perdagangan unit karbon Indonesia (IDXCarbon).</p></div>
+          <span class="svc-card__foot">Kunjungi situs <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></span>
+        </a>
+        <a class="card svc-card card__body" href="pages/ppid.html" data-reveal>
+          <span class="svc-card__icon svc-card__icon--sky"><klh-icon name="folder"></klh-icon></span>
+          <div><h3 style="font-size:var(--t-h4)">Informasi Publik (PPID)</h3><p>Ajukan &amp; lacak permohonan informasi secara daring.</p></div>
+          <span class="svc-card__foot">Buka layanan <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></span>
+        </a>
+        <a class="card svc-card card__body" href="pages/layanan/pengaduan-aspirasi.html" data-reveal>
+          <span class="svc-card__icon svc-card__icon--earth"><klh-icon name="phone"></klh-icon></span>
+          <div><h3 style="font-size:var(--t-h4)">Call Center (WCC)</h3><p>Konsultasi &amp; bantuan layanan melalui pusat kontak.</p></div>
+          <span class="svc-card__foot">Buka layanan <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></span>
+        </a>
+        <a class="card svc-card card__body" href="pages/layanan/regulasi-pembelajaran.html" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="scale"></klh-icon></span>
+          <div><h3 style="font-size:var(--t-h4)">JDIH Regulasi</h3><p>Jaringan dokumentasi &amp; informasi hukum lingkungan.</p></div>
+          <span class="svc-card__foot">Buka layanan <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></span>
+        </a>
+        <a class="card svc-card card__body tonal" style="box-shadow:none" href="pages/layanan/index.html" data-reveal>
+          <span class="svc-card__icon" style="background:var(--klh-green-600);color:#fff"><klh-icon name="grid"></klh-icon></span>
+          <div><h3 style="font-size:var(--t-h4)">Semua Layanan</h3><p>Jelajahi indeks lengkap berdasarkan kebutuhan Anda.</p></div>
+          <span class="svc-card__foot">Lihat indeks <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Informasi Terkini: 3 kolom (WF-01 §5) ===== -->
+  <section class="section section--alt" aria-labelledby="info-title">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Informasi &amp; Publikasi</span>
+          <h2 id="info-title">Informasi terkini</h2>
+        </div>
+        <a class="btn btn-outline" href="pages/informasi/indeks.html?m=berita">Lihat Semua <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></a>
+      </div>
+      <div class="info-cols">
+        <div data-reveal>
+          <div class="info-col__head">
+            <h3><klh-icon name="newspaper" class="icon icon--sm"></klh-icon> Berita</h3>
+            <a href="pages/informasi/indeks.html?m=berita">Lihat semua</a>
+          </div>
+          <div class="mini-list" id="col-berita"></div>
+        </div>
+        <div data-reveal>
+          <div class="info-col__head">
+            <h3><klh-icon name="megaphone" class="icon icon--sm"></klh-icon> Siaran Pers &amp; Pengumuman</h3>
+            <a href="pages/informasi/indeks.html?m=siaran-pers">Lihat semua</a>
+          </div>
+          <div class="mini-list" id="col-pers"></div>
+        </div>
+        <div data-reveal>
+          <div class="info-col__head">
+            <h3><klh-icon name="calendar" class="icon icon--sm"></klh-icon> Agenda</h3>
+            <a href="pages/informasi/agenda.html">Lihat semua</a>
+          </div>
+          <div class="mini-list" id="col-agenda"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Sorotan Program ===== -->
+  <section class="section" aria-labelledby="prog-title">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Program Lingkungan</span>
+          <h2 id="prog-title">Ikut serta menjaga lingkungan</h2>
+          <p class="lead">Tujuh program nasional dengan jalur partisipasi untuk warga, sekolah, komunitas, dan dunia usaha.</p>
+        </div>
+        <a class="btn btn-outline" href="pages/program/index.html">Semua Program <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></a>
+      </div>
+      <div class="grid grid--3" id="prog-grid"></div>
+    </div>
+  </section>
+
+  <!-- ===== CTA PPID ===== -->
+  <section class="section section--tight" aria-label="Ajakan layanan PPID">
+    <div class="container">
+      <div class="cta-band" data-reveal>
+        <div>
+          <span class="eyebrow" style="color:var(--klh-green-300)">Keterbukaan Informasi</span>
+          <h2>Butuh data atau dokumen resmi? Ajukan lewat PPID.</h2>
+          <p>Permohonan informasi publik kini daring sepenuhnya — dapat ID pelacakan, notifikasi tiap perubahan status, dan estimasi waktu yang jelas.</p>
+        </div>
+        <div style="display:grid;gap:var(--s3)">
+          <a class="btn btn--inverse btn-lg" href="pages/ppid.html"><klh-icon name="folder" class="icon icon--sm"></klh-icon> Ajukan Permohonan</a>
+          <a class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,.5);color:#fff" href="pages/ppid.html#lacak"><klh-icon name="search" class="icon icon--sm"></klh-icon> Lacak Permohonan</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  /* ---- Slideshow hero dari 3 artikel terbaru ---- */
+  var box = document.getElementById('hero-slides');
+  var top3 = KLH.articles.filter(function (a) { return a.module === 'berita'; }).sort(function (a, b) { return b.date.localeCompare(a.date); }).slice(0, 3);
+  box.innerHTML = top3.map(function (a, i) {
+    var mod = KLH.modules.find(function (m) { return m.slug === a.module; });
+    return '<a class="slide' + KLH.mediaCls(a) + (i === 0 ? ' on' : '') + '" href="pages/informasi/detail.html?a=' + a.slug + '"' + KLH.mediaStyle(a) + ' ' +
+      (i === 0 ? '' : 'tabindex="-1" aria-hidden="true"') + '>' +
+      '<span class="badge bg-orange">' + mod.label + '</span>' +
+      '<h3>' + a.title + '</h3>' +
+      '<time datetime="' + a.date + '">' + KLH.fmtDate(a.date) + ' · ' + a.author + '</time></a>';
+  }).join('') +
+  '<div class="slideshow__nav" role="tablist" aria-label="Pilih slide">' +
+    top3.map(function (a, i) {
+      return '<button class="slideshow__dot' + (i === 0 ? ' on' : '') + '" role="tab" aria-selected="' + (i === 0) + '" aria-label="Slide ' + (i + 1) + '"></button>';
+    }).join('') + '</div>';
+
+  var slides = box.querySelectorAll('.slide');
+  var dots = box.querySelectorAll('.slideshow__dot');
+  var cur = 0, timer;
+  function go(n) {
+    slides[cur].classList.remove('on'); slides[cur].setAttribute('tabindex', '-1'); slides[cur].setAttribute('aria-hidden', 'true');
+    dots[cur].classList.remove('on'); dots[cur].setAttribute('aria-selected', 'false');
+    cur = (n + slides.length) % slides.length;
+    slides[cur].classList.add('on'); slides[cur].removeAttribute('tabindex'); slides[cur].removeAttribute('aria-hidden');
+    dots[cur].classList.add('on'); dots[cur].setAttribute('aria-selected', 'true');
+  }
+  function auto() { timer = setInterval(function () { go(cur + 1); }, 6000); }
+  dots.forEach(function (d, i) { d.addEventListener('click', function () { clearInterval(timer); go(i); auto(); }); });
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) auto();
+
+  /* ---- Kolom informasi terkini ---- */
+  function mini(a) {
+    return '<a class="card mini-item" href="pages/informasi/detail.html?a=' + a.slug + '">' +
+      '<span class="thumb' + KLH.mediaCls(a) + '"' + KLH.mediaStyle(a) + '>' + KLH.mediaIcon(a, 'icon icon--sm') + '</span>' +
+      '<span><h4>' + a.title + '</h4><time datetime="' + a.date + '">' + KLH.fmtDate(a.date) + '</time></span></a>';
+  }
+  var berita = KLH.articles.filter(function (a) { return a.module === 'berita'; }).slice(0, 3);
+  var pers = KLH.articles.filter(function (a) { return a.module === 'siaran-pers' || a.module === 'pengumuman'; }).slice(0, 3);
+  document.getElementById('col-berita').innerHTML = berita.map(mini).join('');
+  document.getElementById('col-pers').innerHTML = pers.map(mini).join('');
+
+  var bln = ['JAN','FEB','MAR','APR','MEI','JUN','JUL','AGU','SEP','OKT','NOV','DES'];
+  document.getElementById('col-agenda').innerHTML = KLH.agenda
+    .filter(function (e) { return e.d >= '2026-07-01'; }).slice(0, 3)
+    .map(function (e) {
+      var p = e.d.split('-');
+      return '<a class="card agenda-item" href="pages/informasi/agenda.html">' +
+        '<span class="dt"><b>' + parseInt(p[2], 10) + '</b><span>' + bln[parseInt(p[1], 10) - 1] + '</span></span>' +
+        '<span><h4 style="font-size:var(--t-sm);margin:0 0 4px">' + e.label + '</h4>' +
+        '<span class="badge ' + (e.jenis === 'libur' ? 'bg-danger' : e.jenis === 'agenda' ? 'bg-info' : 'bg-success') + '">' +
+        (e.jenis === 'hari-besar' ? 'Hari besar lingkungan' : e.jenis === 'agenda' ? 'Agenda kementerian' : 'Libur nasional') + '</span></span></a>';
+    }).join('');
+
+  /* ---- Sorotan 3 program ---- */
+  var picks = ['proper', 'proklim', 'adiwiyata'];
+  document.getElementById('prog-grid').innerHTML = KLH.programs
+    .filter(function (p) { return picks.indexOf(p.slug) > -1; })
+    .map(function (p) {
+      var toneCls = p.tone === 'earth' ? ' svc-card__icon--earth' : p.tone === 'sky' ? ' svc-card__icon--sky' : '';
+      return '<a class="card svc-card card__body" href="pages/program/detail.html?p=' + p.slug + '" data-reveal>' +
+        '<span class="svc-card__icon' + toneCls + '">' + KLH.iconSVG(p.icon) + '</span>' +
+        '<div><h3 style="font-size:var(--t-h4)">' + p.name + '</h3><p>' + p.tagline + '</p></div>' +
+        '<span class="svc-card__foot">Cara ikut serta ' + KLH.iconSVG('arrowright', 'icon icon--sm') + '</span></a>';
+    }).join('');
+})();
+</script>
+</body>
+</html>

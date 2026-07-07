@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detail Jabatan — KLH/BPLH</title>
+<meta name="description" content="Profil pejabat, keterangan jabatan, dan status LHKPN.">
+<link rel="icon" type="image/png" href="../../assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/base.css">
+<link rel="stylesheet" href="../../assets/css/components.css">
+<link rel="stylesheet" href="../../assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '../../';</script>
+<script src="../../assets/js/components/icons.js"></script>
+<script src="../../assets/js/data/menu.js"></script>
+<script src="../../assets/js/data/content.js"></script>
+<script src="../../assets/js/components/navbar.js"></script>
+<script src="../../assets/js/components/footer.js"></script>
+<script src="../../assets/js/components/widgets.js"></script>
+
+<klh-navbar active="profil"></klh-navbar>
+
+<main id="konten">
+  <section class="page-hero">
+    <div class="container">
+      <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+        <li><a href="../../index.html">Beranda</a></li>
+        <li><a href="tentang.html">Profil</a></li>
+        <li><a href="struktur-organisasi.html">Struktur Organisasi</a></li>
+        <li aria-current="page" id="bc-current">Detail Jabatan</li>
+      </ol></nav>
+      <div class="jab-head">
+        <span class="ava" id="jab-ava"></span>
+        <div>
+          <span class="eyebrow" id="jab-role" style="color:var(--klh-green-300)">Jabatan</span>
+          <h1 id="jab-title" style="margin-bottom:var(--s2)">Detail Jabatan</h1>
+          <p class="lead" id="jab-nama" style="margin:0"></p>
+        </div>
+      </div>
+    </div>
+    <span id="hero-leaf"></span>
+  </section>
+
+  <section class="section">
+    <div class="container" style="display:grid;grid-template-columns:1fr 340px;gap:var(--s10);align-items:start" id="jab-layout">
+      <div class="prose">
+        <span class="eyebrow">Keterangan Jabatan</span>
+        <h2 style="margin-top:0">Ruang lingkup tanggung jawab</h2>
+        <p id="jab-profil"></p>
+        <p>Pejabat bertanggung jawab menyusun kebijakan teknis pada lingkupnya, mengoordinasikan unit kerja di bawahnya, serta memastikan target kinerja tahunan tercapai sesuai rencana strategis kementerian.</p>
+        <h3>Riwayat singkat (contoh)</h3>
+        <ul style="display:grid;gap:var(--s2);color:var(--ink-700)">
+          <li>2022 – kini · Jabatan saat ini di KLH/BPLH.</li>
+          <li>2017 – 2022 · Pimpinan unit kerja teknis bidang lingkungan hidup.</li>
+          <li>2010 – 2017 · Perencana / fungsional ahli pada instansi pemerintah pusat.</li>
+        </ul>
+      </div>
+      <aside style="display:grid;gap:var(--gutter)">
+        <div class="card card__body--sm" style="padding:var(--s5)" data-reveal>
+          <span class="eyebrow">Integritas</span>
+          <div class="a11y-row" style="border:0;padding-top:0"><span class="lbl">LHKPN<small>Laporan Harta Kekayaan</small></span><span class="badge bg-success"><klh-icon name="check" class="icon" style="width:12px;height:12px"></klh-icon> Lapor 2026</span></div>
+          <div class="a11y-row"><span class="lbl">Verifikasi<small>Basis data KPK</small></span><a class="btn btn-outline btn-sm" href="https://elhkpn.kpk.go.id" target="_blank" rel="noopener noreferrer">e-LHKPN <klh-icon name="external" class="icon" style="width:13px;height:13px"></klh-icon></a></div>
+        </div>
+        <div class="card card__body--sm" style="padding:var(--s5)" data-reveal>
+          <span class="eyebrow">Pejabat lainnya</span>
+          <div style="display:grid;gap:var(--s1)" id="jab-others"></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="../../assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  document.getElementById('hero-leaf').outerHTML = KLH.leafmark();
+  var id = KLH.qs('id') || 'menteri';
+  var p = KLH.pejabat.find(function (x) { return x.id === id; }) || KLH.pejabat[0];
+
+  document.title = p.jabatan + ' — KLH/BPLH';
+  document.getElementById('bc-current').textContent = p.jabatan;
+  document.getElementById('jab-ava').innerHTML = KLH.iconSVG(p.icon, 'icon icon--lg');
+  document.getElementById('jab-role').textContent = p.level === 1 ? 'Pimpinan Kementerian' : p.level === 2 ? 'Pimpinan Tinggi Madya' : 'Pimpinan Tinggi Pratama';
+  document.getElementById('jab-title').textContent = p.jabatan;
+  document.getElementById('jab-nama').textContent = p.nama;
+  document.getElementById('jab-profil').textContent = p.profil;
+
+  document.getElementById('jab-others').innerHTML = KLH.pejabat
+    .filter(function (x) { return x.id !== p.id; }).slice(0, 5)
+    .map(function (x) {
+      return '<a class="mega__link" href="detail-jabatan.html?id=' + x.id + '">' + KLH.iconSVG(x.icon, 'icon icon--sm') +
+        '<span>' + x.jabatan + '<small>' + x.nama + '</small></span></a>';
+    }).join('');
+
+  var s = document.createElement('style');
+  s.textContent = '@media(max-width:1024px){#jab-layout{grid-template-columns:1fr!important}}';
+  document.head.appendChild(s);
+})();
+</script>
+</body>
+</html>

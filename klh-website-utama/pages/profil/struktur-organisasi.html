@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Struktur Organisasi — KLH/BPLH</title>
+<meta name="description" content="Bagan struktur organisasi KLH/BPLH: Menteri, Wakil Menteri, dan pejabat pimpinan tinggi.">
+<link rel="icon" type="image/png" href="../../assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/base.css">
+<link rel="stylesheet" href="../../assets/css/components.css">
+<link rel="stylesheet" href="../../assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '../../';</script>
+<script src="../../assets/js/components/icons.js"></script>
+<script src="../../assets/js/data/menu.js"></script>
+<script src="../../assets/js/data/content.js"></script>
+<script src="../../assets/js/components/navbar.js"></script>
+<script src="../../assets/js/components/footer.js"></script>
+<script src="../../assets/js/components/widgets.js"></script>
+
+<klh-navbar active="profil"></klh-navbar>
+
+<main id="konten">
+  <section class="page-hero">
+    <div class="container">
+      <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+        <li><a href="../../index.html">Beranda</a></li>
+        <li><a href="tentang.html">Profil</a></li>
+        <li aria-current="page">Struktur Organisasi</li>
+      </ol></nav>
+      <span class="eyebrow">Profil</span>
+      <h1>Struktur Organisasi</h1>
+      <p class="lead">Pilih kartu pejabat untuk membuka profil, keterangan jabatan, dan status LHKPN. Nama pada prototipe ini adalah contoh.</p>
+    </div>
+    <span id="hero-leaf"></span>
+  </section>
+
+  <section class="section" aria-label="Bagan organisasi interaktif">
+    <div class="container">
+      <div class="org" id="org-chart"><!-- diisi JS --></div>
+      <div class="alert alert-info" style="margin-top:var(--s8)">
+        <klh-icon name="shield" class="icon icon--sm"></klh-icon>
+        <div><strong>Transparansi harta kekayaan.</strong> Status pelaporan LHKPN setiap pejabat dapat diverifikasi pada <a href="https://elhkpn.kpk.go.id" target="_blank" rel="noopener noreferrer">e-LHKPN KPK <span class="ext-note">membuka situs lain</span></a>.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="../../assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  document.getElementById('hero-leaf').outerHTML = KLH.leafmark();
+
+  function card(p) {
+    return '<a class="card org-card" href="detail-jabatan.html?id=' + p.id + '" data-reveal>' +
+      '<span class="ava">' + KLH.iconSVG(p.icon) + '</span>' +
+      '<span class="role">' + (p.level === 1 ? 'Pimpinan' : p.level === 2 ? 'Pimpinan Tinggi Madya' : 'Pimpinan Tinggi Pratama') + '</span>' +
+      '<h3>' + p.jabatan + '</h3>' +
+      '<span style="font-size:var(--t-sm);color:var(--ink-500)">' + p.nama + '</span>' +
+      '<span class="badge bg-success">' + KLH.iconSVG('check','icon') .replace('class="icon"','class="icon" style="width:12px;height:12px"') + ' LHKPN Lapor</span>' +
+    '</a>';
+  }
+
+  var t1 = KLH.pejabat.filter(function (p) { return p.level === 1; });
+  var t2 = KLH.pejabat.filter(function (p) { return p.level === 2; });
+  var t3 = KLH.pejabat.filter(function (p) { return p.level === 3; });
+
+  document.getElementById('org-chart').innerHTML =
+    '<div class="org__tier org__tier--1">' + t1.map(card).join('') + '</div>' +
+    '<div class="org__joint" aria-hidden="true"><span></span></div>' +
+    '<div class="org__tier org__tier--2">' + t2.map(card).join('') + '</div>' +
+    '<div class="org__joint" aria-hidden="true"><span></span></div>' +
+    '<div class="org__tier org__tier--3">' + t3.map(card).join('') + '</div>';
+})();
+</script>
+</body>
+</html>

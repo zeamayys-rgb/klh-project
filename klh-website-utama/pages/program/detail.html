@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detail Program — KLH/BPLH</title>
+<meta name="description" content="Detail program lingkungan KLH/BPLH beserta panduan cara ikut serta.">
+<link rel="icon" type="image/png" href="../../assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/base.css">
+<link rel="stylesheet" href="../../assets/css/components.css">
+<link rel="stylesheet" href="../../assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '../../';</script>
+<script src="../../assets/js/components/icons.js"></script>
+<script src="../../assets/js/data/menu.js"></script>
+<script src="../../assets/js/data/content.js"></script>
+<script src="../../assets/js/components/navbar.js"></script>
+<script src="../../assets/js/components/footer.js"></script>
+<script src="../../assets/js/components/widgets.js"></script>
+
+<klh-navbar active="program"></klh-navbar>
+
+<main id="konten">
+  <section class="page-hero">
+    <div class="container">
+      <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+        <li><a href="../../index.html">Beranda</a></li>
+        <li><a href="index.html">Program</a></li>
+        <li aria-current="page" id="bc-current">Detail Program</li>
+      </ol></nav>
+      <span class="eyebrow" id="p-eyebrow">Program Lingkungan</span>
+      <h1 id="p-name">Program</h1>
+      <p class="lead" id="p-tagline"></p>
+      <div class="home-hero__cta" style="margin-top:var(--s6)">
+        <a class="btn btn--inverse btn-lg" href="#ikut"><klh-icon name="sprout" class="icon icon--sm"></klh-icon> Cara Ikut Serta</a>
+      </div>
+    </div>
+    <span id="hero-leaf"></span>
+  </section>
+
+  <section class="section">
+    <div class="container" style="display:grid;grid-template-columns:1fr 340px;gap:var(--s10);align-items:start" id="p-layout">
+      <div>
+        <div class="prose">
+          <span class="eyebrow">Tentang Program</span>
+          <h2 style="margin-top:0" id="p-h2">Apa itu program ini?</h2>
+          <p id="p-desc"></p>
+        </div>
+
+        <div class="grid grid--3" style="margin-top:var(--s8)" id="p-benefits"></div>
+
+        <div class="card tonal" style="box-shadow:none;margin-top:var(--s10);scroll-margin-top:110px" id="ikut" data-reveal>
+          <div class="card__body">
+            <span class="eyebrow">Cara Ikut Serta</span>
+            <h2 style="font-size:var(--t-h3)">Empat langkah untuk bergabung</h2>
+            <ol class="step-list" id="p-steps" style="margin-top:var(--s6)"></ol>
+            <div style="display:flex;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s8)">
+              <a class="btn btn-primary" href="../ppid.html"><klh-icon name="folder" class="icon icon--sm"></klh-icon> Daftar / Ajukan Usulan</a>
+              <a class="btn btn-outline" href="../informasi/indeks.html?m=publikasi"><klh-icon name="download" class="icon icon--sm"></klh-icon> Unduh Pedoman</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside style="display:grid;gap:var(--gutter)">
+        <div class="card card__body--sm" style="padding:var(--s5)" data-reveal>
+          <span class="eyebrow">Ringkasan</span>
+          <div class="a11y-row" style="border:0;padding-top:0"><span class="lbl">Peserta<small id="p-audiens"></small></span><klh-icon name="people" class="icon icon--sm" style="color:var(--klh-green-600)"></klh-icon></div>
+          <div class="a11y-row"><span class="lbl">Periode<small id="p-periode"></small></span><klh-icon name="calendar" class="icon icon--sm" style="color:var(--klh-green-600)"></klh-icon></div>
+          <div class="a11y-row"><span class="lbl">Kontak program<small>program@kemenlh.go.id</small></span><klh-icon name="envelope" class="icon icon--sm" style="color:var(--klh-green-600)"></klh-icon></div>
+        </div>
+        <div class="card card__body--sm" style="padding:var(--s5)" data-reveal>
+          <span class="eyebrow">Program lainnya</span>
+          <div style="display:grid;gap:var(--s1)" id="p-others"></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="../../assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  document.getElementById('hero-leaf').outerHTML = KLH.leafmark();
+  var slug = KLH.qs('p') || 'proper';
+  var p = KLH.programs.find(function (x) { return x.slug === slug; }) || KLH.programs[0];
+
+  document.title = p.name + ' — Program Lingkungan KLH/BPLH';
+  document.getElementById('bc-current').textContent = p.name;
+  document.getElementById('p-name').textContent = p.name;
+  document.getElementById('p-tagline').textContent = p.tagline;
+  document.getElementById('p-h2').textContent = 'Apa itu ' + p.name + '?';
+  document.getElementById('p-desc').textContent = p.desc;
+  document.getElementById('p-audiens').textContent = p.audiens;
+  document.getElementById('p-periode').textContent = p.periode;
+
+  var icons = ['check', 'award', 'people'];
+  document.getElementById('p-benefits').innerHTML = p.manfaat.map(function (m, i) {
+    return '<div class="card nilai-chip" data-reveal><span class="svc-card__icon">' + KLH.iconSVG(icons[i % 3]) + '</span>' +
+      '<div><h3 style="font-size:var(--t-sm);margin-bottom:2px">Manfaat</h3><p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">' + m + '</p></div></div>';
+  }).join('');
+
+  document.getElementById('p-steps').innerHTML = p.langkah.map(function (l) {
+    return '<li><span style="padding-top:5px;color:var(--ink-700)">' + l + '</span></li>';
+  }).join('');
+
+  document.getElementById('p-others').innerHTML = KLH.programs
+    .filter(function (x) { return x.slug !== p.slug; }).slice(0, 5)
+    .map(function (x) {
+      return '<a class="mega__link" href="detail.html?p=' + x.slug + '">' + KLH.iconSVG(x.icon, 'icon icon--sm') +
+        '<span>' + x.name + '<small>' + x.audiens + '</small></span></a>';
+    }).join('');
+
+  var s = document.createElement('style');
+  s.textContent = '@media(max-width:1024px){#p-layout{grid-template-columns:1fr!important}}';
+  document.head.appendChild(s);
+})();
+</script>
+</body>
+</html>

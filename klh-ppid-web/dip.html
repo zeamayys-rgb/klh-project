@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daftar Informasi Publik — PPID KLH/BPLH</title>
+<meta name="description" content="Daftar Informasi Publik (DIP) KLH/BPLH — telusuri dengan filter kategori dan pencarian judul, unduh langsung.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/menu.js"></script>
+<script src="assets/js/data/ppid.js"></script>
+<script src="assets/js/components/navbar.js"></script>
+<script src="assets/js/components/footer.js"></script>
+<script src="assets/js/components/widgets.js"></script>
+
+<klh-navbar active="dip"></klh-navbar>
+
+<main id="konten">
+  <section class="page-hero" style="padding-block:var(--s10) var(--s10)">
+    <div class="container">
+      <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+        <li><a href="index.html">Beranda</a></li>
+        <li aria-current="page">Daftar Informasi Publik</li>
+      </ol></nav>
+      <span class="eyebrow">Tersedia Terbuka</span>
+      <h1>Daftar Informasi Publik (DIP)</h1>
+      <p class="lead">Dokumen yang wajib disediakan dan diumumkan — telusuri, lalu unduh langsung tanpa permohonan.</p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <!-- Toolbar: cari + filter kategori (WF-16) -->
+      <div class="dip-toolbar">
+        <div class="dip-search">
+          <klh-icon name="search" class="icon icon--sm"></klh-icon>
+          <input type="search" id="cari" placeholder="Cari judul dokumen…" aria-label="Cari judul dokumen dalam DIP">
+        </div>
+        <div class="filterbar" role="group" aria-label="Filter kategori informasi">
+          <button class="fchip on" type="button" data-k="" aria-pressed="true">Semua</button>
+          <button class="fchip" type="button" data-k="berkala" aria-pressed="false">Berkala</button>
+          <button class="fchip" type="button" data-k="serta-merta" aria-pressed="false">Serta-Merta</button>
+          <button class="fchip" type="button" data-k="setiap-saat" aria-pressed="false">Setiap Saat</button>
+        </div>
+      </div>
+
+      <p id="hasil-info" aria-live="polite" style="font-size:var(--t-sm);color:var(--ink-500);margin-bottom:var(--s3)"></p>
+
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <caption class="sr-only">Daftar Informasi Publik KLH/BPLH — konten contoh</caption>
+          <thead><tr>
+            <th scope="col">No.</th>
+            <th scope="col">Judul Dokumen</th>
+            <th scope="col">Kategori</th>
+            <th scope="col">Unit Penguasa</th>
+            <th scope="col">Tahun</th>
+            <th scope="col">Berkas</th>
+          </tr></thead>
+          <tbody id="dip-body"></tbody>
+        </table>
+      </div>
+      <p style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s4)">Seluruh entri adalah <strong>konten contoh</strong> prototipe; tombol unduh belum terhubung berkas sebenarnya. Butuh dokumen di luar daftar? <a href="permohonan.html">Ajukan permohonan informasi</a>.</p>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var KAT = { 'berkala': ['Berkala', 'bg-brand'], 'serta-merta': ['Serta-Merta', 'bg-info'], 'setiap-saat': ['Setiap Saat', 'bg-orange'] };
+  var body = document.getElementById('dip-body');
+  var info = document.getElementById('hasil-info');
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.fchip'));
+  var cari = document.getElementById('cari');
+  var aktif = '';
+
+  function render() {
+    var q = cari.value.trim().toLowerCase();
+    var rows = KLH.ppid.dip.filter(function (d) {
+      return (!aktif || d.kategori === aktif) && (!q || d.judul.toLowerCase().indexOf(q) !== -1);
+    });
+    info.textContent = rows.length
+      ? 'Menampilkan ' + rows.length + ' dari ' + KLH.ppid.dip.length + ' dokumen.'
+      : 'Tidak ada dokumen yang cocok — coba kata kunci lain atau ganti filter.';
+    body.innerHTML = rows.map(function (d) {
+      var k = KAT[d.kategori] || ['—', 'bg-neutral'];
+      return '<tr>' +
+        '<td class="mono" style="font-size:var(--t-xs);white-space:nowrap">' + d.no + '</td>' +
+        '<td style="font-weight:600;min-width:260px">' + d.judul + '</td>' +
+        '<td><span class="badge ' + k[1] + '">' + k[0] + '</span></td>' +
+        '<td style="color:var(--ink-500)">' + d.unit + '</td>' +
+        '<td class="num">' + d.tahun + '</td>' +
+        '<td style="white-space:nowrap">' +
+          (d.format === 'Web'
+            ? '<a class="btn btn-ghost btn-sm" href="index.html">' + KLH.iconSVG('external', 'icon icon--sm') + ' Buka</a>'
+            : '<a class="btn btn-secondary btn-sm" href="#" onclick="return false" aria-label="Unduh ' + d.judul.replace(/"/g, '&quot;') + ' (' + d.format + ', simulasi)">' + KLH.iconSVG('download', 'icon icon--sm') + ' ' + d.format + ' · ' + d.ukuran + '</a>') +
+        '</td></tr>';
+    }).join('');
+  }
+
+  /* A2-06 · status chip juga diumumkan ke pembaca layar (aria-pressed) */
+  function setChip(on) {
+    chips.forEach(function (x) {
+      x.classList.toggle('on', x === on);
+      x.setAttribute('aria-pressed', String(x === on));
+    });
+  }
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () {
+      setChip(c);
+      aktif = c.getAttribute('data-k');
+      render();
+    });
+  });
+  cari.addEventListener('input', render);
+
+  /* Dukungan ?k= dari kartu kategori beranda */
+  var k = KLH.qs('k');
+  if (k && KAT[k]) {
+    aktif = k;
+    setChip(chips.filter(function (x) { return x.getAttribute('data-k') === k; })[0]);
+  }
+  render();
+})();
+</script>
+</body>
+</html>

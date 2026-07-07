@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masuk — PPID KLH/BPLH</title>
+<meta name="description" content="Masuk ke akun Portal PPID KLH/BPLH untuk mengajukan dan memantau permohonan informasi publik.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/menu.js"></script>
+<script src="assets/js/data/ppid.js"></script>
+<script src="assets/js/components/navbar.js"></script>
+<script src="assets/js/components/footer.js"></script>
+<script src="assets/js/components/widgets.js"></script>
+
+<klh-navbar></klh-navbar>
+
+<main id="konten">
+  <section class="section">
+    <div class="container">
+      <nav aria-label="Jejak navigasi"><ol class="breadcrumb breadcrumb--light">
+        <li><a href="index.html">Beranda</a></li>
+        <li aria-current="page">Masuk</li>
+      </ol></nav>
+
+      <div class="auth-wrap">
+        <div class="auth-side">
+          <span id="side-leaf"></span>
+          <span class="eyebrow" style="color:var(--klh-green-300);margin:0">Portal PPID Online</span>
+          <h2>Satu akun untuk seluruh layanan informasi</h2>
+          <p>Ajukan permohonan, unggah dokumen, terima notifikasi, dan pantau status — semua dari satu tempat.</p>
+        </div>
+
+        <form class="card auth-card" id="form-masuk" novalidate>
+          <h1 style="font-size:var(--t-h2)">Masuk ke Akun</h1>
+          <p style="color:var(--ink-500);font-size:var(--t-sm)">Belum punya akun? <a href="daftar.html">Daftar sebagai pemohon</a> — gratis.</p>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input class="input" id="email" name="email" type="email" autocomplete="email" placeholder="nama@email.com" aria-describedby="email-err">
+            <span class="errmsg" id="email-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Masukkan alamat email yang valid, mis. nama@email.com.</span>
+          </div>
+
+          <div class="field">
+            <label for="sandi">Kata Sandi</label>
+            <input class="input" id="sandi" name="sandi" type="password" autocomplete="current-password" placeholder="Minimal 8 karakter" aria-describedby="sandi-err">
+            <span class="errmsg" id="sandi-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Kata sandi minimal 8 karakter.</span>
+          </div>
+
+          <!-- Captcha: placeholder visual saja (prototipe, bukan captcha aktif) -->
+          <div class="field">
+            <label for="captcha">Verifikasi Keamanan</label>
+            <div class="captcha-box">
+              <input type="checkbox" id="captcha" aria-describedby="captcha-err">
+              <label for="captcha" style="font-weight:500;font-size:var(--t-sm);cursor:pointer">Saya bukan robot</label>
+              <span class="cap-brand"><klh-icon name="shield" class="icon"></klh-icon><br>placeholder<br>captcha</span>
+            </div>
+            <span class="errmsg" id="captcha-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Centang verifikasi "Saya bukan robot" terlebih dahulu.</span>
+          </div>
+
+          <div id="masuk-alert" aria-live="polite"></div>
+
+          <button class="btn btn-primary btn-lg" type="submit" style="width:100%;margin-top:var(--s3)">
+            <klh-icon name="user" class="icon icon--sm"></klh-icon> Masuk
+          </button>
+
+          <div class="form-foot">
+            <a href="#" id="lupa-sandi" style="font-size:var(--t-sm)">Lupa kata sandi?</a>
+            <a href="daftar.html" style="font-size:var(--t-sm);font-weight:600">Buat akun baru</a>
+          </div>
+          <p style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s5)">Prototipe — login demo client-side, tanpa autentikasi sebenarnya. Email &amp; sandi apa pun yang valid akan diterima.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  document.getElementById('side-leaf').outerHTML = KLH.leafmark();
+
+  function setErr(id, on) {
+    var field = document.getElementById(id).closest('.field');
+    var msg = document.getElementById(id + '-err');
+    field.classList.toggle('err', on);
+    msg.hidden = !on;
+    return !on;
+  }
+
+  document.getElementById('lupa-sandi').addEventListener('click', function (e) {
+    e.preventDefault();
+    document.getElementById('masuk-alert').innerHTML =
+      '<div class="alert alert-info" style="margin-bottom:var(--s4)">' + KLH.iconSVG('envelope', 'icon icon--sm') +
+      '<div><strong>Tautan atur ulang dikirim (simulasi).</strong>Pada sistem sebenarnya, tautan atur ulang sandi dikirim ke email terdaftar Anda.</div></div>';
+  });
+
+  document.getElementById('form-masuk').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = document.getElementById('email').value.trim();
+    var sandi = document.getElementById('sandi').value;
+    var cap = document.getElementById('captcha').checked;
+
+    var ok = true;
+    ok = setErr('email', !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) && ok;
+    ok = setErr('sandi', sandi.length < 8) && ok;
+    ok = setErr('captcha', !cap) && ok;
+    if (!ok) {
+      /* A2-03 · fokus ke field error pertama (WCAG — konsisten daftar/permohonan) */
+      var first = e.target.querySelector('.field.err .input, .field.err input');
+      if (first) first.focus();
+      return;
+    }
+
+    /* Sesi demo di localStorage (flag saja) — try/catch di KLH.session */
+    KLH.session.set({ nama: email.split('@')[0], email: email, masuk: new Date().toISOString() });
+    var tujuan = KLH.qs('lanjut') || 'riwayat.html';
+    document.getElementById('masuk-alert').innerHTML =
+      '<div class="alert alert-success" style="margin-bottom:var(--s4)">' + KLH.iconSVG('check', 'icon icon--sm') +
+      '<div><strong>Berhasil masuk.</strong>Mengalihkan…</div></div>';
+    setTimeout(function () { window.location.href = tujuan; }, 700);
+  });
+})();
+</script>
+</body>
+</html>

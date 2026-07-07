@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daftar Informasi Dikecualikan — PPID KLH/BPLH</title>
+<meta name="description" content="Daftar Informasi Dikecualikan (DIK) KLH/BPLH beserta dasar pengecualian menurut Pasal 17 UU 14/2008.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/menu.js"></script>
+<script src="assets/js/data/ppid.js"></script>
+<script src="assets/js/components/navbar.js"></script>
+<script src="assets/js/components/footer.js"></script>
+<script src="assets/js/components/widgets.js"></script>
+
+<klh-navbar></klh-navbar>
+
+<main id="konten">
+  <section class="page-hero" style="padding-block:var(--s10) var(--s10)">
+    <div class="container">
+      <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+        <li><a href="index.html">Beranda</a></li>
+        <li aria-current="page">Informasi Dikecualikan</li>
+      </ol></nav>
+      <span class="eyebrow">Transparan tentang yang Tertutup</span>
+      <h1>Daftar Informasi Dikecualikan (DIK)</h1>
+      <p class="lead">Informasi yang tidak dapat diberikan berdasarkan pengujian konsekuensi — beserta dasar hukum dan jangka waktunya.</p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <caption class="sr-only">Daftar Informasi Dikecualikan KLH/BPLH — konten contoh</caption>
+          <thead><tr>
+            <th scope="col">No.</th>
+            <th scope="col">Informasi yang Dikecualikan</th>
+            <th scope="col">Dasar Pengecualian</th>
+            <th scope="col">Jangka Waktu</th>
+          </tr></thead>
+          <tbody id="dik-body"></tbody>
+        </table>
+      </div>
+      <div class="alert alert-warning" style="margin-top:var(--s6)">
+        <klh-icon name="lock" class="icon icon--sm"></klh-icon>
+        <div><strong>Ditetapkan melalui uji konsekuensi.</strong>Pengecualian bersifat ketat dan terbatas, ditetapkan dengan SK Atasan PPID. Permohonan atas informasi ini akan ditolak dengan penjelasan tertulis — dan Anda tetap berhak <a href="keberatan.html">mengajukan keberatan</a>. Daftar di atas adalah konten contoh prototipe.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  document.getElementById('dik-body').innerHTML = KLH.ppid.dik.map(function (d) {
+    return '<tr>' +
+      '<td class="mono" style="font-size:var(--t-xs);white-space:nowrap">' + d.no + '</td>' +
+      '<td style="font-weight:600;min-width:280px">' + d.judul + '</td>' +
+      '<td><span class="badge bg-danger">' + KLH.iconSVG('lock', 'icon').replace('class="icon"', 'class="icon" style="width:12px;height:12px"') + ' ' + d.dasar + '</span></td>' +
+      '<td style="color:var(--ink-500)">' + d.jangka + '</td></tr>';
+  }).join('');
+})();
+</script>
+</body>
+</html>

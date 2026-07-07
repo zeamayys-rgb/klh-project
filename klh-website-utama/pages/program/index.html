@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Program Lingkungan — KLH/BPLH</title>
+<meta name="description" content="Tujuh program lingkungan nasional: Kalpataru, PROPER, Adipura, Adiwiyata, ProKlim, Nirwasita Tantra, dan Ekonomi Sirkular.">
+<link rel="icon" type="image/png" href="../../assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/base.css">
+<link rel="stylesheet" href="../../assets/css/components.css">
+<link rel="stylesheet" href="../../assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '../../';</script>
+<script src="../../assets/js/components/icons.js"></script>
+<script src="../../assets/js/data/menu.js"></script>
+<script src="../../assets/js/data/content.js"></script>
+<script src="../../assets/js/components/navbar.js"></script>
+<script src="../../assets/js/components/footer.js"></script>
+<script src="../../assets/js/components/widgets.js"></script>
+
+<klh-navbar active="program"></klh-navbar>
+
+<main id="konten">
+  <section class="page-hero">
+    <div class="container">
+      <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+        <li><a href="../../index.html">Beranda</a></li>
+        <li aria-current="page">Program</li>
+      </ol></nav>
+      <span class="eyebrow">Program Lingkungan</span>
+      <h1>Tujuh jalan untuk ikut menjaga bumi</h1>
+      <p class="lead">Bukan sekadar daftar penghargaan — setiap program punya jalur <strong>"Cara Ikut Serta"</strong> untuk warga, sekolah, komunitas, pemerintah daerah, dan dunia usaha.</p>
+    </div>
+    <span id="hero-leaf"></span>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="filterbar" role="group" aria-label="Saring program menurut peserta" style="margin-bottom:var(--s8)">
+        <button class="fchip on" data-f="semua">Semua</button>
+        <button class="fchip" data-f="warga">Warga &amp; Komunitas</button>
+        <button class="fchip" data-f="sekolah">Sekolah</button>
+        <button class="fchip" data-f="usaha">Dunia Usaha</button>
+        <button class="fchip" data-f="pemda">Pemerintah Daerah</button>
+      </div>
+      <div class="grid grid--3" id="prog-list" aria-live="polite"></div>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="../../assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  document.getElementById('hero-leaf').outerHTML = KLH.leafmark();
+
+  var MAP = {
+    kalpataru: ['warga'], proper: ['usaha'], adipura: ['pemda'],
+    adiwiyata: ['sekolah'], proklim: ['warga'], 'nirwasita-tantra': ['pemda'],
+    'ekonomi-sirkular': ['usaha', 'warga']
+  };
+
+  var box = document.getElementById('prog-list');
+  function render(f) {
+    box.innerHTML = KLH.programs
+      .filter(function (p) { return f === 'semua' || (MAP[p.slug] || []).indexOf(f) > -1; })
+      .map(function (p) {
+        var toneCls = p.tone === 'earth' ? ' svc-card__icon--earth' : p.tone === 'sky' ? ' svc-card__icon--sky' : '';
+        return '<a class="card svc-card card__body" href="detail.html?p=' + p.slug + '" data-reveal>' +
+          '<span class="svc-card__icon' + toneCls + '">' + KLH.iconSVG(p.icon) + '</span>' +
+          '<div><h2 style="font-size:var(--t-h4);margin-bottom:var(--s1)">' + p.name + '</h2>' +
+          '<p>' + p.tagline + '</p></div>' +
+          '<div class="meta-row"><span class="badge bg-neutral">' + KLH.iconSVG('people','icon') .replace('class="icon"','class="icon" style="width:12px;height:12px"') + ' ' + p.audiens + '</span></div>' +
+          '<span class="svc-card__foot">Cara ikut serta ' + KLH.iconSVG('arrowright', 'icon icon--sm') + '</span></a>';
+      }).join('') || '<p style="color:var(--ink-500)">Tidak ada program pada saringan ini.</p>';
+    Array.prototype.forEach.call(box.querySelectorAll('[data-reveal]'), function (n) { n.classList.add('is-in'); });
+  }
+  render('semua');
+
+  Array.prototype.forEach.call(document.querySelectorAll('.fchip'), function (c) {
+    c.addEventListener('click', function () {
+      document.querySelector('.fchip.on').classList.remove('on');
+      c.classList.add('on');
+      render(c.getAttribute('data-f'));
+    });
+  });
+})();
+</script>
+</body>
+</html>

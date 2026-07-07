@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Role Management — Omni Channel KLH/BPLH</title>
+<meta name="description" content="Role Management Omni Channel KLH/BPLH — 6 peran dari Super Admin hingga Viewer dengan matriks izin.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="app">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/omni.js"></script>
+<script src="assets/js/components/appshell.js"></script>
+
+<klh-sidebar></klh-sidebar>
+<div class="app-main">
+  <klh-topbar judul="Role Management"></klh-topbar>
+
+  <main id="konten" class="content">
+    <div class="page-head" data-reveal>
+      <div>
+        <h1>Role Management</h1>
+        <p class="lead">Enam peran berjenjang — <strong>Super Admin → Viewer</strong> — dengan izin granular per fungsi. Data contoh prototipe.</p>
+      </div>
+      <div class="aksi">
+        <button class="btn btn-primary" type="button" id="btn-undang"><klh-icon name="people" class="icon icon--sm"></klh-icon> Undang pengguna</button>
+      </div>
+    </div>
+
+    <div class="role-grid" id="role-grid"></div>
+
+    <section class="panel matrix-wrap" data-reveal aria-label="Matriks izin per peran">
+      <div class="panel__head"><h2>Matriks izin</h2><span class="ket">✓ = diizinkan · — = tidak</span></div>
+      <div class="panel__body" style="padding-top:var(--s3)">
+        <div class="tbl-wrap" style="border:0">
+          <table class="tbl" aria-label="Matriks izin per peran">
+            <thead><tr id="mx-head"><th scope="col">Izin</th></tr></thead>
+            <tbody id="mx-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — perubahan peran &amp; izin pada prototipe ini bersifat simulasi.</p>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var o = KLH.omni;
+  var IKON = { 'Super Admin': 'key', 'Admin': 'settings', 'Supervisor': 'eye', 'Agen': 'speech', 'Analis': 'chartline', 'Viewer': 'user' };
+
+  document.getElementById('role-grid').innerHTML = o.peran.map(function (r) {
+    var nIzin = r.izin.filter(Boolean).length;
+    return '<div class="card role-card" data-reveal>' +
+      '<h3><span style="display:inline-flex;align-items:center;gap:var(--s2)">' +
+        '<span class="kpi__ic" style="width:36px;height:36px">' + KLH.iconSVG(IKON[r.nama] || 'user', 'icon icon--sm') + '</span>' + r.nama + '</span>' +
+        '<span class="badge bg-brand">' + r.jumlah + ' pengguna</span></h3>' +
+      '<p>' + r.desc + '</p>' +
+      '<p style="font-size:var(--t-xs);color:var(--ink-400)">' + nIzin + ' dari ' + o.izinDaftar.length + ' izin aktif</p>' +
+    '</div>';
+  }).join('');
+
+  document.getElementById('mx-head').innerHTML = '<th scope="col">Izin</th>' + o.peran.map(function (r) {
+    return '<th scope="col" style="text-align:center">' + r.nama + '</th>';
+  }).join('');
+
+  document.getElementById('mx-body').innerHTML = o.izinDaftar.map(function (izin, i) {
+    return '<tr><td style="font-weight:600">' + izin + '</td>' + o.peran.map(function (r) {
+      return '<td style="text-align:center">' + (r.izin[i]
+        ? '<span class="matrix-ya">' + KLH.iconSVG('check', 'icon icon--sm') + '<span class="sr-only">diizinkan</span></span>'
+        : '<span class="matrix-tidak">—<span class="sr-only">tidak diizinkan</span></span>') + '</td>';
+    }).join('') + '</tr>';
+  }).join('');
+
+  document.getElementById('btn-undang').addEventListener('click', function () {
+    KLH.toast('<strong>Undangan pengguna (simulasi).</strong> Pada sistem sebenarnya, form undangan email + pemilihan peran terbuka.', 'info');
+  });
+})();
+</script>
+</body>
+</html>

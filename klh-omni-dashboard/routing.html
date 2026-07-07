@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Routing &amp; Auto-Reply — Omni Channel KLH/BPLH</title>
+<meta name="description" content="Pengaturan routing kategori dan template auto-reply Omni Channel KLH/BPLH.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="app">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/omni.js"></script>
+<script src="assets/js/components/appshell.js"></script>
+
+<klh-sidebar></klh-sidebar>
+<div class="app-main">
+  <klh-topbar judul="Routing &amp; Auto-Reply"></klh-topbar>
+
+  <main id="konten" class="content">
+    <div class="page-head" data-reveal>
+      <div>
+        <h1>Routing &amp; Auto-Reply</h1>
+        <p class="lead">Aturan pengarahan otomatis pesan masuk ke tim/unit + template balasan cepat. Data contoh prototipe.</p>
+      </div>
+      <div class="aksi">
+        <button class="btn btn-primary" type="button" id="btn-kategori-baru"><klh-icon name="route" class="icon icon--sm"></klh-icon> Tambah aturan</button>
+      </div>
+    </div>
+
+    <section class="panel" data-reveal aria-label="Aturan routing kategori">
+      <div class="panel__head"><h2>Aturan routing per kategori</h2><span class="ket">Prioritas &amp; SLA mengikuti kategori</span></div>
+      <div class="panel__body" style="padding-top:var(--s3)">
+        <div class="tbl-wrap" style="border:0">
+          <table class="tbl" aria-label="Aturan routing">
+            <thead><tr>
+              <th scope="col">Kategori</th><th scope="col">Kanal berlaku</th><th scope="col">Diteruskan ke</th>
+              <th scope="col">Target SLA</th><th scope="col">Prioritas</th><th scope="col">Status</th>
+            </tr></thead>
+            <tbody id="rt-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section data-reveal aria-label="Template balasan" style="margin-top:var(--s6)">
+      <div class="section-head" style="margin-bottom:var(--s5)">
+        <div>
+          <h2 style="font-size:var(--t-h3)">Template balasan</h2>
+          <p class="lead" style="font-size:var(--t-sm)">Variabel <code>{{tiket}}</code>, <code>{{unit}}</code>, <code>{{tautan_rating}}</code> terisi otomatis saat dipakai di inbox.</p>
+        </div>
+        <button class="btn btn-outline" type="button" id="btn-tmpl-baru"><klh-icon name="document" class="icon icon--sm"></klh-icon> Template baru</button>
+      </div>
+      <div class="tmpl-grid" id="tmpl-grid"></div>
+    </section>
+
+    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — saklar &amp; tombol pada halaman ini adalah simulasi antarmuka.</p>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var o = KLH.omni;
+
+  function renderRouting() {
+    document.getElementById('rt-body').innerHTML = o.routingKategori.map(function (r, i) {
+      return '<tr>' +
+        '<td style="font-weight:600">' + r.nama + '</td>' +
+        '<td style="font-size:var(--t-xs)">' + r.kanal + '</td>' +
+        '<td style="font-size:var(--t-xs)">' + r.tujuan + '</td>' +
+        '<td><span class="sla sla--ok"><span class="mono">' + r.sla + '</span></span></td>' +
+        '<td>' + KLH.prioBadge(r.prioritas) + '</td>' +
+        '<td><button type="button" class="switch" role="switch" aria-checked="' + r.aktif + '" data-i="' + i + '" aria-label="Aktifkan aturan ' + r.nama + '"></button></td>' +
+      '</tr>';
+    }).join('');
+  }
+  renderRouting();
+
+  document.getElementById('rt-body').addEventListener('click', function (e) {
+    var sw = e.target.closest('.switch');
+    if (!sw) return;
+    var r = o.routingKategori[parseInt(sw.getAttribute('data-i'), 10)];
+    r.aktif = !r.aktif;
+    sw.setAttribute('aria-checked', String(r.aktif));
+    KLH.toast('<strong>Aturan "' + r.nama + '" ' + (r.aktif ? 'diaktifkan' : 'dinonaktifkan') + ' (demo).</strong>');
+  });
+
+  document.getElementById('tmpl-grid').innerHTML = o.template.map(function (t, i) {
+    return '<div class="card tmpl-card" data-reveal>' +
+      '<h3>' + t.nama + ' <span class="badge bg-neutral">' + t.kategori + '</span></h3>' +
+      '<p class="isi">' + t.isi.replace(/{{(\w+)}}/g, '<code>{{$1}}</code>') + '</p>' +
+      '<div style="display:flex;gap:var(--s2);margin-top:var(--s1)">' +
+        '<button class="btn btn-ghost btn-sm" type="button" data-edit="' + i + '">' + KLH.iconSVG('document', 'icon icon--sm') + ' Ubah</button>' +
+        '<button class="btn btn-ghost btn-sm" type="button" data-salin="' + i + '">' + KLH.iconSVG('reply', 'icon icon--sm') + ' Gunakan di inbox</button>' +
+      '</div></div>';
+  }).join('');
+
+  document.getElementById('tmpl-grid').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-edit],[data-salin]');
+    if (!b) return;
+    if (b.hasAttribute('data-salin')) { window.location.href = 'inbox.html'; return; }
+    KLH.toast('<strong>Editor template (simulasi).</strong> Pada sistem sebenarnya, editor template balasan terbuka di sini.', 'info');
+  });
+
+  document.getElementById('btn-kategori-baru').addEventListener('click', function () {
+    KLH.toast('<strong>Form aturan baru (simulasi).</strong> Pada sistem sebenarnya, form kategori routing baru terbuka.', 'info');
+  });
+  document.getElementById('btn-tmpl-baru').addEventListener('click', function () {
+    KLH.toast('<strong>Form template baru (simulasi).</strong>', 'info');
+  });
+})();
+</script>
+</body>
+</html>

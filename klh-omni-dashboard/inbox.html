@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unified Inbox — Omni Channel KLH/BPLH</title>
+<meta name="description" content="Unified Inbox Omni Channel KLH/BPLH — percakapan 7 kanal (WhatsApp, Instagram, Facebook, X, email, web form, SP4N-LAPOR!) dalam satu tampilan.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="app">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/omni.js"></script>
+<script src="assets/js/components/appshell.js"></script>
+
+<klh-sidebar></klh-sidebar>
+<div class="app-main">
+  <klh-topbar judul="Unified Inbox"></klh-topbar>
+
+  <main id="konten">
+    <div class="inbox-wrap" id="inbox-wrap">
+
+      <!-- Panel 1 — daftar percakapan -->
+      <section class="ib-list" aria-label="Daftar percakapan">
+        <div class="ib-list__head">
+          <h1>Unified Inbox <span class="jumlah" id="ib-jumlah"></span></h1>
+          <div class="ib-cari">
+            <klh-icon name="search" class="icon icon--sm"></klh-icon>
+            <input type="search" id="ib-cari" placeholder="Cari nama, subjek…" aria-label="Cari percakapan">
+          </div>
+          <div class="ib-filter">
+            <label class="sr-only" for="f-kanal">Filter kanal</label>
+            <select class="select" id="f-kanal">
+              <option value="">Semua kanal</option>
+            </select>
+            <label class="sr-only" for="f-status">Filter status</label>
+            <select class="select" id="f-status">
+              <option value="">Semua status</option>
+              <option value="baru">Baru</option>
+              <option value="berjalan">Berjalan</option>
+              <option value="menunggu">Menunggu</option>
+              <option value="selesai">Selesai</option>
+            </select>
+          </div>
+        </div>
+        <div class="ib-scroll" id="ib-scroll" role="listbox" aria-label="Percakapan"></div>
+      </section>
+
+      <!-- Panel 2 — percakapan aktif -->
+      <section class="ib-conv" aria-label="Panel percakapan" aria-live="polite">
+        <div class="ib-conv__head" id="conv-head"></div>
+        <div class="ib-thread" id="conv-thread"></div>
+        <form class="ib-reply" id="conv-reply" novalidate>
+          <div class="ib-reply__bar">
+            <label class="sr-only" for="tmpl">Sisipkan template balasan</label>
+            <select class="select" id="tmpl">
+              <option value="">Sisipkan template balasan…</option>
+            </select>
+          </div>
+          <label class="sr-only" for="balas">Tulis balasan</label>
+          <textarea class="textarea" id="balas" placeholder="Tulis balasan untuk warga…" aria-describedby="balas-ket"></textarea>
+          <div class="ib-reply__send">
+            <span class="ket" id="balas-ket">Balasan terkirim lewat kanal asal percakapan (demo).</span>
+            <button class="btn btn-primary" type="submit"><klh-icon name="send" class="icon icon--sm"></klh-icon> Kirim balasan</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Panel 3 — info kontak & tiket -->
+      <aside class="ib-info" id="ib-info" aria-label="Detail percakapan"></aside>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var o = KLH.omni;
+  var wrap = document.getElementById('inbox-wrap');
+  var elList = document.getElementById('ib-scroll');
+  var elJumlah = document.getElementById('ib-jumlah');
+  var aktif = null;
+
+  /* ---- Isi opsi filter kanal & template ---- */
+  document.getElementById('f-kanal').innerHTML += o.kanal.map(function (k) {
+    return '<option value="' + k.id + '">' + k.label + '</option>';
+  }).join('');
+  document.getElementById('tmpl').innerHTML += o.template.map(function (t, i) {
+    return '<option value="' + i + '">' + t.nama + '</option>';
+  }).join('');
+
+  /* ---- Daftar percakapan + filter ---- */
+  function terfilter() {
+    var q = document.getElementById('ib-cari').value.trim().toLowerCase();
+    var fk = document.getElementById('f-kanal').value;
+    var fs = document.getElementById('f-status').value;
+    return o.percakapan.filter(function (c) {
+      if (fk && c.kanal !== fk) return false;
+      if (fs && c.status !== fs) return false;
+      if (q && (c.nama + ' ' + c.subjek + ' ' + c.id).toLowerCase().indexOf(q) === -1) return false;
+      return true;
+    });
+  }
+
+  function renderList() {
+    var rows = terfilter();
+    elJumlah.textContent = '· ' + rows.length + ' percakapan';
+    elList.innerHTML = rows.length ? rows.map(function (c) {
+      return '<button type="button" class="ib-item ib-item--' + c.kanal + '" role="option" data-id="' + c.id + '"' +
+        ' aria-selected="' + String(!!(aktif && aktif.id === c.id)) + '">' +
+        '<span class="avatar" aria-hidden="true">' + inisial(c.nama) + '</span>' +
+        '<span class="ib-item__mid">' +
+          '<span class="ib-item__nama">' + c.nama + '</span>' +
+          '<span class="ib-item__subjek">' + c.subjek + '</span>' +
+          '<span class="ib-item__meta">' + KLH.kanalBadge(c.kanal) + KLH.convBadge(c.status) + '</span>' +
+        '</span>' +
+        '<span class="ib-item__side">' +
+          '<span class="ib-item__waktu">' + KLH.fmtTime(c.waktu) + '</span>' +
+          (c.belum ? '<span class="ib-item__belum" aria-label="' + c.belum + ' pesan belum dibaca">' + c.belum + '</span>' : '') +
+        '</span>' +
+      '</button>';
+    }).join('') : '<p class="ib-kosong">Tidak ada percakapan yang cocok dengan filter — ubah kata kunci atau reset filter.</p>';
+  }
+
+  function inisial(nama) {
+    return nama.replace('@', '').split(/[\s.]+/).slice(0, 2).map(function (k) { return (k[0] || '').toUpperCase(); }).join('');
+  }
+
+  /* ---- Panel percakapan ---- */
+  function renderConv() {
+    var c = aktif;
+    var head = document.getElementById('conv-head');
+    var thread = document.getElementById('conv-thread');
+    var info = document.getElementById('ib-info');
+    if (!c) {
+      head.innerHTML = '<p style="margin:0;color:var(--ink-400);font-size:var(--t-sm)">Pilih percakapan dari daftar untuk mulai membalas.</p>';
+      thread.innerHTML = '';
+      info.innerHTML = '<h2>Detail</h2><p style="font-size:var(--t-sm);color:var(--ink-400)">Belum ada percakapan dipilih.</p>';
+      return;
+    }
+    var tkt = c.tiket ? KLH.findTiket(c.tiket) : null;
+
+    head.innerHTML =
+      '<button type="button" class="btn btn-ghost btn-sm ib-back" id="ib-back" aria-label="Kembali ke daftar">' + KLH.iconSVG('arrowleft', 'icon icon--sm') + '</button>' +
+      '<span class="avatar">' + inisial(c.nama) + '</span>' +
+      '<span class="ib-conv__who"><strong>' + c.nama + '</strong><small>' + c.kontak + ' · ' + c.id + '</small></span>' +
+      '<span class="ib-conv__aksi">' + KLH.kanalBadge(c.kanal) + KLH.convBadge(c.status) +
+        (tkt ? '<a class="btn btn-outline btn-sm" href="tiket-detail.html?t=' + tkt.id + '">' + KLH.iconSVG('ticket', 'icon icon--sm') + ' ' + tkt.id + '</a>'
+             : '<button type="button" class="btn btn-outline btn-sm" id="btn-buat-tiket">' + KLH.iconSVG('ticket', 'icon icon--sm') + ' Buat tiket</button>') +
+        (c.status !== 'selesai' ? '<button type="button" class="btn btn-secondary btn-sm" id="btn-selesai">' + KLH.iconSVG('check', 'icon icon--sm') + ' Tandai selesai</button>' : '') +
+      '</span>';
+
+    var hari = '';
+    thread.innerHTML = c.pesan.map(function (m) {
+      var h = KLH.fmtDate(m.t);
+      var sep = '';
+      if (h !== hari) { hari = h; sep = '<span class="ib-hari">' + h + '</span>'; }
+      return sep + '<div class="msg msg--' + m.dari + '">' + m.isi +
+        '<time datetime="' + m.t + '">' + (m.dari === 'agen' ? 'Anda · ' : '') + KLH.fmtTime(m.t) + '</time></div>';
+    }).join('');
+    thread.scrollTop = thread.scrollHeight;
+
+    info.innerHTML =
+      '<section><h2>Kontak</h2><ul class="info-list">' +
+        '<li><span class="k">Nama</span><span class="v">' + c.nama + '</span></li>' +
+        '<li><span class="k">Kanal</span><span class="v">' + KLH.kanalBadge(c.kanal) + '</span></li>' +
+        '<li><span class="k">Alamat / ID kanal</span><span class="v mono">' + c.kontak + '</span></li>' +
+        '<li><span class="k">Percakapan</span><span class="v mono">' + c.id + ' · ' + KLH.fmtDateTime(c.waktu) + '</span></li>' +
+      '</ul></section>' +
+      '<section><h2>Tiket terkait</h2>' +
+        (tkt
+          ? '<ul class="info-list">' +
+            '<li><span class="k">Nomor</span><span class="v"><a class="tkt-id" href="tiket-detail.html?t=' + tkt.id + '">' + tkt.id + '</a></span></li>' +
+            '<li><span class="k">Status</span><span class="v">' + KLH.tiketBadge(tkt.status) + '</span></li>' +
+            '<li><span class="k">Prioritas</span><span class="v">' + KLH.prioBadge(tkt.prioritas) + '</span></li>' +
+            '<li><span class="k">SLA</span><span class="v">' + KLH.slaBadge(tkt) + '</span></li>' +
+            '<li><span class="k">Disposisi</span><span class="v">' + (tkt.disposisi || '—') + '</span></li>' +
+            '</ul>'
+          : '<p style="font-size:var(--t-sm);color:var(--ink-400);margin:0">Belum ada tiket untuk percakapan ini.</p>') +
+      '</section>' +
+      '<section><h2>Aksi cepat</h2><div class="tkt-aksi">' +
+        (tkt ? '<a class="btn btn-outline btn-sm" href="tiket-detail.html?t=' + tkt.id + '">' + KLH.iconSVG('escalate', 'icon icon--sm') + ' Eskalasi / disposisi</a>' : '') +
+        '<a class="btn btn-ghost btn-sm" href="routing.html">' + KLH.iconSVG('route', 'icon icon--sm') + ' Atur routing kanal</a>' +
+      '</div></section>';
+
+    var btnTiket = document.getElementById('btn-buat-tiket');
+    if (btnTiket) btnTiket.addEventListener('click', function () {
+      KLH.toast('<strong>Tiket dibuat (simulasi).</strong> Pada sistem sebenarnya, percakapan ' + c.id + ' otomatis tercatat sebagai tiket baru sesuai aturan routing.', 'info');
+    });
+    var btnSelesai = document.getElementById('btn-selesai');
+    if (btnSelesai) btnSelesai.addEventListener('click', function () {
+      c.status = 'selesai';
+      renderList(); renderConv();
+      KLH.toast('<strong>Percakapan ditandai selesai.</strong> Warga menerima tautan penilaian layanan (demo).');
+    });
+    var back = document.getElementById('ib-back');
+    if (back) back.addEventListener('click', function () {
+      wrap.classList.remove('show-conv');
+      aktif = null; renderList(); renderConv();
+    });
+  }
+
+  /* ---- Interaksi ---- */
+  elList.addEventListener('click', function (e) {
+    var btn = e.target.closest('.ib-item');
+    if (!btn) return;
+    aktif = KLH.findPercakapan(btn.getAttribute('data-id'));
+    if (aktif) aktif.belum = 0; /* terbaca saat dibuka */
+    wrap.classList.add('show-conv');
+    renderList(); renderConv();
+  });
+  ['ib-cari', 'f-kanal', 'f-status'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', renderList);
+  });
+
+  document.getElementById('tmpl').addEventListener('change', function () {
+    if (this.value === '') return;
+    var t = o.template[parseInt(this.value, 10)];
+    var isi = t.isi
+      .replace('{{tiket}}', (aktif && aktif.tiket) || 'TKT-2026-XXXX')
+      .replace('{{unit}}', 'unit teknis terkait')
+      .replace('{{tautan_rating}}', 'klh.go.id/nilai');
+    document.getElementById('balas').value = isi;
+    this.value = '';
+  });
+
+  document.getElementById('conv-reply').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var ta = document.getElementById('balas');
+    var isi = ta.value.trim();
+    if (!aktif) { KLH.toast('<strong>Pilih percakapan dahulu</strong> dari daftar di kiri.', 'danger'); return; }
+    if (!isi) { KLH.toast('<strong>Balasan masih kosong.</strong> Tulis pesan atau sisipkan template.', 'danger'); ta.focus(); return; }
+    var iso = KLH.demoNowIso();
+    aktif.pesan.push({ dari: 'agen', t: iso, isi: isi });
+    if (aktif.status === 'baru') aktif.status = 'berjalan';
+    ta.value = '';
+    renderList(); renderConv();
+    KLH.toast('<strong>Balasan terkirim (demo)</strong> melalui ' + KLH.kanalInfo(aktif.kanal).label + '.');
+  });
+
+  /* ---- Muat awal (?c= dari pencarian global) ---- */
+  var awal = KLH.qs('c');
+  if (awal) {
+    aktif = KLH.findPercakapan(awal);
+    if (aktif) { aktif.belum = 0; wrap.classList.add('show-conv'); }
+  }
+  renderList(); renderConv();
+})();
+</script>
+</body>
+</html>

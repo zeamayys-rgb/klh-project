@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Permohonan Konsultasi — PPID KLH/BPLH</title>
+<meta name="description" content="Ajukan konsultasi seputar keterbukaan informasi publik dengan petugas PPID KLH/BPLH — daring atau tatap muka.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/menu.js"></script>
+<script src="assets/js/data/ppid.js"></script>
+<script src="assets/js/components/navbar.js"></script>
+<script src="assets/js/components/footer.js"></script>
+<script src="assets/js/components/widgets.js"></script>
+
+<klh-navbar></klh-navbar>
+
+<main id="konten">
+  <section class="page-hero" style="padding-block:var(--s10) var(--s10)">
+    <div class="container">
+      <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+        <li><a href="index.html">Beranda</a></li>
+        <li aria-current="page">Permohonan Konsultasi</li>
+      </ol></nav>
+      <span class="eyebrow">Pendampingan</span>
+      <h1>Permohonan Konsultasi</h1>
+      <p class="lead">Butuh bantuan merumuskan permohonan atau memahami prosedur? Jadwalkan sesi konsultasi dengan petugas PPID.</p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container" style="max-width:760px">
+      <form class="card card__body" id="form-konsul" novalidate>
+        <h2 class="h3">Formulir Konsultasi</h2>
+        <div class="grid grid--2" style="gap:var(--s4)">
+          <div class="field">
+            <label for="nama">Nama Lengkap</label>
+            <input class="input" id="nama" type="text" autocomplete="name" placeholder="Nama Anda" aria-describedby="nama-err">
+            <span class="errmsg" id="nama-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Nama wajib diisi.</span>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input class="input" id="email" type="email" autocomplete="email" placeholder="nama@email.com" aria-describedby="email-err">
+            <span class="errmsg" id="email-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Masukkan alamat email yang valid.</span>
+          </div>
+        </div>
+        <div class="grid grid--2" style="gap:var(--s4)">
+          <div class="field">
+            <label for="metode">Metode Konsultasi</label>
+            <select class="select" id="metode">
+              <option>Daring — panggilan video</option>
+              <option>Daring — balasan tertulis (email)</option>
+              <option>Tatap muka — meja layanan Jakarta</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="jadwal">Usulan Jadwal</label>
+            <input class="input" id="jadwal" type="datetime-local" aria-describedby="jadwal-err jadwal-hint">
+            <span class="hint" id="jadwal-hint">Hari kerja 08.00–15.30 WIB.</span>
+            <span class="errmsg" id="jadwal-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Pilih usulan tanggal &amp; jam konsultasi.</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="topik">Topik yang Ingin Dikonsultasikan</label>
+          <textarea class="textarea" id="topik" placeholder="Mis. cara merumuskan permohonan data emisi industri agar spesifik (min. 20 karakter)" aria-describedby="topik-err"></textarea>
+          <span class="errmsg" id="topik-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Jelaskan topik konsultasi, minimal 20 karakter.</span>
+        </div>
+
+        <div id="hasil" aria-live="polite"></div>
+
+        <div style="display:flex;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s3)">
+          <button class="btn btn-primary btn-lg" type="submit"><klh-icon name="people" class="icon icon--sm"></klh-icon> Kirim Permohonan Konsultasi</button>
+          <a class="btn btn-ghost btn-lg" href="faq.html">Lihat FAQ Dulu</a>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  function setErr(id, on) {
+    document.getElementById(id + '-err').hidden = !on;
+    document.getElementById(id).closest('.field').classList.toggle('err', on);
+    return !on;
+  }
+  var sesi = KLH.session.get();
+  if (sesi) {
+    document.getElementById('nama').value = sesi.nama || '';
+    document.getElementById('email').value = sesi.email || '';
+  }
+  document.getElementById('form-konsul').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var ok = true;
+    ok = setErr('nama', !document.getElementById('nama').value.trim()) && ok;
+    ok = setErr('email', !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('email').value.trim())) && ok;
+    ok = setErr('jadwal', !document.getElementById('jadwal').value) && ok;
+    ok = setErr('topik', document.getElementById('topik').value.trim().length < 20) && ok;
+    if (!ok) {
+      /* A2-03 · fokus ke field error pertama */
+      var first = e.target.querySelector('.field.err .input, .field.err .textarea');
+      if (first) first.focus();
+      return;
+    }
+    document.getElementById('hasil').innerHTML =
+      '<div class="alert alert-success" style="margin-top:var(--s4)">' + KLH.iconSVG('check', 'icon icon--sm') +
+      '<div><strong>Permohonan konsultasi terkirim (simulasi).</strong>Petugas PPID akan mengonfirmasi jadwal melalui email Anda paling lambat 2 hari kerja.</div></div>';
+    e.target.querySelector('[type="submit"]').disabled = true;
+  });
+})();
+</script>
+</body>
+</html>

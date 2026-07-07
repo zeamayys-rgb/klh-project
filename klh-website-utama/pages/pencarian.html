@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pencarian — KLH/BPLH</title>
+<meta name="description" content="Cari berita, layanan, program, dan peraturan di situs KLH/BPLH.">
+<link rel="icon" type="image/png" href="../assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/components.css">
+<link rel="stylesheet" href="../assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '../';</script>
+<script src="../assets/js/components/icons.js"></script>
+<script src="../assets/js/data/menu.js"></script>
+<script src="../assets/js/data/content.js"></script>
+<script src="../assets/js/data/layanan.js"></script>
+<script src="../assets/js/components/navbar.js"></script>
+<script src="../assets/js/components/footer.js"></script>
+<script src="../assets/js/components/widgets.js"></script>
+
+<klh-navbar></klh-navbar>
+
+<main id="konten">
+  <section class="search-hero">
+    <div class="container" style="max-width:820px">
+      <nav aria-label="Jejak navigasi"><ol class="breadcrumb" style="margin-bottom:var(--s4)">
+        <li><a href="../index.html">Beranda</a></li>
+        <li aria-current="page">Pencarian</li>
+      </ol></nav>
+      <h1>Pencarian</h1>
+      <form class="input-group" role="search" id="s-form" style="margin-top:var(--s5)">
+        <input class="input" type="search" id="s-input" name="q" placeholder="Cari berita, layanan, program, peraturan…" aria-label="Cari di seluruh situs" autocomplete="off">
+        <button class="btn btn-primary btn-lg" type="submit"><klh-icon name="search" class="icon icon--sm"></klh-icon> Cari</button>
+      </form>
+      <p style="font-size:var(--t-sm);color:var(--ink-500);margin:var(--s4) 0 0" id="s-count" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width:820px">
+      <div id="s-results" style="display:grid;gap:var(--s4)" aria-live="polite"></div>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="../assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var R = window.KLH_ROOT;
+
+  /* ---------- Indeks pencarian gabungan ---------- */
+  var INDEX = [];
+
+  (KLH.articles || []).forEach(function (a) {
+    var mod = (KLH.modules || []).find(function (m) { return m.slug === a.module; });
+    INDEX.push({
+      crumb: 'Informasi & Publikasi › ' + (mod ? mod.label : a.module),
+      title: a.title, text: a.excerpt || '',
+      href: R + 'pages/informasi/detail.html?a=' + a.slug
+    });
+  });
+
+  (KLH.programs || []).forEach(function (p) {
+    INDEX.push({
+      crumb: 'Program › Program Unggulan',
+      title: p.name, text: p.desc || '',
+      href: R + 'pages/program/detail.html?p=' + p.slug
+    });
+  });
+
+  Object.keys(KLH.layanan || {}).forEach(function (slug) {
+    var g = KLH.layanan[slug];
+    (g.services || []).forEach(function (s) {
+      INDEX.push({
+        crumb: 'Layanan › ' + g.title,
+        title: s.name, text: s.desc || '',
+        href: R + 'pages/layanan/' + slug + '.html'
+      });
+    });
+  });
+
+  [
+    { t: 'Tentang KLH/BPLH', d: 'Visi, misi, dan nilai organisasi.', h: 'pages/profil/tentang.html', c: 'Profil' },
+    { t: 'Tugas & Fungsi', d: 'Mandat dan kewenangan sesuai peraturan.', h: 'pages/profil/tugas-fungsi.html', c: 'Profil' },
+    { t: 'Struktur Organisasi', d: 'Bagan pimpinan dan unit kerja.', h: 'pages/profil/struktur-organisasi.html', c: 'Profil' },
+    { t: 'Tata Kelola & Integritas', d: 'Zona Integritas, LHKPN, dan WBS.', h: 'pages/profil/tata-kelola.html', c: 'Profil' },
+    { t: 'Informasi Publik (PPID)', d: 'Permohonan dan pelacakan informasi publik.', h: 'pages/ppid.html', c: 'Layanan' },
+    { t: 'Agenda & Kalender Lingkungan', d: 'Hari besar lingkungan dan agenda kegiatan.', h: 'pages/informasi/agenda.html', c: 'Informasi & Publikasi' },
+    { t: 'Video & Podcast', d: 'Kanal audio-visual resmi KLH/BPLH.', h: 'pages/informasi/galeri.html', c: 'Informasi & Publikasi' }
+  ].forEach(function (p) {
+    INDEX.push({ crumb: p.c + ' › Halaman', title: p.t, text: p.d, href: R + p.h });
+  });
+
+  /* ---------- Pencarian ---------- */
+  var input = document.getElementById('s-input');
+  var box = document.getElementById('s-results');
+  var count = document.getElementById('s-count');
+
+  function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function rex(q) { return new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'); }
+  function hi(s, q) { return esc(s).replace(rex(q), '<mark>$1</mark>'); }
+
+  function run(q) {
+    q = (q || '').trim();
+    if (q.length < 2) {
+      count.textContent = 'Ketik minimal 2 huruf untuk mencari.';
+      box.innerHTML = '';
+      return;
+    }
+    var ql = q.toLowerCase();
+    var hits = INDEX.filter(function (it) {
+      return it.title.toLowerCase().indexOf(ql) > -1 || it.text.toLowerCase().indexOf(ql) > -1;
+    });
+    /* Kecocokan judul didahulukan */
+    hits.sort(function (a, b) {
+      var ta = a.title.toLowerCase().indexOf(ql) > -1 ? 0 : 1;
+      var tb = b.title.toLowerCase().indexOf(ql) > -1 ? 0 : 1;
+      return ta - tb;
+    });
+
+    count.textContent = hits.length
+      ? hits.length + ' hasil untuk \u201C' + q + '\u201D'
+      : 'Tidak ada hasil untuk \u201C' + q + '\u201D';
+
+    if (!hits.length) {
+      box.innerHTML = '<div class="alert alert-info">' + KLH.iconSVG('search', 'icon icon--sm') +
+        '<div><strong>Coba kata kunci lain.</strong>Gunakan istilah yang lebih umum, mis. \u201Cizin\u201D, \u201Csampah\u201D, atau \u201Cpengaduan\u201D. Anda juga dapat bertanya melalui Chat Bot di kanan bawah.</div></div>';
+      return;
+    }
+    box.innerHTML = hits.map(function (it) {
+      return '<article class="card search-hit">' +
+        '<div class="crumb">' + esc(it.crumb) + '</div>' +
+        '<h3><a href="' + it.href + '">' + hi(it.title, q) + '</a></h3>' +
+        (it.text ? '<p>' + hi(it.text, q) + '</p>' : '') +
+      '</article>';
+    }).join('');
+  }
+
+  /* ?q= dari navbar */
+  var q0 = KLH.qs('q') || '';
+  if (q0) { input.value = q0; document.title = '\u201C' + q0 + '\u201D — Pencarian KLH/BPLH'; }
+  run(q0);
+
+  document.getElementById('s-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    run(input.value);
+    var u = new URL(location.href);
+    u.searchParams.set('q', input.value.trim());
+    history.replaceState(null, '', u);
+  });
+  input.addEventListener('input', function () { run(input.value); });
+})();
+</script>
+</body>
+</html>

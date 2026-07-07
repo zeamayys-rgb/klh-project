@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ajukan Permohonan — PPID KLH/BPLH</title>
+<meta name="description" content="Formulir permohonan informasi publik 4 langkah: data pemohon, rincian informasi, unggah dokumen, tinjau &amp; kirim.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/menu.js"></script>
+<script src="assets/js/data/ppid.js"></script>
+<script src="assets/js/components/navbar.js"></script>
+<script src="assets/js/components/footer.js"></script>
+<script src="assets/js/components/widgets.js"></script>
+
+<klh-navbar></klh-navbar>
+
+<main id="konten">
+  <section class="page-hero" style="padding-block:var(--s10) var(--s10)">
+    <div class="container">
+      <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+        <li><a href="index.html">Beranda</a></li>
+        <li aria-current="page">Ajukan Permohonan</li>
+      </ol></nav>
+      <span class="eyebrow">Formulir Permohonan Informasi</span>
+      <h1>Ajukan Permohonan</h1>
+      <p class="lead">Empat langkah singkat. Anda akan menerima nomor registrasi untuk melacak status permohonan.</p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container" style="max-width:860px">
+
+      <!-- Stepper progres (WF-02) -->
+      <ol class="stepper" id="stepper" aria-label="Progres formulir permohonan">
+        <li class="now" aria-current="step"><span class="snum">1</span><span class="slbl">Data Pemohon</span></li>
+        <li><span class="snum">2</span><span class="slbl">Rincian Informasi</span></li>
+        <li><span class="snum">3</span><span class="slbl">Unggah Dokumen</span></li>
+        <li><span class="snum">4</span><span class="slbl">Tinjau &amp; Kirim</span></li>
+      </ol>
+      <p class="sr-only" aria-live="polite" id="step-announce">Langkah 1 dari 4: Data Pemohon</p>
+
+      <form id="form-mohon" class="card card__body" novalidate>
+
+        <!-- ===== Langkah 1 · Data Pemohon ===== -->
+        <section class="step-panel" data-step="1" aria-labelledby="h-step1">
+          <h2 id="h-step1" class="h3">Langkah 1 · Data Pemohon</h2>
+          <div class="grid grid--2" style="gap:var(--s4)">
+            <div class="field">
+              <label for="nama">Nama Lengkap / Badan Hukum</label>
+              <input class="input" id="nama" type="text" autocomplete="name" placeholder="Sesuai identitas" aria-describedby="nama-err">
+              <span class="errmsg" id="nama-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Nama wajib diisi.</span>
+            </div>
+            <div class="field">
+              <label for="nik">NIK / No. Akta Badan Hukum</label>
+              <input class="input" id="nik" type="text" inputmode="numeric" maxlength="16" placeholder="16 digit NIK" style="font-family:var(--font-mono)" aria-describedby="nik-err">
+              <span class="errmsg" id="nik-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> NIK harus 16 digit angka (atau isi nomor akta bila badan hukum).</span>
+            </div>
+          </div>
+          <div class="grid grid--2" style="gap:var(--s4)">
+            <div class="field">
+              <label for="email">Email</label>
+              <input class="input" id="email" type="email" autocomplete="email" placeholder="nama@email.com" aria-describedby="email-err">
+              <span class="errmsg" id="email-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Masukkan alamat email yang valid.</span>
+            </div>
+            <div class="field">
+              <label for="hp">No. Telepon/WA <span style="font-weight:400;color:var(--ink-400)">(opsional)</span></label>
+              <input class="input" id="hp" type="tel" inputmode="numeric" autocomplete="tel" placeholder="08xxxxxxxxxx">
+            </div>
+          </div>
+          <div class="field" style="margin-bottom:0">
+            <label for="alamat">Alamat</label>
+            <textarea class="textarea" id="alamat" autocomplete="street-address" style="min-height:76px" placeholder="Alamat lengkap sesuai identitas" aria-describedby="alamat-err"></textarea>
+            <span class="errmsg" id="alamat-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Alamat wajib diisi.</span>
+          </div>
+        </section>
+
+        <!-- ===== Langkah 2 · Rincian Informasi ===== -->
+        <section class="step-panel" data-step="2" hidden aria-labelledby="h-step2">
+          <h2 id="h-step2" class="h3">Langkah 2 · Rincian Informasi</h2>
+          <div class="field">
+            <label for="rincian">Informasi yang Dimohonkan</label>
+            <textarea class="textarea" id="rincian" placeholder="Jelaskan sespesifik mungkin — mis. 'Data indeks kualitas air Sungai Ciliwung 2023–2025'" aria-describedby="rincian-err rincian-hint"></textarea>
+            <span class="hint" id="rincian-hint">Semakin spesifik, semakin cepat unit teknis menemukan dokumennya (min. 20 karakter).</span>
+            <span class="errmsg" id="rincian-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Jelaskan informasi yang diminta, minimal 20 karakter.</span>
+          </div>
+          <div class="field">
+            <label for="tujuan">Tujuan Penggunaan Informasi</label>
+            <textarea class="textarea" id="tujuan" style="min-height:88px" placeholder="Mis. penelitian akademik, advokasi lingkungan, pemberitaan" aria-describedby="tujuan-err"></textarea>
+            <span class="errmsg" id="tujuan-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Tujuan penggunaan wajib diisi (amanat UU KIP).</span>
+          </div>
+          <div class="grid grid--2" style="gap:var(--s4)">
+            <div class="field" style="margin-bottom:0">
+              <label for="cara">Cara Memperoleh Salinan</label>
+              <select class="select" id="cara">
+                <option value="Salinan digital (email)">Salinan digital — dikirim via email</option>
+                <option value="Salinan cetak (diambil)">Salinan cetak — diambil di meja layanan</option>
+                <option value="Salinan cetak (dikirim)">Salinan cetak — dikirim via pos</option>
+                <option value="Melihat/membaca di tempat">Melihat / membaca di tempat</option>
+              </select>
+            </div>
+            <div class="field" style="margin-bottom:0">
+              <label for="format">Format Dokumen</label>
+              <select class="select" id="format">
+                <option>PDF</option><option>XLSX / data mentah</option><option>Cetak</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Langkah 3 · Unggah Dokumen (WF-02) ===== -->
+        <section class="step-panel" data-step="3" hidden aria-labelledby="h-step3">
+          <h2 id="h-step3" class="h3">Langkah 3 · Unggah Dokumen</h2>
+          <p style="font-size:var(--t-sm);color:var(--ink-500)">Lampirkan scan KTP (perorangan) atau akta pendirian (badan hukum). Format PDF/JPG/PNG, maksimal 2 MB per berkas.</p>
+          <button type="button" class="dropzone" id="dropzone" style="width:100%" aria-describedby="unggah-err">
+            <klh-icon name="download" class="icon icon--lg" style="transform:rotate(180deg)"></klh-icon>
+            <strong style="display:block;font-family:var(--font-display)">Pilih berkas atau seret ke sini</strong>
+            <span style="font-size:var(--t-sm);color:var(--ink-500)">PDF · JPG · PNG — maks. 2 MB (simulasi unggah)</span>
+          </button>
+          <input type="file" id="file-input" class="sr-only" multiple accept=".pdf,.jpg,.jpeg,.png" aria-label="Pilih berkas untuk diunggah">
+          <div class="file-list" id="file-list" aria-live="polite"></div>
+          <span class="errmsg" id="unggah-err" hidden style="display:flex;align-items:center;gap:5px;color:var(--danger);font-size:var(--t-xs);font-weight:500;margin-top:var(--s3)"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Unggah minimal satu berkas identitas yang valid.</span>
+        </section>
+
+        <!-- ===== Langkah 4 · Tinjau & Kirim ===== -->
+        <section class="step-panel" data-step="4" hidden aria-labelledby="h-step4">
+          <h2 id="h-step4" class="h3">Langkah 4 · Tinjau &amp; Kirim</h2>
+          <p style="font-size:var(--t-sm);color:var(--ink-500)">Periksa kembali sebelum mengirim. Gunakan tombol "Kembali" untuk memperbaiki.</p>
+          <dl class="review-list" id="review"></dl>
+          <div class="field" style="margin-top:var(--s5);margin-bottom:0">
+            <div style="display:flex;gap:var(--s2);align-items:flex-start">
+              <input type="checkbox" id="benar" style="width:20px;height:20px;margin-top:2px;accent-color:var(--klh-green-600)" aria-describedby="benar-err">
+              <label for="benar" style="font-weight:400;font-size:var(--t-sm);color:var(--ink-500);cursor:pointer">Saya menyatakan seluruh data di atas benar dan permohonan ini diajukan sesuai UU No. 14 Tahun 2008.</label>
+            </div>
+            <span class="errmsg" id="benar-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Pernyataan wajib dicentang sebelum mengirim.</span>
+          </div>
+        </section>
+
+        <!-- Navigasi langkah -->
+        <div class="step-nav">
+          <button type="button" class="btn btn-outline" id="btn-back" hidden><klh-icon name="arrowleft" class="icon icon--sm"></klh-icon> Kembali</button>
+          <span style="flex:1"></span>
+          <button type="button" class="btn btn-primary" id="btn-next">Lanjut <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></button>
+          <button type="submit" class="btn btn-primary btn-lg" id="btn-submit" hidden><klh-icon name="check" class="icon icon--sm"></klh-icon> Kirim Permohonan</button>
+        </div>
+      </form>
+
+      <div class="alert alert-info" style="margin-top:var(--s5)">
+        <klh-icon name="clock" class="icon icon--sm"></klh-icon>
+        <div><strong>Jangka waktu layanan.</strong>PPID menjawab paling lambat 10 hari kerja sejak permohonan terverifikasi, dapat diperpanjang 7 hari kerja dengan pemberitahuan tertulis.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var form = document.getElementById('form-mohon');
+  var panels = Array.prototype.slice.call(form.querySelectorAll('.step-panel'));
+  var steps = Array.prototype.slice.call(document.querySelectorAll('#stepper li'));
+  var LABELS = ['Data Pemohon', 'Rincian Informasi', 'Unggah Dokumen', 'Tinjau & Kirim'];
+  var cur = 1;
+
+  function setErr(id, on) {
+    var elErr = document.getElementById(id + '-err');
+    var field = document.getElementById(id).closest('.field');
+    if (field) field.classList.toggle('err', on);
+    elErr.hidden = !on;
+    return !on;
+  }
+
+  /* ---- Berkas (simulasi unggah, WF-02: baris valid ✓ & error) ---- */
+  var files = [];
+  var MAX = 2 * 1024 * 1024;
+  var OK_EXT = /\.(pdf|jpe?g|png)$/i;
+  function fmtSize(b) {
+    return b >= 1024 * 1024 ? (b / 1048576).toFixed(1).replace('.', ',') + ' MB' : Math.max(1, Math.round(b / 1024)) + ' KB';
+  }
+  function renderFiles() {
+    document.getElementById('file-list').innerHTML = files.map(function (f, i) {
+      if (f.err) {
+        return '<div class="file-row err">' + KLH.iconSVG('warning', 'icon icon--sm') +
+          '<span>' + f.name + '<span class="fmsg">' + f.err + '</span></span>' +
+          '<span class="fsize">' + fmtSize(f.size) + '</span>' +
+          '<button type="button" data-del="' + i + '" aria-label="Hapus ' + f.name + '">' + KLH.iconSVG('close', 'icon icon--sm') + '</button></div>';
+      }
+      return '<div class="file-row">' + KLH.iconSVG('check', 'icon icon--sm') +
+        '<span>' + f.name + '</span><span class="fsize">' + fmtSize(f.size) + '</span>' +
+        '<button type="button" data-del="' + i + '" aria-label="Hapus ' + f.name + '">' + KLH.iconSVG('close', 'icon icon--sm') + '</button></div>';
+    }).join('');
+  }
+  function addFiles(list) {
+    Array.prototype.forEach.call(list, function (f) {
+      var err = '';
+      if (!OK_EXT.test(f.name)) err = 'Format tidak didukung — gunakan PDF, JPG, atau PNG.';
+      else if (f.size > MAX) err = 'Ukuran melebihi 2 MB — perkecil atau pindai ulang dengan resolusi lebih rendah.';
+      files.push({ name: f.name.replace(/</g, '&lt;'), size: f.size, err: err });
+    });
+    renderFiles();
+  }
+  var dz = document.getElementById('dropzone');
+  var fi = document.getElementById('file-input');
+  dz.addEventListener('click', function () { fi.click(); });
+  fi.addEventListener('change', function () { addFiles(fi.files); fi.value = ''; });
+  ['dragover', 'dragenter'].forEach(function (ev) {
+    dz.addEventListener(ev, function (e) { e.preventDefault(); dz.style.borderColor = 'var(--klh-green-500)'; });
+  });
+  ['dragleave', 'drop'].forEach(function (ev) {
+    dz.addEventListener(ev, function (e) { e.preventDefault(); dz.style.borderColor = ''; });
+  });
+  dz.addEventListener('drop', function (e) { if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files); });
+  document.getElementById('file-list').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-del]');
+    if (!b) return;
+    files.splice(parseInt(b.getAttribute('data-del'), 10), 1);
+    renderFiles();
+  });
+
+  /* ---- Validasi per langkah ---- */
+  function validate(step) {
+    var ok = true;
+    if (step === 1) {
+      ok = setErr('nama', !document.getElementById('nama').value.trim()) && ok;
+      var nik = document.getElementById('nik').value.trim();
+      ok = setErr('nik', !(/^\d{16}$/.test(nik) || nik.length >= 8)) && ok;
+      ok = setErr('email', !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('email').value.trim())) && ok;
+      ok = setErr('alamat', !document.getElementById('alamat').value.trim()) && ok;
+    } else if (step === 2) {
+      ok = setErr('rincian', document.getElementById('rincian').value.trim().length < 20) && ok;
+      ok = setErr('tujuan', !document.getElementById('tujuan').value.trim()) && ok;
+    } else if (step === 3) {
+      var adaValid = files.some(function (f) { return !f.err; });
+      document.getElementById('unggah-err').hidden = adaValid;
+      ok = adaValid;
+    } else if (step === 4) {
+      ok = setErr('benar', !document.getElementById('benar').checked) && ok;
+    }
+    if (!ok) {
+      var p = panels[step - 1];
+      var first = p.querySelector('.field.err .input, .field.err .textarea, .field.err input');
+      if (first) first.focus();
+    }
+    return ok;
+  }
+
+  /* ---- Ringkasan tinjauan ---- */
+  function esc(s) { return String(s).replace(/</g, '&lt;'); }
+  function buildReview() {
+    var rows = [
+      ['Nama', document.getElementById('nama').value],
+      ['NIK / Akta', document.getElementById('nik').value],
+      ['Email', document.getElementById('email').value],
+      ['Telepon', document.getElementById('hp').value || '—'],
+      ['Alamat', document.getElementById('alamat').value],
+      ['Informasi diminta', document.getElementById('rincian').value],
+      ['Tujuan penggunaan', document.getElementById('tujuan').value],
+      ['Cara memperoleh', document.getElementById('cara').value],
+      ['Format', document.getElementById('format').value],
+      ['Lampiran', files.filter(function (f) { return !f.err; }).map(function (f) { return f.name; }).join(', ') || '—']
+    ];
+    document.getElementById('review').innerHTML = rows.map(function (r) {
+      return '<div><dt>' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd></div>';
+    }).join('');
+  }
+
+  /* ---- Navigasi stepper (maju/mundur, aksesibel) ---- */
+  function show(step) {
+    cur = step;
+    panels.forEach(function (p, i) { p.hidden = (i + 1) !== step; });
+    steps.forEach(function (li, i) {
+      li.className = (i + 1) < step ? 'done' : (i + 1) === step ? 'now' : '';
+      if ((i + 1) === step) li.setAttribute('aria-current', 'step');
+      else li.removeAttribute('aria-current');
+      if ((i + 1) < step) {
+        li.querySelector('.snum').innerHTML = KLH.iconSVG('check', 'icon').replace('class="icon"', 'class="icon" style="width:16px;height:16px"');
+      } else {
+        li.querySelector('.snum').textContent = String(i + 1);
+      }
+    });
+    document.getElementById('btn-back').hidden = step === 1;
+    document.getElementById('btn-next').hidden = step === 4;
+    document.getElementById('btn-submit').hidden = step !== 4;
+    document.getElementById('step-announce').textContent = 'Langkah ' + step + ' dari 4: ' + LABELS[step - 1];
+    panels[step - 1].querySelector('h2').setAttribute('tabindex', '-1');
+    panels[step - 1].querySelector('h2').focus({ preventScroll: false });
+    if (step === 4) buildReview();
+  }
+
+  document.getElementById('btn-next').addEventListener('click', function () {
+    if (validate(cur)) show(cur + 1);
+  });
+  document.getElementById('btn-back').addEventListener('click', function () { show(cur - 1); });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!validate(4)) return;
+    /* Nomor registrasi demo — format PPID-2026-XXXXXX */
+    var id = 'PPID-2026-' + String(Math.floor(100000 + Math.random() * 900000));
+    window.location.href = 'konfirmasi.html?id=' + encodeURIComponent(id);
+  });
+
+  /* Prefill dari sesi demo bila ada */
+  var sesi = KLH.session.get();
+  if (sesi) {
+    document.getElementById('nama').value = sesi.nama || '';
+    document.getElementById('email').value = sesi.email || '';
+  }
+})();
+</script>
+</body>
+</html>

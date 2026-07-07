@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detail — Informasi &amp; Publikasi KLH/BPLH</title>
+<meta name="description" content="Detail berita, artikel, dan publikasi KLH/BPLH.">
+<link rel="icon" type="image/png" href="../../assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/base.css">
+<link rel="stylesheet" href="../../assets/css/components.css">
+<link rel="stylesheet" href="../../assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '../../';</script>
+<script src="../../assets/js/components/icons.js"></script>
+<script src="../../assets/js/data/menu.js"></script>
+<script src="../../assets/js/data/content.js"></script>
+<script src="../../assets/js/components/navbar.js"></script>
+<script src="../../assets/js/components/footer.js"></script>
+<script src="../../assets/js/components/widgets.js"></script>
+
+<klh-navbar active="informasi"></klh-navbar>
+
+<main id="konten">
+  <section class="section" style="padding-top:var(--s10)">
+    <div class="container">
+      <nav aria-label="Jejak navigasi"><ol class="breadcrumb breadcrumb--light">
+        <li><a href="../../index.html">Beranda</a></li>
+        <li><a href="indeks.html?m=berita" id="bc-mod-a">Informasi &amp; Publikasi</a></li>
+        <li aria-current="page" id="bc-current">Detail</li>
+      </ol></nav>
+
+      <article>
+        <header class="art-head">
+          <span class="badge bg-orange" id="a-mod" style="margin-bottom:var(--s4)">Modul</span>
+          <h1 id="a-title" style="font-size:var(--t-display)">Judul</h1>
+          <div class="art-meta">
+            <span><klh-icon name="calendar" class="icon" style="width:15px;height:15px;vertical-align:-2px"></klh-icon> <time id="a-date"></time></span>
+            <span><klh-icon name="user" class="icon" style="width:15px;height:15px;vertical-align:-2px"></klh-icon> <span id="a-author"></span></span>
+            <span><klh-icon name="eye" class="icon" style="width:15px;height:15px;vertical-align:-2px"></klh-icon> <span id="a-views"></span> dilihat</span>
+          </div>
+        </header>
+
+        <div class="art-media" id="a-media"></div>
+
+        <div style="display:grid;grid-template-columns:1fr 300px;gap:var(--s12);align-items:start" id="a-layout">
+          <div class="art-body" id="a-body"></div>
+
+          <aside style="display:grid;gap:var(--gutter)">
+            <div class="card card__body--sm" style="padding:var(--s5)" data-reveal>
+              <span class="eyebrow">Bagikan</span>
+              <div class="art-share">
+                <button class="btn btn-outline btn-sm" type="button" data-copy><klh-icon name="share" class="icon icon--sm"></klh-icon> Salin Tautan</button>
+                <button class="btn btn-ghost btn-sm" type="button" onclick="window.print()"><klh-icon name="printer" class="icon icon--sm"></klh-icon> Cetak</button>
+              </div>
+              <p id="copy-ok" class="badge bg-success" hidden style="margin-top:var(--s3)">Tautan tersalin ✓</p>
+            </div>
+            <div class="card card__body--sm" style="padding:var(--s5)" data-reveal>
+              <span class="eyebrow">Terbaru lainnya</span>
+              <div style="display:grid;gap:var(--s1)" id="a-others"></div>
+            </div>
+            <div class="alert alert-info" data-reveal>
+              <klh-icon name="folder" class="icon icon--sm"></klh-icon>
+              <div><strong>Butuh dokumen sumber?</strong>Ajukan melalui <a href="../ppid.html">PPID</a> bila belum dipublikasikan.</div>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="../../assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var slug = KLH.qs('a');
+  var a = KLH.articles.find(function (x) { return x.slug === slug; }) || KLH.articles[0];
+  var mod = KLH.modules.find(function (m) { return m.slug === a.module; });
+
+  document.title = a.title + ' — KLH/BPLH';
+  var bcm = document.getElementById('bc-mod-a');
+  bcm.textContent = mod.label; bcm.href = 'indeks.html?m=' + mod.slug;
+  document.getElementById('bc-current').textContent = a.title.length > 48 ? a.title.slice(0, 48) + '…' : a.title;
+  document.getElementById('a-mod').textContent = mod.label;
+  document.getElementById('a-title').textContent = a.title;
+  var dt = document.getElementById('a-date'); dt.textContent = KLH.fmtDate(a.date); dt.setAttribute('datetime', a.date);
+  document.getElementById('a-author').textContent = a.author;
+  document.getElementById('a-views').textContent = KLH.fmtViews(a.views);
+  var media = document.getElementById('a-media');
+  if (a.img) {
+    media.style.background = 'url(' + window.KLH_ROOT + a.img + ') center/cover no-repeat';
+  } else {
+    media.className += ' ' + a.ph;
+    media.innerHTML = KLH.iconSVG(a.icon, 'icon icon--lg');
+  }
+  document.getElementById('a-body').innerHTML = a.body.map(function (p) { return '<p>' + p + '</p>'; }).join('') +
+    (a.module === 'publikasi' || a.module === 'sk' || a.module === 'permen'
+      ? '<div class="alert alert-success" style="margin-top:var(--s6)">' + KLH.iconSVG('download', 'icon icon--sm') +
+        '<div><strong>Lampiran dokumen</strong><a href="#">Unduh PDF (contoh — tautan CMS menyusul)</a></div></div>'
+      : '');
+
+  document.getElementById('a-others').innerHTML = KLH.articles
+    .filter(function (x) { return x.slug !== a.slug; })
+    .sort(function (x, y) { return y.date.localeCompare(x.date); }).slice(0, 4)
+    .map(function (x) {
+      return '<a class="mega__link" href="detail.html?a=' + x.slug + '">' + KLH.iconSVG(x.icon, 'icon icon--sm') +
+        '<span>' + x.title + '<small>' + KLH.fmtDate(x.date) + '</small></span></a>';
+    }).join('');
+
+  document.querySelector('[data-copy]').addEventListener('click', function () {
+    var ok = document.getElementById('copy-ok');
+    function show() { ok.hidden = false; setTimeout(function () { ok.hidden = true; }, 2200); }
+    if (navigator.clipboard) navigator.clipboard.writeText(location.href).then(show, show);
+    else show();
+  });
+
+  var s = document.createElement('style');
+  s.textContent = '@media(max-width:1024px){#a-layout{grid-template-columns:1fr!important}}';
+  document.head.appendChild(s);
+})();
+</script>
+</body>
+</html>

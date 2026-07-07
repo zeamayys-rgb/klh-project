@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indeks Layanan — KLH/BPLH</title>
+<meta name="description" content="Seluruh layanan publik KLH/BPLH dikelompokkan berdasarkan kebutuhan Anda: perizinan, pengaduan, data & lab, serta regulasi & pembelajaran.">
+<link rel="icon" type="image/png" href="../../assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/base.css">
+<link rel="stylesheet" href="../../assets/css/components.css">
+<link rel="stylesheet" href="../../assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '../../';</script>
+<script src="../../assets/js/components/icons.js"></script>
+<script src="../../assets/js/data/menu.js"></script>
+<script src="../../assets/js/data/content.js"></script>
+<script src="../../assets/js/data/layanan.js"></script>
+<script src="../../assets/js/components/navbar.js"></script>
+<script src="../../assets/js/components/footer.js"></script>
+<script src="../../assets/js/components/widgets.js"></script>
+
+<klh-navbar active="layanan"></klh-navbar>
+
+<main id="konten">
+  <section class="page-hero">
+    <div class="container">
+      <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+        <li><a href="../../index.html">Beranda</a></li>
+        <li aria-current="page">Layanan</li>
+      </ol></nav>
+      <span class="eyebrow">Layanan Publik</span>
+      <h1>Mulai dari kebutuhan Anda</h1>
+      <p class="lead">Layanan dikelompokkan berdasarkan niat pengguna — bukan struktur birokrasi. Tautan bertanda ↗ membuka sistem lain dan selalu diberi konfirmasi jelas.</p>
+    </div>
+    <span id="hero-leaf"></span>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid grid--2" id="idx-groups"></div>
+
+      <div class="cta-band" style="margin-top:var(--s12)" data-reveal>
+        <div>
+          <span class="eyebrow" style="color:var(--klh-green-300)">Tidak menemukan yang dicari?</span>
+          <h2>Tanya Asisten KLH atau gunakan pencarian.</h2>
+          <p>Asisten virtual kami dapat mengarahkan Anda ke kanal yang tepat — atau telusuri seluruh situs lewat pencarian terpusat.</p>
+        </div>
+        <div style="display:grid;gap:var(--s3)">
+          <button class="btn btn--inverse btn-lg" type="button" onclick="document.querySelector('[data-chat-fab]').click()"><klh-icon name="speech" class="icon icon--sm"></klh-icon> Buka Chat Bot</button>
+          <a class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,.5);color:#fff" href="../pencarian.html"><klh-icon name="search" class="icon icon--sm"></klh-icon> Pencarian Situs</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="../../assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  document.getElementById('hero-leaf').outerHTML = KLH.leafmark();
+  var order = ['pengaduan-aspirasi', 'perizinan-pengadaan', 'data-lab-pengujian', 'regulasi-pembelajaran'];
+  document.getElementById('idx-groups').innerHTML = order.map(function (k) {
+    var g = KLH.layanan[k];
+    var toneCls = g.tone === 'earth' ? ' svc-card__icon--earth' : g.tone === 'sky' ? ' svc-card__icon--sky' : '';
+    return '<a class="card svc-card card__body" href="' + k + '.html" data-reveal>' +
+      '<span class="svc-card__icon' + toneCls + '">' + KLH.iconSVG(g.icon) + '</span>' +
+      '<div><span class="eyebrow" style="margin-bottom:var(--s2)">' + g.niat + '</span>' +
+      '<h2 style="font-size:var(--t-h3);margin-bottom:var(--s2)">' + g.title + '</h2>' +
+      '<p>' + g.lead + '</p></div>' +
+      '<div class="meta-row">' + g.services.slice(0, 4).map(function (s) {
+        return '<span class="badge bg-neutral">' + s.name.split('—')[0].trim() + (s.ext ? ' ↗' : '') + '</span>';
+      }).join('') + '</div>' +
+      '<span class="svc-card__foot">Buka kelompok ' + KLH.iconSVG('arrowright', 'icon icon--sm') + '</span></a>';
+  }).join('');
+})();
+</script>
+</body>
+</html>

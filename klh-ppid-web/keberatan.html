@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pengajuan Keberatan — PPID KLH/BPLH</title>
+<meta name="description" content="Ajukan keberatan kepada Atasan PPID bila permohonan informasi Anda ditolak atau tidak ditanggapi.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/menu.js"></script>
+<script src="assets/js/data/ppid.js"></script>
+<script src="assets/js/components/navbar.js"></script>
+<script src="assets/js/components/footer.js"></script>
+<script src="assets/js/components/widgets.js"></script>
+
+<klh-navbar></klh-navbar>
+
+<main id="konten">
+  <section class="page-hero" style="padding-block:var(--s10) var(--s10)">
+    <div class="container">
+      <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+        <li><a href="index.html">Beranda</a></li>
+        <li aria-current="page">Pengajuan Keberatan</li>
+      </ol></nav>
+      <span class="eyebrow">Hak Pemohon</span>
+      <h1>Pengajuan Keberatan</h1>
+      <p class="lead">Permohonan ditolak atau tidak ditanggapi? Ajukan keberatan kepada Atasan PPID paling lambat 30 hari kerja.</p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container" style="max-width:760px">
+      <!-- Banner konteks penolakan (WF-17) — tampil bila ?id= merujuk permohonan Ditolak -->
+      <div id="konteks" aria-live="polite"></div>
+
+      <form class="card card__body" id="form-keberatan" novalidate>
+        <h2 class="h3">Formulir Keberatan</h2>
+
+        <div class="field">
+          <label for="reg">Nomor Registrasi Permohonan</label>
+          <input class="input" id="reg" type="text" placeholder="PPID-2026-XXXXXX" style="font-family:var(--font-mono)" aria-describedby="reg-err reg-hint">
+          <span class="hint" id="reg-hint">Nomor permohonan yang menjadi dasar keberatan. Data demo ditolak: PPID-2026-000087.</span>
+          <span class="errmsg" id="reg-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Isi nomor registrasi dengan format PPID-TAHUN-XXXXXX.</span>
+        </div>
+
+        <div class="field">
+          <label for="alasan">Alasan Keberatan</label>
+          <select class="select" id="alasan" aria-describedby="alasan-err">
+            <option value="">— Pilih alasan (Pasal 35 UU KIP) —</option>
+            <option>Permohonan informasi ditolak</option>
+            <option>Informasi berkala tidak disediakan</option>
+            <option>Permohonan tidak ditanggapi</option>
+            <option>Permohonan ditanggapi tidak sebagaimana yang diminta</option>
+            <option>Biaya yang dikenakan tidak wajar</option>
+            <option>Informasi disampaikan melebihi jangka waktu</option>
+          </select>
+          <span class="errmsg" id="alasan-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Pilih salah satu alasan keberatan.</span>
+        </div>
+
+        <div class="field">
+          <label for="uraian">Uraian Keberatan</label>
+          <textarea class="textarea" id="uraian" placeholder="Jelaskan kronologi dan alasan Anda mengajukan keberatan (min. 30 karakter)" aria-describedby="uraian-err"></textarea>
+          <span class="errmsg" id="uraian-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Uraikan keberatan Anda, minimal 30 karakter.</span>
+        </div>
+
+        <div class="field">
+          <label for="lampiran">Lampiran Pendukung <span style="font-weight:400;color:var(--ink-400)">(opsional)</span></label>
+          <input class="input" id="lampiran" type="file" accept=".pdf,.jpg,.jpeg,.png" aria-describedby="lampiran-hint" style="padding:9px 14px">
+          <span class="hint" id="lampiran-hint">Mis. salinan surat penolakan. PDF/JPG/PNG maks. 2 MB — simulasi unggah.</span>
+        </div>
+
+        <div id="hasil" aria-live="polite"></div>
+
+        <div style="display:flex;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s3)">
+          <button class="btn btn-primary btn-lg" type="submit"><klh-icon name="scale" class="icon icon--sm"></klh-icon> Kirim Keberatan</button>
+          <a class="btn btn-ghost btn-lg" href="lacak.html">Batal</a>
+        </div>
+      </form>
+
+      <div class="alert alert-info" style="margin-top:var(--s6)">
+        <klh-icon name="scale" class="icon icon--sm"></klh-icon>
+        <div><strong>Tahapan selanjutnya.</strong>Atasan PPID menanggapi paling lambat 30 hari kerja. Bila tanggapan belum memuaskan, Anda dapat mengajukan penyelesaian sengketa ke <a href="https://komisiinformasi.go.id" target="_blank" rel="noopener noreferrer" data-ext>Komisi Informasi <span class="sr-only">(membuka situs lain)</span></a> paling lambat 14 hari kerja.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var regInput = document.getElementById('reg');
+
+  /* Banner konteks bila datang dari halaman lacak (jalur Ditolak, WF-17) */
+  var q = KLH.qs('id');
+  if (q) {
+    regInput.value = q;
+    var p = KLH.findPermohonan(q);
+    if (p && p.status === 'Ditolak') {
+      document.getElementById('konteks').innerHTML =
+        '<div class="alert alert-danger" style="margin-bottom:var(--s5)">' + KLH.iconSVG('warning', 'icon icon--sm') +
+        '<div><strong>Permohonan ' + p.id + ' ditolak.</strong>' + p.alasan.replace(' Anda berhak mengajukan keberatan.', '') +
+        '<br><span style="font-size:var(--t-xs)">Informasi diminta: ' + p.info + ' · diajukan ' + KLH.fmtDate(p.tanggal) + '</span></div></div>';
+    }
+  }
+
+  function setErr(id, on) {
+    var field = document.getElementById(id).closest('.field');
+    document.getElementById(id + '-err').hidden = !on;
+    field.classList.toggle('err', on);
+    return !on;
+  }
+
+  document.getElementById('form-keberatan').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var ok = true;
+    ok = setErr('reg', !/^PPID-\d{4}-\d{4,6}$/i.test(regInput.value.trim())) && ok;
+    ok = setErr('alasan', !document.getElementById('alasan').value) && ok;
+    ok = setErr('uraian', document.getElementById('uraian').value.trim().length < 30) && ok;
+    if (!ok) {
+      /* A2-03 · fokus ke field error pertama */
+      var first = e.target.querySelector('.field.err .input, .field.err .select, .field.err .textarea');
+      if (first) first.focus();
+      return;
+    }
+    document.getElementById('hasil').innerHTML =
+      '<div class="alert alert-success" style="margin-top:var(--s4)">' + KLH.iconSVG('check', 'icon icon--sm') +
+      '<div><strong>Keberatan terkirim (simulasi).</strong>Nomor keberatan: <span class="mono">KBR-2026-0' + String(Math.floor(1000 + Math.random() * 9000)) + '</span>. Atasan PPID menanggapi paling lambat 30 hari kerja; perkembangan dikirim ke email terdaftar.</div></div>';
+    e.target.querySelector('[type="submit"]').disabled = true;
+  });
+})();
+</script>
+</body>
+</html>

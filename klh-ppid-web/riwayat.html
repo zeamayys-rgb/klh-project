@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Riwayat &amp; Notifikasi — PPID KLH/BPLH</title>
+<meta name="description" content="Daftar permohonan informasi Anda beserta status terkini dan notifikasi layanan.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/menu.js"></script>
+<script src="assets/js/data/ppid.js"></script>
+<script src="assets/js/components/navbar.js"></script>
+<script src="assets/js/components/footer.js"></script>
+<script src="assets/js/components/widgets.js"></script>
+
+<klh-navbar></klh-navbar>
+
+<main id="konten">
+  <section class="page-hero" style="padding-block:var(--s10) var(--s10)">
+    <div class="container">
+      <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+        <li><a href="index.html">Beranda</a></li>
+        <li aria-current="page">Riwayat &amp; Notifikasi</li>
+      </ol></nav>
+      <span class="eyebrow">Akun Pemohon</span>
+      <h1 id="judul-hal">Riwayat &amp; Notifikasi</h1>
+      <p class="lead" id="sapa">Pantau seluruh permohonan Anda dan notifikasi terbarunya di satu tempat.</p>
+    </div>
+  </section>
+
+  <!-- Belum masuk: ajakan login -->
+  <section class="section" id="panel-guest" hidden>
+    <div class="container" style="max-width:560px;text-align:center">
+      <span class="tonal tonal--sky" style="width:64px;height:64px;display:inline-grid;place-items:center;border-radius:var(--r-lg)"><klh-icon name="lock" class="icon icon--lg"></klh-icon></span>
+      <h2 style="margin-top:var(--s5)">Masuk untuk Melihat Riwayat</h2>
+      <p style="color:var(--ink-500)">Riwayat permohonan terhubung dengan akun Anda. Silakan masuk terlebih dahulu — pada prototipe ini, email &amp; sandi apa pun yang valid diterima.</p>
+      <div style="display:flex;gap:var(--s3);justify-content:center;flex-wrap:wrap;margin-top:var(--s6)">
+        <a class="btn btn-primary btn-lg" href="masuk.html?lanjut=riwayat.html"><klh-icon name="user" class="icon icon--sm"></klh-icon> Masuk</a>
+        <a class="btn btn-outline btn-lg" href="daftar.html">Daftar Akun</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sudah masuk: riwayat + notifikasi -->
+  <section class="section section--tight" id="panel-user" hidden>
+    <div class="container" style="display:grid;grid-template-columns:1.5fr 1fr;gap:var(--gutter);align-items:start">
+      <div>
+        <div class="section-head" style="margin-bottom:var(--s4)">
+          <h2 class="h3" style="margin:0">Permohonan Saya</h2>
+          <a class="btn btn-primary btn-sm" href="permohonan.html"><klh-icon name="document" class="icon icon--sm"></klh-icon> Ajukan Baru</a>
+        </div>
+        <div class="card" id="req-list"></div>
+        <p style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s4)">Daftar permohonan = <strong>data contoh</strong> prototipe, sama untuk semua akun demo.</p>
+      </div>
+      <aside>
+        <h2 class="h3" style="margin-bottom:var(--s4)">Notifikasi</h2>
+        <div class="card card__body" id="notif-list" style="padding-block:var(--s3)"></div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var sesi = KLH.session.get();
+  if (!sesi) {
+    document.getElementById('panel-guest').hidden = false;
+    return;
+  }
+  document.getElementById('panel-user').hidden = false;
+  document.getElementById('sapa').textContent = 'Halo, ' + sesi.nama + ' — berikut permohonan dan notifikasi terbaru Anda.';
+
+  /* Daftar permohonan (data contoh terpusat) */
+  document.getElementById('req-list').innerHTML = KLH.ppid.permohonan.map(function (p) {
+    return '<a class="req-item" href="lacak.html?id=' + encodeURIComponent(p.id) + '">' +
+      '<div style="flex:1;min-width:0">' +
+        '<span class="rid">' + p.id + '</span>' +
+        '<h3>' + p.info + '</h3>' +
+        '<span class="rmeta">Diajukan ' + KLH.fmtDate(p.tanggal) + ' · estimasi ' + KLH.fmtDate(p.estimasi) + '</span>' +
+      '</div>' + KLH.statusBadge(p.status) + '</a>';
+  }).join('');
+
+  /* Notifikasi diturunkan dari riwayat terakhir tiap permohonan */
+  var IC = { 'Selesai': ['check', 'tonal--green'], 'Ditolak': ['warning', 'tonal--earth'], 'Diproses': ['clock', 'tonal--sky'], 'Verifikasi': ['eye', 'tonal--sky'], 'Diterima': ['inbox', 'tonal--green'] };
+  var notif = KLH.ppid.permohonan.slice().sort(function (a, b) {
+    return b.riwayat[b.riwayat.length - 1].t.localeCompare(a.riwayat[a.riwayat.length - 1].t);
+  }).slice(0, 6);
+  document.getElementById('notif-list').innerHTML = notif.map(function (p) {
+    var last = p.riwayat[p.riwayat.length - 1];
+    var ic = IC[p.status] || IC.Diterima;
+    return '<div class="notif-item">' +
+      '<span class="tonal ' + ic[1] + '">' + KLH.iconSVG(ic[0], 'icon icon--sm') + '</span>' +
+      '<div><strong style="font-size:var(--t-sm);font-family:var(--font-display)">' + last.label + '</strong>' +
+        '<span style="display:block;color:var(--ink-500)">' + p.id + ' · ' + last.ket + '</span>' +
+        '<time datetime="' + last.t + '">' + KLH.fmtDate(last.t) + '</time></div></div>';
+  }).join('');
+})();
+</script>
+<style>
+@media (max-width: 1024px) { #panel-user .container { grid-template-columns: 1fr !important; } }
+</style>
+</body>
+</html>

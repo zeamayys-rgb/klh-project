@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiket &amp; SLA — Omni Channel KLH/BPLH</title>
+<meta name="description" content="Ticketing dan pemantauan SLA Omni Channel KLH/BPLH — status Open, In Progress, Closed, disposisi, dan rating layanan.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="app">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/omni.js"></script>
+<script src="assets/js/components/appshell.js"></script>
+
+<klh-sidebar></klh-sidebar>
+<div class="app-main">
+  <klh-topbar judul="Tiket &amp; SLA"></klh-topbar>
+
+  <main id="konten" class="content">
+    <div class="page-head" data-reveal>
+      <div>
+        <h1>Ticketing &amp; SLA</h1>
+        <p class="lead">Alur status <strong>Open → In Progress → Closed</strong> dengan tenggat SLA per kategori. Data contoh prototipe.</p>
+      </div>
+      <div class="aksi">
+        <a class="btn btn-outline" href="routing.html"><klh-icon name="route" class="icon icon--sm"></klh-icon> Aturan routing</a>
+        <a class="btn btn-primary" href="inbox.html"><klh-icon name="inbox" class="icon icon--sm"></klh-icon> Ke inbox</a>
+      </div>
+    </div>
+
+    <!-- Ringkas status -->
+    <div class="kpi-grid" id="tkt-ringkas" style="margin-bottom:var(--s5)"></div>
+
+    <div class="toolbar" data-reveal>
+      <div class="tabs" role="tablist" aria-label="Filter status tiket" id="tab-status">
+        <button class="tab active" role="tab" aria-selected="true" data-st="">Semua</button>
+        <button class="tab" role="tab" aria-selected="false" data-st="Open">Open</button>
+        <button class="tab" role="tab" aria-selected="false" data-st="In Progress">In Progress</button>
+        <button class="tab" role="tab" aria-selected="false" data-st="Closed">Closed</button>
+      </div>
+      <div class="ib-cari">
+        <klh-icon name="search" class="icon icon--sm"></klh-icon>
+        <input type="search" id="t-cari" placeholder="Cari ID, subjek, pemohon…" aria-label="Cari tiket">
+      </div>
+      <label class="sr-only" for="t-kanal">Filter kanal</label>
+      <select class="select" id="t-kanal"><option value="">Semua kanal</option></select>
+      <label class="sr-only" for="t-prio">Filter prioritas</label>
+      <select class="select" id="t-prio">
+        <option value="">Semua prioritas</option>
+        <option>Tinggi</option><option>Sedang</option><option>Rendah</option>
+      </select>
+      <span class="toolbar__hasil" id="t-hasil" aria-live="polite"></span>
+    </div>
+
+    <div class="tbl-wrap" data-reveal>
+      <table class="tbl" aria-label="Daftar tiket">
+        <thead>
+          <tr>
+            <th scope="col">Tiket</th>
+            <th scope="col">Kanal</th>
+            <th scope="col">Kategori</th>
+            <th scope="col">Prioritas</th>
+            <th scope="col">Status</th>
+            <th scope="col">SLA</th>
+            <th scope="col">Disposisi / Agen</th>
+            <th scope="col">Rating</th>
+          </tr>
+        </thead>
+        <tbody id="t-body"></tbody>
+      </table>
+    </div>
+
+    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — SLA dihitung dari jangkar waktu demo 7 Juli 2026 09.30 WIB.</p>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var o = KLH.omni;
+  var stAktif = '';
+
+  document.getElementById('t-kanal').innerHTML += o.kanal.map(function (k) {
+    return '<option value="' + k.id + '">' + k.label + '</option>';
+  }).join('');
+
+  /* ---- Kartu ringkas ---- */
+  var nOpen = o.tiket.filter(function (t) { return t.status === 'Open'; }).length;
+  var nProg = o.tiket.filter(function (t) { return t.status === 'In Progress'; }).length;
+  var nClosed = o.tiket.filter(function (t) { return t.status === 'Closed'; }).length;
+  var nLewat = o.tiket.filter(function (t) { return t.status !== 'Closed' && KLH.slaState(t).cls === 'late'; }).length;
+  document.getElementById('tkt-ringkas').innerHTML = [
+    { l: 'Open', v: nOpen, i: 'inbox' },
+    { l: 'In Progress', v: nProg, i: 'clock' },
+    { l: 'Closed (contoh)', v: nClosed, i: 'check' },
+    { l: 'Lewat tenggat SLA', v: nLewat, i: 'warning' }
+  ].map(function (k) {
+    return '<div class="card kpi" data-reveal><div class="kpi__top"><span class="kpi__ic">' + KLH.iconSVG(k.i) + '</span></div>' +
+      '<span class="kpi__val">' + k.v + '</span><span class="kpi__lbl">' + k.l + '</span></div>';
+  }).join('');
+
+  /* ---- Tabel + filter ---- */
+  function render() {
+    var q = document.getElementById('t-cari').value.trim().toLowerCase();
+    var fk = document.getElementById('t-kanal').value;
+    var fp = document.getElementById('t-prio').value;
+    var rows = o.tiket.filter(function (t) {
+      if (stAktif && t.status !== stAktif) return false;
+      if (fk && t.kanal !== fk) return false;
+      if (fp && t.prioritas !== fp) return false;
+      if (q && (t.id + ' ' + t.subjek + ' ' + t.pemohon).toLowerCase().indexOf(q) === -1) return false;
+      return true;
+    });
+    document.getElementById('t-hasil').textContent = rows.length + ' dari ' + o.tiket.length + ' tiket';
+    document.getElementById('t-body').innerHTML = rows.length ? rows.map(function (t) {
+      return '<tr>' +
+        '<td><a class="tkt-id" href="tiket-detail.html?t=' + t.id + '">' + t.id + '</a>' +
+          '<span class="tkt-subjek">' + t.subjek + '</span>' +
+          '<span class="tkt-pemohon">' + t.pemohon + ' · ' + KLH.fmtDateTime(t.dibuat) + '</span></td>' +
+        '<td>' + KLH.kanalBadge(t.kanal) + '</td>' +
+        '<td style="font-size:var(--t-xs)">' + t.kategori + '</td>' +
+        '<td>' + KLH.prioBadge(t.prioritas) + '</td>' +
+        '<td>' + KLH.tiketBadge(t.status) + '</td>' +
+        '<td>' + KLH.slaBadge(t) + '</td>' +
+        '<td style="font-size:var(--t-xs)">' + (t.disposisi || '—') + '<br><span style="color:var(--ink-400)">' + (t.agen || 'Belum ditetapkan') + '</span></td>' +
+        '<td>' + KLH.ratingHTML(t.rating) + '</td>' +
+      '</tr>';
+    }).join('') : '<tr><td colspan="8" style="color:var(--ink-400);text-align:center;padding:var(--s8)">Tidak ada tiket yang cocok dengan filter.</td></tr>';
+  }
+
+  document.getElementById('tab-status').addEventListener('click', function (e) {
+    var tab = e.target.closest('.tab');
+    if (!tab) return;
+    stAktif = tab.getAttribute('data-st');
+    Array.prototype.forEach.call(this.querySelectorAll('.tab'), function (t) {
+      var on = t === tab;
+      t.classList.toggle('active', on);
+      t.setAttribute('aria-selected', String(on));
+    });
+    render();
+  });
+  ['t-cari', 't-kanal', 't-prio'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', render);
+  });
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prototipe UI/UX KLH/BPLH — PT Bening Guru Semesta</title>
+<style>
+  :root{--green:#1B7A4B;--ink:#1a2b22;--muted:#5b6b62;--bg:#f5f8f6;--card:#fff;--border:#dde6e0}
+  *{margin:0;box-sizing:border-box}
+  body{font-family:"Plus Jakarta Sans","Inter",system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  main{max-width:720px;width:100%}
+  .badge{display:inline-block;font-size:13px;font-weight:600;color:var(--green);background:#e3f2ea;border-radius:999px;padding:6px 14px;margin-bottom:16px}
+  h1{font-size:clamp(24px,4vw,32px);line-height:1.25;margin-bottom:8px}
+  .sub{color:var(--muted);margin-bottom:32px}
+  a.card{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:12px;text-decoration:none;color:inherit;transition:border-color .15s, box-shadow .15s;min-height:44px}
+  a.card:hover,a.card:focus-visible{border-color:var(--green);box-shadow:0 2px 12px rgba(27,122,75,.12);outline:none}
+  a.card:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+  .card h2{font-size:17px;margin-bottom:4px}
+  .card h2 span{color:var(--green)}
+  .card p{font-size:14px;color:var(--muted)}
+  footer{margin-top:28px;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+  <span class="badge">Konten contoh — prototipe hi-fi</span>
+  <h1>Prototipe UI/UX Kementerian Lingkungan Hidup / BPLH</h1>
+  <p class="sub">PT Bening Guru Semesta · Tiga modul produk digital, semua statis (HTML+CSS+JS).</p>
+
+  <a class="card" href="klh-website-utama/index.html">
+    <h2><span>01</span> · Website Utama</h2>
+    <p>Portal publik KLH/BPLH — 24 halaman</p>
+  </a>
+  <a class="card" href="klh-ppid-web/index.html">
+    <h2><span>02</span> · PPID Web</h2>
+    <p>Layanan informasi publik — 16 halaman</p>
+  </a>
+  <a class="card" href="klh-omni-dashboard/index.html">
+    <h2><span>03</span> · Omni Channel Dashboard</h2>
+    <p>Dasbor agen layanan terpadu — 13 halaman</p>
+  </a>
+
+  <footer>Semua data pada prototipe ini adalah konten contoh (dummy).</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Konfirmasi Permohonan — PPID KLH/BPLH</title>
+<meta name="description" content="Permohonan informasi Anda terkirim — simpan nomor registrasi untuk melacak status.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/menu.js"></script>
+<script src="assets/js/data/ppid.js"></script>
+<script src="assets/js/components/navbar.js"></script>
+<script src="assets/js/components/footer.js"></script>
+<script src="assets/js/components/widgets.js"></script>
+
+<klh-navbar></klh-navbar>
+
+<main id="konten">
+  <section class="section">
+    <div class="container confirm-wrap">
+      <div class="confirm-ic" data-reveal><klh-icon name="check" class="icon icon--lg"></klh-icon></div>
+      <h1 style="margin-top:var(--s6)">Permohonan Terkirim</h1>
+      <p class="lead" style="color:var(--ink-500)">Simpan nomor registrasi berikut — dikirim juga ke email Anda (simulasi) dan menjadi kunci pelacakan status.</p>
+
+      <div style="margin-block:var(--s8)">
+        <span class="eyebrow" style="justify-content:center;width:100%">Nomor Registrasi</span>
+        <strong class="confirm-id" id="reg-id">PPID-2026-XXXXXX</strong>
+        <button class="btn btn-ghost btn-sm" type="button" id="salin" style="margin-top:var(--s3)"><klh-icon name="document" class="icon icon--sm"></klh-icon> Salin nomor</button>
+        <span id="salin-note" class="sr-only" aria-live="polite"></span>
+      </div>
+
+      <div class="card card__body" style="text-align:left">
+        <h2 class="h4" style="display:flex;align-items:center;gap:var(--s2)"><klh-icon name="clock" class="icon icon--sm" style="color:var(--klh-green-600)"></klh-icon> Estimasi Jawaban</h2>
+        <p style="font-size:var(--t-sm);color:var(--ink-500);margin-bottom:var(--s4)">Permohonan dijawab paling lambat <strong id="est-tgl">—</strong> (10 hari kerja sejak verifikasi), dapat diperpanjang 7 hari kerja dengan pemberitahuan tertulis.</p>
+        <ol class="timeline">
+          <li class="done"><span class="dot"><klh-icon name="check" class="icon" style="width:13px;height:13px"></klh-icon></span><h4>Permohonan diterima</h4><span class="tmeta" id="tgl-kirim">Hari ini · Formulir masuk melalui Portal PPID Online</span></li>
+          <li class="now"><span class="dot"><klh-icon name="clock" class="icon" style="width:13px;height:13px"></klh-icon></span><h4>Verifikasi kelengkapan</h4><span class="tmeta">1–2 hari kerja · petugas memeriksa identitas &amp; kelengkapan</span></li>
+          <li><span class="dot"></span><h4>Pemrosesan oleh unit teknis</h4><span class="tmeta">Diteruskan ke unit penguasa informasi</span></li>
+          <li><span class="dot"></span><h4>Jawaban dikirim</h4><span class="tmeta">Melalui email terdaftar sesuai format yang diminta</span></li>
+        </ol>
+      </div>
+
+      <div style="display:flex;gap:var(--s3);flex-wrap:wrap;justify-content:center;margin-top:var(--s8)">
+        <a class="btn btn-primary btn-lg" id="btn-lacak" href="lacak.html"><klh-icon name="search" class="icon icon--sm"></klh-icon> Lacak di Sini</a>
+        <a class="btn btn-outline btn-lg" href="index.html"><klh-icon name="home" class="icon icon--sm"></klh-icon> Kembali ke Beranda</a>
+      </div>
+      <p style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s6)">Halaman ini adalah <strong>pratinjau prototipe</strong> — nomor registrasi contoh, belum tersimpan di sistem.</p>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var id = (KLH.qs('id') || 'PPID-2026-000123').replace(/[^A-Za-z0-9-]/g, '').toUpperCase();
+  document.getElementById('reg-id').textContent = id;
+  document.getElementById('btn-lacak').href = 'lacak.html?id=' + encodeURIComponent(id);
+  document.title = 'Konfirmasi ' + id + ' — PPID KLH/BPLH';
+
+  /* Tanggal kirim & estimasi 10 hari kerja dari sekarang */
+  var BULAN = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+  function fmt(d) { return d.getDate() + ' ' + BULAN[d.getMonth()] + ' ' + d.getFullYear(); }
+  var now = new Date();
+  document.getElementById('tgl-kirim').textContent = fmt(now) + ' · Formulir masuk melalui Portal PPID Online';
+  var est = new Date(now);
+  var kerja = 0;
+  while (kerja < 10) {
+    est.setDate(est.getDate() + 1);
+    if (est.getDay() !== 0 && est.getDay() !== 6) kerja++;
+  }
+  document.getElementById('est-tgl').textContent = fmt(est);
+
+  document.getElementById('salin').addEventListener('click', function () {
+    var note = document.getElementById('salin-note');
+    try {
+      navigator.clipboard.writeText(id);
+      note.textContent = 'Nomor registrasi disalin.';
+      this.innerHTML = KLH.iconSVG('check', 'icon icon--sm') + ' Tersalin';
+    } catch (e) {
+      note.textContent = 'Gagal menyalin — salin manual.';
+    }
+  });
+})();
+</script>
+</body>
+</html>

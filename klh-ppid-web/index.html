@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beranda — PPID KLH/BPLH</title>
+<meta name="description" content="Portal PPID KLH/BPLH: ajukan dan lacak permohonan informasi publik, jelajahi empat kategori informasi sesuai UU No. 14 Tahun 2008.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/menu.js"></script>
+<script src="assets/js/data/ppid.js"></script>
+<script src="assets/js/components/navbar.js"></script>
+<script src="assets/js/components/footer.js"></script>
+<script src="assets/js/components/widgets.js"></script>
+
+<klh-navbar active="beranda"></klh-navbar>
+
+<main id="konten">
+  <!-- Hero (WF-12): CTA ajukan + kartu lacak cepat -->
+  <section class="page-hero">
+    <div class="container ppid-hero__grid">
+      <div>
+        <span class="eyebrow">UU No. 14 Tahun 2008 · Keterbukaan Informasi Publik</span>
+        <h1>Informasi Publik adalah Hak Anda</h1>
+        <p class="lead">Ajukan permohonan informasi secara daring, pantau statusnya secara transparan, dan jelajahi dokumen yang tersedia terbuka — tanpa surat-menyurat manual.</p>
+        <div style="display:flex;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s8)">
+          <a class="btn btn-primary btn-lg" href="permohonan.html"><klh-icon name="document" class="icon icon--sm"></klh-icon> Ajukan Permohonan</a>
+          <a class="btn btn--inverse btn-lg" href="dip.html"><klh-icon name="folder" class="icon icon--sm"></klh-icon> Jelajahi Daftar Informasi</a>
+        </div>
+        <p style="margin-top:var(--s6);font-size:var(--t-sm);color:var(--klh-green-300)">Jawaban paling lambat <strong style="color:#fff">10 hari kerja</strong>, dapat diperpanjang 7 hari kerja dengan pemberitahuan.</p>
+      </div>
+      <form class="hero-track-card" action="lacak.html" method="get" data-reveal>
+        <h2><klh-icon name="search" class="icon"></klh-icon> Lacak Permohonan</h2>
+        <p style="font-size:var(--t-sm);color:var(--ink-500)">Sudah mengajukan? Masukkan nomor registrasi Anda.</p>
+        <div class="field" style="margin-bottom:var(--s4)">
+          <label for="hero-id">Nomor Registrasi</label>
+          <input class="input" id="hero-id" name="id" type="text" placeholder="PPID-2026-000123" autocomplete="off" style="font-family:var(--font-mono)">
+          <span class="hint">Contoh data demo: PPID-2026-000123</span>
+        </div>
+        <button class="btn btn-primary" type="submit" style="width:100%"><klh-icon name="search" class="icon icon--sm"></klh-icon> Lacak Status</button>
+      </form>
+    </div>
+    <span id="hero-leaf"></span>
+  </section>
+
+  <!-- 4 kategori informasi wajib UU KIP -->
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Klasifikasi</span>
+      <div class="section-head">
+        <div><h2>Empat Kategori Informasi Publik</h2>
+        <p class="lead">Menurut UU KIP — tiga di antaranya dapat Anda akses langsung atau melalui permohonan.</p></div>
+      </div>
+      <div class="grid grid--4" id="kategori-grid"></div>
+    </div>
+  </section>
+
+  <!-- Akses cepat -->
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">Akses Cepat</span>
+      <h2>Layanan Utama PPID</h2>
+      <div class="quick-grid" style="margin-top:var(--s8)">
+        <a class="card card__body svc-card" href="permohonan.html" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="document" class="icon"></klh-icon></span>
+          <h3 class="h4">Ajukan Permohonan</h3>
+          <p>Formulir daring 4 langkah dengan unggah dokumen.</p>
+          <span class="svc-card__foot">Mulai <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></span>
+        </a>
+        <a class="card card__body svc-card" href="lacak.html" data-reveal>
+          <span class="svc-card__icon svc-card__icon--sky"><klh-icon name="search" class="icon"></klh-icon></span>
+          <h3 class="h4">Lacak Permohonan</h3>
+          <p>Timeline status transparan hingga jawaban dikirim.</p>
+          <span class="svc-card__foot">Lacak <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></span>
+        </a>
+        <a class="card card__body svc-card" href="dip.html" data-reveal>
+          <span class="svc-card__icon svc-card__icon--earth"><klh-icon name="folder" class="icon"></klh-icon></span>
+          <h3 class="h4">Daftar Informasi Publik</h3>
+          <p>Telusuri dan unduh dokumen yang tersedia terbuka.</p>
+          <span class="svc-card__foot">Jelajahi <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></span>
+        </a>
+        <a class="card card__body svc-card" href="keberatan.html" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="scale" class="icon"></klh-icon></span>
+          <h3 class="h4">Pengajuan Keberatan</h3>
+          <p>Jalur keberatan bila permohonan Anda ditolak.</p>
+          <span class="svc-card__foot">Ajukan <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Alur singkat -->
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Cara Kerja</span>
+      <h2>Empat Langkah Permohonan</h2>
+      <div class="grid grid--4" style="margin-top:var(--s8)">
+        <div class="card card__body" data-reveal>
+          <span class="badge bg-brand" style="margin-bottom:var(--s3)">Langkah 1</span>
+          <h3 class="h4">Daftar / Masuk Akun</h3>
+          <p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">Lengkapi identitas (NIK atau badan hukum) dan verifikasi email Anda.</p>
+        </div>
+        <div class="card card__body" data-reveal>
+          <span class="badge bg-brand" style="margin-bottom:var(--s3)">Langkah 2</span>
+          <h3 class="h4">Isi Formulir Bertahap</h3>
+          <p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">Data pemohon, rincian informasi, unggah dokumen pendukung, lalu kirim.</p>
+        </div>
+        <div class="card card__body" data-reveal>
+          <span class="badge bg-brand" style="margin-bottom:var(--s3)">Langkah 3</span>
+          <h3 class="h4">Terima Nomor Registrasi</h3>
+          <p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">Nomor format PPID-2026-XXXXXX menjadi kunci pelacakan status.</p>
+        </div>
+        <div class="card card__body" data-reveal>
+          <span class="badge bg-brand" style="margin-bottom:var(--s3)">Langkah 4</span>
+          <h3 class="h4">Pantau hingga Jawaban</h3>
+          <p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">Paling lambat 10+7 hari kerja. Bila ditolak, tersedia jalur keberatan.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistik layanan (konten contoh) -->
+  <section class="section section--tight section--alt">
+    <div class="container">
+      <div class="stat-strip">
+        <div class="card stat" data-reveal><span class="val">342</span><span class="lbl">Permohonan masuk 2025 · data contoh</span></div>
+        <div class="card stat" data-reveal><span class="val">92<small>%</small></span><span class="lbl">Dikabulkan · data contoh</span></div>
+        <div class="card stat" data-reveal><span class="val">4,8<small> hari</small></span><span class="lbl">Rata-rata waktu jawab · data contoh</span></div>
+        <div class="card stat" data-reveal><span class="val">14</span><span class="lbl">Dokumen DIP tersedia · data contoh</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  document.getElementById('hero-leaf').outerHTML = KLH.leafmark();
+
+  /* Kartu 4 kategori — dirender dari KLH.ppid.kategori (data terpusat) */
+  var TARGET = {
+    'berkala': { href: 'dip.html?k=berkala', cta: 'Lihat daftar' },
+    'serta-merta': { href: 'dip.html?k=serta-merta', cta: 'Lihat pengumuman' },
+    'setiap-saat': { href: 'permohonan.html', cta: 'Ajukan permohonan' },
+    'dikecualikan': { href: 'dik.html', cta: 'Lihat daftar DIK' }
+  };
+  var TONE = { green: 'tonal tonal--green', sky: 'tonal tonal--sky', earth: 'tonal tonal--earth', neutral: 'tonal' };
+  document.getElementById('kategori-grid').innerHTML = KLH.ppid.kategori.map(function (k) {
+    var t = TARGET[k.slug];
+    var toneCls = TONE[k.tone] || 'tonal';
+    var extra = k.tone === 'neutral' ? ';background:var(--surface-2);color:var(--ink-500);border-color:var(--line)' : '';
+    return '<div class="card ppid-cat" data-reveal>' +
+      '<span class="' + toneCls + '" style="width:44px;height:44px;display:grid;place-items:center;border-radius:var(--r-md)' + extra + '">' + KLH.iconSVG(k.icon) + '</span>' +
+      '<h3 class="h4">' + k.label + '</h3>' +
+      '<p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">' + k.desc + '</p>' +
+      '<a href="' + t.href + '" style="font-size:var(--t-sm);font-weight:600;margin-top:auto">' + t.cta + ' ' +
+        KLH.iconSVG('arrowright', 'icon').replace('class="icon"', 'class="icon" style="width:14px;height:14px;vertical-align:-2px"') + '</a>' +
+      '</div>';
+  }).join('');
+})();
+</script>
+</body>
+</html>

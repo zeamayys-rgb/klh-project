@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporting — Omni Channel KLH/BPLH</title>
+<meta name="description" content="Laporan layanan Omni Channel KLH/BPLH — ringkasan periodik dengan ekspor PDF, Excel, dan CSV.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="app">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/omni.js"></script>
+<script src="assets/js/components/appshell.js"></script>
+<script src="assets/js/vendor/chart.umd.js"></script>
+
+<klh-sidebar></klh-sidebar>
+<div class="app-main">
+  <klh-topbar judul="Reporting"></klh-topbar>
+
+  <main id="konten" class="content">
+    <div class="page-head" data-reveal>
+      <div>
+        <h1>Reporting</h1>
+        <p class="lead">Laporan kinerja layanan lintas kanal untuk pimpinan &amp; evaluasi bulanan. Data contoh prototipe.</p>
+      </div>
+    </div>
+
+    <div class="rpt-toolbar panel" style="padding:var(--s5) var(--s6)" data-reveal>
+      <div class="field">
+        <label for="r-dari">Dari periode</label>
+        <select class="select" id="r-dari">
+          <option>Januari 2026</option><option>Februari 2026</option><option>Maret 2026</option>
+          <option>April 2026</option><option>Mei 2026</option><option selected>Juni 2026</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="r-sampai">Sampai periode</label>
+        <select class="select" id="r-sampai">
+          <option>Januari 2026</option><option>Februari 2026</option><option>Maret 2026</option>
+          <option>April 2026</option><option>Mei 2026</option><option selected>Juni 2026</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="r-jenis">Jenis laporan</label>
+        <select class="select" id="r-jenis">
+          <option>Ringkasan layanan</option>
+          <option>Kinerja SLA per kategori</option>
+          <option>Volume per kanal</option>
+          <option>Kepuasan pemohon (rating)</option>
+        </select>
+      </div>
+      <div class="aksi" role="group" aria-label="Ekspor laporan">
+        <button class="btn btn-outline" type="button" data-ekspor="PDF"><klh-icon name="document" class="icon icon--sm"></klh-icon> PDF</button>
+        <button class="btn btn-outline" type="button" data-ekspor="Excel"><klh-icon name="grid" class="icon icon--sm"></klh-icon> Excel</button>
+        <button class="btn btn-outline" type="button" data-ekspor="CSV"><klh-icon name="list" class="icon icon--sm"></klh-icon> CSV</button>
+      </div>
+    </div>
+
+    <!-- Ringkasan periode terpilih -->
+    <div class="kpi-grid" id="r-ringkas"></div>
+
+    <div class="dash-grid">
+      <section class="panel" data-reveal aria-label="Volume per kategori">
+        <div class="panel__head"><h2>Volume tiket per kategori — Juni 2026</h2></div>
+        <div class="panel__body"><div class="chart-box"><canvas id="chart-kategori" role="img" aria-label="Grafik batang volume tiket per kategori: pengaduan pencemaran tertinggi 312, disusul permohonan informasi 268"></canvas></div></div>
+      </section>
+      <section class="panel" data-reveal aria-label="Tren SLA">
+        <div class="panel__head"><h2>Tren pemenuhan SLA</h2><span class="ket">Target ≥ 90%</span></div>
+        <div class="panel__body"><div class="chart-box"><canvas id="chart-sla" role="img" aria-label="Grafik garis persentase SLA terpenuhi Januari sampai Juni 2026, naik dari 88,9 ke 93,8 persen"></canvas></div></div>
+      </section>
+    </div>
+
+    <section class="panel" data-reveal aria-label="Laporan periodik" style="margin-top:var(--s5)">
+      <div class="panel__head"><h2>Laporan periodik</h2><span class="ket">Klik unduh untuk berkas per periode (demo)</span></div>
+      <div class="panel__body" style="padding-top:var(--s3)">
+        <div class="tbl-wrap" style="border:0">
+          <table class="tbl" aria-label="Tabel laporan bulanan">
+            <thead><tr>
+              <th scope="col">Periode</th><th scope="col" class="num">Interaksi</th><th scope="col" class="num">Tiket</th>
+              <th scope="col" class="num">SLA terpenuhi</th><th scope="col" class="num">Respons pertama</th>
+              <th scope="col">Rating</th><th scope="col">Unduh</th>
+            </tr></thead>
+            <tbody id="r-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — tombol ekspor &amp; unduh adalah simulasi antarmuka, tanpa berkas sebenarnya.</p>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var o = KLH.omni;
+  var juni = o.laporan[0];
+
+  document.getElementById('r-ringkas').innerHTML = [
+    { l: 'Total interaksi (Juni)', v: juni.interaksi.toLocaleString('id-ID'), i: 'inbox' },
+    { l: 'Tiket ditangani', v: juni.tiket.toLocaleString('id-ID'), i: 'ticket' },
+    { l: 'SLA terpenuhi', v: juni.slaOk, i: 'check' },
+    { l: 'Rating rata-rata', v: juni.rating + ' / 5', i: 'star' }
+  ].map(function (k) {
+    return '<div class="card kpi" data-reveal><div class="kpi__top"><span class="kpi__ic">' + KLH.iconSVG(k.i) + '</span></div>' +
+      '<span class="kpi__val">' + k.v + '</span><span class="kpi__lbl">' + k.l + '</span></div>';
+  }).join('');
+
+  document.getElementById('r-body').innerHTML = o.laporan.map(function (r) {
+    return '<tr><td style="font-weight:600">' + r.periode + '</td>' +
+      '<td class="num">' + r.interaksi.toLocaleString('id-ID') + '</td>' +
+      '<td class="num">' + r.tiket.toLocaleString('id-ID') + '</td>' +
+      '<td class="num">' + r.slaOk + '</td>' +
+      '<td class="num">' + r.respons + '</td>' +
+      '<td>' + KLH.ratingHTML(Math.round(parseFloat(r.rating.replace(',', '.')))).replace(/<span class="mono">[^<]*<\/span>/, '<span class="mono">' + r.rating + '</span>') + '</td>' +
+      '<td><button class="btn btn-ghost btn-sm" type="button" data-unduh="' + r.periode + '">' + KLH.iconSVG('download', 'icon icon--sm') + ' Unduh</button></td></tr>';
+  }).join('');
+
+  document.addEventListener('click', function (e) {
+    var ex = e.target.closest('[data-ekspor]');
+    if (ex) {
+      var dari = document.getElementById('r-dari').value;
+      var sampai = document.getElementById('r-sampai').value;
+      var jenis = document.getElementById('r-jenis').value;
+      KLH.toast('<strong>Ekspor ' + ex.getAttribute('data-ekspor') + ' dimulai (simulasi).</strong> "' + jenis + '" periode ' + dari + (dari === sampai ? '' : ' – ' + sampai) + ' disiapkan; pada sistem sebenarnya berkas terunduh otomatis.', 'info');
+    }
+    var un = e.target.closest('[data-unduh]');
+    if (un) {
+      KLH.toast('<strong>Unduhan dimulai (simulasi)</strong> — laporan ' + un.getAttribute('data-unduh') + '.', 'info');
+    }
+  });
+
+  /* ---- Grafik ---- */
+  KLH.chartDefaults();
+  var pal = KLH.chartPalet;
+  new Chart(document.getElementById('chart-kategori'), {
+    type: 'bar',
+    data: {
+      labels: o.laporanKategori.label,
+      datasets: [{ data: o.laporanKategori.nilai, backgroundColor: pal, borderRadius: 6, maxBarThickness: 42 }]
+    },
+    options: {
+      maintainAspectRatio: false, indexAxis: 'y',
+      scales: { x: { beginAtZero: true } },
+      plugins: { legend: { display: false } }
+    }
+  });
+  new Chart(document.getElementById('chart-sla'), {
+    type: 'line',
+    data: {
+      labels: o.laporan.map(function (r) { return r.periode.split(' ')[0]; }).reverse(),
+      datasets: [{
+        label: 'SLA terpenuhi (%)',
+        data: o.laporan.map(function (r) { return parseFloat(r.slaOk.replace(',', '.')); }).reverse(),
+        borderColor: pal[0], backgroundColor: 'rgba(0,89,82,.08)', fill: true, tension: .35, pointRadius: 4, borderWidth: 2
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      scales: { y: { min: 80, max: 100, ticks: { callback: function (v) { return v + '%'; } } } },
+      plugins: { legend: { display: false } }
+    }
+  });
+})();
+</script>
+</body>
+</html>

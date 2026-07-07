@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agenda &amp; Kalender Lingkungan — KLH/BPLH</title>
+<meta name="description" content="Kalender hari besar lingkungan hidup, agenda kegiatan, dan libur nasional KLH/BPLH.">
+<link rel="icon" type="image/png" href="../../assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/base.css">
+<link rel="stylesheet" href="../../assets/css/components.css">
+<link rel="stylesheet" href="../../assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '../../';</script>
+<script src="../../assets/js/components/icons.js"></script>
+<script src="../../assets/js/data/menu.js"></script>
+<script src="../../assets/js/data/content.js"></script>
+<script src="../../assets/js/components/navbar.js"></script>
+<script src="../../assets/js/components/footer.js"></script>
+<script src="../../assets/js/components/widgets.js"></script>
+
+<klh-navbar active="informasi"></klh-navbar>
+
+<main id="konten">
+  <section class="page-hero" style="padding-bottom:var(--s12)">
+    <div class="container">
+      <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+        <li><a href="../../index.html">Beranda</a></li>
+        <li><a href="indeks.html?m=berita">Informasi &amp; Publikasi</a></li>
+        <li aria-current="page">Agenda &amp; Kalender</li>
+      </ol></nav>
+      <span class="eyebrow">Informasi &amp; Publikasi</span>
+      <h1>Agenda &amp; Kalender Lingkungan</h1>
+      <p class="lead">Hari besar lingkungan hidup, agenda kegiatan kementerian, dan libur nasional dalam satu kalender.</p>
+    </div>
+    <span id="hero-leaf"></span>
+  </section>
+
+  <section class="section">
+    <div class="container idx-layout">
+      <nav class="idx-side" aria-label="Modul informasi" id="m-side"></nav>
+
+      <div>
+        <div class="cal" data-reveal>
+          <div class="cal__head">
+            <button class="btn btn-ghost" id="cal-prev" type="button" aria-label="Bulan sebelumnya" style="color:#fff">
+              <klh-icon name="arrowleft" class="icon icon--sm"></klh-icon>
+            </button>
+            <h3 id="cal-title" aria-live="polite">Juli 2026</h3>
+            <button class="btn btn-ghost" id="cal-next" type="button" aria-label="Bulan berikutnya" style="color:#fff">
+              <klh-icon name="arrowright" class="icon icon--sm"></klh-icon>
+            </button>
+          </div>
+          <div class="cal__grid" id="cal-grid"></div>
+        </div>
+
+        <!-- Legenda -->
+        <div style="display:flex;gap:var(--s5);flex-wrap:wrap;margin-top:var(--s4);font-size:var(--t-sm);color:var(--ink-500)">
+          <span><span class="cal__evt" style="display:inline-block;margin:0">Hari besar lingkungan</span></span>
+          <span><span class="cal__evt cal__evt--agenda" style="display:inline-block;margin:0">Agenda kegiatan</span></span>
+          <span><span class="cal__evt cal__evt--libur" style="display:inline-block;margin:0">Libur nasional</span></span>
+        </div>
+
+        <!-- Daftar agenda bulan berjalan (aksesibel & tampil di mobile) -->
+        <h2 class="h4" style="margin-top:var(--s10)" id="cal-list-title">Agenda bulan ini</h2>
+        <div id="cal-list" aria-live="polite" style="display:grid;gap:var(--s3);margin-top:var(--s4)"></div>
+
+        <div class="alert alert-info" style="margin-top:var(--s8)">
+          <klh-icon name="bell" class="icon icon--sm"></klh-icon>
+          <div><strong>Konten contoh.</strong>Daftar agenda final akan dikelola melalui CMS dan divalidasi bersama Biro Humas sebelum publikasi.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="../../assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  document.getElementById('hero-leaf').outerHTML = KLH.leafmark();
+
+  /* Sidebar modul */
+  document.getElementById('m-side').innerHTML = KLH.modules.map(function (m) {
+    var href = m.href ? (window.KLH_ROOT + m.href) : ('indeks.html?m=' + m.slug);
+    return '<a href="' + href + '"' + (m.slug === 'agenda' ? ' class="on" aria-current="page"' : '') + '>' +
+      KLH.iconSVG(m.icon, 'icon icon--sm') + m.label + '</a>';
+  }).join('');
+
+  /* ---------- Kalender ---------- */
+  var BLN = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+  var DOW = ['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
+  var JENIS = { 'hari-besar': ['', 'Hari besar'], 'agenda': ['cal__evt--agenda', 'Agenda'], 'libur': ['cal__evt--libur', 'Libur'] };
+
+  var today = new Date(2026, 6, 7); /* Demo: 7 Juli 2026 */
+  var view = { y: today.getFullYear(), m: today.getMonth() };
+
+  var grid = document.getElementById('cal-grid');
+  var title = document.getElementById('cal-title');
+  var list = document.getElementById('cal-list');
+  var listTitle = document.getElementById('cal-list-title');
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function evtsOn(iso) { return KLH.agenda.filter(function (a) { return a.d === iso; }); }
+  function evtsInMonth(y, m) {
+    var pre = y + '-' + pad(m + 1) + '-';
+    return KLH.agenda.filter(function (a) { return a.d.indexOf(pre) === 0; });
+  }
+
+  function render() {
+    var y = view.y, m = view.m;
+    title.textContent = BLN[m] + ' ' + y;
+    listTitle.textContent = 'Agenda ' + BLN[m] + ' ' + y;
+
+    var first = new Date(y, m, 1);
+    var lead = (first.getDay() + 6) % 7;          /* Senin = 0 */
+    var days = new Date(y, m + 1, 0).getDate();
+    var html = DOW.map(function (d) { return '<div class="cal__dow">' + d + '</div>'; }).join('');
+
+    for (var i = 0; i < lead; i++) html += '<div class="cal__cell" aria-hidden="true"></div>';
+    for (var d = 1; d <= days; d++) {
+      var iso = y + '-' + pad(m + 1) + '-' + pad(d);
+      var evts = evtsOn(iso);
+      var isToday = (y === today.getFullYear() && m === today.getMonth() && d === today.getDate());
+      html += '<div class="cal__cell' + (evts.length ? ' has' : '') + (isToday ? ' today' : '') + '">' +
+        '<span class="d">' + d + (isToday ? '<span class="sr-only"> (hari ini)</span>' : '') + '</span>' +
+        evts.map(function (e) {
+          return '<span class="cal__evt ' + JENIS[e.jenis][0] + '">' + e.label + '</span>';
+        }).join('') + '</div>';
+    }
+    var tail = (7 - (lead + days) % 7) % 7;
+    for (var t = 0; t < tail; t++) html += '<div class="cal__cell" aria-hidden="true"></div>';
+    grid.innerHTML = html;
+
+    /* Daftar bulan berjalan */
+    var mEvts = evtsInMonth(y, m);
+    if (!mEvts.length) {
+      list.innerHTML = '<div class="alert alert-info">' + KLH.iconSVG('calendar', 'icon icon--sm') +
+        '<div><strong>Tidak ada agenda tercatat.</strong>Belum ada hari besar atau kegiatan pada bulan ini.</div></div>';
+      return;
+    }
+    list.innerHTML = mEvts.map(function (e) {
+      var badge = e.jenis === 'libur' ? 'bg-danger' : e.jenis === 'agenda' ? 'bg-info' : 'bg-success';
+      return '<div class="card" style="display:flex;gap:var(--s4);align-items:center;padding:var(--s4) var(--s5)">' +
+        '<div style="text-align:center;min-width:52px">' +
+          '<div style="font-family:var(--font-display);font-weight:800;font-size:var(--t-h3);color:var(--klh-green-800);line-height:1">' + parseInt(e.d.split('-')[2], 10) + '</div>' +
+          '<div style="font-size:var(--t-xs);color:var(--ink-400);text-transform:uppercase;letter-spacing:.05em">' + BLN[m].slice(0, 3) + '</div>' +
+        '</div>' +
+        '<div style="flex:1"><strong style="font-family:var(--font-display)">' + e.label + '</strong></div>' +
+        '<span class="badge ' + badge + '">' + JENIS[e.jenis][1] + '</span>' +
+      '</div>';
+    }).join('');
+  }
+
+  document.getElementById('cal-prev').addEventListener('click', function () {
+    view.m--; if (view.m < 0) { view.m = 11; view.y--; } render();
+  });
+  document.getElementById('cal-next').addEventListener('click', function () {
+    view.m++; if (view.m > 11) { view.m = 0; view.y++; } render();
+  });
+  render();
+})();
+</script>
+</body>
+</html>

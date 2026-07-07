@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profil Pengguna — Omni Channel KLH/BPLH</title>
+<meta name="description" content="Profil pengguna Omni Channel KLH/BPLH — data akun, preferensi notifikasi, dan keamanan akun.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="app">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/omni.js"></script>
+<script src="assets/js/components/appshell.js"></script>
+
+<klh-sidebar></klh-sidebar>
+<div class="app-main">
+  <klh-topbar judul="Profil Pengguna"></klh-topbar>
+
+  <main id="konten" class="content">
+    <div class="page-head" data-reveal>
+      <div>
+        <h1>Profil Pengguna</h1>
+        <p class="lead">Data akun, preferensi kerja, dan keamanan pribadi. Data contoh prototipe.</p>
+      </div>
+    </div>
+
+    <div class="profil-grid">
+      <!-- Kartu ringkas -->
+      <div style="display:grid;gap:var(--s5)">
+        <div class="card profil-card" data-reveal>
+          <span class="avatar" aria-hidden="true">RP</span>
+          <h2>Ratna Prameswari</h2>
+          <p class="sub" style="margin:0">Agen Layanan · PPID<br>Biro Hubungan Masyarakat</p>
+          <span class="badge bg-brand" style="margin-top:var(--s2)"><klh-icon name="check" class="icon" style="width:13px;height:13px"></klh-icon> Akun aktif · MFA aktif</span>
+          <button class="btn btn-outline btn-sm" type="button" id="btn-foto" style="margin-top:var(--s3)">
+            <klh-icon name="user" class="icon icon--sm"></klh-icon> Ganti foto profil
+          </button>
+        </div>
+
+        <section class="panel" data-reveal aria-label="Statistik kinerja pribadi">
+          <div class="panel__head"><h2>Kinerja saya — Juni 2026</h2></div>
+          <div class="panel__body">
+            <ul class="sys-list">
+              <li><span>Percakapan ditangani</span><span class="val">241</span></li>
+              <li><span>Tiket diselesaikan</span><span class="val">87</span></li>
+              <li><span>SLA terpenuhi</span><span class="val sys-ok"><klh-icon name="check" class="icon icon--sm"></klh-icon> 96,3%</span></li>
+              <li><span>Rating rata-rata</span><span class="val">4,7 / 5</span></li>
+            </ul>
+          </div>
+        </section>
+      </div>
+
+      <!-- Form data akun -->
+      <div style="display:grid;gap:var(--s5)">
+        <section class="panel" data-reveal aria-label="Data akun">
+          <div class="panel__head"><h2>Data akun</h2></div>
+          <form class="panel__body" id="form-profil" novalidate>
+            <div class="grid grid--2" style="gap:var(--s4)">
+              <div class="field">
+                <label for="p-nama">Nama lengkap</label>
+                <input class="input" id="p-nama" value="Ratna Prameswari" autocomplete="name">
+              </div>
+              <div class="field">
+                <label for="p-nip">NIP</label>
+                <input class="input mono" id="p-nip" value="198804172023042001" inputmode="numeric" aria-describedby="p-nip-err">
+                <span class="errmsg" id="p-nip-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> NIP harus 18 digit angka.</span>
+              </div>
+              <div class="field">
+                <label for="p-email">Email kedinasan</label>
+                <input class="input" id="p-email" type="email" value="ratna.prameswari@klh.go.id" autocomplete="email" aria-describedby="p-email-err">
+                <span class="errmsg" id="p-email-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Masukkan alamat email yang valid.</span>
+              </div>
+              <div class="field">
+                <label for="p-telp">Telepon</label>
+                <input class="input" id="p-telp" type="tel" value="+62 811-9000-217" autocomplete="tel">
+              </div>
+              <div class="field">
+                <label for="p-unit">Unit kerja</label>
+                <select class="select" id="p-unit">
+                  <option selected>Biro Hubungan Masyarakat</option>
+                  <option>Sekretariat PPID</option>
+                  <option>Pusat Data &amp; Informasi</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="p-peran">Peran</label>
+                <input class="input" id="p-peran" value="Agen" disabled aria-describedby="p-peran-hint">
+                <span class="hint" id="p-peran-hint">Peran hanya dapat diubah oleh Admin (lihat Role Management).</span>
+              </div>
+            </div>
+            <button class="btn btn-primary" type="submit"><klh-icon name="check" class="icon icon--sm"></klh-icon> Simpan perubahan</button>
+          </form>
+        </section>
+
+        <section class="panel" data-reveal aria-label="Preferensi notifikasi">
+          <div class="panel__head"><h2>Preferensi notifikasi</h2></div>
+          <div class="panel__body">
+            <div class="set-row">
+              <span class="lbl">Eskalasi &amp; SLA<small>Peringatan saat tiket saya mendekati / melewati tenggat.</small></span>
+              <button type="button" class="switch" role="switch" aria-checked="true" data-set="Notifikasi eskalasi" aria-label="Notifikasi eskalasi dan SLA"></button>
+            </div>
+            <div class="set-row">
+              <span class="lbl">Percakapan baru masuk<small>Notifikasi desktop untuk pesan baru pada antrean saya.</small></span>
+              <button type="button" class="switch" role="switch" aria-checked="true" data-set="Notifikasi percakapan" aria-label="Notifikasi percakapan baru"></button>
+            </div>
+            <div class="set-row">
+              <span class="lbl">Ringkasan harian via email<small>Rekap kinerja pribadi dikirim setiap pukul 17.00 WIB.</small></span>
+              <button type="button" class="switch" role="switch" aria-checked="false" data-set="Ringkasan harian" aria-label="Ringkasan harian via email"></button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" data-reveal aria-label="Keamanan akun">
+          <div class="panel__head"><h2>Keamanan akun</h2></div>
+          <div class="panel__body">
+            <div class="set-row">
+              <span class="lbl">Kata sandi<small>Terakhir diubah 12 Mei 2026.</small></span>
+              <button class="btn btn-outline btn-sm" type="button" id="btn-sandi"><klh-icon name="key" class="icon icon--sm"></klh-icon> Ubah sandi</button>
+            </div>
+            <div class="set-row">
+              <span class="lbl">MFA — aplikasi autentikator<small>Terpasang pada 1 perangkat.</small></span>
+              <button class="btn btn-outline btn-sm" type="button" id="btn-mfa"><klh-icon name="shield" class="icon icon--sm"></klh-icon> Kelola MFA</button>
+            </div>
+            <div class="set-row">
+              <span class="lbl">Riwayat masuk<small>Lihat aktivitas akun Anda pada audit trail.</small></span>
+              <a class="btn btn-ghost btn-sm" href="keamanan.html"><klh-icon name="history" class="icon icon--sm"></klh-icon> Buka audit trail</a>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — profil demo persona P3; perubahan tidak tersimpan permanen.</p>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  function setErr(id, on) {
+    var field = document.getElementById(id).closest('.field');
+    var msg = document.getElementById(id + '-err');
+    field.classList.toggle('err', on);
+    msg.hidden = !on;
+    return !on;
+  }
+
+  document.getElementById('form-profil').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var ok = true;
+    ok = setErr('p-email', !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('p-email').value.trim())) && ok;
+    ok = setErr('p-nip', !/^\d{18}$/.test(document.getElementById('p-nip').value.trim())) && ok;
+    if (!ok) return;
+    KLH.toast('<strong>Profil disimpan (demo).</strong> Pada sistem sebenarnya, perubahan tercatat di audit trail.');
+  });
+
+  document.getElementById('btn-sandi').addEventListener('click', function () {
+    KLH.toast('<strong>Form ubah sandi (simulasi).</strong>', 'info');
+  });
+  document.getElementById('btn-mfa').addEventListener('click', function () {
+    KLH.toast('<strong>Pengelolaan MFA (simulasi).</strong> Pada sistem sebenarnya, QR pendaftaran autentikator tampil di sini.', 'info');
+  });
+  document.getElementById('btn-foto').addEventListener('click', function () {
+    KLH.toast('<strong>Unggah foto (simulasi).</strong>', 'info');
+  });
+
+  document.addEventListener('click', function (e) {
+    var sw = e.target.closest('.switch[data-set]');
+    if (!sw) return;
+    var on = sw.getAttribute('aria-checked') !== 'true';
+    sw.setAttribute('aria-checked', String(on));
+    KLH.toast('<strong>' + sw.getAttribute('data-set') + ' ' + (on ? 'diaktifkan' : 'dinonaktifkan') + ' (demo).</strong>');
+  });
+})();
+</script>
+</body>
+</html>

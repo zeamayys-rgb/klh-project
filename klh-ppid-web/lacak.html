@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lacak Permohonan — PPID KLH/BPLH</title>
+<meta name="description" content="Lacak status permohonan informasi publik Anda dengan nomor registrasi — timeline transparan hingga jawaban dikirim.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/menu.js"></script>
+<script src="assets/js/data/ppid.js"></script>
+<script src="assets/js/components/navbar.js"></script>
+<script src="assets/js/components/footer.js"></script>
+<script src="assets/js/components/widgets.js"></script>
+
+<klh-navbar></klh-navbar>
+
+<main id="konten">
+  <section class="page-hero" style="padding-block:var(--s10) var(--s10)">
+    <div class="container">
+      <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+        <li><a href="index.html">Beranda</a></li>
+        <li aria-current="page">Lacak Permohonan</li>
+      </ol></nav>
+      <span class="eyebrow">Transparansi Proses</span>
+      <h1>Lacak Permohonan</h1>
+      <p class="lead">Masukkan nomor registrasi untuk melihat posisi permohonan Anda dalam alur layanan — tidak ada lagi "buta setelah kirim".</p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container" style="max-width:820px">
+      <form class="card card__body" id="lacak-form">
+        <label class="field" for="no-reg" style="font-weight:600;margin-bottom:0">Nomor Registrasi</label>
+        <div class="input-group" style="margin-top:var(--s2)">
+          <input class="input" id="no-reg" name="id" type="text" inputmode="text" placeholder="Contoh: PPID-2026-000123" autocomplete="off" style="font-family:var(--font-mono)">
+          <button class="btn btn-primary" type="submit"><klh-icon name="search" class="icon icon--sm"></klh-icon> Lacak</button>
+        </div>
+        <p style="font-size:var(--t-sm);color:var(--ink-500);margin:var(--s3) 0 0">Nomor registrasi dikirim melalui email setelah permohonan terverifikasi. Data demo: <code>PPID-2026-000123</code>, <code>PPID-2026-000087</code> (ditolak), <code>PPID-2026-000101</code> (selesai).</p>
+      </form>
+
+      <div id="hasil" aria-live="polite" style="margin-top:var(--s5)"></div>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var input = document.getElementById('no-reg');
+  var box = document.getElementById('hasil');
+  var ic = function (n, s) {
+    return KLH.iconSVG(n, 'icon').replace('class="icon"', 'class="icon" style="width:' + (s || 13) + 'px;height:' + (s || 13) + 'px;vertical-align:-2px"');
+  };
+
+  function render(id) {
+    var v = String(id).trim();
+    if (!v) {
+      box.innerHTML = '<div class="alert alert-warning">' + KLH.iconSVG('warning', 'icon icon--sm') +
+        '<div><strong>Nomor registrasi belum diisi.</strong>Masukkan nomor registrasi Anda terlebih dahulu, mis. PPID-2026-000123.</div></div>';
+      return;
+    }
+    var p = KLH.findPermohonan(v);
+    if (!p && /^PPID-\d{4}-\d{6}$/i.test(v)) {
+      /* A2-02 · ID berformat sah tapi belum ada di data contoh (mis. baru
+         dibuat lewat formulir demo) → tampilkan tahap awal, bukan error. */
+      var iso = new Date().toISOString().slice(0, 10);
+      var est = new Date(); est.setDate(est.getDate() + 14);
+      p = { id: v.toUpperCase(), status: 'Diterima', step: 1,
+        info: 'Permohonan baru Anda (demo — belum tersimpan di sistem)',
+        estimasi: est.toISOString().slice(0, 10),
+        riwayat: [{ t: iso, label: 'Permohonan diterima', ket: 'Formulir masuk melalui Portal PPID Online' }] };
+    }
+    if (!p) {
+      box.innerHTML = '<div class="alert alert-danger">' + KLH.iconSVG('warning', 'icon icon--sm') +
+        '<div><strong>Nomor tidak ditemukan.</strong>Periksa kembali format nomor (PPID-2026-XXXXXX). Bila yakin benar, hubungi ppid@kemenlh.go.id — atau coba salah satu nomor demo di atas.</div></div>';
+      return;
+    }
+
+    var ditolak = p.status === 'Ditolak';
+    var selesai = p.status === 'Selesai';
+    var html =
+      '<div class="card card__body">' +
+        '<div class="track-head">' +
+          '<div><span class="eyebrow" style="margin-bottom:var(--s1)">Permohonan</span>' +
+            '<strong style="display:block;font-family:var(--font-mono);font-size:var(--t-h4)">' + p.id + '</strong>' +
+            '<p style="font-size:var(--t-sm);color:var(--ink-500);margin:var(--s1) 0 0;max-width:48ch">' + p.info + '</p></div>' +
+          KLH.statusBadge(p.status) +
+        '</div>' +
+        KLH.timelineHTML(p) +
+        (ditolak
+          ? '<div class="alert alert-danger" style="margin-top:var(--s6)">' + KLH.iconSVG('warning', 'icon icon--sm') +
+            '<div><strong>Alasan penolakan.</strong>' + p.alasan +
+            '<br><a class="btn btn-danger btn-sm" href="keberatan.html?id=' + encodeURIComponent(p.id) + '" style="margin-top:var(--s3)">' + ic('scale', 14) + ' Ajukan Keberatan</a></div></div>'
+          : selesai
+            ? '<div class="alert alert-success" style="margin-top:var(--s6)">' + KLH.iconSVG('check', 'icon icon--sm') +
+              '<div><strong>Permohonan selesai.</strong>Jawaban telah dikirim ke email terdaftar Anda pada ' + KLH.fmtDate(p.riwayat[p.riwayat.length - 1].t) + '.</div></div>'
+            : '<div class="alert alert-info" style="margin-top:var(--s6)">' + KLH.iconSVG('clock', 'icon icon--sm') +
+              '<div><strong>Estimasi jawaban.</strong>Paling lambat ' + KLH.fmtDate(p.estimasi) + ' (10 hari kerja), dapat diperpanjang 7 hari kerja dengan pemberitahuan tertulis.</div></div>') +
+        '<p style="font-size:var(--t-xs);color:var(--ink-400);margin:var(--s4) 0 0">Data contoh untuk pratinjau antarmuka prototipe.</p>' +
+      '</div>';
+    box.innerHTML = html;
+  }
+
+  document.getElementById('lacak-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    render(input.value);
+  });
+
+  /* Dukungan ?id= dari konfirmasi / riwayat / beranda */
+  var q = KLH.qs('id');
+  if (q) { input.value = q; render(q); }
+})();
+</script>
+</body>
+</html>

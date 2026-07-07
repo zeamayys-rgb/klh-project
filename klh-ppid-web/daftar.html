@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daftar Akun — PPID KLH/BPLH</title>
+<meta name="description" content="Registrasi akun pemohon informasi publik: identitas perorangan (NIK) atau badan hukum, dengan verifikasi email.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/menu.js"></script>
+<script src="assets/js/data/ppid.js"></script>
+<script src="assets/js/components/navbar.js"></script>
+<script src="assets/js/components/footer.js"></script>
+<script src="assets/js/components/widgets.js"></script>
+
+<klh-navbar></klh-navbar>
+
+<main id="konten">
+  <section class="section">
+    <div class="container">
+      <nav aria-label="Jejak navigasi"><ol class="breadcrumb breadcrumb--light">
+        <li><a href="index.html">Beranda</a></li>
+        <li aria-current="page">Daftar Akun</li>
+      </ol></nav>
+
+      <div class="auth-wrap" style="max-width:1060px">
+        <div class="auth-side">
+          <span id="side-leaf"></span>
+          <span class="eyebrow" style="color:var(--klh-green-300);margin:0">Registrasi Pemohon</span>
+          <h2>Setiap warga negara berhak atas informasi</h2>
+          <p>Perorangan cukup menyiapkan NIK; badan hukum menyiapkan nomor akta pendirian. Verifikasi email memastikan jawaban sampai ke Anda.</p>
+        </div>
+
+        <!-- Langkah 1: formulir identitas -->
+        <form class="card auth-card" id="form-daftar" novalidate>
+          <h1 style="font-size:var(--t-h2)">Daftar Akun Pemohon</h1>
+          <p style="color:var(--ink-500);font-size:var(--t-sm)">Sudah punya akun? <a href="masuk.html">Masuk di sini</a>.</p>
+
+          <fieldset style="border:0;padding:0;margin:0 0 var(--s5)">
+            <legend class="field" style="margin-bottom:var(--s2)"><span style="font-family:var(--font-display);font-weight:600;font-size:var(--t-sm);color:var(--ink-700)">Jenis Pemohon</span></legend>
+            <div class="opt-cards">
+              <label class="opt-card"><input type="radio" name="jenis" value="perorangan" checked>
+                <span><b>Perorangan</b><small>Warga negara Indonesia dengan NIK/KTP</small></span></label>
+              <label class="opt-card"><input type="radio" name="jenis" value="badan-hukum">
+                <span><b>Badan Hukum</b><small>LSM, perusahaan, atau organisasi berbadan hukum</small></span></label>
+            </div>
+          </fieldset>
+
+          <div class="field">
+            <label for="nama" id="nama-lbl">Nama Lengkap</label>
+            <input class="input" id="nama" name="nama" type="text" autocomplete="name" placeholder="Sesuai KTP" aria-describedby="nama-err">
+            <span class="errmsg" id="nama-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Nama wajib diisi.</span>
+          </div>
+
+          <div class="field" id="field-nik">
+            <label for="nik">NIK (16 digit)</label>
+            <input class="input" id="nik" name="nik" type="text" inputmode="numeric" maxlength="16" placeholder="Contoh: 3171xxxxxxxxxxxx" style="font-family:var(--font-mono)" aria-describedby="nik-err nik-hint">
+            <span class="hint" id="nik-hint">Nomor Induk Kependudukan pada KTP elektronik.</span>
+            <span class="errmsg" id="nik-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> NIK harus 16 digit angka.</span>
+          </div>
+
+          <div class="field" id="field-akta" hidden>
+            <label for="akta">Nomor Akta Pendirian / SK Badan Hukum</label>
+            <input class="input" id="akta" name="akta" type="text" placeholder="Contoh: AHU-0001234.AH.01.01 Tahun 2020" aria-describedby="akta-err">
+            <span class="errmsg" id="akta-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Nomor akta/SK badan hukum wajib diisi.</span>
+          </div>
+
+          <div class="field">
+            <label for="alamat">Alamat</label>
+            <textarea class="textarea" id="alamat" name="alamat" autocomplete="street-address" placeholder="Alamat lengkap sesuai identitas" style="min-height:76px" aria-describedby="alamat-err"></textarea>
+            <span class="errmsg" id="alamat-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Alamat wajib diisi.</span>
+          </div>
+
+          <div class="grid grid--2" style="gap:var(--s4)">
+            <div class="field">
+              <label for="email">Email Aktif</label>
+              <input class="input" id="email" name="email" type="email" autocomplete="email" placeholder="nama@email.com" aria-describedby="email-err">
+              <span class="errmsg" id="email-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Masukkan alamat email yang valid.</span>
+            </div>
+            <div class="field">
+              <label for="hp">No. Telepon/WA <span style="font-weight:400;color:var(--ink-400)">(opsional)</span></label>
+              <input class="input" id="hp" name="hp" type="tel" autocomplete="tel" inputmode="numeric" placeholder="08xxxxxxxxxx">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="sandi">Kata Sandi</label>
+            <input class="input" id="sandi" name="sandi" type="password" autocomplete="new-password" placeholder="Minimal 8 karakter" aria-describedby="sandi-err">
+            <span class="errmsg" id="sandi-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Kata sandi minimal 8 karakter.</span>
+          </div>
+
+          <div class="field">
+            <div style="display:flex;gap:var(--s2);align-items:flex-start">
+              <input type="checkbox" id="setuju" style="width:20px;height:20px;margin-top:2px;accent-color:var(--klh-green-600)" aria-describedby="setuju-err">
+              <label for="setuju" style="font-weight:400;font-size:var(--t-sm);color:var(--ink-500);cursor:pointer">Saya menyatakan data yang diisi benar dan menyetujui penggunaan data untuk layanan informasi publik sesuai ketentuan.</label>
+            </div>
+            <span class="errmsg" id="setuju-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Persetujuan wajib dicentang.</span>
+          </div>
+
+          <button class="btn btn-primary btn-lg" type="submit" style="width:100%;margin-top:var(--s3)">
+            Lanjut ke Verifikasi Email <klh-icon name="arrowright" class="icon icon--sm"></klh-icon>
+          </button>
+        </form>
+
+        <!-- Langkah 2: verifikasi email (simulasi) -->
+        <div class="card auth-card" id="panel-verif" hidden>
+          <span class="tonal tonal--sky" style="width:52px;height:52px;display:grid;place-items:center;border-radius:var(--r-md);margin-bottom:var(--s4)"><klh-icon name="envelope" class="icon"></klh-icon></span>
+          <h1 style="font-size:var(--t-h2)">Verifikasi Email Anda</h1>
+          <p style="color:var(--ink-500);font-size:var(--t-sm)">Kode verifikasi 6 digit telah dikirim (simulasi) ke <strong id="verif-email">email Anda</strong>. Masukkan kode di bawah — pada prototipe ini, kode <span class="mono" style="background:var(--klh-green-50);padding:2px 6px;border-radius:4px">246810</span> dianggap benar.</p>
+          <form id="form-verif" novalidate>
+            <div class="field">
+              <label for="kode">Kode Verifikasi</label>
+              <input class="input" id="kode" name="kode" type="text" inputmode="numeric" maxlength="6" placeholder="6 digit" style="font-family:var(--font-mono);font-size:var(--t-h3);letter-spacing:.35em;text-align:center" aria-describedby="kode-err">
+              <span class="errmsg" id="kode-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Kode salah — pada demo ini gunakan 246810.</span>
+            </div>
+            <button class="btn btn-primary btn-lg" type="submit" style="width:100%">Verifikasi &amp; Buat Akun</button>
+            <p style="font-size:var(--t-sm);color:var(--ink-500);margin-top:var(--s4);text-align:center">Tidak menerima kode? <a href="#" id="kirim-ulang">Kirim ulang (simulasi)</a></p>
+          </form>
+          <div id="verif-alert" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  document.getElementById('side-leaf').outerHTML = KLH.leafmark();
+
+  var form = document.getElementById('form-daftar');
+  var panelVerif = document.getElementById('panel-verif');
+
+  /* Toggle NIK ↔ akta badan hukum */
+  Array.prototype.forEach.call(form.querySelectorAll('input[name="jenis"]'), function (r) {
+    r.addEventListener('change', function () {
+      var badan = form.jenis.value === 'badan-hukum';
+      document.getElementById('field-nik').hidden = badan;
+      document.getElementById('field-akta').hidden = !badan;
+      document.getElementById('nama-lbl').textContent = badan ? 'Nama Badan Hukum' : 'Nama Lengkap';
+    });
+  });
+
+  function setErr(id, on) {
+    var field = document.getElementById(id).closest('.field');
+    var msg = document.getElementById(id + '-err');
+    field.classList.toggle('err', on);
+    msg.hidden = !on;
+    return !on;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var badan = form.jenis.value === 'badan-hukum';
+    var ok = true;
+    ok = setErr('nama', !document.getElementById('nama').value.trim()) && ok;
+    if (badan) ok = setErr('akta', !document.getElementById('akta').value.trim()) && ok;
+    else ok = setErr('nik', !/^\d{16}$/.test(document.getElementById('nik').value.trim())) && ok;
+    ok = setErr('alamat', !document.getElementById('alamat').value.trim()) && ok;
+    ok = setErr('email', !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('email').value.trim())) && ok;
+    ok = setErr('sandi', document.getElementById('sandi').value.length < 8) && ok;
+    ok = setErr('setuju', !document.getElementById('setuju').checked) && ok;
+    if (!ok) {
+      var first = form.querySelector('.field.err .input, .field.err .textarea, .field.err input');
+      if (first) first.focus();
+      return;
+    }
+    document.getElementById('verif-email').textContent = document.getElementById('email').value.trim();
+    form.hidden = true;
+    panelVerif.hidden = false;
+    document.getElementById('kode').focus();
+  });
+
+  document.getElementById('kirim-ulang').addEventListener('click', function (e) {
+    e.preventDefault();
+    document.getElementById('verif-alert').innerHTML =
+      '<div class="alert alert-info" style="margin-top:var(--s4)">' + KLH.iconSVG('envelope', 'icon icon--sm') +
+      '<div><strong>Kode dikirim ulang (simulasi).</strong>Periksa kotak masuk email Anda.</div></div>';
+  });
+
+  document.getElementById('form-verif').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var kode = document.getElementById('kode').value.trim();
+    if (kode !== '246810') { setErr('kode', true); return; }
+    setErr('kode', false);
+    var nama = document.getElementById('nama').value.trim();
+    var email = document.getElementById('email').value.trim();
+    KLH.session.set({ nama: nama, email: email, masuk: new Date().toISOString() });
+    document.getElementById('verif-alert').innerHTML =
+      '<div class="alert alert-success" style="margin-top:var(--s4)">' + KLH.iconSVG('check', 'icon icon--sm') +
+      '<div><strong>Akun berhasil dibuat.</strong>Anda kini masuk — mengalihkan ke formulir permohonan…</div></div>';
+    setTimeout(function () { window.location.href = 'permohonan.html'; }, 900);
+  });
+})();
+</script>
+</body>
+</html>

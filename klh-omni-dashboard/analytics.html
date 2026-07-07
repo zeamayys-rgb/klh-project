@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analytics — Omni Channel KLH/BPLH</title>
+<meta name="description" content="Analytics Omni Channel KLH/BPLH — heatmap aktivitas, klik dan scroll halaman, serta rincian perangkat dan peramban.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="app">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/omni.js"></script>
+<script src="assets/js/components/appshell.js"></script>
+<script src="assets/js/vendor/chart.umd.js"></script>
+
+<klh-sidebar></klh-sidebar>
+<div class="app-main">
+  <klh-topbar judul="Analytics"></klh-topbar>
+
+  <main id="konten" class="content">
+    <div class="page-head" data-reveal>
+      <div>
+        <h1>Analytics</h1>
+        <p class="lead">Pola aktivitas interaksi, perilaku klik/scroll, dan rincian perangkat pengunjung. Data contoh prototipe.</p>
+      </div>
+    </div>
+
+    <!-- Heatmap aktivitas -->
+    <section class="panel" data-reveal aria-label="Heatmap aktivitas mingguan" style="margin-bottom:var(--s5)">
+      <div class="panel__head"><h2>Heatmap interaksi masuk — jam × hari</h2><span class="ket">30 hari terakhir (agregat)</span></div>
+      <div class="panel__body">
+        <div style="overflow-x:auto">
+          <div class="heatmap" id="heatmap" role="img" aria-label="Heatmap intensitas interaksi per jam dan hari: puncak Senin sampai Jumat pukul 9 sampai 11 pagi"></div>
+        </div>
+        <div class="hm-legend" aria-hidden="true">
+          <span>Sepi</span>
+          <span class="hm-cell" style="opacity:.08"></span><span class="hm-cell" style="opacity:.3"></span>
+          <span class="hm-cell" style="opacity:.55"></span><span class="hm-cell" style="opacity:.8"></span>
+          <span class="hm-cell"></span>
+          <span>Ramai</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="dash-grid">
+      <!-- Halaman populer: klik & scroll -->
+      <section class="panel" data-reveal aria-label="Perilaku klik dan scroll per halaman">
+        <div class="panel__head"><h2>Halaman populer — klik &amp; kedalaman scroll</h2></div>
+        <div class="panel__body" style="padding-top:var(--s3)">
+          <div class="tbl-wrap" style="border:0">
+            <table class="tbl" aria-label="Statistik halaman populer">
+              <thead><tr>
+                <th scope="col">Halaman</th><th scope="col" class="num">Kunjungan</th>
+                <th scope="col" class="num">Rasio klik</th><th scope="col">Kedalaman scroll</th>
+              </tr></thead>
+              <tbody id="hal-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Device & browser -->
+      <section class="panel" data-reveal aria-label="Perangkat dan peramban">
+        <div class="panel__head"><h2>Perangkat &amp; peramban</h2></div>
+        <div class="panel__body" style="display:grid;gap:var(--s5)">
+          <div class="chart-box chart-box--sm"><canvas id="chart-device" role="img" aria-label="Grafik donat perangkat: mobile 63 persen, desktop 31 persen, tablet 6 persen"></canvas></div>
+          <ul class="bar-list" id="browser-list" aria-label="Porsi peramban"></ul>
+        </div>
+      </section>
+    </div>
+
+    <div class="alert alert-info" data-reveal style="margin-top:var(--s5)">
+      <klh-icon name="eye" class="icon icon--sm"></klh-icon>
+      <div><strong>Session recording &amp; user journey.</strong>Pada sistem produksi, klik sesi pada tabel membuka rekaman anonim perjalanan pengguna (heatmap klik per halaman, alur antar halaman). Prototipe ini menampilkan agregatnya saja.</div>
+    </div>
+
+    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — heatmap dibangkitkan dari pola deterministik untuk keperluan demo.</p>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var o = KLH.omni;
+
+  /* ---- Heatmap 7 hari × 24 jam (pola deterministik, bukan acak) ---- */
+  var HARI = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
+  function intens(hari, jam) {
+    /* jam kerja 08–16 ramai, puncak 09–11; akhir pekan sepi */
+    var kerja = hari < 5 ? 1 : 0.25;
+    var dasar = (jam >= 8 && jam <= 16) ? 0.55 : (jam >= 6 && jam <= 21 ? 0.2 : 0.05);
+    var puncak = (jam >= 9 && jam <= 11) ? 0.4 : (jam >= 13 && jam <= 15 ? 0.2 : 0);
+    var v = (dasar + puncak) * kerja + ((hari * 7 + jam) % 5) * 0.02;
+    return Math.min(1, v);
+  }
+  var html = '<span class="hm-lbl" aria-hidden="true"></span>';
+  for (var j = 0; j < 24; j++) html += '<span class="hm-jam" aria-hidden="true">' + (j % 3 === 0 ? j : '') + '</span>';
+  for (var h = 0; h < 7; h++) {
+    html += '<span class="hm-lbl" aria-hidden="true">' + HARI[h] + '</span>';
+    for (var jj = 0; jj < 24; jj++) {
+      var v = intens(h, jj);
+      html += '<span class="hm-cell" style="opacity:' + (0.06 + v * 0.94).toFixed(2) + '" title="' + HARI[h] + ' ' + jj + '.00 — intensitas ' + Math.round(v * 100) + '%"></span>';
+    }
+  }
+  document.getElementById('heatmap').innerHTML = html;
+
+  /* ---- Tabel halaman populer ---- */
+  document.getElementById('hal-body').innerHTML = o.analytics.halaman.map(function (p) {
+    var scroll = parseInt(p.scroll, 10);
+    return '<tr><td><span class="tkt-subjek">' + p.judul + '</span><span class="tkt-pemohon mono">' + p.path + '</span></td>' +
+      '<td class="num">' + p.kunjungan.toLocaleString('id-ID') + '</td>' +
+      '<td class="num">' + p.klik + '</td>' +
+      '<td><div class="bar-track" style="min-width:90px" role="img" aria-label="Kedalaman scroll ' + p.scroll + '"><div class="bar-fill" style="width:' + scroll + '%"></div></div>' +
+      '<span class="mono" style="font-size:var(--t-xs);color:var(--ink-500)">' + p.scroll + '</span></td></tr>';
+  }).join('');
+
+  /* ---- Browser bars ---- */
+  document.getElementById('browser-list').innerHTML = o.analytics.browser.label.map(function (l, i) {
+    var v = o.analytics.browser.nilai[i];
+    return '<li><span class="bar-head"><span>' + l + '</span><span class="mono">' + v + '%</span></span>' +
+      '<span class="bar-track"><span class="bar-fill" style="width:' + v + '%;display:block"></span></span></li>';
+  }).join('');
+
+  /* ---- Chart perangkat ---- */
+  KLH.chartDefaults();
+  new Chart(document.getElementById('chart-device'), {
+    type: 'doughnut',
+    data: {
+      labels: o.analytics.device.label,
+      datasets: [{ data: o.analytics.device.nilai, backgroundColor: [KLH.chartPalet[0], KLH.chartPalet[1], KLH.chartPalet[2]], borderWidth: 2, borderColor: '#fff' }]
+    },
+    options: { maintainAspectRatio: false, cutout: '62%', plugins: { legend: { position: 'bottom' } } }
+  });
+})();
+</script>
+</body>
+</html>

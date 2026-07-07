@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detail Tiket — Omni Channel KLH/BPLH</title>
+<meta name="description" content="Detail tiket Omni Channel KLH/BPLH — riwayat percakapan, SLA timer, eskalasi, dan disposisi.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="app">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/omni.js"></script>
+<script src="assets/js/components/appshell.js"></script>
+
+<klh-sidebar></klh-sidebar>
+<div class="app-main">
+  <klh-topbar judul="Detail Tiket"></klh-topbar>
+
+  <main id="konten" class="content">
+    <nav aria-label="Jejak navigasi"><ol class="breadcrumb breadcrumb--light" style="margin-bottom:var(--s4)">
+      <li><a href="index.html">Dashboard</a></li>
+      <li><a href="tiket.html">Tiket &amp; SLA</a></li>
+      <li aria-current="page" id="bc-id">Detail</li>
+    </ol></nav>
+
+    <div id="tkt-404" hidden>
+      <div class="alert alert-warning" style="margin-bottom:var(--s5)">
+        <klh-icon name="warning" class="icon icon--sm"></klh-icon>
+        <div><strong>Tiket tidak ditemukan.</strong>Nomor tiket pada tautan tidak dikenal — menampilkan contoh tiket aktif pertama sebagai gantinya.</div>
+      </div>
+    </div>
+
+    <div class="page-head" data-reveal>
+      <div>
+        <h1 id="tkt-judul" style="font-size:var(--t-h3)">Memuat…</h1>
+        <p class="lead" id="tkt-meta"></p>
+      </div>
+      <div class="aksi" id="tkt-badges"></div>
+    </div>
+
+    <div class="tkt-grid">
+      <!-- Kolom kiri: riwayat percakapan + balas -->
+      <section class="panel" aria-label="Riwayat percakapan" data-reveal>
+        <div class="panel__head"><h2>Riwayat percakapan</h2><span class="ket" id="conv-sumber"></span></div>
+        <div class="panel__body">
+          <div class="tkt-thread" id="tkt-thread"></div>
+          <form id="tkt-reply" novalidate style="margin-top:var(--s5);display:grid;gap:var(--s3)">
+            <label class="sr-only" for="balas">Tulis balasan</label>
+            <textarea class="textarea" id="balas" placeholder="Tulis balasan atau catatan tindak lanjut…"></textarea>
+            <div class="ib-reply__send">
+              <span class="ket">Balasan terkirim lewat kanal asal (demo).</span>
+              <button class="btn btn-primary" type="submit"><klh-icon name="send" class="icon icon--sm"></klh-icon> Kirim balasan</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Kolom kanan: SLA + aksi + info + log -->
+      <div class="tkt-side">
+        <section class="panel" aria-label="SLA" data-reveal>
+          <div class="panel__head"><h2>SLA Timer</h2></div>
+          <div class="panel__body">
+            <div id="sla-live"></div>
+          </div>
+        </section>
+
+        <section class="panel" aria-label="Tindakan" data-reveal>
+          <div class="panel__head"><h2>Tindakan</h2></div>
+          <div class="panel__body">
+            <div class="field" style="margin-bottom:var(--s3)">
+              <label for="ubah-status">Ubah status</label>
+              <select class="select" id="ubah-status">
+                <option>Open</option><option>In Progress</option><option>Closed</option>
+              </select>
+            </div>
+            <div class="field" style="margin-bottom:var(--s4)">
+              <label for="disposisi">Disposisi ke unit</label>
+              <select class="select" id="disposisi">
+                <option value="">Pilih unit tujuan…</option>
+                <option>Ditjen Pengendalian Pencemaran</option>
+                <option>Pusat Data &amp; Informasi</option>
+                <option>Ditjen Planologi</option>
+                <option>Balai Gakkum wilayah</option>
+                <option>Dit. Pengawasan Limbah B3</option>
+                <option>PTSP</option>
+                <option>DLH provinsi/kabupaten terkait</option>
+              </select>
+            </div>
+            <div class="tkt-aksi">
+              <button class="btn btn-primary" type="button" id="btn-terapkan"><klh-icon name="check" class="icon icon--sm"></klh-icon> Terapkan perubahan</button>
+              <button class="btn btn-orange" type="button" id="btn-eskalasi"><klh-icon name="escalate" class="icon icon--sm"></klh-icon> Eskalasi ke supervisor</button>
+              <button class="btn btn-ghost" type="button" id="btn-tetapkan"><klh-icon name="user" class="icon icon--sm"></klh-icon> Tetapkan ke saya</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" aria-label="Informasi tiket" data-reveal>
+          <div class="panel__head"><h2>Informasi</h2></div>
+          <div class="panel__body"><ul class="info-list" id="tkt-info"></ul></div>
+        </section>
+
+        <section class="panel" aria-label="Log aktivitas" data-reveal>
+          <div class="panel__head"><h2>Log aktivitas</h2></div>
+          <div class="panel__body"><ol class="timeline" id="tkt-log"></ol></div>
+        </section>
+      </div>
+    </div>
+
+    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — aksi pada halaman ini bersifat simulasi antarmuka.</p>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var o = KLH.omni;
+  var t = KLH.findTiket(KLH.qs('t'));
+  if (!t) {
+    document.getElementById('tkt-404').hidden = false;
+    t = o.tiket.filter(function (x) { return x.status !== 'Closed'; })[0] || o.tiket[0];
+  }
+  var conv = t.percakapan ? KLH.findPercakapan(t.percakapan) : null;
+
+  /* ---- Kepala halaman ---- */
+  document.getElementById('bc-id').textContent = t.id;
+  document.getElementById('tkt-judul').textContent = t.id + ' — ' + t.subjek;
+  document.getElementById('tkt-meta').innerHTML = t.pemohon + ' · dibuat ' + KLH.fmtDateTime(t.dibuat) +
+    ' · kategori <strong>' + t.kategori + '</strong>';
+  function renderBadges() {
+    document.getElementById('tkt-badges').innerHTML =
+      KLH.kanalBadge(t.kanal) + ' ' + KLH.prioBadge(t.prioritas) + ' ' + KLH.tiketBadge(t.status);
+  }
+  renderBadges();
+
+  /* ---- Thread percakapan ---- */
+  var thread = document.getElementById('tkt-thread');
+  function renderThread() {
+    if (!conv) {
+      thread.innerHTML = '<p style="color:var(--ink-400);font-size:var(--t-sm)">Tiket ini tidak memiliki percakapan tertaut (mis. dibuat manual dari telepon).</p>';
+      return;
+    }
+    document.getElementById('conv-sumber').innerHTML = 'Sumber: ' + KLH.kanalInfo(conv.kanal).label + ' · <a href="inbox.html?c=' + conv.id + '">buka di inbox</a>';
+    var hari = '';
+    thread.innerHTML = conv.pesan.map(function (m) {
+      var h = KLH.fmtDate(m.t), sep = '';
+      if (h !== hari) { hari = h; sep = '<span class="ib-hari" style="justify-self:center">' + h + '</span>'; }
+      return sep + '<div class="msg msg--' + m.dari + '">' + m.isi +
+        '<time datetime="' + m.t + '">' + (m.dari === 'agen' ? 'Anda · ' : '') + KLH.fmtTime(m.t) + '</time></div>';
+    }).join('');
+  }
+  renderThread();
+
+  /* ---- SLA timer hidup ---- */
+  KLH.startSlaTimer(document.getElementById('sla-live'), t);
+
+  /* ---- Info ---- */
+  function renderInfo() {
+    document.getElementById('tkt-info').innerHTML = [
+      ['Pemohon', t.pemohon],
+      ['Kanal', KLH.kanalInfo(t.kanal).label],
+      ['Kategori', t.kategori],
+      ['Dibuat', KLH.fmtDateTime(t.dibuat)],
+      ['Tenggat SLA', KLH.fmtDateTime(t.tenggat)],
+      ['Agen', t.agen || 'Belum ditetapkan'],
+      ['Disposisi', t.disposisi || '—'],
+      ['Rating', null]
+    ].map(function (r) {
+      var v = r[0] === 'Rating' ? KLH.ratingHTML(t.rating) : r[1];
+      return '<li><span class="k">' + r[0] + '</span><span class="v">' + v + '</span></li>';
+    }).join('');
+  }
+  renderInfo();
+
+  /* ---- Log aktivitas ---- */
+  var log = (o.tiketLog[t.id] || [
+    { t: t.dibuat, aksi: 'Tiket dibuat dari kanal ' + KLH.kanalInfo(t.kanal).label, oleh: 'Sistem' },
+    { t: t.dibuat, aksi: 'Routing otomatis sesuai kategori "' + t.kategori + '"', oleh: 'Sistem' }
+  ]).slice();
+  function renderLog() {
+    document.getElementById('tkt-log').innerHTML = log.map(function (l, i) {
+      var akhir = i === log.length - 1;
+      return '<li class="' + (akhir ? 'now' : 'done') + '"><span class="dot">' +
+        KLH.iconSVG(akhir ? 'clock' : 'check', 'icon').replace('class="icon"', 'class="icon" style="width:13px;height:13px"') +
+        '</span><h4 style="font-size:var(--t-sm)">' + l.aksi + '</h4>' +
+        '<span class="tmeta">' + KLH.fmtDateTime(l.t) + ' · ' + l.oleh + '</span></li>';
+    }).join('');
+  }
+  renderLog();
+  function tambahLog(aksi) {
+    log.push({ t: KLH.demoNowIso(), aksi: aksi, oleh: KLH.omni.agen.nama });
+    renderLog();
+  }
+
+  /* ---- Aksi ---- */
+  document.getElementById('ubah-status').value = t.status;
+  if (t.disposisi) document.getElementById('disposisi').value = t.disposisi;
+
+  document.getElementById('btn-terapkan').addEventListener('click', function () {
+    var st = document.getElementById('ubah-status').value;
+    var d = document.getElementById('disposisi').value;
+    var ada = false;
+    if (st !== t.status) { t.status = st; tambahLog('Status diubah menjadi ' + st); ada = true; }
+    if (d && d !== t.disposisi) { t.disposisi = d; tambahLog('Disposisi ke ' + d); ada = true; }
+    renderBadges(); renderInfo();
+    KLH.toast(ada ? '<strong>Perubahan diterapkan (demo).</strong> Status &amp; disposisi tiket diperbarui.' :
+      '<strong>Tidak ada perubahan.</strong> Pilih status atau unit disposisi yang berbeda.', ada ? 'success' : 'info');
+  });
+
+  document.getElementById('btn-eskalasi').addEventListener('click', function () {
+    tambahLog('Dieskalasikan ke supervisor (prioritas dinaikkan)');
+    t.prioritas = 'Tinggi';
+    renderBadges();
+    KLH.toast('<strong>Tiket dieskalasikan (demo).</strong> Supervisor menerima notifikasi eskalasi.', 'info');
+  });
+
+  document.getElementById('btn-tetapkan').addEventListener('click', function () {
+    t.agen = KLH.omni.agen.nama;
+    tambahLog('Tiket ditetapkan ke ' + t.agen);
+    renderInfo();
+    KLH.toast('<strong>Tiket ditetapkan ke Anda (demo).</strong>');
+  });
+
+  document.getElementById('tkt-reply').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var ta = document.getElementById('balas');
+    var isi = ta.value.trim();
+    if (!isi) { KLH.toast('<strong>Balasan masih kosong.</strong>', 'danger'); ta.focus(); return; }
+    if (conv) {
+      conv.pesan.push({ dari: 'agen', t: KLH.demoNowIso(), isi: isi });
+      renderThread();
+    }
+    tambahLog('Balasan dikirim ke pemohon');
+    ta.value = '';
+    KLH.toast('<strong>Balasan terkirim (demo)</strong> melalui ' + KLH.kanalInfo(t.kanal).label + '.');
+  });
+})();
+</script>
+</body>
+</html>

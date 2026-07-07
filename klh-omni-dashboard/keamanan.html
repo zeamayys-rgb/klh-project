@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keamanan — Omni Channel KLH/BPLH</title>
+<meta name="description" content="Pengaturan keamanan Omni Channel KLH/BPLH — MFA, SSO, audit trail, dan activity log.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="app">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/omni.js"></script>
+<script src="assets/js/components/appshell.js"></script>
+
+<klh-sidebar></klh-sidebar>
+<div class="app-main">
+  <klh-topbar judul="Keamanan"></klh-topbar>
+
+  <main id="konten" class="content">
+    <div class="page-head" data-reveal>
+      <div>
+        <h1>Keamanan</h1>
+        <p class="lead">Kebijakan autentikasi platform dan jejak audit seluruh aktivitas pengguna. Data contoh prototipe.</p>
+      </div>
+    </div>
+
+    <div class="dash-grid dash-grid--rev" style="align-items:start">
+      <!-- Kebijakan autentikasi -->
+      <section class="panel" data-reveal aria-label="Kebijakan autentikasi">
+        <div class="panel__head"><h2>Autentikasi</h2></div>
+        <div class="panel__body">
+          <div class="set-row">
+            <span class="lbl">Wajib MFA untuk semua akun<small>OTP aplikasi autentikator diminta pada setiap perangkat baru.</small></span>
+            <button type="button" class="switch" role="switch" aria-checked="true" data-set="MFA wajib" aria-label="Wajib MFA untuk semua akun"></button>
+          </div>
+          <div class="set-row">
+            <span class="lbl">SSO Instansi (SAML 2.0)<small>Masuk tunggal memakai akun pegawai; disarankan untuk seluruh unit.</small></span>
+            <button type="button" class="switch" role="switch" aria-checked="true" data-set="SSO instansi" aria-label="SSO instansi"></button>
+          </div>
+          <div class="set-row">
+            <span class="lbl">Kunci akun setelah 5 kali gagal<small>Terkunci 30 menit; supervisor dapat membuka lebih awal.</small></span>
+            <button type="button" class="switch" role="switch" aria-checked="true" data-set="Kunci akun otomatis" aria-label="Kunci akun otomatis"></button>
+          </div>
+          <div class="set-row">
+            <span class="lbl">Sesi berakhir setelah 8 jam<small>Pengguna diminta masuk ulang di hari kerja berikutnya.</small></span>
+            <button type="button" class="switch" role="switch" aria-checked="false" data-set="Batas sesi 8 jam" aria-label="Batas sesi 8 jam"></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ringkas keamanan -->
+      <section class="panel" data-reveal aria-label="Ringkasan keamanan">
+        <div class="panel__head"><h2>Ringkasan 24 jam</h2></div>
+        <div class="panel__body">
+          <ul class="sys-list" id="sec-ringkas"></ul>
+        </div>
+      </section>
+    </div>
+
+    <!-- Audit trail -->
+    <section class="panel" data-reveal aria-label="Audit trail" style="margin-top:var(--s5)">
+      <div class="panel__head">
+        <h2>Audit trail / activity log</h2>
+        <div style="display:flex;gap:var(--s2);align-items:center">
+          <label class="sr-only" for="a-filter">Filter hasil</label>
+          <select class="select" id="a-filter" style="padding:8px 10px;font-size:var(--t-xs)">
+            <option value="">Semua hasil</option>
+            <option value="ok">Berhasil</option>
+            <option value="gagal">Gagal</option>
+            <option value="peringatan">Peringatan</option>
+          </select>
+          <button class="btn btn-ghost btn-sm" type="button" id="a-ekspor"><klh-icon name="download" class="icon icon--sm"></klh-icon> Ekspor log</button>
+        </div>
+      </div>
+      <div class="panel__body" style="padding-top:var(--s3)">
+        <div class="tbl-wrap" style="border:0">
+          <table class="tbl" aria-label="Log aktivitas">
+            <thead><tr>
+              <th scope="col">Waktu</th><th scope="col">Pengguna</th><th scope="col">Aktivitas</th>
+              <th scope="col">IP</th><th scope="col">Hasil</th>
+            </tr></thead>
+            <tbody id="a-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — log &amp; kebijakan pada halaman ini adalah simulasi antarmuka.</p>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var o = KLH.omni;
+
+  /* ---- Ringkasan ---- */
+  document.getElementById('sec-ringkas').innerHTML = [
+    ['Masuk berhasil (MFA/SSO)', '42', 'ok'],
+    ['Percobaan gagal diblokir', '5', 'warn'],
+    ['Akun terkunci sementara', '1', 'warn'],
+    ['Perubahan konfigurasi', '3', 'ok']
+  ].map(function (r) {
+    return '<li><span>' + r[0] + '</span><span class="val ' + (r[2] === 'ok' ? 'sys-ok' : 'sys-warn') + '">' +
+      KLH.iconSVG(r[2] === 'ok' ? 'check' : 'warning', 'icon icon--sm') + ' ' + r[1] + '</span></li>';
+  }).join('');
+
+  /* ---- Audit trail ---- */
+  var HASIL = {
+    ok: '<span class="badge bg-success">' + KLH.iconSVG('check', 'icon icon--sm').replace('icon--sm"', 'icon--sm" style="width:13px;height:13px"') + ' Berhasil</span>',
+    gagal: '<span class="badge bg-danger">' + KLH.iconSVG('close', 'icon icon--sm').replace('icon--sm"', 'icon--sm" style="width:13px;height:13px"') + ' Gagal</span>',
+    peringatan: '<span class="badge bg-warning">' + KLH.iconSVG('warning', 'icon icon--sm').replace('icon--sm"', 'icon--sm" style="width:13px;height:13px"') + ' Peringatan</span>'
+  };
+  function renderAudit() {
+    var f = document.getElementById('a-filter').value;
+    var rows = o.audit.filter(function (a) { return !f || a.hasil === f; });
+    document.getElementById('a-body').innerHTML = rows.length ? rows.map(function (a) {
+      return '<tr>' +
+        '<td class="mono" style="font-size:var(--t-xs);white-space:nowrap">' + KLH.fmtDateTime(a.t) + '</td>' +
+        '<td class="mono" style="font-size:var(--t-xs)">' + a.user + '</td>' +
+        '<td style="font-size:var(--t-sm)">' + a.aksi + '</td>' +
+        '<td class="mono" style="font-size:var(--t-xs)">' + a.ip + '</td>' +
+        '<td>' + (HASIL[a.hasil] || a.hasil) + '</td></tr>';
+    }).join('') : '<tr><td colspan="5" style="color:var(--ink-400);text-align:center;padding:var(--s8)">Tidak ada log dengan hasil ini.</td></tr>';
+  }
+  renderAudit();
+  document.getElementById('a-filter').addEventListener('input', renderAudit);
+
+  document.getElementById('a-ekspor').addEventListener('click', function () {
+    KLH.toast('<strong>Ekspor log dimulai (simulasi).</strong> Pada sistem sebenarnya, berkas CSV log audit terunduh.', 'info');
+  });
+
+  document.addEventListener('click', function (e) {
+    var sw = e.target.closest('.switch[data-set]');
+    if (!sw) return;
+    var on = sw.getAttribute('aria-checked') !== 'true';
+    sw.setAttribute('aria-checked', String(on));
+    KLH.toast('<strong>' + sw.getAttribute('data-set') + ' ' + (on ? 'diaktifkan' : 'dinonaktifkan') + ' (demo).</strong>');
+  });
+})();
+</script>
+</body>
+</html>

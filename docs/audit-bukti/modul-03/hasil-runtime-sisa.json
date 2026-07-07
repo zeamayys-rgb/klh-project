@@ -1,0 +1,57 @@
+[
+ {
+  "cek": "BUG scrim setelah Escape",
+  "ok": false,
+  "detail": "scrim_terlihat=True sb_open=False"
+ },
+ {
+  "cek": "BUG fokus tersembunyi sidebar tertutup",
+  "ok": false,
+  "detail": "fokus_tersembunyi=True"
+ },
+ {
+  "cek": "BUG kanal: kartu terlihat setelah re-render",
+  "ok": false,
+  "detail": "opacity=0"
+ },
+ {
+  "cek": "Pencarian global tampil",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "cek": "BUG cari: hasil bertahan saat Tab (keyboard)",
+  "ok": false,
+  "detail": "hidden=True fokusDiHasil=False"
+ },
+ {
+  "cek": "Matriks 6 peran × 9 izin",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "cek": "Filter audit gagal",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "cek": "Saklar routing toggle",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "cek": "Preferensi a11y persist",
+  "ok": true,
+  "detail": "kontras=high fs=120%"
+ },
+ {
+  "cek": "file:// login.html",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "cek": "file:// index.html",
+  "ok": true,
+  "detail": ""
+ }
+]
