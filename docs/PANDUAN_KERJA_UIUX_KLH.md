@@ -192,8 +192,8 @@ Versi   : tambahkan _v2, _final bila revisi
 - [ ] 2.6 BA Persetujuan Desain
 
 **Fase 3 — Konten UI**
-- [ ] 3.1 Aset konten UI
-- [ ] 3.2 Layout responsif
+- [x] 3.1 Aset konten UI *(`Design_System_KLH_BPLH_2_Komponen.html` — halaman 02 DS: 71 ikon produksi, aset lambang/leafmark/placeholder/foto, 70+ komponen dari 3 modul, peta komponen×modul)*
+- [x] 3.2 Layout responsif *(`Design_System_KLH_BPLH_2_Layout.html` — halaman 03 DS: tangga breakpoint resmi, grid & kontainer, 7 template halaman, pola adaptif komponen, checklist QA layout)*
 - [ ] 3.3 Pedoman konten
 - [ ] 3.4 Handoff
 
@@ -214,6 +214,13 @@ Versi   : tambahkan _v2, _final bila revisi
 > Keterangan: `[ ]` belum · `[~]` proses · `[x]` selesai
 
 ### LOG DELIVERABLE
+
+**7 Jul 2026 — Fase 3 point 3.1 & 3.2 SELESAI: Design System v2.1 jadi suite 3 halaman** → `docs/Design_System_KLH_BPLH_2.html` (+2 halaman baru + `docs/ds-assets/`)
+- **Restrukturisasi:** aset visual & komponen DIPISAH dari fondasi. Hal. **01 Fondasi** (`Design_System_KLH_BPLH_2.html`, dirampingkan 618→260KB): prinsip/identitas, warna, tipografi, grid-spasi-elevasi, WCAG. Hal. **02 Komponen & Aset** (`_Komponen.html`, point 3.1): seksi ikon/dasar/navigasi/data/umpan-balik/pola/situs/aplikasi dipindah ke sini + diperkaya komponen nyata ketiga modul. Hal. **03 Standar Layout** (`_Layout.html`, point 3.2). Nav tab lintas halaman + subnav lengket per halaman; tautan Berikutnya/Sebelumnya.
+- **3.1 — Aset & komponen dari 3 modul:** galeri **71 ikon produksi** (57 inti + 14 omni, digenerate dari `icons.js` modul yang di-embed), aset lambang (3 berkas) + `KLH.leafmark()` + placeholder `.ph` + 9 foto berita; komponen baru terdokumentasi: navbar sub-brand PPID, kartu radio pemohon, captcha, OTP, konfirmasi+nomor registrasi, timeline Ditolak, badge/timer SLA, heatmap, matriks peran, panel notifikasi, **Unified Inbox 3 panel (WF-04) mini**, kartu status kanal, saklar pengaturan, pita CTA, bagan organisasi, daftar langkah; + tabel **Peta Komponen × Modul** (ketertelusuran; fondasi terverifikasi byte-identik lintas modul).
+- **3.2 — Standar layout:** tangga breakpoint resmi (<768 / 768–1023 / 1024–1279 / ≥1280 + minor 640/900), kontainer 1200/1380/1440, irama spasi, **7 template halaman** (marketing, indeks+sidebar, form stepper, auth split, app shell, inbox 3-panel, dashboard KPI) dengan diagram desktop+mobile, tabel pola adaptif 13 komponen, checklist QA layout dari temuan audit (overflow 390, target 44px, `[hidden]`, `min-width:0`, fokus drawer, reduced-motion).
+- **Aset bersama `docs/ds-assets/`:** `logo-klh.png` (didekode dari base64), `chart.umd.js` (Chart.js 4.4.1 diekstrak — kini TIDAK lagi tertanam di hal. Fondasi), `klh-icons.js` (salinan icons.js modul, superset omni).
+- Verifikasi: Playwright 3 halaman × (1440px + 390px) **nol error JS, nol overflow**, 11 uji interaksi lolos (galeri 71 ikon, chart, akordeon, tab, chip, mode gelap, kontras, perbesar teks, nav antarhalaman), link-check 9 target internal, uji `file://` 3 halaman bersih. Catatan: `design.md` belum menyebut struktur 3 halaman (kandidat pemutakhiran kecil).
 
 **7 Jul 2026 — AUDIT Desain & QA Modul 02 · PPID Web SELESAI (Mayor semua diperbaiki)** → `docs/AUDIT_Modul-02_PPID-Web.md` + `klh-ppid-web.zip` (diperbarui)
 - Cakupan: 15 halaman × Playwright 1440px & 390px (nol error JS, cek scrollWidth), link-check 233 target internal, **49 uji interaksi otomatis** (stepper WF-02 E2E → konfirmasi → lacak, 6 skenario `?id=`, keberatan berkonteks, DIP filter+cari, FAQ, login demo→riwayat→keluar, chatbot, `data-ext`, `file://` 2 hlm), analisis statis token/a11y; fondasi terverifikasi **byte-identik** M01.
