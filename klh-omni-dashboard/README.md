@@ -11,6 +11,37 @@ reporting, dan pengaturan platform. Berbeda dari Modul 01/02 (situs publik), mod
 ini memakai **app shell**: sidebar gelap collapsible + topbar (pencarian global,
 panel notifikasi, aksesibilitas, dropdown profil).
 
+## Tentang produk ini (konteks KAK)
+
+Warga menghubungi KLH lewat kanal mana pun yang paling dekat dengan mereka — DM
+Instagram, WhatsApp, email, form web, atau pengaduan resmi SP4N-LAPOR!. Tanpa alat
+bantu, tiap kanal dipantau petugas berbeda di aplikasi berbeda: pesan terlewat, jawaban
+tidak konsisten, dan tidak ada yang bisa menjawab "sudah berapa lama warga ini
+menunggu?". **Omni Channel Dashboard menyatukan semuanya ke satu meja kerja** dengan
+standar layanan yang terukur.
+
+Konsep intinya, sesuai cakupan KAK:
+
+- **Unified Inbox (WF-04)** — semua percakapan dari 7 kanal masuk ke satu antrean
+  3 panel (daftar → thread → info pengirim), dengan filter kanal/status dan balasan
+  ber-template. Agen tidak lagi berpindah aplikasi.
+- **Ticketing + SLA** — percakapan yang butuh tindak lanjut menjadi **tiket** dengan
+  tenggat layanan (*Service Level Agreement*). Timer hidup dan badge tiga tingkat
+  (aman / mendekati / lewat tenggat) membuat keterlambatan terlihat sebelum terjadi;
+  eskalasi dan disposisi antarunit tercatat di log.
+- **Routing & Auto-Reply** — aturan otomatis mengarahkan pesan ke unit yang tepat dan
+  membalas instan di luar jam kerja, sehingga antrean tidak menumpuk pada satu agen.
+- **Analytics & Reporting** — statistik pengunjung & interaksi, heatmap jam sibuk,
+  performa sistem, dan ekspor laporan periodik (PDF/Excel/CSV) untuk evaluasi pimpinan.
+- **Role Management & Keamanan** — 6 peran berjenjang (Super Admin → Viewer) dengan
+  matriks izin, login MFA/SSO, dan audit trail; dashboard ini memegang data pribadi
+  warga sehingga akses harus berlapis.
+
+Berbeda dari Modul 01/02 yang melayani publik, penggunanya adalah **internal**:
+persona **P3 Ratna** (agen layanan yang menghabiskan seharian di inbox), supervisor
+yang memantau SLA, dan admin platform. Ukuran keberhasilan versi KAK: tidak ada pesan
+warga yang tak terjawab, dan setiap jawaban punya batas waktu yang bisa diaudit.
+
 ## Cara menjalankan
 
 Buka `login.html` langsung (`file://`) atau melalui server lokal:

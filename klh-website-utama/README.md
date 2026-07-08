@@ -2,6 +2,23 @@
 
 Prototipe statis hi-fi untuk Website Utama Kementerian Lingkungan Hidup / BPLH (24 halaman checklist `F2_Checklist-Halaman.md`). Vanilla HTML + CSS + JS — **tanpa build step**, dapat dibuka langsung dari file atau server statis apa pun.
 
+## Tentang produk ini (konteks KAK)
+
+Website Utama adalah **wajah digital resmi kementerian** — pintu masuk pertama warga, jurnalis, pelaku usaha, dan pemerintah daerah. Ia menggantikan kemenlh.go.id eksisting yang pada audit heuristik mendapat **Grade D (~41/100)**: navigasi mengikuti struktur birokrasi (nama direktorat & akronim internal seperti "Dit. PLTTDLB3"), konten resmi tersebar di domain pihak ketiga (Canva/Google Sites), dan aksesibilitas rendah.
+
+Jawaban desainnya adalah **IA citizen-centric**: menu disusun berdasarkan *apa yang ingin dilakukan pengguna*, bukan *bagan organisasi kementerian*. Cakupan KAK terpetakan ke empat area utama:
+
+| Area | Artinya bagi pengguna | Isi (per KAK) |
+|---|---|---|
+| **Profil** | "Siapa kementerian ini dan bisakah saya percaya?" | Visi-misi, tugas & fungsi, struktur organisasi interaktif s/d Eselon 2, tata kelola & integritas (Zona Integritas, LHKPN per pejabat) |
+| **Program** | "Program lingkungan apa yang bisa saya ikuti?" | 7 program: Kalpataru, PROPER, Adipura, Adiwiyata, ProKlim, Nirwasita Tantra, Ekonomi Sirkular — tiap detail ber-CTA "Cara Ikut Serta" |
+| **Layanan** | "Saya perlu mengurus sesuatu" | 7 pelayanan publik dikelompokkan per niat: Perizinan & Pengadaan (PTSP, OSS, LPSE) · Pengaduan & Aspirasi (SP4N-LAPOR!) · Data, Lab & Pengujian · Regulasi & Pembelajaran |
+| **Informasi** | "Ada kabar apa?" | Berita, siaran pers, pengumuman, agenda & kalender, artikel, video & podcast, publikasi, produk hukum |
+
+Dua elemen lintas halaman melengkapi: **gerbang PPID** (jembatan ke Modul 02) dan **Chat Bot AI** (widget persisten). Layanan yang berada di sistem eksternal (OSS, LPSE, SP4N-LAPOR!) tidak direplikasi — pengguna diserahterimakan lewat dialog "Anda akan diarahkan ke …" agar konteks tidak hilang (Flow A).
+
+Persona utama: **P1 Sari** (warga yang ingin mengadu/mencari informasi tanpa paham struktur birokrasi). Modul ini juga menjadi **sumber fondasi** (token, komponen, ikon) yang disalin oleh Modul 02–04.
+
 ## Menjalankan
 
 ```bash

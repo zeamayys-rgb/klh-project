@@ -4,6 +4,27 @@ Prototipe hi-fi **CMS admin** untuk mengelola informasi lintas tiga produk digit
 Website Utama (berita/pengumuman/agenda), PPID (DIP/DIK, regulasi, FAQ), dan rujukan ke Omni Channel.
 Vanilla HTML+CSS+JS tanpa build step — bisa dibuka via `file://` maupun `python3 -m http.server`.
 
+## Tentang produk ini (konteks proyek)
+
+Modul ini **di luar lingkup 3 produk KAK** — usulan tambahan yang menjawab pertanyaan
+yang pasti muncul saat serah terima: *"konten ketiga produk itu dikelola dari mana?"*
+Di prototipe, konten disimulasikan lewat berkas data terpusat (`assets/js/data/*.js`
+tiap modul); CMS ini memperlihatkan seperti apa **antarmuka pengelolanya** kelak —
+satu dapur konten untuk berita/pengumuman/agenda Website Utama, DIP/regulasi/FAQ PPID,
+pustaka media, serta pengguna & peran.
+
+Dua prinsip proyek diterjemahkan langsung ke antarmuka:
+
+- **"Wajib approval pengguna jasa"** → alur editorial **Draf → Menunggu Review →
+  Terbit/Terjadwal**. Kontributor tidak bisa menerbitkan langsung; konten PPID hanya
+  bisa disetujui peran **Verifikator PPID**. Antrean review lintas produk tampil di
+  dashboard.
+- **Aksesibilitas sejak sumber** → media tidak bisa diunggah tanpa **teks alternatif**
+  (WCAG); foto unggulan artikel dipilih dari pustaka yang sudah ber-alt.
+
+Penggunanya **internal**: kontributor konten, editor/reviewer, verifikator PPID, dan
+admin — dipetakan ke 4 peran dengan matriks izin di `pengguna.html`.
+
 ## Halaman (8 file)
 
 | File | Isi |

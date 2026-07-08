@@ -8,6 +8,36 @@ Portal penuh Pejabat Pengelola Informasi & Dokumentasi (PPID): pengajuan permoho
 informasi publik daring (UU 14/2008), pelacakan status, dan informasi terbuka —
 kelanjutan dari halaman gerbang `klh-website-utama/pages/ppid.html` (Modul 01).
 
+## Tentang produk ini (konteks KAK)
+
+**PPID** (*Pejabat Pengelola Informasi dan Dokumentasi*) adalah unit yang wajib ada di
+setiap badan publik menurut **UU No. 14 Tahun 2008 tentang Keterbukaan Informasi
+Publik**: warga negara berhak meminta informasi publik, dan badan publik wajib
+melayaninya dalam tenggat yang diatur undang-undang. Selama ini proses di KLH berjalan
+**manual** — pemohon mengirim email/berkas Word, tanpa nomor registrasi, tanpa cara
+mengetahui status. Produk ini mendigitalkan seluruh siklusnya.
+
+**Dua sisi produk:**
+
+1. **Informasi yang sudah terbuka (tanpa login)** — UU 14/2008 membagi informasi ke
+   4 klasifikasi yang menjadi struktur beranda: **Berkala** (wajib diumumkan rutin,
+   mis. laporan kinerja), **Serta-Merta** (wajib segera, mis. ancaman lingkungan),
+   **Setiap Saat** (tersedia bila diminta), dan **Dikecualikan** (ditutup dengan dasar
+   hukum). Katalognya adalah **DIP** (Daftar Informasi Publik — tabel ber-filter) dan
+   **DIK** (Daftar Informasi Dikecualikan), didukung profil PPID, regulasi, laporan
+   kinerja, dan FAQ.
+2. **Alur permohonan (login)** — bila informasi belum tersedia di DIP, pemohon
+   (perorangan ber-NIK atau badan hukum) mengajukan lewat **form stepper 4 langkah**
+   (WF-02: data diri → rincian informasi → unggah dokumen → kirim), menerima **nomor
+   registrasi** (`PPID-2026-XXXXXX`), lalu memantau lewat **Lacak** ber-timeline
+   (WF-03): Diterima → Verifikasi → Diproses → Selesai. Bila permohonan **Ditolak**,
+   UU memberi hak **keberatan** — jalurnya tersedia langsung dari timeline (WF-17),
+   dengan banner konteks permohonan yang ditolak.
+
+Persona utama: **P1 Sari** (warga) serta pemohon profesional (jurnalis, peneliti, LSM,
+badan hukum). Ukuran keberhasilan versi KAK: permohonan tidak lagi "hilang" —
+setiap langkah tercatat, terlacak, dan berbatas waktu.
+
 ## Cara menjalankan
 
 Buka `index.html` langsung (`file://`) atau melalui server lokal:
