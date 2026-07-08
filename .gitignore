@@ -2,3 +2,4 @@
 *.zip
 .vercel
 .env*
+PROMPT_*.md
