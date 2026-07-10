@@ -299,7 +299,7 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
 .svc-card { display: flex; flex-direction: column; gap: var(--s4); height: 100%; }
 .svc-card__icon {
   width: 52px; height: 52px; border-radius: 14px;
-  display: grid; place-items: center;
+  display: grid; place-items: center; flex: none; /* cegah menyusut saat jadi anak flex row (.nilai-chip/.svc-row) */
   background: var(--klh-green-100); color: var(--klh-green-700);
 }
 .svc-card__icon--earth { background: var(--o-100); color: var(--o-700); }
