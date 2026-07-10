@@ -123,9 +123,15 @@
   var fMfa = document.getElementById('form-mfa');
 
   function setErr(id, on) {
-    var field = document.getElementById(id).closest('.field, fieldset');
+    var el = document.getElementById(id);
+    var field = el.closest('.field, fieldset');
     var msg = document.getElementById(id + '-err');
     if (field) field.classList.toggle('err', on);
+    /* A3-12: aria-invalid pada input yang gagal validasi */
+    var inputs = /^(input|select|textarea)$/i.test(el.tagName) ? [el] : el.querySelectorAll('input, select, textarea');
+    Array.prototype.forEach.call(inputs, function (i) {
+      if (on) i.setAttribute('aria-invalid', 'true'); else i.removeAttribute('aria-invalid');
+    });
     msg.hidden = !on;
     return !on;
   }
@@ -165,6 +171,14 @@
     inp.addEventListener('keydown', function (e) {
       if (e.key === 'Backspace' && !inp.value && otp[i - 1]) otp[i - 1].focus();
     });
+  });
+  /* A3-11: tempel kode 6 digit terdistribusi ke seluruh kotak */
+  document.getElementById('otp-row').addEventListener('paste', function (e) {
+    var teks = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
+    if (!teks) return;
+    e.preventDefault();
+    Array.prototype.forEach.call(otp, function (inp, i) { inp.value = teks[i] || ''; });
+    otp[Math.min(teks.length, otp.length - 1)].focus();
   });
 
   function masukBerhasil(metode) {

@@ -83,6 +83,13 @@
     this.style.flex = 'none';
     this.innerHTML = KLH.iconSVG(name, cls);
     this.removeAttribute('class');
+    /* Ukuran inline pada host (mis. style="width:13px") diteruskan ke svg —
+       tanpa ini svg memakai ukuran kelasnya (24px) dan meluber keluar host */
+    if (this.style.width || this.style.height) {
+      var svg = this.firstChild;
+      svg.style.width = this.style.width || this.style.height;
+      svg.style.height = this.style.height || this.style.width;
+    }
     if (label) { this.setAttribute('role', 'img'); this.setAttribute('aria-label', label); }
     else { this.setAttribute('aria-hidden', 'true'); }
   };

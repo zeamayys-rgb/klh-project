@@ -26,12 +26,12 @@
       colsHtml += '<div class="mega__col">' + groups.map(function (g) {
         var lis = g.items.map(function (it) {
           var ext = it.ext;
-          return '<li><a class="mega__link" href="' + href(it.href) + '"' + (ext ? extAttrs : '') + '>' +
+          return '<li><a class="mega__link" href="' + href(it.href) + '"' + (ext ? extAttrs + ' data-ext="' + it.label + '"' : '') + '>' +
             ic(it.ext ? 'external' : it.icon) +
             '<span>' + it.label + (ext ? extTail() : '') +
             (it.desc ? '<small>' + it.desc + '</small>' : '') + '</span></a></li>';
         }).join('');
-        return '<h5>' + g.title + '</h5><ul class="mega__list">' + lis + '</ul>';
+        return '<h3>' + g.title + '</h3><ul class="mega__list">' + lis + '</ul>';
       }).join('<div style="height:var(--s4)"></div>') + '</div>';
     }
     var promo = '';
@@ -50,7 +50,7 @@
     }
     var subs = item.panel.groups.map(function (g) {
       return '<span class="grouplabel">' + g.title + '</span>' + g.items.map(function (it) {
-        return '<a href="' + href(it.href) + '"' + (it.ext ? extAttrs : '') + '>' +
+        return '<a href="' + href(it.href) + '"' + (it.ext ? extAttrs + ' data-ext="' + it.label + '"' : '') + '>' +
           ic(it.ext ? 'external' : it.icon) + '<span>' + it.label +
           (it.ext ? ' <span class="ext-note">· situs lain</span>' : '') + '</span></a>';
       }).join('');
@@ -79,9 +79,9 @@
       '<a class="skip" href="#konten">Lewati ke konten utama</a>' +
       '<header class="site-header">' +
         '<div class="utilbar"><div class="container">' +
-          '<span class="utilbar__brand">' + ic('institution') + ' Portal Resmi Pemerintah Republik Indonesia</span>' +
+          '<span class="utilbar__brand">' + ic('institution') + ' Portal Resmi<span class="utilbar__long"> Pemerintah Republik Indonesia</span></span>' +
           '<span class="utilbar__actions">' +
-            '<button type="button" data-a11y-open>' + ic('access') + ' Aksesibilitas</button>' +
+            '<button type="button" data-a11y-open aria-label="Aksesibilitas">' + ic('access') + '<span class="utilbar__long"> Aksesibilitas</span></button>' +
             '<span class="sep" aria-hidden="true"></span>' +
             '<button type="button" aria-label="Ganti bahasa — saat ini Bahasa Indonesia">' + ic('translate') + ' ID / EN</button>' +
             '<span class="sep" aria-hidden="true"></span>' +

@@ -215,6 +215,12 @@ Versi   : tambahkan _v2, _final bila revisi
 
 ### LOG DELIVERABLE
 
+**10 Jul 2026 — Perbaikan seluruh temuan audit 3 modul SELESAI** (permintaan Abdan — termasuk pengecualian eksplisit status final M01)
+- **M01 (A1-01…A1-12):** overflow utilbar 390px, kontras `--ink-400`→`--ink-500`, dialog `data-ext` global di `main.js` + focus trap, target sentuh 44px (utilbar/pager/footer), penanda "Prototipe · konten contoh" global di footer + template detail, `aria-label` toggle kontras, `<h5>`→`<h2>/<h3>`, token turunan warna mentah, satuan statistik AA, emoji/✓ diganti ikon, `CLAUDE.md` primary `#005952`. A1-13 (kerangka dirender JS) dicatat sebagai batasan handoff di README M01.
+- **M02 (A2-07…A2-10):** h1 ganda `daftar.html`, escape `"` nama berkas, Promise clipboard, regex registrasi 6 digit.
+- **M03 (A3-06…A3-14):** listbox→tombol+`aria-current`, tablist→`aria-pressed`, target sentuh popover/switch 44px, kontras stempel waktu, copy 404 tanpa query, paste OTP terdistribusi, `aria-invalid`, `aria-live` dipersempit, arah KPI `turun-baik`.
+- Verifikasi: Playwright **94 render (47 halaman × 2 viewport) nol error JS & nol overflow**; 40 cek terarah lolos (focus trap, regresi Esc drawer/mega, ukuran target terukur, paste OTP, aria state). Detail per temuan di bagian "Tindak Lanjut" masing-masing `docs/AUDIT_Modul-0*.md`; bukti baru `docs/audit-bukti/modul-01/fix-*.png`. `klh-ppid-web.zip` & `klh-omni-dashboard.zip` diperbarui.
+
 **7 Jul 2026 — Modul 04 · CMS Konten (prototipe HTML, permintaan tambahan) SELESAI** → folder `klh-cms/`
 - **CMS admin lintas produk** (di luar lingkup 3 modul KAK — permintaan Abdan): kelola berita/pengumuman/agenda Website Utama, DIP/regulasi/FAQ PPID, pustaka media, pengguna & peran. **Alur editorial Draf → Menunggu Review → Terbit/Terjadwal** menerjemahkan prinsip "wajib approval"; Kontributor tidak bisa menerbitkan, konten PPID wajib disetujui Verifikator PPID.
 - 8 halaman: login (captcha, sesi `klh-cms-sesi`) → dashboard (KPI, antrean review lintas produk, log aktivitas, kartu 3 produk + pratinjau) → daftar konten (filter status `?status=`, cari, hapus) → **editor** (slug hidup, toolbar demo, foto unggulan dari pustaka + alt wajib, jadwal tayang, panel status) → agenda (3 jenis, form tervalidasi) → PPID (tab DIP/Regulasi/FAQ, klasifikasi UU 14/2008, dialog unggah→review) → media (**alt text wajib** — ditolak tanpa alt) → pengguna (4 peran + matriks izin).

@@ -124,9 +124,14 @@
 (function () {
   'use strict';
   var o = KLH.omni;
-  var t = KLH.findTiket(KLH.qs('t'));
+  var qt = KLH.qs('t');
+  var t = KLH.findTiket(qt);
   if (!t) {
-    document.getElementById('tkt-404').hidden = false;
+    var b404 = document.getElementById('tkt-404');
+    /* A3-10: copy berbeda saat tautan tidak menyertakan nomor tiket */
+    if (!qt) b404.querySelector('.alert > div').innerHTML =
+      '<strong>Tidak ada nomor tiket pada tautan.</strong>Menampilkan contoh tiket aktif sebagai pratinjau.';
+    b404.hidden = false;
     t = o.tiket.filter(function (x) { return x.status !== 'Closed'; })[0] || o.tiket[0];
   }
   var conv = t.percakapan ? KLH.findPercakapan(t.percakapan) : null;

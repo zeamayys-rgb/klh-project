@@ -126,7 +126,7 @@
   document.getElementById('form-keberatan').addEventListener('submit', function (e) {
     e.preventDefault();
     var ok = true;
-    ok = setErr('reg', !/^PPID-\d{4}-\d{4,6}$/i.test(regInput.value.trim())) && ok;
+    ok = setErr('reg', !/^PPID-\d{4}-\d{6}$/i.test(regInput.value.trim())) && ok; /* A2-10: 6 digit sesuai format resmi */
     ok = setErr('alasan', !document.getElementById('alasan').value) && ok;
     ok = setErr('uraian', document.getElementById('uraian').value.trim().length < 30) && ok;
     if (!ok) {

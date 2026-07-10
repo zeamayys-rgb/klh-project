@@ -93,7 +93,7 @@ Peran: sorotan & energi — aksen garis, penanda notifikasi, CTA kampanye (maks 
 | `--ink-900` | `#10201D` | Teks utama (16.85:1 pada putih) |
 | `--ink-700` | `#283835` | Judul sekunder |
 | `--ink-500` | `#51625E` | Teks pendukung |
-| `--ink-400` | `#75847F` | Keterangan, placeholder |
+| `--ink-400` | `#75847F` | Hanya teks besar (≥24px / ≥18,66px bold), placeholder, atau state disabled — **3,92:1 pada putih, gagal AA untuk teks normal**; teks meta/keterangan pakai `--ink-500` |
 | `--ink-300` | `#A6B2AE` | Nonaktif |
 | `--line` / `--line-strong` | `#E1E8E6` / `#C7D2CF` | Garis / border input |
 | `--surface` / `--surface-2` / `--surface-3` | `#FFFFFF` / `#F5F9F8` / `#EBF2F0` | Permukaan |

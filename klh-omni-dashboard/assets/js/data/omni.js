@@ -277,7 +277,7 @@
       { label: 'Interaksi Masuk Hari Ini', nilai: '186', delta: '+12%', arah: 'naik', icon: 'inbox', ket: 'vs. rata-rata 7 hari' },
       { label: 'Tiket Aktif', nilai: '47', delta: '8 prioritas tinggi', arah: 'tetap', icon: 'ticket', ket: 'Open + In Progress' },
       { label: 'SLA Terpenuhi (30 hari)', nilai: '94,2%', delta: '+1,8%', arah: 'naik', icon: 'check', ket: 'target ≥ 90%' },
-      { label: 'Rata-rata Respons Pertama', nilai: '14 mnt', delta: '−3 mnt', arah: 'naik', icon: 'clock', ket: 'seluruh kanal, jam kerja' }
+      { label: 'Rata-rata Respons Pertama', nilai: '14 mnt', delta: '−3 mnt', arah: 'turun-baik', icon: 'clock', ket: 'seluruh kanal, jam kerja' }
     ],
 
     /* ---- Statistik pengunjung & performa sistem (dashboard) ---- */

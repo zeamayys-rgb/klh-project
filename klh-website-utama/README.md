@@ -92,3 +92,9 @@ klh-website-utama/
 - Render Chromium (Playwright) desktop 1440px & mobile 390px: beranda, mega menu, drawer, org chart, 4 kelompok layanan, dialog serah-terima eksternal, kalender (navigasi bulan), pelacakan PPID, pencarian (?q=), 404 — tanpa error JS.
 - Link-check internal seluruh `href`/`src` — lolos.
 - Satu-satunya error konsol di sandbox: Google Fonts 403 (pembatasan jaringan sandbox; normal di lingkungan riil).
+
+## Tindak lanjut audit (10 Jul 2026)
+
+Seluruh temuan `docs/AUDIT_Modul-01_Website-Utama.md` (A1-01…A1-12) telah diperbaiki dan diverifikasi ulang (Playwright 20 halaman × 2 viewport — nol error JS, nol overflow 390px). Ringkasan perubahan ada di bagian "Tindak Lanjut Perbaikan" dokumen audit tersebut.
+
+**Batasan handoff produksi (A1-13):** skip link, navbar, dan footer dirender via JavaScript (custom element). Tanpa JS halaman tidak memiliki navigasi/skip link — dapat diterima untuk prototipe, tetapi untuk produksi kerangka utama sebaiknya di-SSR / HTML statis.

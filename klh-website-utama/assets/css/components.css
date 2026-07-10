@@ -37,11 +37,11 @@
 .btn-blue:hover { background: var(--b-700); color: #fff; }
 
 /* CTA kampanye — teks gelap di atas oranye-500 (DS §4.3: tanpa teks putih) */
-.btn-orange { background: var(--o-500); color: #3A1B02; }
-.btn-orange:hover { background: var(--o-400); color: #3A1B02; }
+.btn-orange { background: var(--o-500); color: var(--on-orange); }
+.btn-orange:hover { background: var(--o-400); color: var(--on-orange); }
 
 .btn-danger { background: var(--danger); color: #fff; }
-.btn-danger:hover { background: #A93226; color: #fff; }
+.btn-danger:hover { background: var(--danger-700); color: #fff; }
 
 .btn-lg { padding: 14px 28px; font-size: var(--t-body); border-radius: var(--r-md); }
 .btn-sm { padding: 7px 14px; font-size: var(--t-xs); }
@@ -64,14 +64,20 @@
 .utilbar__brand { display: inline-flex; align-items: center; gap: var(--s2); font-weight: 600; letter-spacing: .02em; }
 .utilbar__actions { display: flex; align-items: center; gap: var(--s1); }
 .utilbar button, .utilbar a.utilbtn {
-  display: inline-flex; align-items: center; gap: 6px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
   background: none; border: 0; color: var(--klh-green-100);
   font: inherit; font-weight: 500; cursor: pointer;
-  padding: 6px 10px; border-radius: var(--r-xs);
+  padding: 6px 10px; min-height: 44px; border-radius: var(--r-xs); /* target sentuh ≥44px (A1-04) */
   text-decoration: none;
 }
 .utilbar button:hover, .utilbar a.utilbtn:hover { background: rgba(255,255,255,.12); color: #fff; }
 .utilbar .sep { width: 1px; height: 16px; background: rgba(255,255,255,.25); margin-inline: var(--s2); }
+/* <768px: teks panjang disembunyikan agar tidak overflow (A1-01, WCAG 1.4.10 Reflow) */
+@media (max-width: 767px) {
+  .utilbar .container { flex-wrap: wrap; }
+  .utilbar__long { display: none; }
+  .utilbar button, .utilbar a.utilbtn { min-width: 44px; }
+}
 
 .navbar {
   background: var(--surface);
@@ -138,9 +144,9 @@
   transition-delay: 0s;
 }
 .mega--simple { grid-template-columns: 1fr; width: 300px; }
-.mega__col h5 {
+.mega__col h3 {
   font-size: var(--t-xs); font-weight: 700; letter-spacing: .08em;
-  text-transform: uppercase; color: var(--ink-400);
+  text-transform: uppercase; color: var(--ink-500);
   margin: 0 0 var(--s3); padding-bottom: var(--s2);
   border-bottom: 1px solid var(--line);
 }
@@ -153,10 +159,10 @@
 }
 .mega__link:hover { background: var(--klh-green-50); color: var(--klh-green-800); }
 .mega__link .icon--sm { margin-top: 1px; color: var(--klh-green-600); }
-.mega__link small { display: block; color: var(--ink-400); font-size: var(--t-xs); }
+.mega__link small { display: block; color: var(--ink-500); font-size: var(--t-xs); }
 .mega__ext {
   display: inline-flex; align-items: center; gap: 3px;
-  color: var(--ink-400); font-size: var(--t-xs); font-weight: 500;
+  color: var(--ink-500); font-size: var(--t-xs); font-weight: 500;
 }
 /* Panel promo di kolom kanan mega menu */
 .mega__promo {
@@ -206,7 +212,7 @@
   background: none; border: 0; border-radius: var(--r-sm); cursor: pointer;
 }
 .drawer__link:hover, .drawer__acc:hover { background: var(--klh-green-50); }
-.drawer__acc .caret { transition: transform var(--dur-1) var(--ease); color: var(--ink-400); }
+.drawer__acc .caret { transition: transform var(--dur-1) var(--ease); color: var(--ink-500); }
 .drawer__acc[aria-expanded="true"] .caret { transform: rotate(180deg); }
 .drawer__sub { display: none; padding: 0 var(--s2) var(--s3) var(--s5); }
 .drawer__acc[aria-expanded="true"] + .drawer__sub { display: block; }
@@ -219,7 +225,7 @@
 .drawer__sub a:hover { background: var(--klh-green-50); color: var(--klh-green-800); }
 .drawer__sub .grouplabel {
   display: block; font-size: var(--t-xs); font-weight: 700; letter-spacing: .07em;
-  text-transform: uppercase; color: var(--ink-400); padding: var(--s3) var(--s3) var(--s1);
+  text-transform: uppercase; color: var(--ink-500); padding: var(--s3) var(--s3) var(--s1);
 }
 
 /* Di bawah 1280px label satu-baris tidak muat lagi → pakai drawer */
@@ -230,7 +236,7 @@
 
 /* --- Search bar navbar (§7.2) --- */
 .nav-search { position: relative; flex: 0 1 260px; min-width: 150px; margin-left: auto; }
-.nav-search .icon--sm { position: absolute; left: 12px; top: 50%; translate: 0 -50%; color: var(--ink-400); pointer-events: none; }
+.nav-search .icon--sm { position: absolute; left: 12px; top: 50%; translate: 0 -50%; color: var(--ink-500); pointer-events: none; }
 .nav-search input {
   width: 100%; padding: 10px 12px 10px 38px;
   font: inherit; font-size: var(--t-sm);
@@ -298,7 +304,7 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
 }
 .svc-card__icon--earth { background: var(--o-100); color: var(--o-700); }
 .svc-card__icon--sky { background: var(--b-100); color: var(--b-700); }
-.svc-card h3, .svc-card h4 { margin-bottom: var(--s1); display: flex; align-items: center; gap: var(--s2); }
+.svc-card h3, .svc-card h4 { padding-top: var(--s2); margin-bottom: var(--s1); display: flex; align-items: center; gap: var(--s2); }
 .svc-card p { color: var(--ink-500); font-size: var(--t-sm); margin: 0; }
 .svc-card__foot {
   margin-top: auto; padding-top: var(--s3);
@@ -318,7 +324,7 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
 .news-card__body { padding: var(--s5); display: flex; flex-direction: column; gap: var(--s2); flex: 1; }
 .news-card__meta {
   display: flex; align-items: center; gap: var(--s3); flex-wrap: wrap;
-  color: var(--ink-400); font-size: var(--t-xs);
+  color: var(--ink-500); font-size: var(--t-xs);
 }
 .news-card h3, .news-card h4 { font-size: var(--t-h4); margin: 0; }
 .news-card p { color: var(--ink-500); font-size: var(--t-sm); margin: 0; }
@@ -375,9 +381,9 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
 }
 .alert .icon { margin-top: 1px; }
 .alert strong { display: block; font-family: var(--font-display); margin-bottom: 2px; }
-.alert-success { background: var(--success-bg); border-color: var(--success-line); color: #0A5A3A; }
+.alert-success { background: var(--success-bg); border-color: var(--success-line); color: var(--success-ink); }
 .alert-warning { background: var(--warning-bg); border-color: var(--warning-line); color: var(--o-800); }
-.alert-danger  { background: var(--danger-bg); border-color: var(--danger-line); color: #8E2A1F; }
+.alert-danger  { background: var(--danger-bg); border-color: var(--danger-line); color: var(--danger-ink); }
 .alert-info    { background: var(--info-bg); border-color: var(--info-line); color: var(--b-800); }
 
 /* ============ 8. TABS (§7.7) ============ */
@@ -395,7 +401,7 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
 /* ============ 9. FORM & INPUT (§7.4) ============ */
 .field { display: grid; gap: 6px; margin-bottom: var(--s5); }
 .field label { font-family: var(--font-display); font-weight: 600; font-size: var(--t-sm); color: var(--ink-700); }
-.field .hint { font-size: var(--t-xs); color: var(--ink-400); }
+.field .hint { font-size: var(--t-xs); color: var(--ink-500); }
 .input, .select, .textarea {
   width: 100%; padding: 11px 14px;
   font: inherit; font-size: var(--t-sm); color: var(--ink-900);
@@ -444,13 +450,13 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
 .timeline .done .dot { background: var(--klh-green-600); border-color: var(--klh-green-600); color: #fff; }
 .timeline .now .dot { background: var(--b-500); border-color: var(--b-500); color: #fff; }
 .timeline h4 { margin-bottom: 2px; font-size: var(--t-body); }
-.timeline .tmeta { font-size: var(--t-xs); color: var(--ink-400); }
+.timeline .tmeta { font-size: var(--t-xs); color: var(--ink-500); }
 
 /* ============ 12. PAGINATION ============ */
 .pager { display: flex; gap: var(--s2); align-items: center; justify-content: center; flex-wrap: wrap; }
 .pager a, .pager span {
   display: grid; place-items: center;
-  min-width: 40px; height: 40px; padding-inline: var(--s2);
+  min-width: 44px; height: 44px; padding-inline: var(--s2); /* target sentuh ≥44px (A1-04) */
   border-radius: var(--r-sm); text-decoration: none;
   font-family: var(--font-display); font-weight: 600; font-size: var(--t-sm);
   color: var(--ink-700); border: 1px solid var(--line);
@@ -458,7 +464,7 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
 }
 .pager a:hover { border-color: var(--klh-green-500); color: var(--klh-green-800); }
 .pager .on { background: var(--klh-green-600); border-color: var(--klh-green-600); color: #fff; }
-.pager .gap { border: 0; background: none; color: var(--ink-400); }
+.pager .gap { border: 0; background: none; color: var(--ink-500); }
 
 /* ============ 13. FOOTER ============ */
 .site-footer {
@@ -477,13 +483,14 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
 }
 @media (max-width: 1024px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 640px) { .footer-grid { grid-template-columns: 1fr; gap: var(--s8); } }
-.site-footer h5 {
+/* Judul kolom: h2 semantik, visual label kecil (A1-08) */
+.site-footer .footer-h {
   color: #fff; font-size: var(--t-xs); font-weight: 700;
   letter-spacing: .09em; text-transform: uppercase;
   margin-bottom: var(--s4);
 }
 .site-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s2); }
-.site-footer a { color: var(--klh-green-200); text-decoration: none; font-size: var(--t-sm); display: inline-flex; align-items: center; gap: 6px; }
+.site-footer a { color: var(--klh-green-200); text-decoration: none; font-size: var(--t-sm); display: inline-flex; align-items: center; gap: 6px; padding-block: 12px; margin-block: -8px; } /* hit-area ≥44px tanpa mengubah ritme visual (A1-04) */
 .site-footer a:hover { color: #fff; text-decoration: underline; }
 .footer-brand { display: flex; align-items: flex-start; gap: var(--s3); margin-bottom: var(--s5); }
 .footer-brand .brand__logo { box-shadow: none; }
@@ -553,7 +560,7 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
 .chat-input { display: flex; gap: var(--s2); padding: var(--s3); border-top: 1px solid var(--line); background: var(--surface); }
 .chat-input input { flex: 1; padding: 10px 14px; font: inherit; font-size: var(--t-sm); border: 1.5px solid var(--line-strong); border-radius: var(--r-pill); }
 .chat-input input:focus { outline: none; border-color: var(--klh-green-500); box-shadow: 0 0 0 3px var(--klh-green-100); }
-.chat-note { font-size: 10.5px; color: var(--ink-400); text-align: center; padding: 0 var(--s4) var(--s3); background: var(--surface); margin: 0; }
+.chat-note { font-size: 10.5px; color: var(--ink-500); text-align: center; padding: 0 var(--s4) var(--s3); background: var(--surface); margin: 0; }
 
 /* Panel aksesibilitas */
 .a11y-panel { padding: var(--s5); }
@@ -561,7 +568,7 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
 .a11y-row { display: flex; align-items: center; justify-content: space-between; gap: var(--s4); padding-block: var(--s3); border-top: 1px solid var(--line); }
 .a11y-row:first-of-type { border-top: 0; }
 .a11y-row .lbl { font-size: var(--t-sm); font-weight: 600; font-family: var(--font-display); }
-.a11y-row .lbl small { display: block; font-weight: 400; font-family: var(--font-body); color: var(--ink-400); font-size: var(--t-xs); }
+.a11y-row .lbl small { display: block; font-weight: 400; font-family: var(--font-body); color: var(--ink-500); font-size: var(--t-xs); }
 .a11y-ctrl { display: flex; gap: var(--s1); }
 .a11y-ctrl button {
   min-width: 38px; height: 38px; display: grid; place-items: center;
@@ -574,19 +581,19 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
 .a11y-ctrl button[aria-pressed="true"] { background: var(--klh-green-600); border-color: var(--klh-green-600); color: #fff; }
 
 /* ============ 15. LAIN-LAIN ============ */
-.ext-note { display: inline-flex; align-items: center; gap: 4px; font-size: var(--t-xs); color: var(--ink-400); font-weight: 500; }
+.ext-note { display: inline-flex; align-items: center; gap: 4px; font-size: var(--t-xs); color: var(--ink-500); font-weight: 500; font-family: var(--font-body); white-space: nowrap; }
 
 .stat-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gutter); }
 @media (max-width: 1024px) { .stat-strip { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .stat-strip { grid-template-columns: 1fr 1fr; } }
 .stat { padding: var(--s5) var(--s6); }
 .stat .val { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.6rem, 2.4vw, 2.1rem); color: var(--klh-green-800); }
-.stat .val small { font-size: .55em; font-weight: 700; color: var(--klh-green-500); }
+.stat .val small { font-size: .55em; font-weight: 700; color: var(--klh-green-600); } /* skala 600/700: AA teks <18,66px (A1-10) */
 /* Nilai bergantian hijau/biru/oranye — pola hero-meta DS v2 */
 .stat:nth-child(3n+2) .val { color: var(--b-600); }
-.stat:nth-child(3n+2) .val small { color: var(--b-400); }
+.stat:nth-child(3n+2) .val small { color: var(--b-600); }
 .stat:nth-child(3n) .val { color: var(--o-600); }
-.stat:nth-child(3n) .val small { color: var(--o-400); }
+.stat:nth-child(3n) .val small { color: var(--o-700); }
 .stat .lbl { color: var(--ink-500); font-size: var(--t-sm); }
 
 .tonal {

@@ -85,11 +85,17 @@
 
   document.getElementById('salin').addEventListener('click', function () {
     var note = document.getElementById('salin-note');
-    try {
-      navigator.clipboard.writeText(id);
-      note.textContent = 'Nomor registrasi disalin.';
-      this.innerHTML = KLH.iconSVG('check', 'icon icon--sm') + ' Tersalin';
-    } catch (e) {
+    var btn = this;
+    /* A2-09: tangani penolakan Promise clipboard, bukan try/catch sinkron */
+    var p = navigator.clipboard && navigator.clipboard.writeText(id);
+    if (p && p.then) {
+      p.then(function () {
+        note.textContent = 'Nomor registrasi disalin.';
+        btn.innerHTML = KLH.iconSVG('check', 'icon icon--sm') + ' Tersalin';
+      }, function () {
+        note.textContent = 'Gagal menyalin — salin manual.';
+      });
+    } else {
       note.textContent = 'Gagal menyalin — salin manual.';
     }
   });

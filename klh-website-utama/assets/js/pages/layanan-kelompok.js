@@ -62,35 +62,6 @@
         '<div><strong>' + g.note.title + '</strong>' + g.note.text + '</div></div>';
     }
 
-    /* ---- Dialog handoff eksternal (Flow A — konfirmasi jelas) ---- */
-    var dlg = document.createElement('div');
-    dlg.className = 'drawer'; dlg.hidden = true;
-    dlg.innerHTML =
-      '<div class="drawer__scrim" data-ho-close></div>' +
-      '<div role="dialog" aria-modal="true" aria-labelledby="ho-title" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(440px,calc(100vw - 32px));background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--sh-3);padding:var(--s8)">' +
-        '<span class="svc-card__icon svc-card__icon--sky" style="margin-bottom:var(--s4)">' + KLH.iconSVG('external') + '</span>' +
-        '<h3 id="ho-title" style="font-size:var(--t-h3)">Anda akan diarahkan ke <span data-ho-name>situs lain</span></h3>' +
-        '<p style="color:var(--ink-500);font-size:var(--t-sm)">Halaman berikutnya berada di luar kemenlh.go.id dan memiliki tampilan berbeda. Layanan tetap resmi — Anda dapat kembali kapan saja.</p>' +
-        '<div style="display:flex;gap:var(--s3);margin-top:var(--s6);flex-wrap:wrap">' +
-          '<a class="btn btn-primary" data-ho-go target="_blank" rel="noopener noreferrer">Lanjutkan ' + KLH.iconSVG('arrowright', 'icon icon--sm') + '</a>' +
-          '<button class="btn btn-outline" type="button" data-ho-close>Batal</button>' +
-        '</div></div>';
-    document.body.appendChild(dlg);
-
-    function openHo(name, href) {
-      dlg.querySelector('[data-ho-name]').textContent = name;
-      dlg.querySelector('[data-ho-go]').setAttribute('href', href);
-      dlg.hidden = false; dlg.classList.add('open');
-      dlg.querySelector('[data-ho-go]').focus();
-    }
-    function closeHo() { dlg.hidden = true; dlg.classList.remove('open'); }
-
-    document.addEventListener('click', function (e) {
-      var a = e.target.closest && e.target.closest('[data-ext]');
-      if (a) { e.preventDefault(); openHo(a.getAttribute('data-ext'), a.getAttribute('href')); return; }
-      if (e.target.closest && e.target.closest('[data-ho-close]')) closeHo();
-      if (e.target.closest && e.target.closest('[data-ho-go]')) closeHo();
-    });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeHo(); });
+    /* Dialog handoff eksternal kini global di main.js (delegasi [data-ext]) */
   });
 })();

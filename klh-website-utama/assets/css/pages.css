@@ -65,21 +65,31 @@
 .info-col__head a { font-size: var(--t-sm); font-weight: 600; text-decoration: none; color: var(--klh-green-700); font-family: var(--font-display); }
 .info-col__head a:hover { text-decoration: underline; }
 .mini-list { display: grid; gap: var(--s3); }
-.mini-item { display: flex; gap: var(--s4); padding: var(--s4); text-decoration: none; color: inherit; }
+/* a.mini-item (bukan .mini-item saja): "a.card{display:block}" di components.css
+   punya spesifisitas lebih tinggi (elemen+kelas) & menang atas display:flex di sini */
+a.mini-item { display: flex; gap: var(--s4); padding: var(--s4); text-decoration: none; color: inherit; }
 .mini-item .thumb {
   width: 74px; height: 58px; border-radius: var(--r-sm); flex: none; position: relative;
   display: grid; place-items: center; color: rgba(255,255,255,.9);
 }
 .mini-item h4 { font-size: var(--t-sm); line-height: var(--lh-snug); margin: 0 0 4px; }
-.mini-item time, .mini-item .m { font-size: var(--t-xs); color: var(--ink-400); }
-.agenda-item { display: flex; gap: var(--s4); align-items: flex-start; padding: var(--s4); text-decoration: none; color: inherit; }
+.mini-item time, .mini-item .m { font-size: var(--t-xs); color: var(--ink-500); }
+/* a.agenda-item (bukan .agenda-item saja) — sama seperti a.mini-item di atas:
+   perlu menyamai spesifisitas "a.card{display:block}" agar flex benar berlaku */
+a.agenda-item { display: flex; gap: var(--s5); align-items: flex-start; padding: var(--s4); text-decoration: none; color: inherit; }
+/* Mobile: tanggal pindah ke atas, judul+tag ke bawah (bukan sejajar) */
+@media (max-width: 640px) { .agenda-item { flex-direction: column; } }
 .agenda-item .dt {
-  flex: none; width: 58px; text-align: center; border-radius: var(--r-sm);
-  background: var(--klh-green-100); color: var(--klh-green-800); padding: var(--s2) 0;
+  /* flex column, bukan inline span polos — width pada elemen inline diabaikan
+     browser, dulu membuat <b> block di dalamnya melebar ke lebar kartu */
+  flex: none; width: 52px; height: 52px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; border-radius: var(--r-sm);
+  background: var(--klh-green-100); color: var(--klh-green-800);
   font-family: var(--font-display);
 }
-.agenda-item .dt b { display: block; font-size: var(--t-h3); line-height: 1; }
-.agenda-item .dt span { font-size: var(--t-xs); font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+.agenda-item .dt b { font-size: var(--t-h4); line-height: 1.1; }
+.agenda-item .dt span { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; margin-top: 1px; }
 
 /* Pita CTA PPID */
 .cta-band {
@@ -165,7 +175,7 @@
 
 /* Detail artikel */
 .art-head { max-width: 780px; }
-.art-meta { display: flex; align-items: center; gap: var(--s4); flex-wrap: wrap; color: var(--ink-400); font-size: var(--t-sm); margin-bottom: var(--s6); }
+.art-meta { display: flex; align-items: center; gap: var(--s4); flex-wrap: wrap; color: var(--ink-500); font-size: var(--t-sm); margin-bottom: var(--s6); }
 .art-media { border-radius: var(--r-xl); aspect-ratio: 21/9; position: relative; display: grid; place-items: center; color: rgba(255,255,255,.9); margin-block: var(--s8); }
 .art-body { max-width: 72ch; font-size: 1.0625rem; }
 .art-body p { margin-bottom: var(--s5); }
@@ -176,7 +186,7 @@
 .cal__head { display: flex; align-items: center; justify-content: space-between; padding: var(--s4) var(--s5); background: var(--klh-green-700); color: #fff; }
 .cal__head h3 { color: #fff; margin: 0; font-size: var(--t-h4); }
 .cal__grid { display: grid; grid-template-columns: repeat(7, 1fr); }
-.cal__dow { padding: var(--s2); text-align: center; font-size: var(--t-xs); font-weight: 700; color: var(--ink-400); text-transform: uppercase; letter-spacing: .05em; background: var(--surface-2); border-bottom: 1px solid var(--line); }
+.cal__dow { padding: var(--s2); text-align: center; font-size: var(--t-xs); font-weight: 700; color: var(--ink-500); text-transform: uppercase; letter-spacing: .05em; background: var(--surface-2); border-bottom: 1px solid var(--line); }
 .cal__cell { min-height: 76px; padding: var(--s2); border-top: 1px solid var(--line); border-left: 1px solid var(--line); font-size: var(--t-xs); position: relative; }
 .cal__cell:nth-child(7n+1) { border-left: 0; }
 .cal__cell .d { font-family: var(--font-display); font-weight: 600; color: var(--ink-500); }

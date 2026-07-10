@@ -74,4 +74,27 @@ Data mentah lengkap (35 varian × screenshot 1440/390, `sweep-results.json`, `in
 
 ---
 
-*Audit oleh Claude Code (sesi 7 Jul 2026) atas permintaan PROMPT_Audit-Modul-01. Modul 01 berstatus final — seluruh rekomendasi menunggu keputusan eksekusi dari pemilik proyek; estimasi perbaikan 5 temuan Mayor ≈ 1 sesi kerja singkat karena semuanya di komponen bersama.*
+## F. Tindak Lanjut Perbaikan (10 Juli 2026)
+
+Atas permintaan pemilik proyek, **seluruh temuan A1-01 … A1-12 telah diperbaiki** (A1-13 dicatat sebagai batasan handoff di README modul). Ringkasan implementasi:
+
+| ID | Perbaikan |
+|---|---|
+| A1-01 | `components.css`: media query <768px — teks panjang utilbar dibungkus `span.utilbar__long` (disembunyikan di mobile), `flex-wrap` sebagai pengaman. `scrollWidth` kini 390/390 di semua halaman. |
+| A1-02 | Seluruh `color: var(--ink-400)` di `components.css` & `pages.css` → `--ink-500`; catatan pemakaian ditambah di `design.md` §4.5. |
+| A1-03 | Handler dialog serah-terima diangkat ke `main.js` (delegasi global `[data-ext]`); atribut `data-ext` ditambahkan di mega menu & drawer (`navbar.js`), footer (`footer.js`), kartu beranda, dan tautan e-LHKPN/SiRUP/LPSE di halaman profil. `layanan-kelompok.js` tidak lagi memuat dialog lokal. |
+| A1-04 | `min-height:44px` tombol utilbar & pager; tautan footer diberi `padding-block:12px` + margin negatif (hit-area ≥44px tanpa mengubah ritme visual). |
+| A1-05 | Badge global "Prototipe · konten contoh" di `footer.js` (tampil di semua halaman) + baris penanda pada template detail artikel & detail jabatan. |
+| A1-06 | Toggle kontras kini ber-`aria-label="Aktifkan kontras tinggi"`. |
+| A1-07 | Dialog di `main.js` dilengkapi loop fokus Tab/Shift+Tab; Esc mengembalikan fokus ke pemicu (fallback ke tombol nav induk bila pemicu berada di mega menu yang sudah menutup); `stopPropagation` fase capture agar Esc tidak ikut menutup menu di belakang dialog. |
+| A1-08 | `<h5>` → `<h3>` (kolom mega menu) dan `<h2 class="footer-h">` (kolom footer); nol `<h5>` tersisa. |
+| A1-09 | Token turunan `--danger-700`, `--on-orange`, `--success-ink`, `--danger-ink` ditambahkan di `tokens.css` dan dipakai `components.css`. |
+| A1-10 | Satuan statistik: `--g-600` / `--b-600` / `--o-700` (AA untuk teks <18,66px). |
+| A1-11 | Emoji 👋 dihapus dari sapaan chatbot; "✓" salin-tautan diganti ikon `check` dari `icons.js`. |
+| A1-12 | `CLAUDE.md` diperbarui: primary `#005952` (`--g-600`). |
+
+**Verifikasi ulang (Playwright Chromium, 10 Jul 2026):** 20 halaman × 2 viewport (40 render M01) — nol error JS, nol overflow 390px; 18+ cek terarah lolos (dialog `data-ext` dari mega menu/kartu beranda/halaman layanan, focus trap + pengembalian fokus, regresi Esc drawer & mega menu, target sentuh terukur 44–46px, badge footer, penanda konten contoh, nol `<h5>`). Bukti: `audit-bukti/modul-01/fix-utilbar-390.png`, `fix-dataext-megamenu.png`, `fix-footer-badge.png`.
+
+---
+
+*Audit oleh Claude Code (sesi 7 Jul 2026) atas permintaan PROMPT_Audit-Modul-01. Tindak lanjut perbaikan dieksekusi & diverifikasi ulang pada 10 Jul 2026 atas permintaan pemilik proyek (pengecualian eksplisit atas status final Modul 01).*

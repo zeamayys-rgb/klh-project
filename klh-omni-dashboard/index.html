@@ -98,7 +98,8 @@
   var o = KLH.omni;
 
   /* ---- KPI ---- */
-  var arahIc = { naik: 'escalate', turun: 'chevdown', tetap: 'arrowright' };
+  /* A3-14: 'turun-baik' = angka mengecil tapi membaik → panah turun berwarna sukses */
+  var arahIc = { naik: 'escalate', turun: 'chevdown', 'turun-baik': 'chevdown', tetap: 'arrowright' };
   document.getElementById('kpi-grid').innerHTML = o.kpi.map(function (k) {
     return '<div class="card kpi" data-reveal>' +
       '<div class="kpi__top"><span class="kpi__ic">' + KLH.iconSVG(k.icon) + '</span>' +

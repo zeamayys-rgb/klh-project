@@ -64,6 +64,11 @@
   --warning: #AE5104;  --warning-bg: #F9E4D2;  --warning-line: #F8C8A0;
   --danger:  #C03A2B;  --danger-bg:  #FBE3E0;  --danger-line:  #EFAFA6;
   --infoc:   #0B529D;  --info-bg:    #DAE8F6;  --info-line:    #B1D0F1;
+  /* Token turunan — pengganti warna mentah di komponen (A1-09) */
+  --danger-700:  #A93226;   /* hover btn-danger */
+  --on-orange:   #3A1B02;   /* teks di atas oranye-500 */
+  --success-ink: #0A5A3A;   /* teks alert-success */
+  --danger-ink:  #8E2A1F;   /* teks alert-danger */
 
   /* ---- Netral (bernuansa teal) ---- */
   --ink-900: #10201D;

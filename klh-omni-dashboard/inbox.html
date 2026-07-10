@@ -51,11 +51,11 @@
             </select>
           </div>
         </div>
-        <div class="ib-scroll" id="ib-scroll" role="listbox" aria-label="Percakapan"></div>
+        <div class="ib-scroll" id="ib-scroll" role="group" aria-label="Percakapan"></div><!-- A3-06: tombol natif, bukan pola listbox -->
       </section>
 
       <!-- Panel 2 — percakapan aktif -->
-      <section class="ib-conv" aria-label="Panel percakapan" aria-live="polite">
+      <section class="ib-conv" aria-label="Panel percakapan"><!-- A3-13: status kirim diumumkan via toast (aria-live), bukan seluruh panel -->
         <div class="ib-conv__head" id="conv-head"></div>
         <div class="ib-thread" id="conv-thread"></div>
         <form class="ib-reply" id="conv-reply" novalidate>
@@ -115,8 +115,8 @@
     var rows = terfilter();
     elJumlah.textContent = '· ' + rows.length + ' percakapan';
     elList.innerHTML = rows.length ? rows.map(function (c) {
-      return '<button type="button" class="ib-item ib-item--' + c.kanal + '" role="option" data-id="' + c.id + '"' +
-        ' aria-selected="' + String(!!(aktif && aktif.id === c.id)) + '">' +
+      return '<button type="button" class="ib-item ib-item--' + c.kanal + '" data-id="' + c.id + '"' +
+        (aktif && aktif.id === c.id ? ' aria-current="true"' : '') + '>' +
         '<span class="avatar" aria-hidden="true">' + inisial(c.nama) + '</span>' +
         '<span class="ib-item__mid">' +
           '<span class="ib-item__nama">' + c.nama + '</span>' +

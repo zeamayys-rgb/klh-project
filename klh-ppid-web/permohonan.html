@@ -208,7 +208,8 @@
       var err = '';
       if (!OK_EXT.test(f.name)) err = 'Format tidak didukung — gunakan PDF, JPG, atau PNG.';
       else if (f.size > MAX) err = 'Ukuran melebihi 2 MB — perkecil atau pindai ulang dengan resolusi lebih rendah.';
-      files.push({ name: f.name.replace(/</g, '&lt;'), size: f.size, err: err });
+      /* A2-08: escape juga `"` agar nama berkas tak memecah atribut aria-label */
+      files.push({ name: f.name.replace(/</g, '&lt;').replace(/"/g, '&quot;'), size: f.size, err: err });
     });
     renderFiles();
   }

@@ -41,11 +41,12 @@
     <div class="kpi-grid" id="tkt-ringkas" style="margin-bottom:var(--s5)"></div>
 
     <div class="toolbar" data-reveal>
-      <div class="tabs" role="tablist" aria-label="Filter status tiket" id="tab-status">
-        <button class="tab active" role="tab" aria-selected="true" data-st="">Semua</button>
-        <button class="tab" role="tab" aria-selected="false" data-st="Open">Open</button>
-        <button class="tab" role="tab" aria-selected="false" data-st="In Progress">In Progress</button>
-        <button class="tab" role="tab" aria-selected="false" data-st="Closed">Closed</button>
+      <!-- A3-07: tombol filter ber-aria-pressed, bukan pola tab (tak ada tabpanel) -->
+      <div class="tabs" role="group" aria-label="Filter status tiket" id="tab-status">
+        <button class="tab active" aria-pressed="true" data-st="">Semua</button>
+        <button class="tab" aria-pressed="false" data-st="Open">Open</button>
+        <button class="tab" aria-pressed="false" data-st="In Progress">In Progress</button>
+        <button class="tab" aria-pressed="false" data-st="Closed">Closed</button>
       </div>
       <div class="ib-cari">
         <klh-icon name="search" class="icon icon--sm"></klh-icon>
@@ -145,7 +146,7 @@
     Array.prototype.forEach.call(this.querySelectorAll('.tab'), function (t) {
       var on = t === tab;
       t.classList.toggle('active', on);
-      t.setAttribute('aria-selected', String(on));
+      t.setAttribute('aria-pressed', String(on));
     });
     render();
   });

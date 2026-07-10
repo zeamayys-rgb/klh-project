@@ -39,7 +39,7 @@
       '<div class="a11y-panel" role="dialog" aria-label="Pengaturan aksesibilitas">' +
         '<h4>' + ic('access') + ' Aksesibilitas</h4>' +
         '<div class="a11y-row"><span class="lbl">Kontras tinggi<small>Perkuat warna teks & garis</small></span>' +
-          '<div class="a11y-ctrl"><button type="button" data-contrast aria-pressed="false">Aktif</button></div></div>' +
+          '<div class="a11y-ctrl"><button type="button" data-contrast aria-pressed="false" aria-label="Aktifkan kontras tinggi">Aktif</button></div></div>' +
         '<div class="a11y-row"><span class="lbl">Ukuran teks<small>Hingga 200% (WCAG 1.4.4)</small></span>' +
           '<div class="a11y-ctrl">' +
             '<button type="button" data-fs-dec aria-label="Perkecil teks">A−</button>' +
@@ -58,7 +58,7 @@
           '<button class="chat-panel__close" aria-label="Tutup chat">' + ic('close', 'icon icon--sm') + '</button>' +
         '</div>' +
         '<div class="chat-log" aria-live="polite">' +
-          '<div class="chat-msg chat-msg--bot">Halo! 👋 Saya asisten virtual KLH/BPLH. Ada yang bisa saya bantu terkait layanan lingkungan hidup?</div>' +
+          '<div class="chat-msg chat-msg--bot">Halo! Saya asisten virtual KLH/BPLH. Ada yang bisa saya bantu terkait layanan lingkungan hidup?</div>' +
         '</div>' +
         '<div class="chat-sugg">' +
           '<button type="button">Cara lapor pencemaran</button>' +

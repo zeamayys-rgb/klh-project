@@ -39,7 +39,7 @@ Skip link ke `#konten` · satu `h1` per halaman · `aria-current` pada nav aktif
 
 ## Design tokens inti (lengkap di `docs/design.md`)
 
-Primary `#1B7A4B` (skala green 50–900) · aksen earth & sky · font: Plus Jakarta Sans (display) / Inter (body) / JetBrains Mono (angka & kode) · spacing 4px `--s1..--s16` · container 1200px · breakpoint <768 / 768–1024 / >1024. Chart: **Chart.js UMD di-embed inline** (bukan CDN), `animation:false` saat export render.
+Primary `#005952` (`--g-600`, skala green 50–900) · aksen earth & sky · font: Plus Jakarta Sans (display) / Inter (body) / JetBrains Mono (angka & kode) · spacing 4px `--s1..--s16` · container 1200px · breakpoint <768 / 768–1024 / >1024. Chart: **Chart.js UMD di-embed inline** (bukan CDN), `animation:false` saat export render.
 
 ## Verifikasi wajib sebelum menyatakan selesai
 

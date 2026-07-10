@@ -149,9 +149,12 @@
   'use strict';
 
   function setErr(id, on) {
-    var field = document.getElementById(id).closest('.field');
+    var el = document.getElementById(id);
+    var field = el.closest('.field');
     var msg = document.getElementById(id + '-err');
     field.classList.toggle('err', on);
+    /* A3-12: aria-invalid pada input yang gagal validasi */
+    if (on) el.setAttribute('aria-invalid', 'true'); else el.removeAttribute('aria-invalid');
     msg.hidden = !on;
     return !on;
   }
