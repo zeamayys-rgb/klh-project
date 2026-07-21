@@ -51,7 +51,7 @@
             {
               col: 1, title: 'Penghargaan & Apresiasi',
               items: [
-                { label: 'Kalpataru', desc: 'Perintis & pengabdi lingkungan', icon: 'award', href: 'pages/program/detail.html?p=kalpataru' },
+                { label: 'Kalpataru', desc: 'Perintis & pengabdi lingkungan', icon: 'award', href: 'pages/program/kalpataru.html' },
                 { label: 'Adipura', desc: 'Kabupaten/kota bersih', icon: 'award', href: 'pages/program/detail.html?p=adipura' },
                 { label: 'Adiwiyata', desc: 'Sekolah peduli lingkungan', icon: 'book', href: 'pages/program/detail.html?p=adiwiyata' },
                 { label: 'Nirwasita Tantra', desc: 'Green leadership daerah', icon: 'flag', href: 'pages/program/detail.html?p=nirwasita-tantra' }
@@ -103,7 +103,7 @@
               items: [
                 { label: 'Lapor Pencemaran / Kerusakan', icon: 'megaphone', href: 'pages/layanan/pengaduan-aspirasi.html' },
                 { label: 'SP4N-LAPOR!', icon: 'external', href: 'https://www.lapor.go.id', ext: true },
-                { label: 'Walhi Care Center (WCC)', icon: 'phone', href: 'pages/layanan/pengaduan-aspirasi.html' }
+                { label: 'Waste Crisis Center (WCC)', icon: 'phone', href: 'pages/layanan/pengaduan-aspirasi.html' }
               ]
             },
             {

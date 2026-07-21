@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalpataru — Penghargaan Lingkungan Hidup — KLH/BPLH</title>
+<meta name="description" content="Kalpataru — penghargaan tertinggi pemerintah Indonesia bagi individu dan kelompok pelestari lingkungan hidup. Kategori, tujuan, statistik, dan tata cara pengusulan.">
+<link rel="icon" type="image/png" href="../../assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/base.css">
+<link rel="stylesheet" href="../../assets/css/components.css">
+<link rel="stylesheet" href="../../assets/css/pages.css">
+<style>
+/* ---- Khusus halaman Kalpataru ---- */
+.kal-hero {
+  position: relative; overflow: hidden; color: #fff;
+  background:
+    radial-gradient(80% 120% at 108% -10%, rgba(37,208,194,.22), transparent 52%),
+    radial-gradient(50% 70% at -5% 110%, rgba(249,121,16,.12), transparent 50%),
+    linear-gradient(155deg, var(--klh-green-800) 0%, var(--klh-green-900) 78%);
+  padding-block: var(--s12);
+}
+@media (max-width: 1024px) { #kal-about { grid-template-columns: 1fr !important; } }
+.kal-hero .leafmark { position: absolute; right: -60px; top: -90px; width: 360px; height: 360px; opacity: .1; color: var(--klh-green-300); pointer-events: none; }
+.kal-hero__grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: var(--s12); align-items: center; position: relative; }
+@media (max-width: 1024px) { .kal-hero__grid { grid-template-columns: 1fr; } }
+.kal-hero h1 { color: #fff; font-size: var(--t-display); }
+.kal-hero .lead { color: var(--klh-green-200); font-size: var(--t-h4); font-weight: 400; max-width: 50ch; }
+.kal-hero__photo { border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--sh-3); aspect-ratio: 16/11; }
+/* Di hero gelap teks hover tetap putih (aturan isi 40% kini global di components.css) */
+.kal-hero .btn-outline:hover { color: #fff; }
+.kal-quote { border-left: 3px solid var(--klh-green-400); padding-left: var(--s5); margin-top: var(--s8); color: var(--klh-green-100); font-style: italic; max-width: 56ch; }
+.kal-quote footer { font-style: normal; font-size: var(--t-sm); color: var(--klh-green-300); margin-top: var(--s2); }
+
+/* Kategori */
+.kal-cat { display: flex; flex-direction: column; gap: var(--s3); padding: var(--s6); height: 100%; }
+.kal-cat .svc-card__icon { width: 44px; height: 44px; border-radius: 12px; }
+.kal-cat h3 { font-size: var(--t-h4); margin: 0; }
+.kal-cat p { font-size: var(--t-sm); color: var(--ink-500); margin: 0; line-height: 1.6; }
+
+/* Tujuan */
+.kal-tujuan { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gutter); }
+@media (max-width: 860px) { .kal-tujuan { grid-template-columns: 1fr; } }
+
+/* Statistik */
+.kal-stats { background: var(--surface-2); }
+.kal-statgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); }
+@media (max-width: 1024px) { .kal-statgrid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .kal-statgrid { grid-template-columns: 1fr; } }
+.kal-stat { padding: var(--s6); display: flex; flex-direction: column; gap: var(--s1); }
+.kal-stat b { font-family: var(--font-mono); font-size: var(--t-h1); line-height: 1.1; color: var(--klh-green-800); }
+.kal-stat span { font-size: var(--t-sm); color: var(--ink-500); font-weight: 500; }
+.kal-bar { display: grid; gap: var(--s3); margin-top: var(--s6); }
+.kal-bar__row { display: grid; grid-template-columns: 170px 1fr 56px; gap: var(--s3); align-items: center; font-size: var(--t-sm); }
+.kal-bar__row .lbl { color: var(--ink-700); font-weight: 500; }
+.kal-bar__row .num { font-family: var(--font-mono); text-align: right; color: var(--klh-green-800); font-weight: 500; }
+.kal-bar__track { height: 22px; border-radius: var(--r-xs); background: var(--klh-green-100); overflow: hidden; }
+.kal-bar__fill { height: 100%; background: linear-gradient(90deg, var(--klh-green-500), var(--klh-green-700)); border-radius: inherit; }
+@media (max-width: 640px) { .kal-bar__row { grid-template-columns: 110px 1fr 48px; } }
+
+/* Linimasa sejarah */
+.kal-tl { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.kal-tl li { display: grid; grid-template-columns: 72px 24px 1fr; gap: var(--s4); }
+.kal-tl .yr { font-family: var(--font-mono); font-weight: 500; color: var(--klh-green-800); padding-top: 2px; text-align: right; }
+.kal-tl .rail { position: relative; display: flex; justify-content: center; }
+.kal-tl .rail::before { content: ""; position: absolute; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--klh-green-600); }
+.kal-tl .rail::after { content: ""; position: absolute; top: 22px; bottom: -6px; width: 2px; background: var(--line-strong); }
+.kal-tl li:last-child .rail::after { display: none; }
+.kal-tl .txt { padding-bottom: var(--s8); color: var(--ink-700); }
+.kal-tl .txt strong { display: block; font-family: var(--font-display); color: var(--ink-900); margin-bottom: 2px; }
+
+/* Galeri foto */
+.kal-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); }
+@media (max-width: 860px) { .kal-gallery { grid-template-columns: 1fr; } }
+.kal-gallery figure { margin: 0; }
+.kal-gallery figcaption { font-size: var(--t-xs); color: var(--ink-500); margin-top: var(--s2); }
+</style>
+</head>
+<body>
+<script>window.KLH_ROOT = '../../';</script>
+<script src="../../assets/js/components/icons.js"></script>
+<script src="../../assets/js/data/menu.js"></script>
+<script src="../../assets/js/data/content.js"></script>
+<script src="../../assets/js/components/navbar.js"></script>
+<script src="../../assets/js/components/footer.js"></script>
+<script src="../../assets/js/components/widgets.js"></script>
+<script src="../../assets/js/vendor/image-slot.js"></script>
+
+<klh-navbar active="program"></klh-navbar>
+
+<main id="konten">
+
+  <!-- HERO -->
+  <section class="kal-hero" data-screen-label="Kalpataru — Hero">
+    <div class="container kal-hero__grid">
+      <div>
+        <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+          <li><a href="../../index.html">Beranda</a></li>
+          <li><a href="index.html">Program</a></li>
+          <li aria-current="page">Kalpataru</li>
+        </ol></nav>
+        <span class="eyebrow" style="color:var(--klh-green-300)">Penghargaan Lingkungan Hidup</span>
+        <h1>Kalpataru</h1>
+        <p class="lead">Penghargaan tertinggi pemerintah Indonesia bagi individu, kelompok, dan lembaga yang berdedikasi melindungi serta melestarikan lingkungan hidup. Dari bahasa Sanskerta: <em style="font-style:normal;color:#fff">pohon kehidupan</em> (Kalpavriksha).</p>
+        <blockquote class="kal-quote">
+          "Kalpataru adalah orang-orang yang berjasa untuk lingkungan. Karena itu, kita terus berutang semangat kepada mereka yang telah mengabdikan diri untuk menjaga lingkungan hidup."
+          <footer>— Menteri Lingkungan Hidup / Kepala BPLH</footer>
+        </blockquote>
+        <div class="home-hero__cta">
+          <a class="btn btn--inverse btn-lg" href="https://sitaru.kemenlh.go.id/auth/login" target="_blank" rel="noopener noreferrer" data-ext="SITARU — Sistem Informasi Penghargaan Kalpataru"><klh-icon name="award" class="icon icon--sm"></klh-icon> Usulkan Calon (SITARU)</a>
+          <a class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,.5);color:#fff" href="#tujuan"><klh-icon name="sprout" class="icon icon--sm"></klh-icon> Tujuan &amp; Statistik</a>
+        </div>
+      </div>
+      <div class="kal-hero__photo">
+        <image-slot id="kal-hero" shape="rect" placeholder="Foto penganugerahan Kalpataru — seret foto dari sitaru.kemenlh.go.id ke sini"></image-slot>
+      </div>
+    </div>
+    <span id="hero-leaf"></span>
+  </section>
+
+  <!-- TENTANG + SEJARAH -->
+  <section class="section" data-screen-label="Kalpataru — Tentang">
+    <div class="container" style="display:grid;grid-template-columns:1.1fr .9fr;gap:var(--s12);align-items:start" id="kal-about">
+      <div class="prose">
+        <span class="eyebrow">Tentang Kalpataru</span>
+        <h2 style="margin-top:0">Apresiasi bagi pejuang lingkungan</h2>
+        <p>Kalpataru diberikan kepada perorangan atau kelompok yang berjasa melakukan kegiatan Perlindungan dan Pengelolaan Lingkungan Hidup. Nama "Kalpataru" diambil dari relief <em>pohon kehidupan</em> pada Candi Mendut, Jawa Tengah, yang mencerminkan tatanan makhluk hidup.</p>
+        <p>Penghargaan ini lahir dari paradigma Pembangunan Berwawasan Lingkungan — memberi peran dan pelibatan masyarakat dalam pelestarian lingkungan hidup. Pengusulan dilakukan secara daring melalui aplikasi <strong>SITARU</strong>.</p>
+        <div class="card tonal" style="box-shadow:none;margin-top:var(--s6)"><div class="card__body" style="padding:var(--s5);display:flex;gap:var(--s4);align-items:flex-start">
+          <klh-icon name="calendar" class="icon" style="color:var(--klh-green-700);flex:none;margin-top:2px"></klh-icon>
+          <p style="margin:0;font-size:var(--t-sm)"><strong>Pengusulan 2026:</strong> batas waktu diperpanjang s.d. <strong>24 April 2026</strong> (semula 20 April 2026). <span class="badge">Konten contoh</span></p>
+        </div></div>
+      </div>
+      <div>
+        <span class="eyebrow">Sejarah singkat</span>
+        <ol class="kal-tl" style="margin-top:var(--s5)">
+          <li><span class="yr">1978</span><span class="rail"></span><span class="txt"><strong>Gagasan awal</strong>Presiden menegaskan pembangunan tidak harus bertentangan dengan pelestarian lingkungan hidup.</span></li>
+          <li><span class="yr">1980</span><span class="rail"></span><span class="txt"><strong>"Hadiah Lingkungan" pertama</strong>Diberikan kepada 8 individu/kelompok pelestari lingkungan.</span></li>
+          <li><span class="yr">1981</span><span class="rail"></span><span class="txt"><strong>Menjadi "Penghargaan Kalpataru"</strong>Nama diambil dari relief pohon kehidupan pada Candi Mendut; diberikan dalam 3 kategori.</span></li>
+          <li><span class="yr">Kini</span><span class="rail"></span><span class="txt"><strong>Tiga jenis penghargaan</strong>Kalpataru Adya (4 kategori), Kalpataru Yuvan untuk generasi muda, dan Kalpataru Lestari.</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- KATEGORI -->
+  <section class="section" style="padding-top:0" data-screen-label="Kalpataru — Kategori">
+    <div class="container">
+      <span class="eyebrow">Jenis &amp; Kategori</span>
+      <h2>Tiga jenis penghargaan</h2>
+      <div class="grid grid--3" style="margin-top:var(--s6)">
+        <div class="card kal-cat" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="award" class="icon"></klh-icon></span>
+          <h3>Kalpataru Adya</h3>
+          <p>Empat kategori: <strong>Perintis</strong>, <strong>Pengabdi</strong>, <strong>Penyelamat</strong>, dan <strong>Pembina</strong> Lingkungan — bagi individu dan kelompok yang berjasa luar biasa.</p>
+        </div>
+        <div class="card kal-cat" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="sprout" class="icon"></klh-icon></span>
+          <h3>Kalpataru Yuvan</h3>
+          <p>Diarahkan kepada <strong>generasi muda</strong> yang berkontribusi dalam upaya pelestarian lingkungan hidup.</p>
+        </div>
+        <div class="card kal-cat" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="leaf" class="icon"></klh-icon></span>
+          <h3>Kalpataru Lestari</h3>
+          <p>Bagi penerima Kalpataru sebelumnya yang <strong>tetap aktif minimal 5 tahun</strong> menjaga keberlanjutan kegiatannya.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TUJUAN -->
+  <section class="section" style="background:var(--surface-2);scroll-margin-top:110px" id="tujuan" data-screen-label="Kalpataru — Tujuan">
+    <div class="container">
+      <span class="eyebrow">Tujuan Penghargaan</span>
+      <h2>Untuk apa Kalpataru diberikan?</h2>
+      <div class="kal-tujuan" style="margin-top:var(--s6)">
+        <div class="card nilai-chip" data-reveal><span class="svc-card__icon"><klh-icon name="megaphone" class="icon"></klh-icon></span>
+          <div><h3 style="font-size:var(--t-body);margin-bottom:2px">Meningkatkan kesadaran</h3><p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">Menumbuhkan kesadaran masyarakat akan pentingnya perlindungan dan pengelolaan lingkungan hidup.</p></div>
+        </div>
+        <div class="card nilai-chip" data-reveal><span class="svc-card__icon"><klh-icon name="sprout" class="icon"></klh-icon></span>
+          <div><h3 style="font-size:var(--t-body);margin-bottom:2px">Membuka peluang inovasi</h3><p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">Memberi ruang bagi berkembangnya inovasi dan kreativitas dalam pelestarian lingkungan.</p></div>
+        </div>
+        <div class="card nilai-chip" data-reveal><span class="svc-card__icon"><klh-icon name="people" class="icon"></klh-icon></span>
+          <div><h3 style="font-size:var(--t-body);margin-bottom:2px">Mendorong prakarsa masyarakat</h3><p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">Mendorong prakarsa individu dan kelompok masyarakat dalam melindungi serta mengelola lingkungan hidup.</p></div>
+        </div>
+        <div class="card nilai-chip" data-reveal><span class="svc-card__icon"><klh-icon name="award" class="icon"></klh-icon></span>
+          <div><h3 style="font-size:var(--t-body);margin-bottom:2px">Apresiasi &amp; motivasi</h3><p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">Bentuk apresiasi dan motivasi pemerintah kepada para pejuang lingkungan di seluruh Indonesia.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATISTIK -->
+  <section class="section" data-screen-label="Kalpataru — Statistik">
+    <div class="container">
+      <span class="eyebrow">Data &amp; Statistik</span>
+      <h2>Angka di balik Kalpataru</h2>
+      <p class="lead" style="max-width:60ch">Data berbicara lebih dari sejuta kata — jumlah penerima Penghargaan Kalpataru sejak 1980. <span class="badge">Konten contoh — sumber: sitaru.kemenlh.go.id</span></p>
+
+      <div class="kal-statgrid" style="margin-top:var(--s8)">
+        <div class="card kal-stat" data-reveal><b>423</b><span>Total penerima sejak 1980</span></div>
+        <div class="card kal-stat" data-reveal><b>380</b><span>Penerima laki-laki</span></div>
+        <div class="card kal-stat" data-reveal><b>43</b><span>Penerima perempuan</span></div>
+      </div>
+
+      <div class="card" style="margin-top:var(--gutter)" data-reveal><div class="card__body">
+        <h3 style="font-size:var(--t-h4);margin-bottom:var(--s2)">Penerima per kategori</h3>
+        <div class="kal-bar" role="img" aria-label="Grafik batang penerima Kalpataru per kategori: Penyelamat Lingkungan 127, Perintis Lingkungan 126, Pengabdi Lingkungan 103, Pembina Lingkungan 67">
+          <div class="kal-bar__row"><span class="lbl">Penyelamat Lingkungan</span><span class="kal-bar__track"><span class="kal-bar__fill" style="width:100%"></span></span><span class="num">127</span></div>
+          <div class="kal-bar__row"><span class="lbl">Perintis Lingkungan</span><span class="kal-bar__track"><span class="kal-bar__fill" style="width:99.2%"></span></span><span class="num">126</span></div>
+          <div class="kal-bar__row"><span class="lbl">Pengabdi Lingkungan</span><span class="kal-bar__track"><span class="kal-bar__fill" style="width:81.1%"></span></span><span class="num">103</span></div>
+          <div class="kal-bar__row"><span class="lbl">Pembina Lingkungan</span><span class="kal-bar__track"><span class="kal-bar__fill" style="width:52.8%"></span></span><span class="num">67</span></div>
+        </div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- GALERI -->
+  <section class="section" style="padding-top:0" data-screen-label="Kalpataru — Galeri">
+    <div class="container">
+      <span class="eyebrow">Galeri</span>
+      <h2>Wajah para pelestari lingkungan</h2>
+      <p style="color:var(--ink-500);max-width:60ch">Seret foto dari situs resmi <a href="https://sitaru.kemenlh.go.id" target="_blank" rel="noopener noreferrer" data-ext="SITARU">sitaru.kemenlh.go.id</a> ke kotak di bawah — foto tersimpan pada prototipe ini.</p>
+      <div class="kal-gallery" style="margin-top:var(--s6)">
+        <figure><div style="aspect-ratio:4/3;border-radius:var(--r-lg);overflow:hidden"><image-slot id="kal-g1" shape="rect" placeholder="Foto penerima / kegiatan"></image-slot></div><figcaption>Penganugerahan Kalpataru — konten contoh</figcaption></figure>
+        <figure><div style="aspect-ratio:4/3;border-radius:var(--r-lg);overflow:hidden"><image-slot id="kal-g2" shape="rect" placeholder="Foto penerima / kegiatan"></image-slot></div><figcaption>Kiprah penerima di lapangan — konten contoh</figcaption></figure>
+        <figure><div style="aspect-ratio:4/3;border-radius:var(--r-lg);overflow:hidden"><image-slot id="kal-g3" shape="rect" placeholder="Foto penerima / kegiatan"></image-slot></div><figcaption>Verifikasi lapangan — konten contoh</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="padding-top:0" data-screen-label="Kalpataru — CTA">
+    <div class="container">
+      <div class="cta-band" data-reveal>
+        <span id="cta-leaf"></span>
+        <div>
+          <h2>Kenal sosok pejuang lingkungan?</h2>
+          <p>Usulkan calon penerima Penghargaan Kalpataru melalui aplikasi SITARU — proses daring, terbuka untuk perorangan maupun lembaga.</p>
+        </div>
+        <div style="display:flex;gap:var(--s3);flex-wrap:wrap">
+          <a class="btn btn--inverse btn-lg" href="https://sitaru.kemenlh.go.id/auth/login" target="_blank" rel="noopener noreferrer" data-ext="SITARU — Sistem Informasi Penghargaan Kalpataru"><klh-icon name="award" class="icon icon--sm"></klh-icon> Usulkan Sekarang</a>
+          <a class="btn btn-outline btn-lg" href="detail.html?p=kalpataru"><klh-icon name="book" class="icon icon--sm"></klh-icon> Cara Ikut Serta</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="../../assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  document.getElementById('hero-leaf').outerHTML = KLH.leafmark();
+  document.getElementById('cta-leaf').outerHTML = KLH.leafmark();
+})();
+</script>
+</body>
+</html>

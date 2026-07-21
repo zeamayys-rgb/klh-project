@@ -37,7 +37,7 @@
     </div>
 
     <div class="toolbar panel" data-reveal>
-      <div class="tb-search" role="search" style="position:static;max-width:320px;flex:1">
+      <div class="tb-search" role="search" style="max-width:320px;flex:1">
         <klh-icon name="search" class="icon icon--sm"></klh-icon>
         <input type="search" id="cari" placeholder="Cari judul atau ID…" aria-label="Cari konten">
       </div>
@@ -55,19 +55,17 @@
       </select>
     </div>
 
-    <section class="panel" data-reveal aria-label="Daftar konten">
-      <div class="panel__body" style="padding-top:var(--s3)">
-        <div class="tbl-wrap" style="border:0">
-          <table class="tbl" aria-label="Daftar konten Website Utama">
-            <thead><tr>
-              <th scope="col">Judul</th><th scope="col">Kategori</th><th scope="col">Penulis</th>
-              <th scope="col">Status</th><th scope="col">Diperbarui</th><th scope="col"><span class="sr-only">Aksi</span></th>
-            </tr></thead>
-            <tbody id="tb-konten"></tbody>
-          </table>
-        </div>
-        <p id="kosong" class="demo-note" hidden><klh-icon name="search" class="icon icon--sm"></klh-icon> Tidak ada konten yang cocok dengan filter/kata kunci.</p>
+    <section data-reveal aria-label="Daftar konten">
+      <div class="tbl-wrap" style="border:0">
+        <table class="tbl" aria-label="Daftar konten Website Utama">
+          <thead><tr>
+            <th scope="col">Judul</th><th scope="col">Kategori</th><th scope="col">Penulis</th>
+            <th scope="col">Status</th><th scope="col">Diperbarui</th><th scope="col"><span class="sr-only">Aksi</span></th>
+          </tr></thead>
+          <tbody id="tb-konten"></tbody>
+        </table>
       </div>
+      <p id="kosong" class="demo-note" hidden><klh-icon name="search" class="icon icon--sm"></klh-icon> Tidak ada konten yang cocok dengan filter/kata kunci.</p>
     </section>
 
     <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — aksi hapus/terbitkan pada prototipe ini bersifat simulasi dan tidak menyimpan permanen.</p>

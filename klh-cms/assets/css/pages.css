@@ -91,6 +91,8 @@ body.sb-mini .sb-collapse .icon--sm { transform: rotate(180deg); }
 /* ---- Area konten ---- */
 .app-main { margin-left: var(--sb-w); min-height: 100vh; transition: margin var(--dur-2) var(--ease); }
 body.sb-mini .app-main { margin-left: var(--sb-w-mini); }
+/* Sidebar diciutkan → konten memakai lebar penuh */
+body.sb-mini .content { max-width: none; }
 .content { padding: var(--s6) var(--s8) var(--s12); max-width: 1440px; }
 .content > .section, .content section { padding-block: 0; }
 
@@ -111,7 +113,7 @@ body.sb-mini .app-main { margin-left: var(--sb-w-mini); }
 .tb-title strong { font-family: var(--font-display); font-size: var(--t-h4); color: var(--ink-900); }
 
 .tb-search { position: relative; flex: 0 1 440px; min-width: 140px; margin-left: auto; }
-.tb-search > .icon--sm { position: absolute; left: 12px; top: 50%; translate: 0 -50%; color: var(--ink-400); pointer-events: none; }
+.tb-search > .icon--sm, .tb-search > klh-icon { position: absolute; left: 12px; top: 50%; translate: 0 -50%; color: var(--ink-400); pointer-events: none; }
 .tb-search input {
   width: 100%; padding: 10px 12px 10px 38px;
   font: inherit; font-size: var(--t-sm);
@@ -273,7 +275,8 @@ body.sb-mini .app-main { margin-left: var(--sb-w-mini); }
 .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s5); margin-bottom: var(--s6); }
 @media (max-width: 1280px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .kpi-grid { grid-template-columns: 1fr; } }
-.kpi { display: flex; flex-direction: column; gap: var(--s2); padding: var(--s5) var(--s6); }
+.kpi { display: flex; flex-direction: row; align-items: center; gap: var(--s4); padding: var(--s5) var(--s6); }
+.kpi > div { display: flex; flex-direction: column; gap: var(--s1); min-width: 0; }
 .kpi__top { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); }
 .kpi__ic { width: 42px; height: 42px; border-radius: var(--r-md); display: grid; place-items: center; background: var(--g-100); color: var(--g-700); }
 .kpi:nth-child(3n+2) .kpi__ic { background: var(--b-100); color: var(--b-700); }
@@ -437,6 +440,7 @@ body.sb-mini .app-main { margin-left: var(--sb-w-mini); }
    5. TIKET & DETAIL TIKET
    ============================================================ */
 .toolbar { display: flex; align-items: center; gap: var(--s3); flex-wrap: wrap; margin-bottom: var(--s5); }
+.toolbar.panel { padding: 10px 12px; }
 .toolbar .tabs { flex: 1 1 100%; margin-bottom: var(--s2); }
 .toolbar .ib-cari { flex: 1 1 240px; }
 .toolbar .select { flex: 0 1 200px; padding: 9px 12px; font-size: var(--t-sm); }

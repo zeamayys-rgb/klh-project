@@ -7,7 +7,7 @@ Semua konten UI **Bahasa Indonesia**. Standar: **WCAG 2.1 AA**, target Lighthous
 
 | Modul | Folder | Status |
 |---|---|---|
-| 01 · Website Utama (24 hlm) | `klh-website-utama/` | ✅ SELESAI — **jangan diubah**, jadikan referensi & sumber fondasi |
+| 01 · Website Utama (24 hlm) | `klh-website-utama/` | ✅ SELESAI — sumber fondasi & referensi. **Boleh diubah bila perubahan datang dari export Claude Design** (lihat "Integrasi zip dari Claude Design"); di luar itu, jangan diubah tanpa diminta eksplisit |
 | 02 · PPID Web (16 hlm) | `klh-ppid-web/` | ⬜ dikerjakan via `PROMPT_Modul-02_PPID-Web.md` |
 | 03 · Omni Channel Dashboard (13 hlm) | `klh-omni-dashboard/` | ⬜ dikerjakan via `PROMPT_Modul-03_OmniChannel.md` |
 
@@ -49,9 +49,19 @@ Primary `#005952` (`--g-600`, skala green 50–900) · aksen earth & sky · font
 4. Tulis/`update` `README.md` modul, lalu zip ke folder output.
 5. Update `docs/F2_Checklist-Halaman.md` (centang) dan `docs/PANDUAN_KERJA_UIUX_KLH.md` (status + Log Deliverable).
 
+## Integrasi zip dari Claude Design
+
+Bila saya minta menarik/integrasi perubahan dari export Claude Design (zip terbaru di `~/Downloads/`, biasanya bernama `KLH Project Repository*.zip`):
+
+1. **Ambil zip terbaru** dari `~/Downloads/` (urut berdasarkan waktu), ekstrak ke scratchpad — jangan unzip menimpa repo langsung.
+2. **Integrasikan penuh ke folder proyek ini** via `rsync` dari hasil ekstrak, termasuk **Modul 01** (`klh-website-utama/`) — perubahan dari Claude Design boleh menimpa modul frozen.
+3. **Kecualikan artefak alat desain** (jangan pernah masuk repo): `.thumbnail`, `scraps/`, `uploads/`, `.image-slots.state.json`, `.git/`.
+4. **Jaga file khusus repo** yang tidak ada di zip: `PROMPT_*.md` (gitignored) — jangan terhapus.
+5. Jalankan `git status` + `git diff` untuk review, lalu commit. Git = safety net; tidak ada yang permanen sebelum commit.
+
 ## Larangan
 
-- Jangan mengubah isi `klh-website-utama/` (Modul 01 sudah final) — kecuali diminta eksplisit.
+- Jangan mengubah isi `klh-website-utama/` (Modul 01 sudah final) — kecuali diminta eksplisit **atau** perubahan berasal dari export Claude Design (lihat "Integrasi zip dari Claude Design").
 - Jangan pakai emoji sebagai ikon pada deliverable; pakai `icons.js` (Material Symbols path, viewBox `0 -960 960 960`).
 - Jangan mengklaim riset primer yang belum dilakukan; konten dummy selalu berpenanda.
 - Jangan menambah framework/CDN runtime (React, Tailwind, jQuery, dsb.).

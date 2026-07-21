@@ -129,18 +129,13 @@
     }
     megaItems.forEach(function (li) {
       var btn = li.querySelector('.nav-link');
-      /* Klik: toggle — kecuali panel baru saja dibuka oleh hover
-         (mencegah "hover buka → klik malah tutup"). Keyboard tetap toggle. */
+      /* Hover hanya memberi umpan balik visual (abu-abu); panel dibuka lewat
+         KLIK dan tetap terbuka sampai pengguna menutupnya —
+         klik ulang tombol, klik di luar area dropdown, atau Esc. */
       btn.addEventListener('click', function () {
-        if (li._hover && li.classList.contains('open')) return;
         var open = li.classList.toggle('open');
         btn.setAttribute('aria-expanded', String(open));
         closeAll(open ? li : null);
-      });
-      li.addEventListener('mouseenter', function () { li._hover = true; closeAll(li); li.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); });
-      li.addEventListener('mouseleave', function () { li._hover = false; li.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); });
-      li.addEventListener('focusout', function (e) {
-        if (!li.contains(e.relatedTarget)) { li.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
       });
     });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(null); });

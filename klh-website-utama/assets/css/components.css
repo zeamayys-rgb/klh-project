@@ -28,7 +28,8 @@
 .btn-secondary:hover { background: var(--klh-green-200); color: var(--klh-green-900); }
 
 .btn-outline { background: transparent; color: var(--klh-green-700); border-color: var(--klh-green-600); }
-.btn-outline:hover { background: var(--klh-green-50); color: var(--klh-green-800); }
+/* Isi hover 40% opasitas: tetap terbaca di atas latar terang maupun gelap */
+.btn-outline:hover { background: color-mix(in srgb, var(--klh-green-50) 40%, transparent); color: var(--klh-green-800); }
 
 .btn-ghost { background: transparent; color: var(--ink-700); }
 .btn-ghost:hover { background: var(--surface-2); color: var(--ink-900); }
@@ -115,7 +116,7 @@
   border: 0; background: none; cursor: pointer;
   white-space: nowrap;
 }
-.nav-link:hover { background: var(--klh-green-50); color: var(--klh-green-800); }
+.nav-link:hover { background: var(--surface-3); color: var(--ink-900); }
 .nav-link[aria-current="true"],
 .nav-link.is-active { color: var(--klh-green-700); background: var(--klh-green-50); }
 .nav-link .caret { transition: transform var(--dur-1) var(--ease); }
@@ -177,6 +178,12 @@
 .mega__promo .leafmark { position: absolute; top: -14px; right: -14px; width: 96px; height: 96px; opacity: .18; }
 .mega__promo strong { font-family: var(--font-display); font-size: var(--t-h4); line-height: var(--lh-snug); }
 .mega__promo p { color: var(--klh-green-200); font-size: var(--t-xs); margin: 0; }
+/* Promo = satu kartu klik-able: tanpa underline, umpan balik lewat hover kartu */
+.mega__promo, .mega__promo:hover { text-decoration: none; }
+.mega__promo .eyebrow, .mega__promo strong, .mega__promo p { text-decoration: none; }
+.mega__promo { transition: filter var(--dur-2) var(--ease), transform var(--dur-2) var(--ease); }
+.mega__promo:hover { filter: brightness(1.12); }
+.mega__promo:hover .btn--inverse { background: #fff; color: var(--klh-green-800); }
 
 /* --- Hamburger & drawer mobile --- */
 .nav-burger {
