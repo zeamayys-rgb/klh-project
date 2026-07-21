@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Chat Bot AI — Aplikasi PPID KLH/BPLH</title>
+<meta name="description" content="Asisten AI PPID: tanya jawab layanan informasi publik, prosedur permohonan, dan pelacakan status.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/mobile.css">
+</head>
+<body>
+<a class="skip" href="#app">Lewati ke konten</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/ppid.js"></script>
+<script src="assets/js/app.js"></script>
+
+<div class="stage">
+  <div class="device">
+    <klh-statusbar></klh-statusbar>
+    <klh-appbar title="Chat Bot AI" sub="Asisten PPID · daring" back="beranda.html" home></klh-appbar>
+    <main id="app" class="app-main" style="display:flex;flex-direction:column;padding:0">
+      <div class="chat">
+        <div class="chat__log" id="log" aria-live="polite"></div>
+        <div class="chat__chips" id="chips">
+          <button class="chip-suggest" type="button">Cara ajukan permohonan?</button>
+          <button class="chip-suggest" type="button">Berapa lama diproses?</button>
+          <button class="chip-suggest" type="button">Cara lacak status?</button>
+          <button class="chip-suggest" type="button">Jika ditolak?</button>
+        </div>
+        <form class="chat__form" id="chat-form">
+          <label class="sr-only" for="msg">Tulis pesan</label>
+          <input class="input" id="msg" type="text" autocomplete="off" placeholder="Tulis pertanyaan…">
+          <button class="btn btn-primary" type="submit" aria-label="Kirim"><klh-icon name="arrowright" class="icon icon--sm"></klh-icon></button>
+        </form>
+      </div>
+    </main>
+  </div>
+  <span class="stage__hint">Pratinjau aplikasi mobile — prototipe UI (implementasi Flutter direncanakan)</span>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var log = document.getElementById('log');
+  var form = document.getElementById('chat-form');
+  var input = document.getElementById('msg');
+
+  function jam() {
+    var d = new Date();
+    return ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2);
+  }
+  function bubble(text, who) {
+    var el = document.createElement('div');
+    el.className = 'msg msg--' + who;
+    el.innerHTML = text + '<span class="msg__time">' + jam() + '</span>';
+    log.appendChild(el);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  /* Basis pengetahuan ringkas (paritas dgn FAQ web — RAG disimulasikan) */
+  var KB = [
+    { k: ['ajukan', 'permohonan', 'cara', 'buat'], a: 'Untuk mengajukan: buka <b>Ajukan Permohonan</b>, isi rincian informasi (kronologi singkat), unggah dokumen identitas, lalu kirim. Anda akan menerima <b>nomor registrasi</b> untuk pelacakan.' },
+    { k: ['lama', 'berapa', 'waktu', 'proses'], a: 'PPID wajib menjawab paling lambat <b>10 hari kerja</b> sejak permohonan terverifikasi, dapat diperpanjang <b>7 hari kerja</b> dengan pemberitahuan tertulis (Perki 1/2021).' },
+    { k: ['lacak', 'status', 'cek', 'nomor'], a: 'Buka menu <b>Lacak</b> dan masukkan nomor registrasi (format PPID-2026-XXXXXX). Anda juga menerima <b>notifikasi push</b> tiap kali status berubah.' },
+    { k: ['tolak', 'ditolak', 'keberatan'], a: 'Jika ditolak, Anda menerima alasan dan dasar hukumnya, serta berhak mengajukan <b>keberatan</b> kepada Atasan PPID paling lambat 30 hari kerja sejak penolakan.' },
+    { k: ['biaya', 'bayar', 'gratis'], a: 'Layanan permohonan informasi <b>gratis</b>. Biaya hanya mungkin timbul untuk penggandaan atau pengiriman dokumen fisik sesuai standar yang diumumkan.' },
+    { k: ['syarat', 'siapa', 'boleh'], a: 'Setiap WNI (perorangan) dan badan hukum Indonesia berhak mengajukan. Perorangan cukup melampirkan NIK/KTP; badan hukum melampirkan akta pendirian.' }
+  ];
+  function jawab(q) {
+    var s = q.toLowerCase();
+    var hit = KB.find(function (e) { return e.k.some(function (w) { return s.indexOf(w) > -1; }); });
+    return hit ? hit.a : 'Maaf, saya belum menemukan jawaban pastinya. Anda dapat membuka menu <b>Ajukan</b>/<b>Lacak</b>, atau menghubungi ppid@kemenlh.go.id. <br><span style="font-size:11px;opacity:.7">Jawaban dihasilkan asisten AI (RAG) — verifikasi pada sumber resmi.</span>';
+  }
+
+  function kirim(q) {
+    bubble(q.replace(/</g, '&lt;'), 'me');
+    input.value = '';
+    var t = document.createElement('div');
+    t.className = 'msg msg--bot'; t.textContent = 'Mengetik…';
+    log.appendChild(t); log.scrollTop = log.scrollHeight;
+    setTimeout(function () { t.remove(); bubble(jawab(q), 'bot'); }, 650);
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var q = input.value.trim(); if (!q) return; kirim(q);
+  });
+  document.getElementById('chips').addEventListener('click', function (e) {
+    var b = e.target.closest('.chip-suggest'); if (!b) return; kirim(b.textContent);
+  });
+
+  bubble('Halo! Saya asisten <b>PPID KLH/BPLH</b>. Ada yang bisa saya bantu seputar layanan informasi publik?', 'bot');
+})();
+</script>
+</body>
+</html>

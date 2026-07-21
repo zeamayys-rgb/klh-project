@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Masuk — Aplikasi PPID KLH/BPLH</title>
+<meta name="description" content="Masuk ke akun pemohon PPID untuk mengajukan dan melacak permohonan informasi publik.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/mobile.css">
+</head>
+<body>
+<a class="skip" href="#app">Lewati ke konten</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/ppid.js"></script>
+<script src="assets/js/app.js"></script>
+
+<div class="stage">
+  <div class="device">
+    <klh-statusbar></klh-statusbar>
+    <klh-appbar title="Masuk" back="splash.html"></klh-appbar>
+    <main id="app" class="app-main">
+      <div class="app-main__inner">
+        <div class="auth-top">
+          <span id="mark" aria-hidden="true"></span>
+          <h2>Selamat datang kembali</h2>
+          <p>Masuk untuk mengajukan &amp; melacak permohonan informasi.</p>
+        </div>
+
+        <form id="form-masuk" novalidate>
+          <div class="field" id="f-email">
+            <label for="email">Email</label>
+            <input class="input" id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="nama@email.com" aria-describedby="email-err">
+            <span class="errmsg" id="email-err" role="alert"></span>
+          </div>
+
+          <div class="field" id="f-sandi">
+            <label for="sandi">Kata Sandi</label>
+            <div class="input-group">
+              <input class="input" id="sandi" name="sandi" type="password" autocomplete="current-password" placeholder="Masukkan kata sandi" aria-describedby="sandi-err" style="border-right:0">
+              <button class="btn btn-ghost" type="button" id="toggle-sandi" aria-label="Tampilkan kata sandi" style="border:1px solid var(--line);border-left:0;border-radius:0 var(--r-sm) var(--r-sm) 0">
+                <klh-icon name="eye" class="icon icon--sm"></klh-icon>
+              </button>
+            </div>
+            <span class="errmsg" id="sandi-err" role="alert"></span>
+          </div>
+
+          <div class="field" id="f-captcha">
+            <label for="captcha">Verifikasi keamanan (CAPTCHA)</label>
+            <div style="display:flex;gap:var(--s3);align-items:center">
+              <span aria-hidden="true" style="font-family:var(--font-mono);font-weight:500;letter-spacing:.34em;font-size:var(--t-h4);background:repeating-linear-gradient(45deg,var(--surface-2),var(--surface-2) 6px,var(--surface-3) 6px,var(--surface-3) 12px);padding:8px 14px;border-radius:var(--r-sm);border:1px solid var(--line);user-select:none;text-decoration:line-through;color:var(--ink-700)">7K9P2</span>
+              <input class="input" id="captcha" name="captcha" type="text" inputmode="text" autocomplete="off" placeholder="Ketik kode" aria-describedby="captcha-err" style="flex:1">
+            </div>
+            <span class="hint">Ketik kode <b>7K9P2</b> (contoh prototipe).</span>
+            <span class="errmsg" id="captcha-err" role="alert"></span>
+          </div>
+
+          <div style="text-align:right;margin:calc(-1 * var(--s3)) 0 var(--s5)">
+            <a href="#" id="lupa" style="font-size:var(--t-sm);font-weight:600;text-decoration:none">Lupa kata sandi?</a>
+          </div>
+
+          <button class="btn btn-primary btn-lg" type="submit" style="width:100%">Masuk</button>
+        </form>
+
+        <p class="auth-alt">Belum punya akun? <a href="daftar.html">Buat akun baru</a></p>
+      </div>
+    </main>
+  </div>
+  <span class="stage__hint">Pratinjau aplikasi mobile — prototipe UI (implementasi Flutter direncanakan)</span>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  document.getElementById('mark').innerHTML = KLH.leafmark();
+
+  var form = document.getElementById('form-masuk');
+  var tgl = document.getElementById('toggle-sandi');
+  var sandi = document.getElementById('sandi');
+
+  tgl.addEventListener('click', function () {
+    var show = sandi.type === 'password';
+    sandi.type = show ? 'text' : 'password';
+    tgl.setAttribute('aria-label', show ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi');
+  });
+
+  document.getElementById('lupa').addEventListener('click', function (e) {
+    e.preventDefault();
+    KLH.toast('Tautan reset dikirim', 'Cek email terdaftar untuk atur ulang kata sandi (demo).', 'envelope');
+  });
+
+  function setErr(id, msg) {
+    var f = document.getElementById('f-' + id);
+    f.classList.toggle('err', !!msg);
+    document.getElementById(id + '-err').textContent = msg || '';
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = document.getElementById('email').value.trim();
+    var pass = sandi.value;
+    var cap = document.getElementById('captcha').value.trim();
+    var ok = true, first = null;
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { setErr('email', 'Masukkan email yang valid.'); ok = false; first = first || 'email'; } else setErr('email', '');
+    if (pass.length < 6) { setErr('sandi', 'Kata sandi minimal 6 karakter.'); ok = false; first = first || 'sandi'; } else setErr('sandi', '');
+    if (cap.toUpperCase() !== '7K9P2') { setErr('captcha', 'Kode CAPTCHA belum cocok.'); ok = false; first = first || 'captcha'; } else setErr('captcha', '');
+    if (!ok) { document.getElementById(first).focus(); return; }
+    KLH.session && KLH.session.set({ nama: 'Bayu Prakoso', email: email });
+    window.location.href = 'beranda.html';
+  });
+})();
+</script>
+</body>
+</html>

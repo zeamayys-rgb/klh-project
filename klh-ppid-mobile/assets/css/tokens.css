@@ -1,0 +1,142 @@
+/* ============================================================
+   KLH/BPLH Design Tokens — v2.0
+   Sumber kebenaran tunggal (design.md §4–§6, Design_System_KLH_BPLH_2.html).
+   Palet diekstrak dari lambang resmi: Hijau #005952 (primer),
+   Biru #147DEF & Oranye #F97910 (sekunder).
+   Jangan menulis nilai warna/spasi langsung di komponen.
+   ============================================================ */
+:root {
+  /* ---- Hijau KLH — PRIMER (anchor logo di 600) ---- */
+  --g-50:  #F1F8F8;
+  --g-100: #DEF2F1;
+  --g-200: #B8EAE6;
+  --g-300: #7CDED6;
+  --g-400: #25D0C2;
+  --g-500: #07887D;
+  --g-600: #005952;   /* ← logo */
+  --g-700: #00453F;
+  --g-800: #003631;
+  --g-900: #002623;
+
+  /* ---- Biru KLH — SEKUNDER (anchor logo di 500) ----
+     Peran: informasi & data — tautan, visualisasi, elemen informatif.
+     #147DEF hanya utk teks besar/ikon/grafik; teks normal pakai 600+. */
+  --b-50:  #EFF5FA;
+  --b-100: #DAE8F6;
+  --b-200: #B1D0F1;
+  --b-300: #77B1EE;
+  --b-400: #4596ED;
+  --b-500: #147DEF;   /* ← logo */
+  --b-600: #0E66C4;
+  --b-700: #0B529D;
+  --b-800: #083E77;
+  --b-900: #062D56;
+
+  /* ---- Oranye KLH — SEKUNDER (anchor logo di 500) ----
+     Peran: sorotan & energi — aksen garis, notifikasi, CTA kampanye
+     (maks ±10% halaman). Jangan teks putih di atas oranye-500. */
+  --o-50:  #FCF4EE;
+  --o-100: #F9E4D2;
+  --o-200: #F8C8A0;
+  --o-300: #F7A664;
+  --o-400: #FA8F38;
+  --o-500: #F97910;   /* ← logo */
+  --o-600: #D66305;
+  --o-700: #AE5104;
+  --o-800: #863E03;
+  --o-900: #632E03;
+
+  /* ---- Alias kompatibilitas v1 (jangan dipakai di kode baru;
+          pakai --g-*) ---- */
+  --klh-green-50:  var(--g-50);
+  --klh-green-100: var(--g-100);
+  --klh-green-200: var(--g-200);
+  --klh-green-300: var(--g-300);
+  --klh-green-400: var(--g-400);
+  --klh-green-500: var(--g-500);
+  --klh-green-600: var(--g-600);
+  --klh-green-700: var(--g-700);
+  --klh-green-800: var(--g-800);
+  --klh-green-900: var(--g-900);
+
+  /* ---- Status ---- */
+  --success: #0E7A4E;  --success-bg: #DCF3E7;  --success-line: #9BDDBC;
+  --warning: #AE5104;  --warning-bg: #F9E4D2;  --warning-line: #F8C8A0;
+  --danger:  #C03A2B;  --danger-bg:  #FBE3E0;  --danger-line:  #EFAFA6;
+  --infoc:   #0B529D;  --info-bg:    #DAE8F6;  --info-line:    #B1D0F1;
+
+  /* ---- Netral (bernuansa teal) ---- */
+  --ink-900: #10201D;
+  --ink-700: #283835;
+  --ink-500: #51625E;
+  --ink-400: #75847F;
+  --ink-300: #A6B2AE;
+  --line: #E1E8E6;
+  --line-strong: #C7D2CF;
+  --surface: #FFFFFF;
+  --surface-2: #F5F9F8;
+  --surface-3: #EBF2F0;
+  --bg: #F2F6F5;
+
+  /* ---- Tipografi ---- */
+  --font-display: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  --font-body: 'Inter', 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+
+  --t-display: clamp(2rem, 1.4rem + 2.6vw, 3rem);  /* 32 → 48 */
+  --t-h1: 2rem;       /* 32 */
+  --t-h2: 1.5rem;     /* 24 */
+  --t-h3: 1.25rem;    /* 20 */
+  --t-h4: 1.0625rem;  /* 17 */
+  --t-body: 1rem;     /* 16 */
+  --t-sm: 0.875rem;   /* 14 */
+  --t-xs: 0.75rem;    /* 12 */
+
+  --lh-tight: 1.18;
+  --lh-snug: 1.35;
+  --lh-body: 1.6;
+
+  /* ---- Spasi (kelipatan 4px) ---- */
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px; --s5: 20px;
+  --s6: 24px; --s8: 32px; --s10: 40px; --s12: 48px; --s16: 64px;
+
+  /* ---- Radius ---- */
+  --r-xs: 4px;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 24px;
+  --r-pill: 999px;
+
+  /* ---- Elevasi (bayangan berbasis rgba(0,54,49,…) senada palet) ---- */
+  --sh-1: 0 1px 2px rgba(0, 54, 49, .06), 0 1px 3px rgba(0, 54, 49, .05);
+  --sh-2: 0 2px 6px rgba(0, 54, 49, .08), 0 6px 16px rgba(0, 54, 49, .07);
+  --sh-3: 0 12px 32px rgba(0, 54, 49, .12);
+
+  /* ---- Tata letak ---- */
+  --container: 1200px;
+  --gutter: 24px;
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(.22, .61, .36, 1);
+  --dur-1: 140ms;
+  --dur-2: 260ms;
+}
+
+/* ============================================================
+   Mode kontras tinggi — [data-contrast="high"] (UR-A11Y-02)
+   Menggelapkan primer, sekunder, garis & teks (DS v2 §9).
+   ============================================================ */
+[data-contrast="high"] {
+  --g-600: #003631;
+  --g-500: #00453F;
+  --b-500: #0B529D;
+  --b-600: #083E77;
+  --o-500: #863E03;
+  --ink-500: #10201D;
+  --ink-400: #10201D;
+  --line: #9AA59E;
+  --line-strong: #6E7A72;
+  --bg: #FFFFFF;
+  --surface-2: #FFFFFF;
+}

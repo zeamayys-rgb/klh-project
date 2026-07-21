@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Beranda — Aplikasi PPID KLH/BPLH</title>
+<meta name="description" content="Beranda aplikasi PPID: ajukan permohonan, lacak status, dan lihat riwayat permohonan informasi publik.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/mobile.css">
+</head>
+<body>
+<a class="skip" href="#app">Lewati ke konten</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/ppid.js"></script>
+<script src="assets/js/app.js"></script>
+
+<div class="stage">
+  <div class="device">
+    <klh-statusbar></klh-statusbar>
+    <klh-appbar title="PPID KLH/BPLH" sub="Layanan Informasi Publik" bell></klh-appbar>
+    <main id="app" class="app-main app-main--nav">
+      <div class="app-main__inner">
+
+        <div class="greet" data-reveal>
+          <span class="greet__avatar" id="avatar" aria-hidden="true">B</span>
+          <div>
+            <p class="greet__hi">Selamat datang,</p>
+            <p class="greet__name" id="nama-akun">Bayu Prakoso</p>
+          </div>
+        </div>
+
+        <div class="mini-stat" data-reveal>
+          <div class="card card__body--sm">
+            <div class="mini-stat__n" id="stat-aktif">–</div>
+            <div class="mini-stat__l">Permohonan aktif</div>
+          </div>
+          <div class="card card__body--sm">
+            <div class="mini-stat__n" id="stat-selesai">–</div>
+            <div class="mini-stat__l">Selesai dijawab</div>
+          </div>
+        </div>
+
+        <div class="sec-head"><h2>Aksi cepat</h2></div>
+        <div class="qa" data-reveal>
+          <a class="qa__btn" href="permohonan.html">
+            <span class="qa__ic qa__ic--green"><klh-icon name="document" class="icon"></klh-icon></span>
+            <span class="qa__t">Ajukan Permohonan</span>
+            <span class="qa__d">Kirim permohonan informasi baru</span>
+          </a>
+          <a class="qa__btn" href="lacak.html">
+            <span class="qa__ic qa__ic--blue"><klh-icon name="search" class="icon"></klh-icon></span>
+            <span class="qa__t">Lacak Permohonan</span>
+            <span class="qa__d">Cek status dengan nomor registrasi</span>
+          </a>
+          <a class="qa__btn" href="riwayat.html">
+            <span class="qa__ic qa__ic--neutral"><klh-icon name="clock" class="icon"></klh-icon></span>
+            <span class="qa__t">Riwayat</span>
+            <span class="qa__d">Semua permohonan Anda</span>
+          </a>
+          <a class="qa__btn" href="chatbot.html">
+            <span class="qa__ic qa__ic--orange"><klh-icon name="speech" class="icon"></klh-icon></span>
+            <span class="qa__t">Chat Bot AI</span>
+            <span class="qa__d">Tanya jawab layanan PPID</span>
+          </a>
+        </div>
+
+        <div class="sec-head"><h2>Permohonan terkini</h2><a href="riwayat.html">Lihat semua</a></div>
+        <div class="rowlist" id="recent" data-reveal></div>
+
+        <p style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s6)">Data contoh untuk pratinjau antarmuka prototipe.</p>
+      </div>
+    </main>
+    <klh-botnav active="beranda"></klh-botnav>
+  </div>
+  <span class="stage__hint">Pratinjau aplikasi mobile — prototipe UI (implementasi Flutter direncanakan)</span>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var sesi = KLH.session && KLH.session.get();
+  if (sesi && sesi.nama) {
+    document.getElementById('nama-akun').textContent = sesi.nama;
+    document.getElementById('avatar').textContent = sesi.nama.trim().charAt(0).toUpperCase();
+  }
+
+  var data = KLH.ppid.permohonan || [];
+  var aktif = data.filter(function (p) { return ['Diterima', 'Verifikasi', 'Diproses'].indexOf(p.status) > -1; }).length;
+  var selesai = data.filter(function (p) { return p.status === 'Selesai'; }).length;
+  document.getElementById('stat-aktif').textContent = aktif;
+  document.getElementById('stat-selesai').textContent = selesai;
+
+  document.getElementById('recent').innerHTML = data.slice(0, 3).map(function (p) {
+    return '<a class="rowitem" href="lacak.html?id=' + encodeURIComponent(p.id) + '">' +
+      '<div class="rowitem__main"><span class="rowitem__id">' + p.id + '</span>' +
+      '<p class="rowitem__t">' + p.info + '</p>' +
+      '<div style="margin-top:var(--s2)">' + KLH.statusBadge(p.status) + '</div></div>' +
+      '<span class="rowitem__chev"><klh-icon name="chevright" class="icon"></klh-icon></span></a>';
+  }).join('');
+
+  /* Simulasi push notification perubahan status (UR-PPID mobile) */
+  setTimeout(function () {
+    KLH.toast('Status diperbarui', 'PPID-2026-000123 kini “Diproses” oleh unit teknis.', 'clock');
+  }, 1400);
+})();
+</script>
+</body>
+</html>

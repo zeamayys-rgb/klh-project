@@ -187,7 +187,7 @@ Versi   : tambahkan _v2, _final bila revisi
 - [x] 2.1 User Flow & IA *(`F2_UserFlow-IA.md` — 4 menu utama citizen-centric, mega menu, Flow A serah-terima SP4N-LAPOR!)*
 - [x] 2.2 Wireframe *(`F2_Wireframe-notes.md` — 26 frame lo-fi + §7 dokumentasi hi-fi)*
 - [~] 2.3 Mockup high-fidelity *(Figma: 4 hero screen HF-WEB-01 / HF-PPID-01 / HF-OMNI-01 / HF-PPID-M01 ✓ — menunggu feedback sebelum scaling 61 halaman)*
-- [~] 2.4 Prototype interaktif *(**Modul 01 · Website Utama ✓**, **Modul 02 · PPID Web ✓**, dan **Modul 03 · Omni Channel Dashboard ✓** selesai sebagai prototipe HTML klikabel — lihat Log Deliverable; berikutnya: PPID Mobile 8 layar Flutter)*
+- [~] 2.4 Prototype interaktif *(**Modul 01 · Website Utama ✓**, **Modul 02 · PPID Web ✓**, **Modul 02b · PPID Mobile ✓** (`klh-ppid-mobile/`, 8 layar UI HTML), dan **Modul 03 · Omni Channel Dashboard ✓** selesai sebagai prototipe HTML klikabel — lihat Log Deliverable; berikutnya: implementasi Flutter + backend PPID Mobile di luar lingkup UI)*
 - [x] 2.5 Design System *(`Design_System_KLH_BPLH.html` + `.png` 2x + `design.md` — 8 seksi, 13 komponen)*
 - [ ] 2.6 BA Persetujuan Desain
 
@@ -251,6 +251,13 @@ Versi   : tambahkan _v2, _final bila revisi
 - Hasil: **0 Kritis · 5 Mayor · 6 Minor · 2 Saran** — skor dimensi: Token 4 · Konsistensi 4 · A11y 3 · Responsif 3 · Fungsional **5** (nol error JS, nol tautan putus, semua interaksi lolos).
 - Mayor (semua di komponen bersama, perbaikan ≈1 sesi): overflow 390px `.utilbar` di semua halaman (A1-01) · kontras teks meta `--ink-400` 3,92:1 (A1-02) · dialog `data-ext` tidak merata — hanya 4 hlm layanan (A1-03) · target sentuh <44px utilbar/footer (A1-04) · penanda "konten contoh" belum merata, termasuk LHKPN fiktif (A1-05).
 - Eksekusi perbaikan **menunggu persetujuan** (Modul 01 final). Rekomendasi berlaku juga sbg. lesson-learned Modul 02/03 (pola utilbar/navbar & penanda konten).
+
+**21 Jul 2026 — Modul 02b · PPID Mobile (prototipe UI HTML) SELESAI** → `klh-ppid-mobile.zip`
+- Menutup **gap T1 / KAK G1** (Aplikasi Mobile PPID) di **level UI/UX** — 8 layar HTML/CSS/JS di dalam **bingkai perangkat** (390×844 di desktop; penuh-layar ≤460px). Bukan Flutter penuh: implementasi Flutter + backend menyusul (di luar lingkup UI).
+- Fondasi & **data `ppid.js` dipakai ulang byte-identik** dari Modul 02 (paritas web–mobile: nomor & status permohonan sama). Khusus modul: `mobile.css` + `app.js` (chrome aplikasi `<klh-statusbar>`/`<klh-appbar>`/`<klh-botnav>` + FAB chat, helper status badge/timeline/dialog eksternal/**toast "push notification"**). `window.KLH_ROOT = ''`.
+- Layar: Splash/Onboarding → Masuk (email/sandi/**CAPTCHA**/lupa sandi) → Buat Akun (identitas lengkap 10 field) → Beranda (ringkasan status + aksi cepat + notif) → **Ajukan Permohonan** (stepper 3 langkah: rincian/kronologi singkat → **unggah dokumen** → tinjau & kirim → nomor registrasi) → **Lacak** (timeline `.timeline` + `?id=` + simulasi notif) → Riwayat (saring status) → **Chat Bot AI** (RAG disimulasikan, chip saran).
+- Verifikasi: Playwright 9 halaman × (1440px + 390px) **nol error JS**, link-check internal lolos, uji interaksi kunci lolos (login+CAPTCHA, stepper — visibilitas tombol per langkah, unggah berkas, lacak `?id=`, saring riwayat, chat, toast). Perbaikan a11y: `[hidden]{display:none!important}` (mengalahkan `.btn` inline-flex), warna heading splash & status bar brand.
+- Bug fix bermakna: atribut `hidden` pada `.btn` tak berlaku karena `.btn{display:inline-flex}` menang spesifisitas → tombol Kirim bocor di langkah 2; diperbaiki global.
 
 **7 Jul 2026 — Modul 03 · Omni Channel Dashboard (prototipe HTML) SELESAI** → `klh-omni-dashboard.zip`
 - 13 entri checklist / 12 file HTML (Panel Notifikasi = komponen topbar `<klh-topbar>`, bukan halaman). Struktur datar satu level, `window.KLH_ROOT = ''`.

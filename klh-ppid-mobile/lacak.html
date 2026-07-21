@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Lacak Permohonan — Aplikasi PPID KLH/BPLH</title>
+<meta name="description" content="Lacak status permohonan informasi publik dengan nomor registrasi — timeline transparan dan notifikasi status.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/mobile.css">
+</head>
+<body>
+<a class="skip" href="#app">Lewati ke konten</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/ppid.js"></script>
+<script src="assets/js/app.js"></script>
+
+<div class="stage">
+  <div class="device">
+    <klh-statusbar></klh-statusbar>
+    <klh-appbar title="Lacak Permohonan" back="beranda.html" home></klh-appbar>
+    <main id="app" class="app-main app-main--nav">
+      <div class="app-main__inner">
+        <p style="font-size:var(--t-sm);color:var(--ink-500);margin-bottom:var(--s4)">Masukkan nomor registrasi untuk melihat posisi permohonan Anda — tidak ada lagi “buta setelah kirim”.</p>
+
+        <form id="lacak-form">
+          <label class="sr-only" for="no-reg">Nomor registrasi</label>
+          <div class="input-group">
+            <input class="input" id="no-reg" name="id" type="text" placeholder="PPID-2026-000123" autocomplete="off" style="font-family:var(--font-mono)">
+            <button class="btn btn-primary" type="submit" aria-label="Lacak"><klh-icon name="search" class="icon icon--sm"></klh-icon></button>
+          </div>
+          <p class="hint" style="margin-top:var(--s2)">Contoh: <code>PPID-2026-000123</code>, <code>PPID-2026-000101</code> (selesai), <code>PPID-2026-000087</code> (ditolak).</p>
+        </form>
+
+        <div id="hasil" aria-live="polite" style="margin-top:var(--s5)"></div>
+      </div>
+    </main>
+    <klh-botnav active="lacak"></klh-botnav>
+  </div>
+  <span class="stage__hint">Pratinjau aplikasi mobile — prototipe UI (implementasi Flutter direncanakan)</span>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var input = document.getElementById('no-reg');
+  var box = document.getElementById('hasil');
+  var ic = function (n) { return KLH.iconSVG(n, 'icon icon--sm'); };
+
+  function render(id) {
+    var v = String(id).trim();
+    if (!v) {
+      box.innerHTML = '<div class="alert alert-warning">' + ic('warning') +
+        '<div><strong>Nomor registrasi belum diisi.</strong>Masukkan nomor registrasi Anda, mis. PPID-2026-000123.</div></div>';
+      return;
+    }
+    var p = KLH.findPermohonan(v);
+    if (!p && /^PPID-\d{4}-\d{6}$/i.test(v)) {
+      p = { id: v.toUpperCase(), status: 'Diterima', step: 1,
+        info: 'Permohonan baru Anda (demo — belum tersimpan di sistem)',
+        estimasi: KLH.ppid.permohonan[3].estimasi,
+        riwayat: [{ t: KLH.ppid.permohonan[3].riwayat[0].t, label: 'Permohonan diterima', ket: 'Formulir masuk melalui Aplikasi PPID' }] };
+    }
+    if (!p) {
+      box.innerHTML = '<div class="alert alert-danger">' + ic('warning') +
+        '<div><strong>Nomor tidak ditemukan.</strong>Periksa format nomor (PPID-2026-XXXXXX) atau coba nomor contoh di atas.</div></div>';
+      return;
+    }
+    var ditolak = p.status === 'Ditolak', selesai = p.status === 'Selesai';
+    box.innerHTML =
+      '<div class="card card__body--sm" data-reveal>' +
+        '<div style="display:flex;justify-content:space-between;gap:var(--s3);align-items:flex-start;margin-bottom:var(--s5)">' +
+          '<div style="min-width:0"><span style="font-size:var(--t-xs);color:var(--ink-400)">Permohonan</span>' +
+            '<strong style="display:block;font-family:var(--font-mono);font-size:var(--t-h4)">' + p.id + '</strong>' +
+            '<p style="font-size:var(--t-sm);color:var(--ink-500);margin:var(--s1) 0 0">' + p.info + '</p></div>' +
+          KLH.statusBadge(p.status) +
+        '</div>' +
+        KLH.timelineHTML(p) +
+        (ditolak
+          ? '<div class="alert alert-danger" style="margin-top:var(--s5)">' + ic('warning') +
+            '<div><strong>Alasan penolakan.</strong>' + p.alasan +
+            '<br><a class="btn btn-danger btn-sm" href="#" style="margin-top:var(--s3)" data-keberatan>Ajukan Keberatan</a></div></div>'
+          : selesai
+            ? '<div class="alert alert-success" style="margin-top:var(--s5)">' + ic('check') +
+              '<div><strong>Permohonan selesai.</strong>Jawaban telah dikirim ke email terdaftar pada ' + KLH.fmtDate(p.riwayat[p.riwayat.length - 1].t) + '.</div></div>'
+            : '<div class="alert alert-info" style="margin-top:var(--s5)">' + ic('clock') +
+              '<div><strong>Estimasi jawaban.</strong>Paling lambat ' + KLH.fmtDate(p.estimasi) + ' (10 hari kerja). Anda menerima notifikasi saat status berubah.</div></div>') +
+      '</div>';
+    var kb = box.querySelector('[data-keberatan]');
+    if (kb) kb.addEventListener('click', function (e) { e.preventDefault(); KLH.toast('Formulir keberatan', 'Alur pengajuan keberatan tersedia pada versi lengkap.', 'scale'); });
+    var card = box.querySelector('[data-reveal]'); if (card) card.classList.add('is-in');
+  }
+
+  document.getElementById('lacak-form').addEventListener('submit', function (e) { e.preventDefault(); render(input.value); });
+
+  var q = KLH.qs('id');
+  if (q) { input.value = q; render(q); }
+})();
+</script>
+</body>
+</html>

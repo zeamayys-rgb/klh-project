@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Riwayat — Aplikasi PPID KLH/BPLH</title>
+<meta name="description" content="Riwayat seluruh permohonan informasi publik Anda beserta status terkini.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/mobile.css">
+</head>
+<body>
+<a class="skip" href="#app">Lewati ke konten</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/ppid.js"></script>
+<script src="assets/js/app.js"></script>
+
+<div class="stage">
+  <div class="device">
+    <klh-statusbar></klh-statusbar>
+    <klh-appbar title="Riwayat" sub="Permohonan Anda" home></klh-appbar>
+    <main id="app" class="app-main app-main--nav">
+      <div class="app-main__inner">
+
+        <div class="filterbar" role="tablist" aria-label="Saring status" style="display:flex;gap:var(--s2);overflow-x:auto;margin-bottom:var(--s5);padding-bottom:var(--s1)">
+          <button class="fchip on" data-f="semua" role="tab" aria-selected="true">Semua</button>
+          <button class="fchip" data-f="aktif" role="tab" aria-selected="false">Aktif</button>
+          <button class="fchip" data-f="Selesai" role="tab" aria-selected="false">Selesai</button>
+          <button class="fchip" data-f="Ditolak" role="tab" aria-selected="false">Ditolak</button>
+        </div>
+
+        <div class="rowlist" id="list"></div>
+        <p id="empty" hidden style="text-align:center;color:var(--ink-400);font-size:var(--t-sm);padding:var(--s8) 0">Tidak ada permohonan pada saringan ini.</p>
+
+        <p style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s6)">Data contoh untuk pratinjau antarmuka prototipe.</p>
+      </div>
+    </main>
+    <klh-botnav active="riwayat"></klh-botnav>
+  </div>
+  <span class="stage__hint">Pratinjau aplikasi mobile — prototipe UI (implementasi Flutter direncanakan)</span>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var data = KLH.ppid.permohonan || [];
+  var list = document.getElementById('list');
+  var empty = document.getElementById('empty');
+  var AKTIF = ['Diterima', 'Verifikasi', 'Diproses'];
+
+  function render(f) {
+    var rows = data.filter(function (p) {
+      if (f === 'semua') return true;
+      if (f === 'aktif') return AKTIF.indexOf(p.status) > -1;
+      return p.status === f;
+    });
+    empty.hidden = rows.length > 0;
+    list.innerHTML = rows.map(function (p) {
+      return '<a class="rowitem" href="lacak.html?id=' + encodeURIComponent(p.id) + '">' +
+        '<div class="rowitem__main"><span class="rowitem__id">' + p.id + ' · ' + KLH.fmtDate(p.tanggal) + '</span>' +
+        '<p class="rowitem__t">' + p.info + '</p>' +
+        '<div style="margin-top:var(--s2)">' + KLH.statusBadge(p.status) + '</div></div>' +
+        '<span class="rowitem__chev"><klh-icon name="chevright" class="icon"></klh-icon></span></a>';
+    }).join('');
+  }
+
+  document.querySelector('.filterbar').addEventListener('click', function (e) {
+    var b = e.target.closest('.fchip'); if (!b) return;
+    Array.prototype.forEach.call(this.querySelectorAll('.fchip'), function (c) {
+      c.classList.toggle('on', c === b); c.setAttribute('aria-selected', c === b ? 'true' : 'false');
+    });
+    render(b.getAttribute('data-f'));
+  });
+
+  render('semua');
+})();
+</script>
+</body>
+</html>

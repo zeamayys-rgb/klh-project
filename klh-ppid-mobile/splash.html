@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Aplikasi PPID KLH/BPLH — Mulai</title>
+<meta name="description" content="Aplikasi mobile PPID KLH/BPLH — ajukan dan lacak permohonan informasi publik dari genggaman. Prototipe UI.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/mobile.css">
+</head>
+<body>
+<a class="skip" href="#app">Lewati ke konten</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/ppid.js"></script>
+<script src="assets/js/app.js"></script>
+
+<div class="stage">
+  <div class="device">
+    <klh-statusbar variant="brand"></klh-statusbar>
+    <main id="app" class="splash">
+      <div class="splash__mark" id="mark" aria-hidden="true"></div>
+      <h1 class="splash__brand">PPID Mobile<br>KLH/BPLH</h1>
+      <p class="splash__tag">Ajukan dan lacak permohonan informasi publik langsung dari genggaman — transparan, tanpa antre.</p>
+      <div class="splash__spacer"></div>
+      <div class="splash__dots" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+      <div class="splash__actions">
+        <a class="btn btn--inverse btn-lg" href="masuk.html">Masuk</a>
+        <a class="btn btn-ghost-light btn-lg" href="daftar.html">Buat Akun Baru</a>
+        <a href="beranda.html" style="color:#B8EAE6;font-size:var(--t-sm);margin-top:var(--s2)">Lihat sebagai tamu →</a>
+      </div>
+    </main>
+  </div>
+  <span class="stage__hint">Pratinjau aplikasi mobile — prototipe UI (implementasi Flutter direncanakan)</span>
+</div>
+
+<script>
+  document.getElementById('mark').innerHTML = KLH.leafmark();
+</script>
+</body>
+</html>

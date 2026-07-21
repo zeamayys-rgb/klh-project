@@ -22,11 +22,11 @@
 |---|---|---|---|---|
 | 01 · Website Utama | 24 | 1 (Beranda) | **24 — Prototipe HTML M01 ✓** (+ HF-WEB-01 Beranda) | 6 |
 | 02 · PPID Web | 16 | 2 (Form, Lacak) | **16 — Prototipe HTML M02 ✓** (+ HF-PPID-01 Lacak) | 8 |
-| 02b · PPID Mobile (Flutter) | 8 | 0 | 1 (HF-PPID-M01 Lacak) | 6 |
+| 02b · PPID Mobile (Flutter) | 8 | 0 | **8 — Prototipe UI HTML M02b ✓** (+ HF-PPID-M01 Lacak) | 6 |
 | 03 · Omni Channel Dashboard | 13 | 1 (Inbox) | **13 — Prototipe HTML M03 ✓** (+ HF-OMNI-01 Dashboard/Inbox) | 7 |
-| **Total** | **61** | **4** | **54** | **27** |
+| **Total** | **61** | **4** | **61** | **27** |
 
-> **Berikutnya:** PPID Mobile (8 layar Flutter) — modul HTML ketiga selesai; fondasi bersama M01 (`tokens.css` + `base.css` + `components.css` + `icons.js`) terbukti dipakai ulang di M02 & M03.
+> **Status:** keempat modul prototipe UI (M01, M02, M02b, M03) selesai. Fondasi bersama M01 (`tokens.css` + `base.css` + `components.css` + `icons.js`) dipakai ulang di M02, M02b & M03. **Berikutnya:** implementasi Flutter + backend PPID Mobile (di luar lingkup UI) dan 3 sub-fitur Analytics Omni (T2).
 
 ---
 
@@ -93,18 +93,19 @@
 
 ---
 
-## 02b · PPID MOBILE — Flutter (8 layar)
+## 02b · PPID MOBILE — Flutter (8 layar) — ✅ PROTOTIPE UI SELESAI (`klh-ppid-mobile/`, 21 Jul 2026)
 
 > Fokus tugas inti pemohon (UR-PPID-03 Must) — bukan replika web penuh.
+> **Level UI/UX (HTML/CSS/JS di bingkai perangkat)** selesai & terverifikasi Playwright (0 error JS, 390/1440px). Implementasi Flutter + backend menyusul (di luar lingkup UI).
 
-- [ ] **Splash / Onboarding** · S
-- [ ] **Masuk** · **M**
-- [ ] **Daftar Akun** — identitas lengkap · **M**
-- [ ] **Beranda App** — menu tugas inti · **M**
-- [ ] **Ajukan Permohonan** — kronologi singkat + unggah dokumen · **M**
-- [~] **Lacak Permohonan** — ID + progress + push notification · **M** · *(HF-PPID-M01 — hi-fi hero ✓, alur penuh menyusul)*
-- [ ] **Riwayat** · S
-- [ ] **Chat Bot AI** · **M**
+- [x] **Splash / Onboarding** · S · `splash.html`
+- [x] **Masuk** · **M** · `masuk.html` (email/sandi/CAPTCHA/lupa sandi)
+- [x] **Daftar Akun** — identitas lengkap · **M** · `daftar.html`
+- [x] **Beranda App** — menu tugas inti · **M** · `beranda.html`
+- [x] **Ajukan Permohonan** — kronologi singkat + unggah dokumen · **M** · `permohonan.html` (stepper 3 langkah)
+- [x] **Lacak Permohonan** — ID + progress + push notification · **M** · `lacak.html` (timeline + toast notifikasi)
+- [x] **Riwayat** · S · `riwayat.html`
+- [x] **Chat Bot AI** · **M** · `chatbot.html` (RAG disimulasikan)
 
 ---
 

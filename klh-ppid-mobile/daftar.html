@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Buat Akun — Aplikasi PPID KLH/BPLH</title>
+<meta name="description" content="Daftar akun pemohon PPID dengan identitas lengkap untuk mengajukan permohonan informasi publik.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/mobile.css">
+</head>
+<body>
+<a class="skip" href="#app">Lewati ke konten</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/ppid.js"></script>
+<script src="assets/js/app.js"></script>
+
+<div class="stage">
+  <div class="device">
+    <klh-statusbar></klh-statusbar>
+    <klh-appbar title="Buat Akun" sub="Identitas diri pemohon" back="masuk.html"></klh-appbar>
+    <main id="app" class="app-main">
+      <div class="app-main__inner">
+
+        <form id="form-daftar" novalidate>
+          <p class="mstep__lbl" style="margin-bottom:var(--s5)">Data ini wajib untuk permohonan resmi sesuai UU 14/2008 tentang Keterbukaan Informasi Publik.</p>
+
+          <h2 style="font-size:var(--t-h4);margin-bottom:var(--s3)">Identitas Diri</h2>
+
+          <div class="field" id="f-nama">
+            <label for="nama">Nama lengkap</label>
+            <input class="input" id="nama" name="nama" type="text" autocomplete="name" placeholder="Sesuai KTP" aria-describedby="nama-err">
+            <span class="errmsg" id="nama-err" role="alert"></span>
+          </div>
+
+          <div class="grid2" style="margin-bottom:var(--s5)">
+            <div class="field" id="f-telp">
+              <label for="telp">No. telepon</label>
+              <input class="input" id="telp" name="telp" type="tel" inputmode="tel" autocomplete="tel" placeholder="08xx" aria-describedby="telp-err">
+              <span class="errmsg" id="telp-err" role="alert"></span>
+            </div>
+            <div class="field" id="f-profesi">
+              <label for="profesi">Profesi</label>
+              <input class="input" id="profesi" name="profesi" type="text" placeholder="mis. Jurnalis" autocomplete="organization-title">
+            </div>
+          </div>
+
+          <div class="field" id="f-tempat">
+            <label for="tempat">Tempat profesi / instansi</label>
+            <input class="input" id="tempat" name="tempat" type="text" placeholder="Nama kantor / lembaga" autocomplete="organization">
+          </div>
+
+          <div class="field" id="f-alamat">
+            <label for="alamat">Alamat</label>
+            <textarea class="textarea" id="alamat" name="alamat" rows="2" placeholder="Alamat domisili" autocomplete="street-address"></textarea>
+          </div>
+
+          <div class="grid2" style="margin-bottom:var(--s5)">
+            <div class="field">
+              <label for="provinsi">Provinsi</label>
+              <select class="select" id="provinsi" name="provinsi">
+                <option value="">Pilih…</option>
+                <option>DKI Jakarta</option><option>Jawa Barat</option><option>Jawa Tengah</option>
+                <option>Jawa Timur</option><option>Banten</option><option>Lainnya</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="kabupaten">Kabupaten</label>
+              <input class="input" id="kabupaten" name="kabupaten" type="text" placeholder="Kabupaten">
+            </div>
+          </div>
+
+          <div class="field" id="f-kota">
+            <label for="kota">Kota</label>
+            <input class="input" id="kota" name="kota" type="text" placeholder="Kota" autocomplete="address-level2">
+          </div>
+
+          <h2 style="font-size:var(--t-h4);margin:var(--s6) 0 var(--s3)">Akun Masuk</h2>
+
+          <div class="field" id="f-email">
+            <label for="email">Email</label>
+            <input class="input" id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="nama@email.com" aria-describedby="email-err">
+            <span class="errmsg" id="email-err" role="alert"></span>
+          </div>
+
+          <div class="field" id="f-sandi">
+            <label for="sandi">Kata sandi</label>
+            <input class="input" id="sandi" name="sandi" type="password" autocomplete="new-password" placeholder="Minimal 8 karakter" aria-describedby="sandi-err">
+            <span class="hint">Gunakan kombinasi huruf &amp; angka, minimal 8 karakter.</span>
+            <span class="errmsg" id="sandi-err" role="alert"></span>
+          </div>
+
+          <label style="display:flex;gap:var(--s3);align-items:flex-start;font-size:var(--t-sm);color:var(--ink-700);margin:var(--s4) 0 var(--s5)">
+            <input type="checkbox" id="setuju" style="margin-top:3px;width:18px;height:18px;flex:none">
+            <span>Saya menyetujui <a href="#" data-ext-note>ketentuan layanan</a> dan pengelolaan data pribadi sesuai UU 27/2022.</span>
+          </label>
+          <span class="errmsg" id="setuju-err" role="alert" style="display:block;margin:calc(-1 * var(--s4)) 0 var(--s4)"></span>
+
+          <button class="btn btn-primary btn-lg" type="submit" style="width:100%">Daftar &amp; Verifikasi Email</button>
+        </form>
+
+        <p class="auth-alt">Sudah punya akun? <a href="masuk.html">Masuk di sini</a></p>
+      </div>
+    </main>
+  </div>
+  <span class="stage__hint">Pratinjau aplikasi mobile — prototipe UI (implementasi Flutter direncanakan)</span>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var form = document.getElementById('form-daftar');
+  function setErr(id, msg) {
+    var f = document.getElementById('f-' + id);
+    if (f) f.classList.toggle('err', !!msg);
+    var e = document.getElementById(id + '-err');
+    if (e) e.textContent = msg || '';
+  }
+
+  document.querySelector('[data-ext-note]').addEventListener('click', function (e) {
+    e.preventDefault();
+    KLH.toast('Ketentuan layanan', 'Dokumen ketentuan akan tersedia pada versi rilis.', 'document');
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = function (id) { return (document.getElementById(id).value || '').trim(); };
+    var ok = true, first = null;
+    var check = function (id, cond, msg) { if (!cond) { setErr(id, msg); ok = false; first = first || id; } else setErr(id, ''); };
+    check('nama', v('nama').length >= 3, 'Nama lengkap wajib diisi.');
+    check('telp', /^[0-9+\-\s]{8,}$/.test(v('telp')), 'Nomor telepon tidak valid.');
+    check('email', /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v('email')), 'Masukkan email yang valid.');
+    check('sandi', v('sandi').length >= 8, 'Kata sandi minimal 8 karakter.');
+    var setuju = document.getElementById('setuju').checked;
+    document.getElementById('setuju-err').textContent = setuju ? '' : 'Anda harus menyetujui ketentuan.';
+    if (!setuju) { ok = false; first = first || 'setuju'; }
+    if (!ok) { document.getElementById(first).focus(); return; }
+    KLH.session && KLH.session.set({ nama: v('nama'), email: v('email') });
+    KLH.toast('Verifikasi email terkirim', 'Tautan verifikasi dikirim ke ' + v('email') + ' (demo).', 'envelope');
+    setTimeout(function () { window.location.href = 'beranda.html'; }, 1400);
+  });
+})();
+</script>
+</body>
+</html>
