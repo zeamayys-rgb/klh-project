@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nirwasita Tantra (Green Leadership) — KLH/BPLH</title>
+<meta name="description" content="Status Lingkungan Hidup Daerah (SLHD) dan Penghargaan Nirwasita Tantra (Green Leadership) — tujuan, milestone, pedoman penyusunan SLHD, komponen penilaian, dan linimasa 2026.">
+<link rel="icon" type="image/png" href="../../assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/base.css">
+<link rel="stylesheet" href="../../assets/css/components.css">
+<link rel="stylesheet" href="../../assets/css/pages.css">
+<style>
+/* ---- Khusus halaman Nirwasita Tantra (pola visual mengikuti adiwiyata.html) ---- */
+.prg-hero {
+  position: relative; overflow: hidden; color: #fff;
+  background:
+    radial-gradient(80% 120% at 108% -10%, rgba(37,208,194,.22), transparent 52%),
+    radial-gradient(50% 70% at -5% 110%, rgba(249,121,16,.12), transparent 50%),
+    linear-gradient(155deg, var(--klh-green-800) 0%, var(--klh-green-900) 78%);
+  padding-block: var(--s12);
+}
+.prg-hero .leafmark { position: absolute; right: -60px; top: -90px; width: 360px; height: 360px; opacity: .1; color: var(--klh-green-300); pointer-events: none; }
+.prg-hero__grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: var(--s12); align-items: center; position: relative; }
+@media (max-width: 1024px) { .prg-hero__grid { grid-template-columns: 1fr; } }
+.prg-hero h1 { color: #fff; font-size: var(--t-display); }
+.prg-hero .lead { color: var(--klh-green-200); font-size: var(--t-h4); font-weight: 400; max-width: 52ch; }
+.prg-hero__photo { border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--sh-3); aspect-ratio: 16/11; }
+.prg-hero .btn-outline:hover { color: #fff; }
+@media (max-width: 1024px) { #prg-about { grid-template-columns: 1fr !important; } }
+
+/* Kartu umum halaman program */
+.prg-card { display: flex; flex-direction: column; gap: var(--s3); padding: var(--s6); height: 100%; }
+.prg-card .svc-card__icon { width: 44px; height: 44px; border-radius: 12px; }
+.prg-card h3 { font-size: var(--t-h4); margin: 0; }
+.prg-card p { font-size: var(--t-sm); color: var(--ink-500); margin: 0; line-height: 1.6; }
+.prg-card .no { font-family: var(--font-mono); font-size: var(--t-xs); font-weight: 600; letter-spacing: .06em; color: var(--klh-green-700); }
+.prg-card ul { margin: 0; padding-left: var(--s5); display: grid; gap: var(--s2); color: var(--ink-700); font-size: var(--t-sm); line-height: 1.6; }
+
+.prg-jenjang { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); }
+@media (max-width: 860px) { .prg-jenjang { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<script>window.KLH_ROOT = '../../';</script>
+<script src="../../assets/js/components/icons.js"></script>
+<script src="../../assets/js/data/menu.js"></script>
+<script src="../../assets/js/data/content.js"></script>
+<script src="../../assets/js/components/navbar.js"></script>
+<script src="../../assets/js/components/footer.js"></script>
+<script src="../../assets/js/components/widgets.js"></script>
+<script src="../../assets/js/vendor/image-slot.js"></script>
+
+<klh-navbar active="program"></klh-navbar>
+
+<main id="konten">
+
+  <!-- HERO -->
+  <section class="prg-hero" data-screen-label="Nirwasita Tantra — Hero">
+    <div class="container prg-hero__grid">
+      <div>
+        <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+          <li><a href="../../index.html">Beranda</a></li>
+          <li><a href="index.html">Program</a></li>
+          <li aria-current="page">Nirwasita Tantra</li>
+        </ol></nav>
+        <span class="eyebrow" style="color:var(--klh-green-300)">Green Leadership</span>
+        <h1>Nirwasita Tantra</h1>
+        <p class="lead">Status Lingkungan Hidup Daerah (SLHD) dan penghargaan Nirwasita Tantra (Green Leadership) — anugerah pemerintah pusat bagi kepala daerah yang berhasil menerapkan kebijakan pembangunan berkelanjutan berwawasan lingkungan.</p>
+        <div class="home-hero__cta">
+          <a class="btn btn--inverse btn-lg" href="https://bit.ly/pedomanpenyusunanslhd" target="_blank" rel="noopener noreferrer" data-ext="Pedoman Penyusunan SLHD"><klh-icon name="download" class="icon icon--sm"></klh-icon> Unduh Pedoman SLHD</a>
+          <a class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,.5);color:#fff" href="#penilaian"><klh-icon name="scale" class="icon icon--sm"></klh-icon> Komponen Penilaian</a>
+        </div>
+      </div>
+      <div class="prg-hero__photo">
+        <image-slot id="nt-hero" shape="rect" placeholder="Foto penganugerahan Nirwasita Tantra — seret foto dari kemenlh.go.id ke sini"></image-slot>
+      </div>
+    </div>
+    <span id="hero-leaf"></span>
+  </section>
+
+  <!-- TENTANG + TUJUAN -->
+  <section class="section" data-screen-label="Nirwasita Tantra — Tentang">
+    <div class="container" style="display:grid;grid-template-columns:1.1fr .9fr;gap:var(--s12);align-items:start" id="prg-about">
+      <div class="prose">
+        <span class="eyebrow">Tentang Program</span>
+        <h2 style="margin-top:0">SLHD &amp; Nirwasita Tantra</h2>
+        <p><strong>Status Lingkungan Hidup Daerah (SLHD)</strong> adalah laporan tahunan kinerja pengelolaan lingkungan hidup daerah yang disusun oleh pemerintah daerah, berisi data dan informasi kondisi lingkungan serta upaya pengelolaannya. SLHD menjadi dasar penilaian untuk mendapatkan penghargaan <strong>Nirwasita Tantra (Green Leadership)</strong> — anugerah dari pemerintah pusat untuk kepala daerah yang berhasil menerapkan kebijakan pembangunan berkelanjutan berwawasan lingkungan.</p>
+        <p>Program ini terdiri dari dua luaran kegiatan: <strong>penyusunan Buku SLHD</strong> (Buku I Ringkasan Eksekutif, Buku II Laporan Utama, Buku III Tabel dan Lampiran — disusun oleh pemerintah daerah) dan <strong>Penghargaan Nirwasita Tantra</strong>.</p>
+        <h3>Dasar hukum</h3>
+        <ul>
+          <li><strong>UU No. 32 Tahun 2009</strong> tentang Perlindungan dan Pengelolaan Lingkungan Hidup, Pasal 62 ayat (1): <em>"Pemerintah dan Pemerintah Daerah wajib mengembangkan Sistem Informasi Lingkungan Hidup dan mengembangkan kebijakan perlindungan pengelolaan Lingkungan Hidup."</em></li>
+          <li><strong>UU No. 14 Tahun 2008</strong> tentang Keterbukaan Informasi Publik, Pasal 2 ayat (3): <em>"Setiap Orang berhak memperoleh Informasi Publik sesuai dengan ketentuan Undang-Undang."</em></li>
+          <li><strong>PP No. 22 Tahun 2021</strong> tentang Penyelenggaraan Perlindungan dan Pengelolaan Lingkungan Hidup (PPLH).</li>
+        </ul>
+        <p>Peraturan Menteri Lingkungan Hidup terbaru tentang program ini sedang dalam proses penyusunan.</p>
+      </div>
+      <div>
+        <span class="eyebrow">Tujuan</span>
+        <div class="card prg-card" style="margin-top:var(--s5)" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="flag" class="icon"></klh-icon></span>
+          <h3>Tujuan penyusunan SLHD &amp; penghargaan Nirwasita Tantra</h3>
+          <ul>
+            <li>Memperkuat basis data/informasi lingkungan.</li>
+            <li>Evaluasi mandiri (<em>self-evaluation</em>) bagi kebijakan/upaya pemda berbasis data lingkungan hidup.</li>
+            <li>Meningkatkan pemahaman pengambil kebijakan berbasis data lingkungan hidup.</li>
+            <li>Memperkuat pengambilan keputusan/kebijakan berbasis data (<em>data-driven decision making</em>).</li>
+            <li>Memperkuat sinergi kebijakan pemerintah pusat–daerah.</li>
+            <li>Sebagai informasi publik tentang lingkungan dan kebijakan pemda.</li>
+            <li>Insentif bagi daerah (penghargaan, dana insentif daerah, dll.).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MILESTONE -->
+  <section class="section" style="background:var(--surface-2)" data-screen-label="Nirwasita Tantra — Milestone">
+    <div class="container">
+      <span class="eyebrow">Milestone</span>
+      <h2>Perjalanan SLHD dari tahun ke tahun</h2>
+      <div class="prg-jenjang" style="margin-top:var(--s6)">
+        <div class="card prg-card" data-reveal><span class="no">2016</span><p>Istilah SLHD (Status Lingkungan Hidup Daerah) diperkenalkan. Penilaian menggunakan Dokumen Status Lingkungan Hidup Daerah.</p></div>
+        <div class="card prg-card" data-reveal><span class="no">2017</span><p>Penilaian dilihat dari pengumpulan 53 tabel yang terangkum dalam Dokumen Informasi Kinerja Pengelolaan Lingkungan Hidup Daerah (DIKPLHD).</p></div>
+        <div class="card prg-card" data-reveal><span class="no">2018</span><p>Penambahan tabel DIKPLHD menjadi 65 tabel data yang harus dikumpulkan, sekaligus mulai menggunakan laman dataalam.menlhk.go.id.</p></div>
+        <div class="card prg-card" data-reveal><span class="no">2019</span><p>Masih terdapat pemisahan kategori pemenang berdasarkan besaran jumlah penduduk.</p></div>
+        <div class="card prg-card" data-reveal><span class="no">2020</span><p>Karena COVID-19, wawancara luring pada tahap akhir diganti pengiriman video pendek berisi klarifikasi kepala daerah dan DPRD.</p></div>
+        <div class="card prg-card" data-reveal><span class="no">2021–2024</span><p>Penghargaan diberikan kepada entitas pemerintahan daerah (kompilasi penilaian kepala daerah dan DPRD).</p></div>
+      </div>
+      <div class="card tonal" style="box-shadow:none;margin-top:var(--s8)" data-reveal>
+        <div class="card__body" style="padding:var(--s5)">
+          <span class="eyebrow">Dari DIKPLHD kembali menuju SLHD</span>
+          <ul style="margin:var(--s3) 0 0;padding-left:var(--s5);color:var(--ink-700);font-size:var(--t-sm);display:grid;gap:var(--s2)">
+            <li>Pada tahun 2026 ditetapkan pedoman penyusunan SLHD dan penilaian Penghargaan Nirwasita Tantra — dasar penilaian yang selama ini menggunakan DIKPLHD kembali memakai <strong>SLHD yang disempurnakan</strong>.</li>
+            <li>Pada masa transisi, daerah diharapkan tetap menyusun DIKPLHD tahun 2025 menggunakan pedoman DIKPLHD tahun 2024. Daerah yang mengumpulkan DIKPLHD tahun 2025 mendapatkan <strong>poin tambahan</strong> pada penilaian Penghargaan Nirwasita Tantra tahun 2026.</li>
+            <li>Laporan DIKPLHD tahun 2025 diterima paling lambat <strong>31 Oktober 2025 pukul 23.59 WIB</strong>.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="grid grid--2" style="margin-top:var(--gutter)">
+        <div class="card prg-card" data-reveal>
+          <h3>DIKLH (sebelumnya DIKPLHD)</h3>
+          <p>Enam matra penilaian:</p>
+          <ul>
+            <li>Tata guna lahan</li>
+            <li>Kualitas air</li>
+            <li>Kualitas udara</li>
+            <li>Risiko bencana</li>
+            <li>Perkotaan/persampahan</li>
+            <li>Tata kelola</li>
+          </ul>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <h3>SLHD yang disempurnakan</h3>
+          <p>Delapan matra isu lingkungan:</p>
+          <ul>
+            <li>Keanekaragaman hayati</li>
+            <li>Kualitas air</li>
+            <li>Laut, pesisir, dan pantai</li>
+            <li>Kualitas udara</li>
+            <li>Lahan dan hutan</li>
+            <li>Pengelolaan sampah dan limbah</li>
+            <li>Perubahan iklim</li>
+            <li>Risiko bencana</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PENYUSUNAN SLHD -->
+  <section class="section" data-screen-label="Nirwasita Tantra — Penyusunan SLHD">
+    <div class="container">
+      <div class="prose">
+        <span class="eyebrow">Penyusunan SLHD</span>
+        <h2>Bagaimana SLHD disusun?</h2>
+        <p>SLHD disusun oleh tim yang dibentuk oleh kepala daerah, dengan keanggotaan melibatkan unsur Organisasi Perangkat Daerah (OPD) terkait, perguruan tinggi, dan lembaga swadaya masyarakat. Tim penyusun laporan SLHD dikukuhkan dengan Surat Keputusan Kepala Daerah. Pedoman penyusunan dapat diunduh pada <a href="https://bit.ly/pedomanpenyusunanslhd" target="_blank" rel="noopener noreferrer" data-ext="Pedoman Penyusunan SLHD">tautan pedoman penyusunan SLHD <span class="ext-note">membuka dokumen</span></a>.</p>
+      </div>
+      <div class="grid grid--3" style="margin-top:var(--s6)">
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="document" class="icon"></klh-icon></span>
+          <h3>Buku I<br>Ringkasan Eksekutif</h3>
+          <p>Ringkasan eksekutif berupa tabel analisis <em>Driving Force, Pressure, State, Impact and Response</em> (DPSIR) di delapan matra isu lingkungan.</p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--sky"><klh-icon name="book" class="icon"></klh-icon></span>
+          <h3>Buku II<br>Laporan Utama</h3>
+          <p>Laporan utama disajikan dengan hubungan kausalitas antara unsur pemicu, penyebab persoalan lingkungan hidup, status, akibat, dan upaya memperbaiki kualitas lingkungan (DPSIR).</p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--earth"><klh-icon name="list" class="icon"></klh-icon></span>
+          <h3>Buku III<br>Tabel &amp; Lampiran</h3>
+          <p>Keseluruhan data utama dan data tambahan wajib dicantumkan dalam lampiran sesuai tata cara yang telah ditentukan.</p>
+        </div>
+      </div>
+      <div class="grid grid--2" style="margin-top:var(--gutter);align-items:start">
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="check" class="icon"></klh-icon></span>
+          <h3>Kelengkapan administrasi</h3>
+          <ul>
+            <li>Kata pengantar yang ditandatangani oleh kepala daerah.</li>
+            <li>Penyaringan isu prioritas yang melibatkan LSM, perguruan tinggi, dan OPD (pemangku kepentingan), dikukuhkan SK Tim Penyusunan yang ditandatangani kepala daerah.</li>
+            <li>Surat pernyataan dari kepala daerah tentang pernyataan inovasi.</li>
+            <li>Surat pernyataan keabsahan data yang ditandatangani Kepala Dinas Lingkungan Hidup dan diketahui kepala daerah.</li>
+            <li>SK Tim Penyusun SLHD oleh kepala daerah.</li>
+            <li>Keterlibatan pemangku kepentingan (akademisi, LSM, masyarakat, dll.) dalam SK Tim Penyusun SLHD.</li>
+            <li>Peta spasial daerah.</li>
+          </ul>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--sky"><klh-icon name="clock" class="icon"></klh-icon></span>
+          <h3>Batas waktu pengumpulan</h3>
+          <ul>
+            <li>SLHD yang telah disusun kabupaten/kota dan provinsi <strong>wajib diunggah pada laman masing-masing daerah</strong> dan disampaikan dalam bentuk berkas PDF melalui surel ke <a href="mailto:nirwasitatantra@kemenlh.go.id">nirwasitatantra@kemenlh.go.id</a>.</li>
+            <li>Masing-masing daerah wajib mengisi tabel data yang dapat diunduh melalui <a href="https://bit.ly/pedomanpenyusunanslhd" target="_blank" rel="noopener noreferrer" data-ext="Pedoman Penyusunan SLHD">tautan pedoman</a>.</li>
+            <li>Disampaikan kepada Pusat Data dan Informasi, Sekretariat Utama KLH/BPLH paling lambat <strong>30 April tahun berikutnya pukul 23.59 WIB</strong>.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KOMPONEN PENILAIAN -->
+  <section class="section" style="background:var(--surface-2);scroll-margin-top:110px" id="penilaian" data-screen-label="Nirwasita Tantra — Penilaian">
+    <div class="container">
+      <span class="eyebrow">Komponen Penilaian</span>
+      <h2>Rancangan pengembangan penghargaan Nirwasita Tantra</h2>
+      <div class="grid grid--2" style="margin-top:var(--s6)">
+        <div class="card nilai-chip" data-reveal><span class="svc-card__icon"><klh-icon name="check" class="icon"></klh-icon></span><div><h3 style="font-size:var(--t-body);margin-bottom:2px">Kelengkapan SLHD</h3><p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">Buku I Ringkasan Eksekutif, Buku II Laporan Utama, dan Buku III Tabel &amp; Lampiran disusun lengkap.</p></div></div>
+        <div class="card nilai-chip" data-reveal><span class="svc-card__icon"><klh-icon name="award" class="icon"></klh-icon></span><div><h3 style="font-size:var(--t-body);margin-bottom:2px">Keaktifan program penghargaan KLH</h3><p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">Terlibat aktif dalam Adipura, PROPER, Adiwiyata, ProKlim, dan Kalpataru.</p></div></div>
+        <div class="card nilai-chip" data-reveal><span class="svc-card__icon"><klh-icon name="chartline" class="icon"></klh-icon></span><div><h3 style="font-size:var(--t-body);margin-bottom:2px">IKLH</h3><p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">Indeks Kualitas Lingkungan Hidup: indeks kualitas air, udara, lahan, dan pesisir laut.</p></div></div>
+        <div class="card nilai-chip" data-reveal><span class="svc-card__icon"><klh-icon name="speech" class="icon"></klh-icon></span><div><h3 style="font-size:var(--t-body);margin-bottom:2px">Wawancara</h3><p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">Wawancara yang dilakukan oleh Kementerian Lingkungan Hidup.</p></div></div>
+      </div>
+      <div class="grid grid--2" style="margin-top:var(--gutter)">
+        <div class="card prg-card" data-reveal>
+          <span class="no">TINGKAT KABUPATEN/KOTA</span>
+          <p>Hasil perhitungan SLHD, IKLH kabupaten/kota, dan jumlah penghargaan di bidang lingkungan hidup yang diperoleh daerah.</p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="no">TINGKAT PROVINSI</span>
+          <p>Hasil perhitungan SLHD, IKLH provinsi, dan rerata indeks penghargaan kabupaten/kota dalam provinsi tersebut.</p>
+        </div>
+      </div>
+      <p style="max-width:72ch;margin-top:var(--s6);color:var(--ink-700)">Penghargaan Nirwasita Tantra ditetapkan melalui Kepmen LH/BPLH yang antara lain memuat pedoman penyusunan SLHD, pedoman penilaian Nirwasita Tantra, Dewan Pertimbangan, dan Tim Sekretariat. Nirwasita Tantra menjadi payung sebagai <strong>indeks komposit</strong> dari seluruh program eksisting ditambah indikator keberlanjutan yang baru.</p>
+    </div>
+  </section>
+
+  <!-- LINIMASA 2026 -->
+  <section class="section" data-screen-label="Nirwasita Tantra — Linimasa">
+    <div class="container">
+      <div class="card tonal" style="box-shadow:none" data-reveal>
+        <div class="card__body">
+          <span class="eyebrow">Linimasa</span>
+          <h2 style="font-size:var(--t-h3)">Menuju Nirwasita Tantra 2026</h2>
+          <p style="color:var(--ink-700);max-width:72ch">Menuju Nirwasita Tantra 2026 pada Kabinet Merah Putih di bawah kepemimpinan Presiden Prabowo Subianto dan Wakil Presiden Gibran Rakabuming Raka.</p>
+          <ul style="margin:var(--s4) 0 0;padding-left:var(--s5);color:var(--ink-700);font-size:var(--t-sm);display:grid;gap:var(--s2)">
+            <li><strong>Desember 2025</strong> — diseminasi dan sosialisasi pedoman penyusunan SLHD serta penilaian SLHD (Nirwasita Tantra).</li>
+            <li><strong>Januari 2026</strong> — penetapan Dewan Pertimbangan oleh Sekretaris KLH/Sestama BPLH.</li>
+            <li><strong>30 April 2026</strong> — batas waktu penyampaian SLHD.</li>
+            <li><strong>Minggu I Mei 2026</strong> — penapisan dokumen SLHD oleh Tim Sekretariat.</li>
+            <li><strong>Minggu II–III Mei 2026</strong> — penilaian oleh Dewan Pertimbangan.</li>
+            <li><strong>Juni 2026</strong> — pemberian penghargaan pada puncak acara Hari Lingkungan Hidup.</li>
+          </ul>
+        </div>
+      </div>
+      <p style="font-size:var(--t-xs);color:var(--ink-500);margin-top:var(--s6)">Sumber: <a href="https://kemenlh.go.id/contents/17/Nirwasita-Tantra-Green-Leadership" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id">kemenlh.go.id — Nirwasita Tantra (Green Leadership)</a></p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="padding-top:0" data-screen-label="Nirwasita Tantra — CTA">
+    <div class="container">
+      <div class="cta-band" data-reveal>
+        <span id="cta-leaf"></span>
+        <div>
+          <h2>Siapkan SLHD daerah Anda</h2>
+          <p>Unduh pedoman penyusunan, lengkapi administrasi, dan sampaikan SLHD paling lambat 30 April.</p>
+        </div>
+        <div style="display:flex;gap:var(--s3);flex-wrap:wrap">
+          <a class="btn btn--inverse btn-lg" href="https://bit.ly/pedomanpenyusunanslhd" target="_blank" rel="noopener noreferrer" data-ext="Pedoman Penyusunan SLHD"><klh-icon name="download" class="icon icon--sm"></klh-icon> Unduh Pedoman</a>
+          <a class="btn btn-outline btn-lg" href="detail.html?p=nirwasita-tantra"><klh-icon name="book" class="icon icon--sm"></klh-icon> Ringkasan Program</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="../../assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  document.getElementById('hero-leaf').outerHTML = KLH.leafmark();
+  document.getElementById('cta-leaf').outerHTML = KLH.leafmark();
+})();
+</script>
+</body>
+</html>

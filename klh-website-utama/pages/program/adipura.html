@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adipura — KLH/BPLH</title>
+<meta name="description" content="Adipura — penghargaan bagi kabupaten/kota atas kebersihan, pengelolaan sampah, dan kualitas lingkungan perkotaan. Sejarah sejak 1986, konsep Adipura 8.0, mekanisme penilaian 5 tahap, bobot penilaian, dan empat kriteria penghargaan.">
+<link rel="icon" type="image/png" href="../../assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/base.css">
+<link rel="stylesheet" href="../../assets/css/components.css">
+<link rel="stylesheet" href="../../assets/css/pages.css">
+<style>
+/* ---- Khusus halaman Adipura (pola visual mengikuti proklim.html) ---- */
+.prg-hero {
+  position: relative; overflow: hidden; color: #fff;
+  background:
+    radial-gradient(80% 120% at 108% -10%, rgba(37,208,194,.22), transparent 52%),
+    radial-gradient(50% 70% at -5% 110%, rgba(249,121,16,.12), transparent 50%),
+    linear-gradient(155deg, var(--klh-green-800) 0%, var(--klh-green-900) 78%);
+  padding-block: var(--s12);
+}
+.prg-hero .leafmark { position: absolute; right: -60px; top: -90px; width: 360px; height: 360px; opacity: .1; color: var(--klh-green-300); pointer-events: none; }
+.prg-hero__grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: var(--s12); align-items: center; position: relative; }
+@media (max-width: 1024px) { .prg-hero__grid { grid-template-columns: 1fr; } }
+.prg-hero h1 { color: #fff; font-size: var(--t-display); }
+.prg-hero .lead { color: var(--klh-green-200); font-size: var(--t-h4); font-weight: 400; max-width: 52ch; }
+.prg-hero__photo { border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--sh-3); aspect-ratio: 16/11; }
+.prg-hero__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.prg-hero .btn-outline:hover { color: #fff; }
+@media (max-width: 1024px) { #prg-about { grid-template-columns: 1fr !important; } }
+
+/* Kartu umum halaman program */
+.prg-card { display: flex; flex-direction: column; gap: var(--s3); padding: var(--s6); height: 100%; }
+.prg-card .svc-card__icon { width: 44px; height: 44px; border-radius: 12px; }
+.prg-card h3 { font-size: var(--t-h4); margin: 0; }
+.prg-card p { font-size: var(--t-sm); color: var(--ink-500); margin: 0; line-height: 1.6; }
+.prg-card .no { font-family: var(--font-mono); font-size: var(--t-xs); font-weight: 600; letter-spacing: .06em; color: var(--klh-green-700); }
+.prg-card ul { margin: 0; padding-left: var(--s5); display: grid; gap: var(--s2); color: var(--ink-700); font-size: var(--t-sm); line-height: 1.6; }
+
+/* Grid 3 kolom (milestone & pembaharuan) */
+.prg-jenjang { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); }
+@media (max-width: 860px) { .prg-jenjang { grid-template-columns: 1fr; } }
+
+/* Ambang nilai pada kartu kriteria */
+.prg-th { font-family: var(--font-mono); font-size: var(--t-h4); font-weight: 600; color: var(--klh-green-700); }
+</style>
+</head>
+<body>
+<script>window.KLH_ROOT = '../../';</script>
+<script src="../../assets/js/components/icons.js"></script>
+<script src="../../assets/js/data/menu.js"></script>
+<script src="../../assets/js/data/content.js"></script>
+<script src="../../assets/js/components/navbar.js"></script>
+<script src="../../assets/js/components/footer.js"></script>
+<script src="../../assets/js/components/widgets.js"></script>
+
+<klh-navbar active="program"></klh-navbar>
+
+<main id="konten">
+
+  <!-- HERO -->
+  <section class="prg-hero" data-screen-label="Adipura — Hero">
+    <div class="container prg-hero__grid">
+      <div>
+        <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+          <li><a href="../../index.html">Beranda</a></li>
+          <li><a href="index.html">Program</a></li>
+          <li aria-current="page">Adipura</li>
+        </ol></nav>
+        <span class="eyebrow" style="color:var(--klh-green-300)">Kota Bersih &amp; Berkelanjutan</span>
+        <h1>Adipura</h1>
+        <p class="lead">Penghargaan bergengsi KLH/BPLH bagi kota/kabupaten atas keberhasilan menjaga kebersihan, pengelolaan sampah, dan kualitas lingkungan perkotaan — kini dengan konsep baru Adipura 8.0 yang lebih substansial, terukur, dan berorientasi jangka panjang.</p>
+        <div class="home-hero__cta">
+          <a class="btn btn--inverse btn-lg" href="https://kemenlh.go.id/contents/14/Adipura" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id — Adipura"><klh-icon name="award" class="icon icon--sm"></klh-icon> Info Lengkap Program</a>
+          <a class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,.5);color:#fff" href="#penilaian"><klh-icon name="list" class="icon icon--sm"></klh-icon> Mekanisme Penilaian</a>
+        </div>
+      </div>
+      <div class="prg-hero__photo">
+        <img src="../../assets/img/program_adipura.jpg" alt="Konferensi pers Konsep Baru Adipura di lobi kantor Kementerian Lingkungan Hidup/Badan Pengendalian Lingkungan Hidup">
+      </div>
+    </div>
+    <span id="hero-leaf"></span>
+  </section>
+
+  <!-- TENTANG + LATAR BELAKANG 8.0 -->
+  <section class="section" data-screen-label="Adipura — Tentang">
+    <div class="container" style="display:grid;grid-template-columns:1.1fr .9fr;gap:var(--s12);align-items:start" id="prg-about">
+      <div class="prose">
+        <span class="eyebrow">Tentang Program</span>
+        <h2 style="margin-top:0">Apa itu Adipura?</h2>
+        <p><strong>Adipura</strong> adalah penghargaan bergengsi dari Kementerian Lingkungan Hidup/Badan Pengendalian Lingkungan Hidup (KLH/BPLH) yang diberikan kepada kota/kabupaten di Indonesia atas keberhasilan dalam menjaga kebersihan, pengelolaan sampah, dan kualitas lingkungan perkotaan.</p>
+        <p>Program ini diluncurkan pada tahun <strong>1986</strong> oleh Presiden Soeharto melalui Kementerian Negara Lingkungan Hidup pada masa Menteri Lingkungan Hidup Prof. Dr. Emil Salim, sebagai bentuk apresiasi terhadap kota/kabupaten yang berhasil menjaga kebersihan dan lingkungannya.</p>
+        <h3>Latar belakang Adipura 8.0 (2025)</h3>
+        <p>Penilaian kinerja pengelolaan sampah pemerintah daerah adalah penilaian terhadap pencapaian pemerintah daerah dalam melakukan pengelolaan sampah secara kualitatif dan kuantitatif dalam periode satu tahun. Adipura menjadi <strong>instrumen insentif dan disinsentif</strong> melalui evaluasi dan pengukuran kinerja pemerintah daerah dalam menyelenggarakan pengelolaan sampah untuk mewujudkan kota bersih dan berkelanjutan.</p>
+        <p>Untuk mempercepat perbaikan pengelolaan sampah di daerah, Adipura memakai konsep baru dengan pendekatan yang lebih <strong>substansial, terukur, dan berorientasi jangka panjang</strong>. Adipura tidak lagi hanya mengejar tampilan fisik kota yang bersih sesaat, melainkan mendorong sistem pengelolaan lingkungan yang terintegrasi, berbasis data, perencanaan, dan partisipasi masyarakat.</p>
+        <p>Informasi lengkap pada <a href="https://kemenlh.go.id/contents/14/Adipura" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id — Adipura">laman resmi Adipura <span class="ext-note">membuka situs lain</span></a>.</p>
+      </div>
+      <div>
+        <span class="eyebrow">Perjalanan Program</span>
+        <div style="display:grid;gap:var(--gutter);margin-top:var(--s5)">
+          <div class="card prg-card" data-reveal><span class="no">1986</span><p>Diluncurkan Presiden Soeharto melalui Kementerian Negara Lingkungan Hidup pada masa Menteri LH Prof. Dr. Emil Salim.</p></div>
+          <div class="card prg-card" data-reveal><span class="no">1986–1991</span><p>Lima tahun pertama berfokus mendorong kota menjadi "Kota Bersih dan Teduh".</p></div>
+          <div class="card prg-card" data-reveal><span class="no">1998</span><p>Program sempat terhenti karena krisis ekonomi dan perubahan politik.</p></div>
+          <div class="card prg-card" data-reveal><span class="no">2002</span><p>Dilanjutkan kembali dengan penekanan pada pengelolaan sampah, ruang terbuka hijau, dan partisipasi masyarakat.</p></div>
+          <div class="card prg-card" data-reveal><span class="no">2010-AN</span><p>Semakin menekankan sistem tata kelola lingkungan yang baik, bukan sekadar kebersihan fisik.</p></div>
+          <div class="card prg-card" data-reveal><span class="no">2025</span><p><strong>Adipura 8.0</strong> — konsep baru: substansial, terukur, berbasis data digital, dan berorientasi jangka panjang.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEKANISME PENILAIAN 5 TAHAP -->
+  <section class="section" style="background:var(--surface-2);scroll-margin-top:110px" id="penilaian" data-screen-label="Adipura — Mekanisme Penilaian">
+    <div class="container">
+      <span class="eyebrow">Mekanisme Penilaian</span>
+      <h2>Lima tahap penilaian Program Adipura</h2>
+      <div class="prg-jenjang" style="margin-top:var(--s6)">
+        <div class="card prg-card" data-reveal><span class="no">TAHAP 1</span><h3>Pengumpulan Data Sekunder</h3><p>Pengumpulan data kapasitas pengelolaan sampah kabupaten/kota berdasarkan data SIPSN.</p></div>
+        <div class="card prg-card" data-reveal><span class="no">TAHAP 2</span><h3>Klarifikasi</h3><p>Klarifikasi kota/kabupaten dilakukan sesuai kriteria yang tercantum dalam Peraturan Menteri.</p></div>
+        <div class="card prg-card" data-reveal><span class="no">TAHAP 3</span><h3>Pemantauan</h3><p>Memantau kebersihan &amp; pengelolaan sampah (50%) — termasuk pengurangan sampah di sumbernya melalui pelibatan aktif masyarakat dan penanganan melalui fasilitas pengelolaan sampah — anggaran pengelolaan sampah (20%), serta SDM &amp; fasilitas (30%).</p></div>
+        <div class="card prg-card" data-reveal><span class="no">TAHAP 4</span><h3>Penilaian</h3><p>Meliputi skala dan kriteria nilai serta bobot sebagaimana ditetapkan dalam SK MenLH No. 1418 Tahun 2025.</p></div>
+        <div class="card prg-card" data-reveal><span class="no">TAHAP 5</span><h3>Penetapan</h3><p>Menteri menetapkan kabupaten/kota penerima penghargaan Adipura Kencana, Adipura, Sertifikat Adipura, dan Predikat Kota Kotor.</p></div>
+        <div class="card tonal prg-card" style="box-shadow:none" data-reveal><span class="no">PRASYARAT</span><h3>Sebelum dinilai</h3><ul><li>Tidak ada TPS liar.</li><li>TPA minimal berupa <em>controlled landfill</em>.</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOBOT PEMANTAUAN -->
+  <section class="section" data-screen-label="Adipura — Bobot Penilaian">
+    <div class="container">
+      <span class="eyebrow">Komponen &amp; Bobot</span>
+      <h2>Pemantauan menuju nilai lengkap 100%</h2>
+      <div class="prg-jenjang" style="margin-top:var(--s6)">
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="scale" class="icon"></klh-icon></span>
+          <h3>Anggaran &amp; Kebijakan <span class="prg-th">20%</span></h3>
+          <ul>
+            <li>Perbandingan anggaran pengelolaan sampah terhadap APBD (40%).</li>
+            <li>Kebijakan pengelolaan sampah: rencana pengelolaan sampah dan peraturan daerah (30%).</li>
+            <li>Penguatan kelembagaan dalam ekonomi sirkular (30%).</li>
+          </ul>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--sky"><klh-icon name="people" class="icon"></klh-icon></span>
+          <h3>SDM &amp; Fasilitas <span class="prg-th">30%</span></h3>
+          <ul>
+            <li>Ketersediaan SDM penyuluh lingkungan hidup (Pelhi), SDM terlatih, dan jumlah SDM pengelola sampah (50%).</li>
+            <li>Ketersediaan sarpras pengelolaan sampah hulu–hilir, jumlah sampah terkelola di MRF, dan cakupan pelayanan pengangkutan (50%).</li>
+          </ul>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--earth"><klh-icon name="recycle" class="icon"></klh-icon></span>
+          <h3>Kebersihan &amp; Pengelolaan Sampah <span class="prg-th">50%</span></h3>
+          <ul>
+            <li>Analisis fisik langsung di lapangan (100%).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMPAT KRITERIA -->
+  <section class="section" style="background:var(--surface-2)" data-screen-label="Adipura — Kriteria Penghargaan">
+    <div class="container">
+      <span class="eyebrow">Kriteria Penghargaan 2025</span>
+      <h2>Empat kriteria, dari tertinggi hingga terendah</h2>
+      <p class="lead" style="max-width:64ch">Hasil penilaian menentukan kategori: Adipura Kencana (&gt;85%), Adipura (75–85%), Sertifikat Adipura (60–74%), dan Predikat Kota Kotor (&lt;60%).</p>
+      <div class="grid grid--2" style="margin-top:var(--s6)">
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="award" class="icon"></klh-icon></span>
+          <h3>Adipura Kencana <span class="prg-th">&gt;85%</span></h3>
+          <ul>
+            <li>Kebijakan dan anggaran.</li>
+            <li>SDM dan fasilitas pengelolaan sampah.</li>
+            <li>Sistem pengelolaan sampah dan kebersihan.</li>
+            <li>Tidak ada TPS liar.</li>
+          </ul>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="award" class="icon"></klh-icon></span>
+          <h3>Adipura <span class="prg-th">75–85%</span></h3>
+          <ul>
+            <li>Kriteria pada dasarnya sama dengan Adipura Kencana: kebijakan &amp; anggaran, SDM &amp; fasilitas, sistem pengelolaan sampah &amp; kebersihan.</li>
+            <li>Tidak ada TPS liar.</li>
+          </ul>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--sky"><klh-icon name="document" class="icon"></klh-icon></span>
+          <h3>Sertifikat Adipura <span class="prg-th">60–74%</span></h3>
+          <p>Bagi kabupaten/kota yang belum dapat melengkapi data di atas:</p>
+          <ul>
+            <li>Adanya TPA <em>controlled landfill</em>.</li>
+            <li>Pengelolaan sampah minimal 25%.</li>
+            <li>Fasilitas pengelolaan sampah dan anggaran cukup.</li>
+            <li>Tidak ada TPS liar/ilegal.</li>
+          </ul>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--earth"><klh-icon name="warning" class="icon"></klh-icon></span>
+          <h3>Predikat Kota Kotor <span class="prg-th">&lt;60%</span></h3>
+          <p>Diberikan kepada kabupaten/kota dengan penilaian terendah dalam pengelolaan sampah dan kebersihan kota:</p>
+          <ul>
+            <li>Adanya TPS liar.</li>
+            <li>TPA masih bersifat <em>open dumping</em>.</li>
+            <li>Tidak ada fasilitas pengelolaan sampah.</li>
+            <li>Pengelolaan sampah kurang dari 25%.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TATA LAKSANA / SUBMIT DATA -->
+  <section class="section" data-screen-label="Adipura — Tata Laksana">
+    <div class="container">
+      <span class="eyebrow">Tata Laksana Adipura 8.0</span>
+      <h2>Penyampaian data penilaian</h2>
+      <p class="lead" style="max-width:64ch">Pemerintah daerah menyampaikan tiga kelompok data melalui tautan resmi berikut.</p>
+      <div class="prg-jenjang" style="margin-top:var(--s6)">
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="scale" class="icon"></klh-icon></span>
+          <h3>Data Anggaran &amp; Kebijakan</h3>
+          <ul>
+            <li>RIPS (kolom AT–AY).</li>
+            <li>Anggaran (kolom AZ–BD).</li>
+            <li>Kelembagaan &amp; tata kelola (kolom BE–BG).</li>
+            <li>Perda pengelolaan sampah (kolom BK–BO).</li>
+          </ul>
+          <p><a href="https://bit.ly/DatabasePendampinganTPAAdipura" target="_blank" rel="noopener noreferrer" data-ext="Database Pendampingan TPA Adipura">Submit data anggaran &amp; kebijakan <span class="ext-note">membuka formulir</span></a></p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--sky"><klh-icon name="people" class="icon"></klh-icon></span>
+          <h3>Data SDM &amp; Fasilitas</h3>
+          <ul>
+            <li>Data umum SDM melalui formulir tersendiri.</li>
+            <li>Data fasilitas: pengisian kolom Penanganan Sampah (kolom U–AL).</li>
+          </ul>
+          <p><a href="https://bit.ly/SubmitDataUmumAdipura" target="_blank" rel="noopener noreferrer" data-ext="Submit Data Umum Adipura">Submit data SDM <span class="ext-note">membuka formulir</span></a><br>
+          <a href="https://bit.ly/DatabasePendampinganTPAAdipura" target="_blank" rel="noopener noreferrer" data-ext="Database Pendampingan TPA Adipura">Submit penilaian fasilitas <span class="ext-note">membuka formulir</span></a></p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--earth"><klh-icon name="chartline" class="icon"></klh-icon></span>
+          <h3>Data Capaian Kinerja</h3>
+          <ul>
+            <li>Penilaian capaian kinerja pengelolaan sampah daerah.</li>
+            <li>Tersedia contoh tampilan untuk 19 titik lokasi yang dinilai.</li>
+          </ul>
+          <p><a href="https://bit.ly/SubmitPenilaianAdipura2025" target="_blank" rel="noopener noreferrer" data-ext="Submit Penilaian Adipura 2025">Submit data capaian kinerja <span class="ext-note">membuka formulir</span></a><br>
+          <a href="https://bit.ly/TampilanPenilaianAdipura" target="_blank" rel="noopener noreferrer" data-ext="Contoh Tampilan Penilaian Adipura">Lihat contoh tampilan penilaian <span class="ext-note">membuka dokumen</span></a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PENYEDERHANAAN & PEMBAHARUAN SISTEM -->
+  <section class="section" style="background:var(--surface-2)" data-screen-label="Adipura — Pembaharuan Sistem">
+    <div class="container">
+      <span class="eyebrow">Pembaharuan Penilaian</span>
+      <h2>Kriteria lebih sederhana, sistem lebih akurat</h2>
+      <div class="card tonal" style="box-shadow:none;margin-top:var(--s6)" data-reveal>
+        <div class="card__body" style="padding:var(--s5)">
+          <span class="eyebrow">Penyederhanaan kriteria capaian kinerja</span>
+          <p style="margin:var(--s2) 0 0;color:var(--ink-700)">Pada 2025, kriteria penilaian disederhanakan dari <strong style="font-family:var(--font-mono)">291</strong> kriteria (kebersihan, pengelolaan sampah, pemanfaatan sampah, keteduhan &amp; penghijauan, kondisi gulma &amp; sedimen) menjadi <strong style="font-family:var(--font-mono)">88</strong> kriteria — <strong>simplifikasi metode</strong> tanpa mengurangi substansi parameter kunci, <strong>penguatan korelasi</strong> antara pengelolaan sampah dan kebersihan, serta <strong>sistem penilaian yang mudah</strong> digunakan tim pemantau lapangan dengan latar keilmuan yang bervariasi.</p>
+        </div>
+      </div>
+      <div class="prg-jenjang" style="margin-top:var(--gutter)">
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="grid" class="icon"></klh-icon></span>
+          <h3>Berbasis Digital</h3>
+          <ul>
+            <li>Efisiensi proses penilaian — mengurangi waktu dan biaya dibanding sistem manual.</li>
+            <li>Kemudahan akses &amp; transparansi — hasil dapat diakses pusat, daerah, dan masyarakat.</li>
+            <li>Integrasi antar sistem Waste Crisis Center, SIMPEL, dan SIPSN untuk analisis lintas sektor.</li>
+            <li>Jejak audit digital — semua aktivitas penilaian terekam otomatis.</li>
+          </ul>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--sky"><klh-icon name="clock" class="icon"></klh-icon></span>
+          <h3>Real-time Data</h3>
+          <ul>
+            <li>Pemantauan langsung tanpa menunggu laporan manual.</li>
+            <li>Respons cepat bila ditemukan anomali atau penurunan kualitas kebersihan.</li>
+            <li>Kinerja daerah lebih terukur — perubahan di lapangan langsung tercermin, mendorong konsistensi kinerja, bukan hanya menjelang penilaian.</li>
+          </ul>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--earth"><klh-icon name="check" class="icon"></klh-icon></span>
+          <h3>Akurasi &amp; Validasi</h3>
+          <ul>
+            <li>Mengurangi subjektivitas — data digital berupa foto dan GPS lebih objektif.</li>
+            <li>Standardisasi indikator — konsisten antar evaluator, menghindari bias.</li>
+            <li>Kredibilitas hasil meningkat berkat data sah dan tervalidasi.</li>
+            <li>Pengambilan kebijakan lebih tepat dan akuntabilitas publik meningkat.</li>
+          </ul>
+        </div>
+      </div>
+      <p style="font-size:var(--t-xs);color:var(--ink-500);margin-top:var(--s8)">Sumber: <a href="https://kemenlh.go.id/contents/14/Adipura" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id">kemenlh.go.id — Adipura</a></p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="padding-top:0;margin-top:var(--s10)" data-screen-label="Adipura — CTA">
+    <div class="container">
+      <div class="cta-band" data-reveal>
+        <span id="cta-leaf"></span>
+        <div>
+          <h2>Wujudkan kota bersih dan berkelanjutan</h2>
+          <p>Lengkapi data pengelolaan sampah daerah Anda dan ikuti penilaian Adipura 8.0 yang terukur dan transparan.</p>
+        </div>
+        <div style="display:flex;gap:var(--s3);flex-wrap:wrap">
+          <a class="btn btn--inverse btn-lg" href="https://kemenlh.go.id/contents/14/Adipura" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id — Adipura"><klh-icon name="award" class="icon icon--sm"></klh-icon> Info Lengkap Program</a>
+          <a class="btn btn-outline btn-lg" href="detail.html?p=adipura"><klh-icon name="book" class="icon icon--sm"></klh-icon> Ringkasan Program</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="../../assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  document.getElementById('hero-leaf').outerHTML = KLH.leafmark();
+  document.getElementById('cta-leaf').outerHTML = KLH.leafmark();
+})();
+</script>
+</body>
+</html>

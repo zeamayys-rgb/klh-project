@@ -34,6 +34,7 @@
     },
     {
       slug: 'adipura', name: 'Adipura', icon: 'award', tone: 'green',
+      page: 'pages/program/adipura.html',
       tagline: 'Apresiasi bagi kabupaten/kota terbersih dengan pengelolaan sampah berkelanjutan.',
       desc: 'Adipura menilai kinerja pemerintah kabupaten/kota dalam kebersihan, pengelolaan sampah, dan kualitas lingkungan perkotaan. Empat jenjang apresiasi: Adipura Kencana, Adipura, Sertifikat Adipura, dan predikat Kota Kotor.',
       audiens: 'Pemerintah kabupaten/kota',
@@ -110,6 +111,7 @@
     },
     {
       slug: 'nirwasita-tantra', name: 'Nirwasita Tantra', icon: 'flag', tone: 'earth',
+      page: 'pages/program/nirwasita-tantra.html',
       tagline: 'Green leadership award bagi kepala daerah dan DPRD.',
       desc: 'Nirwasita Tantra adalah penghargaan pemerintah bagi kepala daerah yang berhasil merumuskan dan menerapkan kebijakan pembangunan berkelanjutan berwawasan lingkungan — dinilai dari Status Lingkungan Hidup Daerah (SLHD) dan inovasi kebijakannya.',
       audiens: 'Pemerintah provinsi & kabupaten/kota',
@@ -159,6 +161,7 @@
     },
     {
       slug: 'ekonomi-sirkular', name: 'Ekonomi Sirkular', icon: 'recycle', tone: 'sky',
+      page: 'pages/program/ekonomi-sirkular.html',
       tagline: 'Transformasi ekonomi: kurangi, gunakan ulang, daur ulang.',
       desc: 'Ekonomi Sirkular adalah pendekatan pembangunan yang menempatkan efisiensi pemanfaatan sumber daya dan perlindungan lingkungan hidup sebagai satu kesatuan yang tidak terpisahkan — beralih dari pola linear ambil–olah–buang menuju pengurangan limbah, guna ulang, dan pencegahan pencemaran sejak hulu.',
       audiens: 'Industri, UMKM & komunitas',

@@ -52,9 +52,9 @@
               col: 1, title: 'Penghargaan & Apresiasi',
               items: [
                 { label: 'Kalpataru', desc: 'Perintis & pengabdi lingkungan', icon: 'award', href: 'pages/program/kalpataru.html' },
-                { label: 'Adipura', desc: 'Kabupaten/kota bersih', icon: 'award', href: 'pages/program/detail.html?p=adipura' },
+                { label: 'Adipura', desc: 'Kabupaten/kota bersih', icon: 'award', href: 'pages/program/adipura.html' },
                 { label: 'Adiwiyata', desc: 'Sekolah peduli lingkungan', icon: 'book', href: 'pages/program/adiwiyata.html' },
-                { label: 'Nirwasita Tantra', desc: 'Green leadership daerah', icon: 'flag', href: 'pages/program/detail.html?p=nirwasita-tantra' }
+                { label: 'Nirwasita Tantra', desc: 'Green leadership daerah', icon: 'flag', href: 'pages/program/nirwasita-tantra.html' }
               ]
             },
             {
@@ -62,7 +62,7 @@
               items: [
                 { label: 'PROPER', desc: 'Peringkat kinerja perusahaan', icon: 'factory', href: 'pages/program/proper.html' },
                 { label: 'Program Kampung Iklim', desc: 'Aksi iklim berbasis komunitas', icon: 'sprout', href: 'pages/program/proklim.html' },
-                { label: 'Ekonomi Sirkular', desc: 'Daur ulang & guna ulang', icon: 'recycle', href: 'pages/program/detail.html?p=ekonomi-sirkular' }
+                { label: 'Ekonomi Sirkular', desc: 'Daur ulang & guna ulang', icon: 'recycle', href: 'pages/program/ekonomi-sirkular.html' }
               ]
             }
           ],
@@ -93,8 +93,8 @@
               col: 1, title: 'Regulasi & Pembelajaran',
               more: 'pages/layanan/regulasi-pembelajaran.html',
               items: [
-                { label: 'JDIH — Produk Hukum', icon: 'scale', href: 'pages/layanan/regulasi-pembelajaran.html' },
-                { label: 'E-Learning Lingkungan', icon: 'book', href: 'pages/layanan/regulasi-pembelajaran.html' }
+                { label: 'JDIH — Produk Hukum', icon: 'external', href: 'https://jdih.kemenlh.go.id', ext: true },
+                { label: 'E-Learning Lingkungan', icon: 'external', href: 'https://p2sdm.kemenlh.go.id/', ext: true }
               ]
             },
             {
@@ -110,17 +110,17 @@
               col: 3, title: 'Data, Lab & Pengujian',
               more: 'pages/layanan/data-lab-pengujian.html',
               items: [
-                { label: 'Laboratorium Pusarpedal', icon: 'flask', href: 'pages/layanan/data-lab-pengujian.html' },
+                { label: 'Laboratorium Pusarpedal', icon: 'external', href: 'http://pusarpedal.kemenlh.go.id/', ext: true },
                 { label: 'SRN PPI — Registri Iklim', icon: 'external', href: 'https://srn.kemenlh.go.id', ext: true },
                 { label: 'Bursa Karbon (IDXCarbon)', icon: 'external', href: 'https://idxcarbon.co.id', ext: true }
               ]
             }
           ],
           promo: {
-            eyebrow: 'Layanan populer',
-            title: 'Lapor Pencemaran Lingkungan',
-            desc: 'Sampaikan aduan pencemaran atau kerusakan — dipantau hingga tuntas.',
-            cta: 'Lapor Sekarang', href: 'pages/layanan/pengaduan-aspirasi.html'
+            eyebrow: 'Layanan publik',
+            title: 'Temukan layanan sesuai kebutuhan Anda',
+            desc: 'Empat kelompok layanan — perizinan, pengaduan, data & pengujian, regulasi & pembelajaran.',
+            cta: 'Semua Layanan', href: 'pages/layanan/index.html'
           }
         }
       },
@@ -205,7 +205,7 @@
             { label: 'LPSE', href: 'https://spse.inaproc.id/kemenlh', ext: true },
             { label: 'SiRUP LKPP', href: 'https://sirup.lkpp.go.id', ext: true },
             { label: 'e-LHKPN KPK', href: 'https://elhkpn.kpk.go.id', ext: true },
-            { label: 'JDIH', href: 'pages/layanan/regulasi-pembelajaran.html' },
+            { label: 'JDIH', href: 'https://jdih.kemenlh.go.id', ext: true },
             { label: 'SRN PPI', href: 'https://srn.kemenlh.go.id', ext: true }
           ]
         }

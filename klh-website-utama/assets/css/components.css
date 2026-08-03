@@ -529,6 +529,13 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
 .fab:hover { transform: translateY(-2px); }
 .fab--chat { background: var(--klh-green-600); color: #fff; }
 .fab--a11y { background: var(--surface); color: var(--klh-green-800); border: 1.5px solid var(--line-strong); width: 48px; height: 48px; }
+.fab--top {
+  background: var(--surface); color: var(--klh-green-800); border: 1.5px solid var(--line-strong); width: 48px; height: 48px;
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: opacity var(--dur-1) var(--ease), transform var(--dur-1) var(--ease), visibility var(--dur-1);
+}
+.fab--top.show { opacity: 1; visibility: visible; transform: none; }
+.fab--top.show:hover { transform: translateY(-2px); }
 
 /* Panel chatbot */
 .chat-panel, .a11y-panel {
@@ -572,6 +579,8 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
 /* Panel aksesibilitas */
 .a11y-panel { padding: var(--s5); }
 .a11y-panel h4 { display: flex; align-items: center; gap: var(--s2); margin-bottom: var(--s4); }
+.a11y-panel__close { margin-left: auto; width: 44px; height: 44px; display: grid; place-items: center; background: none; border: 0; color: var(--ink-500); cursor: pointer; border-radius: var(--r-xs); }
+.a11y-panel__close:hover { background: var(--wash); color: var(--ink-900); }
 .a11y-row { display: flex; align-items: center; justify-content: space-between; gap: var(--s4); padding-block: var(--s3); border-top: 1px solid var(--line); }
 .a11y-row:first-of-type { border-top: 0; }
 .a11y-row .lbl { font-size: var(--t-sm); font-weight: 600; font-family: var(--font-display); }

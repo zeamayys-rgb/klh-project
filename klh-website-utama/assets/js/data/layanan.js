@@ -47,7 +47,7 @@
       niat: 'Saya butuh data atau pengujian lingkungan',
       services: [
         { name: 'Pemantauan Kualitas Udara & Air', icon: 'drop', desc: 'Data indeks kualitas udara (ISPU) 34 kota dan kualitas air sungai prioritas, diperbarui berkala.', cta: 'Lihat data terkini' },
-        { name: 'Laboratorium Pusarpedal', icon: 'flask', desc: 'Layanan pengujian parameter lingkungan (air, udara, tanah, limbah) terakreditasi KAN.', cta: 'Tarif & prosedur uji' },
+        { name: 'Laboratorium Pusarpedal', icon: 'external', desc: 'Layanan pengujian parameter lingkungan (air, udara, tanah, limbah) terakreditasi KAN.', href: 'http://pusarpedal.kemenlh.go.id/', ext: true },
         { name: 'SRN PPI — Registri Iklim', icon: 'external', desc: 'Sistem Registri Nasional Pengendalian Perubahan Iklim: daftarkan aksi mitigasi/adaptasi Anda.', href: 'https://srn.kemenlh.go.id', ext: true },
         { name: 'Bursa Karbon (IDXCarbon)', icon: 'external', desc: 'Perdagangan unit karbon Indonesia bagi pelaku usaha peserta nilai ekonomi karbon.', href: 'https://idxcarbon.co.id', ext: true }
       ],
@@ -60,8 +60,8 @@
       lead: 'Temukan produk hukum lingkungan hidup dan tingkatkan kapasitas melalui pembelajaran daring.',
       niat: 'Saya mencari peraturan atau ingin belajar',
       services: [
-        { name: 'JDIH — Dokumentasi Hukum', icon: 'scale', desc: 'Jaringan Dokumentasi dan Informasi Hukum: UU, PP, Peraturan Menteri, dan SK dalam satu pencarian.', cta: 'Telusuri produk hukum' },
-        { name: 'E-Learning Lingkungan', icon: 'book', desc: 'Kelas daring gratis: pengelolaan sampah, PROPER, kader lingkungan, dan aksi iklim komunitas.', cta: 'Lihat katalog kelas' },
+        { name: 'JDIH — Dokumentasi Hukum', icon: 'external', desc: 'Jaringan Dokumentasi dan Informasi Hukum: UU, PP, Peraturan Menteri, dan SK dalam satu pencarian.', href: 'https://jdih.kemenlh.go.id', ext: true },
+        { name: 'E-Learning Lingkungan', icon: 'external', desc: 'Kelas daring gratis: pengelolaan sampah, PROPER, kader lingkungan, dan aksi iklim komunitas.', href: 'https://p2sdm.kemenlh.go.id/', ext: true },
         { name: 'e-LHKPN', icon: 'external', desc: 'Pelaporan Harta Kekayaan Penyelenggara Negara bagi pejabat wajib lapor (sistem KPK).', href: 'https://elhkpn.kpk.go.id', ext: true },
         { name: 'Peraturan Menteri Terbaru', icon: 'document', desc: 'Daftar Peraturan Menteri LH terbit terbaru beserta ringkasan pokok pengaturannya.', href: 'pages/informasi/indeks.html?m=permen', internal: true }
       ],

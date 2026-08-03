@@ -37,7 +37,9 @@
     el.innerHTML =
       /* --- Panel Aksesibilitas --- */
       '<div class="a11y-panel" role="dialog" aria-label="Pengaturan aksesibilitas">' +
-        '<h4>' + ic('access') + ' Aksesibilitas</h4>' +
+        '<h4>' + ic('access') + ' Aksesibilitas' +
+          '<button type="button" class="a11y-panel__close" aria-label="Tutup pengaturan aksesibilitas">' + ic('close', 'icon icon--sm') + '</button>' +
+        '</h4>' +
         '<div class="a11y-row"><span class="lbl">Kontras tinggi<small>Perkuat warna teks & garis</small></span>' +
           '<div class="a11y-ctrl"><button type="button" data-contrast aria-pressed="false" aria-label="Aktifkan kontras tinggi">Aktif</button></div></div>' +
         '<div class="a11y-row"><span class="lbl">Ukuran teks<small>Hingga 200% (WCAG 1.4.4)</small></span>' +
@@ -72,6 +74,7 @@
 
       /* --- FAB stack --- */
       '<div class="fab-stack">' +
+        '<button class="fab fab--top" data-top-fab aria-label="Kembali ke atas halaman">' + ic('arrowup') + '</button>' +
         '<button class="fab fab--a11y" data-a11y-fab aria-label="Buka pengaturan aksesibilitas" aria-expanded="false">' + ic('access') + '</button>' +
         '<button class="fab fab--chat" data-chat-fab aria-label="Buka Chat Bot AI" aria-expanded="false">' + ic('speech') + '</button>' +
       '</div>';
@@ -90,7 +93,18 @@
     chatFab.addEventListener('click', function () { toggle(chatPanel, chatFab); });
     a11yFab.addEventListener('click', function () { toggle(a11yPanel, a11yFab); });
     el.querySelector('.chat-panel__close').addEventListener('click', function () { toggle(chatPanel, chatFab, false); });
+    el.querySelector('.a11y-panel__close').addEventListener('click', function () { toggle(a11yPanel, a11yFab, false); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') toggle(chatPanel, chatFab, false); });
+
+    /* ---- Kembali ke atas: tampil setelah scroll melewati satu layar ---- */
+    var topFab = el.querySelector('[data-top-fab]');
+    function syncTopFab() { topFab.classList.toggle('show', window.scrollY > window.innerHeight * 0.8); }
+    window.addEventListener('scroll', syncTopFab, { passive: true });
+    syncTopFab();
+    topFab.addEventListener('click', function () {
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+    });
 
     /* Utility bar "Aksesibilitas" juga membuka panel */
     document.addEventListener('click', function (e) {

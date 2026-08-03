@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ekonomi Sirkular — KLH/BPLH</title>
+<meta name="description" content="Ekonomi Sirkular — transformasi dari ekonomi linear ambil–olah–buang menuju pengurangan limbah, guna ulang, dan daur ulang. Prinsip utama, manfaat strategis, cara ikut serta, dan peran KLH/BPLH.">
+<link rel="icon" type="image/png" href="../../assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/base.css">
+<link rel="stylesheet" href="../../assets/css/components.css">
+<link rel="stylesheet" href="../../assets/css/pages.css">
+<style>
+/* ---- Khusus halaman Ekonomi Sirkular (pola visual mengikuti proklim.html) ---- */
+.prg-hero {
+  position: relative; overflow: hidden; color: #fff;
+  background:
+    radial-gradient(80% 120% at 108% -10%, rgba(37,208,194,.22), transparent 52%),
+    radial-gradient(50% 70% at -5% 110%, rgba(249,121,16,.12), transparent 50%),
+    linear-gradient(155deg, var(--klh-green-800) 0%, var(--klh-green-900) 78%);
+  padding-block: var(--s12);
+}
+.prg-hero .leafmark { position: absolute; right: -60px; top: -90px; width: 360px; height: 360px; opacity: .1; color: var(--klh-green-300); pointer-events: none; }
+.prg-hero__grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: var(--s12); align-items: center; position: relative; }
+@media (max-width: 1024px) { .prg-hero__grid { grid-template-columns: 1fr; } }
+.prg-hero h1 { color: #fff; font-size: var(--t-display); }
+.prg-hero .lead { color: var(--klh-green-200); font-size: var(--t-h4); font-weight: 400; max-width: 52ch; }
+/* Infografis persegi — frame 1:1 agar teks tidak terpotong (beda dari foto 16/11 proklim) */
+.prg-hero__photo { border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--sh-3); aspect-ratio: 1/1; max-width: 460px; margin-inline: auto; }
+.prg-hero__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.prg-hero .btn-outline:hover { color: #fff; }
+@media (max-width: 1024px) { #prg-about { grid-template-columns: 1fr !important; } }
+
+/* Kartu umum halaman program */
+.prg-card { display: flex; flex-direction: column; gap: var(--s3); padding: var(--s6); height: 100%; }
+.prg-card .svc-card__icon { width: 44px; height: 44px; border-radius: 12px; }
+.prg-card h3 { font-size: var(--t-h4); margin: 0; }
+.prg-card p { font-size: var(--t-sm); color: var(--ink-500); margin: 0; line-height: 1.6; }
+.prg-card .no { font-family: var(--font-mono); font-size: var(--t-xs); font-weight: 600; letter-spacing: .06em; color: var(--klh-green-700); }
+
+/* Grid manfaat 3 kolom */
+.prg-jenjang { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); }
+@media (max-width: 860px) { .prg-jenjang { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<script>window.KLH_ROOT = '../../';</script>
+<script src="../../assets/js/components/icons.js"></script>
+<script src="../../assets/js/data/menu.js"></script>
+<script src="../../assets/js/data/content.js"></script>
+<script src="../../assets/js/components/navbar.js"></script>
+<script src="../../assets/js/components/footer.js"></script>
+<script src="../../assets/js/components/widgets.js"></script>
+
+<klh-navbar active="program"></klh-navbar>
+
+<main id="konten">
+
+  <!-- HERO -->
+  <section class="prg-hero" data-screen-label="Ekonomi Sirkular — Hero">
+    <div class="container prg-hero__grid">
+      <div>
+        <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+          <li><a href="../../index.html">Beranda</a></li>
+          <li><a href="index.html">Program</a></li>
+          <li aria-current="page">Ekonomi Sirkular</li>
+        </ol></nav>
+        <span class="eyebrow" style="color:var(--klh-green-300)">Transformasi Ekonomi Hijau</span>
+        <h1>Ekonomi Sirkular</h1>
+        <p class="lead">Kurangi, gunakan ulang, daur ulang — beralih dari pola linear ambil–olah–buang menuju sistem ekonomi yang menempatkan efisiensi sumber daya dan perlindungan lingkungan hidup sebagai satu kesatuan yang tidak terpisahkan.</p>
+        <div class="home-hero__cta">
+          <a class="btn btn--inverse btn-lg" href="https://kemenlh.go.id/contents/18/Ekonomi-Sirkular" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id — Ekonomi Sirkular"><klh-icon name="recycle" class="icon icon--sm"></klh-icon> Info Lengkap Program</a>
+          <a class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,.5);color:#fff" href="#cara-ikut"><klh-icon name="list" class="icon icon--sm"></klh-icon> Cara Ikut Serta</a>
+        </div>
+      </div>
+      <div class="prg-hero__photo">
+        <img src="../../assets/img/pragram_ekonomisirkular.png" alt="Infografis manfaat Bank Sampah: mendukung pengolahan sampah 3R, meningkatkan pendapatan masyarakat, dan mewujudkan ekonomi sirkular yang bersih, hijau, dan sehat">
+      </div>
+    </div>
+    <span id="hero-leaf"></span>
+  </section>
+
+  <!-- TENTANG + CARA IKUT SERTA -->
+  <section class="section" data-screen-label="Ekonomi Sirkular — Tentang">
+    <div class="container" style="display:grid;grid-template-columns:1.1fr .9fr;gap:var(--s12);align-items:start" id="prg-about">
+      <div class="prose">
+        <span class="eyebrow">Tentang Program</span>
+        <h2 style="margin-top:0">Dari linear menuju sirkular</h2>
+        <p><strong>Ekonomi Sirkular</strong> adalah pendekatan pembangunan yang menempatkan efisiensi pemanfaatan sumber daya dan perlindungan lingkungan hidup sebagai satu kesatuan yang tidak terpisahkan. Model produksi dan konsumsi dialihkan dari ekonomi linear (ambil–olah–buang) ke sistem yang menekankan pengurangan limbah, pemanfaatan kembali sumber daya, serta pencegahan pencemaran sejak hulu.</p>
+        <p>Dengan cara ini, nilai material dipertahankan selama mungkin dalam rantai ekonomi — limbah tidak lagi dipandang sebagai akhir siklus, melainkan sebagai <strong>sumber daya</strong> yang dapat diolah kembali menjadi bahan baku baru.</p>
+        <h3>Sasaran</h3>
+        <ul>
+          <li>Industri dan dunia usaha yang mendesain ulang produk serta proses produksinya agar hemat sumber daya.</li>
+          <li>UMKM dan komunitas yang mengembangkan usaha guna ulang, perbaikan, dan daur ulang.</li>
+        </ul>
+        <p>Pendampingan berjalan bergulir sepanjang tahun. Informasi lengkap pada <a href="https://kemenlh.go.id/contents/18/Ekonomi-Sirkular" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id — Ekonomi Sirkular">laman resmi Ekonomi Sirkular <span class="ext-note">membuka situs lain</span></a>.</p>
+      </div>
+      <div id="cara-ikut" style="scroll-margin-top:110px">
+        <span class="eyebrow">Cara Ikut Serta</span>
+        <div style="display:grid;gap:var(--gutter);margin-top:var(--s5)">
+          <div class="card prg-card" data-reveal><span class="no">LANGKAH 1</span><h3>Asesmen Mandiri</h3><p>Ikuti asesmen mandiri ekonomi sirkular untuk memetakan pola pemakaian sumber daya dan timbulan limbah perusahaan/komunitas Anda.</p></div>
+          <div class="card prg-card" data-reveal><span class="no">LANGKAH 2</span><h3>Susun Peta Jalan Sirkular</h3><p>Rumuskan peta jalan sirkular perusahaan atau komunitas — target pengurangan limbah, guna ulang, dan daur ulang.</p></div>
+          <div class="card prg-card" data-reveal><span class="no">LANGKAH 3</span><h3>Terapkan Pilot</h3><p>Jalankan proyek percontohan: desain ulang produk, guna ulang material, dan daur ulang limbah menjadi bahan baku.</p></div>
+          <div class="card prg-card" data-reveal><span class="no">LANGKAH 4</span><h3>Laporkan &amp; Raih Apresiasi</h3><p>Laporkan capaian penerapan ekonomi sirkular dan raih apresiasi dari KLH/BPLH.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMPAT PRINSIP UTAMA -->
+  <section class="section" style="background:var(--surface-2)" data-screen-label="Ekonomi Sirkular — Prinsip">
+    <div class="container">
+      <span class="eyebrow">Prinsip</span>
+      <h2>Empat prinsip utama ekonomi sirkular</h2>
+      <p class="lead" style="max-width:64ch">Prinsip-prinsip ini menjaga nilai material tetap berputar dalam rantai ekonomi dan mencegah pencemaran sejak hulu.</p>
+      <div class="grid grid--2" style="margin-top:var(--s6)">
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="sun" class="icon"></klh-icon></span>
+          <h3>Efisiensi &amp; konservasi sumber daya</h3>
+          <p>Desain produk dan proses produksi yang hemat energi serta bahan baku sejak tahap perencanaan.</p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--sky"><klh-icon name="clock" class="icon"></klh-icon></span>
+          <h3>Perpanjangan siklus hidup produk</h3>
+          <p>Guna ulang dan perbaikan agar produk terpakai lebih lama sebelum menjadi limbah.</p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="recycle" class="icon"></klh-icon></span>
+          <h3>Limbah sebagai sumber daya</h3>
+          <p>Daur ulang mengubah limbah menjadi bahan baku baru yang kembali masuk ke rantai produksi.</p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--earth"><klh-icon name="shield" class="icon"></klh-icon></span>
+          <h3>Pencegahan pencemaran</h3>
+          <p>Terintegrasi dalam siklus produk secara menyeluruh, dari desain hingga akhir pakai.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANFAAT STRATEGIS -->
+  <section class="section" data-screen-label="Ekonomi Sirkular — Manfaat">
+    <div class="container">
+      <span class="eyebrow">Manfaat Strategis</span>
+      <h2>Mengapa beralih ke ekonomi sirkular?</h2>
+      <div class="prg-jenjang" style="margin-top:var(--s6)">
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="leaf" class="icon"></klh-icon></span>
+          <h3>Tekanan sumber daya menurun</h3>
+          <p>Menurunkan tekanan terhadap sumber daya alam karena material dipakai lebih lama dan berulang.</p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--sky"><klh-icon name="drop" class="icon"></klh-icon></span>
+          <h3>Pencemaran &amp; sampah berkurang</h3>
+          <p>Mengurangi pencemaran dan timbulan sampah melalui pencegahan sejak hulu.</p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--earth"><klh-icon name="chartline" class="icon"></klh-icon></span>
+          <h3>Efisiensi ekonomi</h3>
+          <p>Meningkatkan efisiensi pemanfaatan sumber daya dan energi dalam proses produksi.</p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="people" class="icon"></klh-icon></span>
+          <h3>Lapangan kerja hijau</h3>
+          <p>Menciptakan lapangan kerja hijau dan peluang usaha guna ulang serta daur ulang.</p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--earth"><klh-icon name="globe" class="icon"></klh-icon></span>
+          <h3>Pembangunan berkelanjutan</h3>
+          <p>Mendukung pencapaian target pembangunan berkelanjutan dan pengendalian perubahan iklim.</p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--sky"><klh-icon name="factory" class="icon"></klh-icon></span>
+          <h3>Daya saing usaha</h3>
+          <p>Efisiensi bahan baku dan energi memperkuat daya saing industri, UMKM, dan komunitas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERAN KLH & BPLH -->
+  <section class="section" style="background:var(--surface-2)" data-screen-label="Ekonomi Sirkular — Peran KLH/BPLH">
+    <div class="container">
+      <div class="card tonal tonal--sky" style="box-shadow:none" data-reveal>
+        <div class="card__body" style="padding:var(--s6);display:flex;gap:var(--s4);align-items:flex-start">
+          <span style="flex:none;margin-top:2px;color:var(--klh-green-700)"><klh-icon name="institution" class="icon"></klh-icon></span>
+          <p style="margin:0;font-size:var(--t-sm);line-height:1.7"><strong>Peran KLH &amp; BPLH:</strong> Kementerian Lingkungan Hidup merumuskan kebijakan nasional ekonomi sirkular; Badan Pengendalian Lingkungan Hidup menjalankan fungsi pemantauan, pengawasan, dan penegakan hukum lingkungan.</p>
+        </div>
+      </div>
+      <p style="font-size:var(--t-xs);color:var(--ink-500);margin-top:var(--s6)">Sumber: <a href="https://kemenlh.go.id/contents/18/Ekonomi-Sirkular" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id">kemenlh.go.id — Ekonomi Sirkular</a></p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="padding-top:0;margin-top:var(--s10)" data-screen-label="Ekonomi Sirkular — CTA">
+    <div class="container">
+      <div class="cta-band" data-reveal>
+        <span id="cta-leaf"></span>
+        <div>
+          <h2>Mulai transformasi sirkular Anda</h2>
+          <p>Ikuti asesmen mandiri, susun peta jalan, dan jadikan limbah sebagai sumber daya bernilai.</p>
+        </div>
+        <div style="display:flex;gap:var(--s3);flex-wrap:wrap">
+          <a class="btn btn--inverse btn-lg" href="https://kemenlh.go.id/contents/18/Ekonomi-Sirkular" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id — Ekonomi Sirkular"><klh-icon name="recycle" class="icon icon--sm"></klh-icon> Info Lengkap Program</a>
+          <a class="btn btn-outline btn-lg" href="detail.html?p=ekonomi-sirkular"><klh-icon name="book" class="icon icon--sm"></klh-icon> Ringkasan Program</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="../../assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  document.getElementById('hero-leaf').outerHTML = KLH.leafmark();
+  document.getElementById('cta-leaf').outerHTML = KLH.leafmark();
+})();
+</script>
+</body>
+</html>
