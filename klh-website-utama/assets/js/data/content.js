@@ -57,12 +57,13 @@
     },
     {
       slug: 'proklim', name: 'Program Kampung Iklim', icon: 'sprout', tone: 'green',
+      page: 'pages/program/proklim.html',
       tagline: 'Aksi adaptasi dan mitigasi perubahan iklim berbasis komunitas.',
       desc: 'ProKlim adalah gerakan nasional berbasis komunitas untuk adaptasi dampak perubahan iklim dan mitigasi emisi gas rumah kaca secara berkelanjutan — dari tingkat RT/RW, dusun, hingga desa dan kelurahan.',
       audiens: 'RT/RW, dusun, desa & komunitas',
       periode: 'Registrasi sepanjang tahun via SRN PPI',
       manfaat: ['Ketahanan kampung terhadap dampak iklim', 'Apresiasi berjenjang Pratama, Madya, Utama & Trofi Nasional', 'Akses pendampingan teknis & pendanaan mitra'],
-      langkah: ['Identifikasi potensi lokasi & bentuk kelompok masyarakat', 'Daftarkan lokasi pada Sistem Registri Nasional (SRN PPI)', 'Ikuti verifikasi & pendampingan teknis tim pembina', 'Evaluasi nasional & penganugerahan apresiasi ProKlim'],
+      langkah: ['Identifikasi lokasi potensial — pemda, komunitas, atau lembaga mengusulkan wilayahnya', 'Pendaftaran & verifikasi oleh tim KLH/BPLH berdasarkan indikator adaptasi dan mitigasi', 'Pendampingan & fasilitasi: pelatihan, bimbingan teknis, dan dukungan pelaksanaan', 'Evaluasi & apresiasi: sertifikat, piagam, hingga trofi ProKlim Nasional'],
       info: { label: 'Info lengkap ProKlim', href: 'https://kemenlh.go.id/contents/16/Program-Kampung-Iklim-Proklim' },
       konten: [
         '<figure style="margin:0">',

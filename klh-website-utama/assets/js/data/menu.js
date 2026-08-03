@@ -61,7 +61,7 @@
               col: 2, title: 'Kinerja & Partisipasi',
               items: [
                 { label: 'PROPER', desc: 'Peringkat kinerja perusahaan', icon: 'factory', href: 'pages/program/proper.html' },
-                { label: 'Program Kampung Iklim', desc: 'Aksi iklim berbasis komunitas', icon: 'sprout', href: 'pages/program/detail.html?p=proklim' },
+                { label: 'Program Kampung Iklim', desc: 'Aksi iklim berbasis komunitas', icon: 'sprout', href: 'pages/program/proklim.html' },
                 { label: 'Ekonomi Sirkular', desc: 'Daur ulang & guna ulang', icon: 'recycle', href: 'pages/program/detail.html?p=ekonomi-sirkular' }
               ]
             }

@@ -48,7 +48,7 @@
 ### Program (1 template, 7 isi)
 - [x] **Daftar Program** — indeks 7 program · S · Resp · *(M01)*
 - [x] **Detail Program (template `detail.html?p=`)** — Kalpataru/PROPER/Adipura/Adiwiyata/Proklim/Nirwasita/Ekonomi Sirkular + **CTA "Cara Ikut Serta"** · S · Resp · *(M01)*
-- [x] **Halaman khusus program** — `kalpataru.html` · `proper.html` (SIMPEL, peringkat warna) · `adiwiyata.html` (SIDIA) — desain pola Kalpataru *(revisi review 3 Agu 2026)* · S · Resp · *(M01)*
+- [x] **Halaman khusus program** — `kalpataru.html` · `proper.html` (SIMPEL, peringkat warna) · `adiwiyata.html` (SIDIA) · `proklim.html` (SRN PPI, konten kemenlh.go.id) — desain pola Kalpataru *(revisi review 3 Agu 2026)* · S · Resp · *(M01)*
 
 ### Layanan (⚑ pengelompokan tunggu §9)
 - [x] **Indeks Layanan** — 4 kelompok per niat · **M** · Resp · *(M01)*

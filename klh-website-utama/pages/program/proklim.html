@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Program Kampung Iklim (ProKlim) — KLH/BPLH</title>
+<meta name="description" content="ProKlim — program nasional aksi adaptasi dan mitigasi perubahan iklim berbasis komunitas. Tujuan, ruang lingkup kegiatan, mekanisme pelaksanaan, dan kategori penghargaan.">
+<link rel="icon" type="image/png" href="../../assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/base.css">
+<link rel="stylesheet" href="../../assets/css/components.css">
+<link rel="stylesheet" href="../../assets/css/pages.css">
+<style>
+/* ---- Khusus halaman ProKlim (pola visual mengikuti adiwiyata.html) ---- */
+.prg-hero {
+  position: relative; overflow: hidden; color: #fff;
+  background:
+    radial-gradient(80% 120% at 108% -10%, rgba(37,208,194,.22), transparent 52%),
+    radial-gradient(50% 70% at -5% 110%, rgba(249,121,16,.12), transparent 50%),
+    linear-gradient(155deg, var(--klh-green-800) 0%, var(--klh-green-900) 78%);
+  padding-block: var(--s12);
+}
+.prg-hero .leafmark { position: absolute; right: -60px; top: -90px; width: 360px; height: 360px; opacity: .1; color: var(--klh-green-300); pointer-events: none; }
+.prg-hero__grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: var(--s12); align-items: center; position: relative; }
+@media (max-width: 1024px) { .prg-hero__grid { grid-template-columns: 1fr; } }
+.prg-hero h1 { color: #fff; font-size: var(--t-display); }
+.prg-hero .lead { color: var(--klh-green-200); font-size: var(--t-h4); font-weight: 400; max-width: 52ch; }
+.prg-hero__photo { border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--sh-3); aspect-ratio: 16/11; }
+.prg-hero__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.prg-hero .btn-outline:hover { color: #fff; }
+@media (max-width: 1024px) { #prg-about { grid-template-columns: 1fr !important; } }
+
+/* Kartu tahapan & manfaat */
+.prg-card { display: flex; flex-direction: column; gap: var(--s3); padding: var(--s6); height: 100%; }
+.prg-card .svc-card__icon { width: 44px; height: 44px; border-radius: 12px; }
+.prg-card h3 { font-size: var(--t-h4); margin: 0; }
+.prg-card p { font-size: var(--t-sm); color: var(--ink-500); margin: 0; line-height: 1.6; }
+.prg-card .no { font-family: var(--font-mono); font-size: var(--t-xs); font-weight: 600; letter-spacing: .06em; color: var(--klh-green-700); }
+
+/* Grid manfaat 3 kolom */
+.prg-jenjang { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); }
+@media (max-width: 860px) { .prg-jenjang { grid-template-columns: 1fr; } }
+
+/* Ruang lingkup: daftar contoh kegiatan */
+.prg-lingkup { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gutter); }
+@media (max-width: 860px) { .prg-lingkup { grid-template-columns: 1fr; } }
+.prg-lingkup ul { margin: 0; padding-left: var(--s5); display: grid; gap: var(--s2); color: var(--ink-700); font-size: var(--t-sm); line-height: 1.6; }
+</style>
+</head>
+<body>
+<script>window.KLH_ROOT = '../../';</script>
+<script src="../../assets/js/components/icons.js"></script>
+<script src="../../assets/js/data/menu.js"></script>
+<script src="../../assets/js/data/content.js"></script>
+<script src="../../assets/js/components/navbar.js"></script>
+<script src="../../assets/js/components/footer.js"></script>
+<script src="../../assets/js/components/widgets.js"></script>
+
+<klh-navbar active="program"></klh-navbar>
+
+<main id="konten">
+
+  <!-- HERO -->
+  <section class="prg-hero" data-screen-label="ProKlim — Hero">
+    <div class="container prg-hero__grid">
+      <div>
+        <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+          <li><a href="../../index.html">Beranda</a></li>
+          <li><a href="index.html">Program</a></li>
+          <li aria-current="page">Program Kampung Iklim</li>
+        </ol></nav>
+        <span class="eyebrow" style="color:var(--klh-green-300)">Aksi Iklim Berbasis Komunitas</span>
+        <h1>Program Kampung Iklim (ProKlim)</h1>
+        <p class="lead">Solusi aksi nyata untuk menghadapi perubahan iklim — meningkatkan keterlibatan masyarakat dan pemerintah daerah dalam adaptasi dampak perubahan iklim dan mitigasi emisi gas rumah kaca secara berkelanjutan.</p>
+        <div class="home-hero__cta">
+          <a class="btn btn--inverse btn-lg" href="https://srn.kemenlh.go.id" target="_blank" rel="noopener noreferrer" data-ext="SRN PPI — Sistem Registri Nasional"><klh-icon name="sprout" class="icon icon--sm"></klh-icon> Daftar via SRN PPI</a>
+          <a class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,.5);color:#fff" href="#mekanisme"><klh-icon name="list" class="icon icon--sm"></klh-icon> Mekanisme Pelaksanaan</a>
+        </div>
+      </div>
+      <div class="prg-hero__photo">
+        <img src="../../assets/img/proklim.jpg" alt="Warga bergotong royong menanam dan mengelola lingkungan pada lokasi Program Kampung Iklim">
+      </div>
+    </div>
+    <span id="hero-leaf"></span>
+  </section>
+
+  <!-- TENTANG + MEKANISME -->
+  <section class="section" data-screen-label="ProKlim — Tentang">
+    <div class="container" style="display:grid;grid-template-columns:1.1fr .9fr;gap:var(--s12);align-items:start" id="prg-about">
+      <div class="prose">
+        <span class="eyebrow">Tentang Program</span>
+        <h2 style="margin-top:0">Apa itu ProKlim?</h2>
+        <p>Perubahan iklim merupakan tantangan global yang dampaknya sangat nyata dirasakan hingga ke tingkat lokal — dari peningkatan suhu, perubahan pola hujan, hingga bencana alam seperti banjir dan kekeringan. Untuk menjawab tantangan tersebut, Kementerian Lingkungan Hidup/Badan Pengendalian Lingkungan Hidup menginisiasi program strategis bernama <strong>Program Kampung Iklim (ProKlim)</strong>.</p>
+        <p>ProKlim adalah program nasional yang bertujuan meningkatkan keterlibatan masyarakat dan pemerintah daerah dalam upaya <strong>adaptasi</strong> terhadap dampak perubahan iklim dan <strong>mitigasi</strong> emisi gas rumah kaca (GRK) secara berkelanjutan. Program ini mendorong aksi nyata berbasis komunitas di tingkat tapak (desa, kelurahan, atau lingkungan RW/RT), menciptakan sinergi antara kebijakan nasional dan pelaksanaan di tingkat lokal, serta memperkuat kolaborasi antar pemangku kepentingan — masyarakat, pemerintah, sektor swasta, dan lembaga swadaya masyarakat.</p>
+        <h3>Tujuan utama</h3>
+        <ul>
+          <li>Meningkatkan pemahaman dan kapasitas masyarakat dalam menghadapi perubahan iklim.</li>
+          <li>Mendorong inisiatif lokal dalam mengelola sumber daya alam secara berkelanjutan.</li>
+          <li>Meningkatkan kontribusi Indonesia dalam pengurangan emisi GRK.</li>
+          <li>Membangun ketahanan iklim di wilayah-wilayah rentan.</li>
+        </ul>
+        <h3>Sasaran</h3>
+        <ul>
+          <li>Komunitas masyarakat yang aktif dalam kegiatan adaptasi dan mitigasi iklim.</li>
+          <li>Desa atau kelurahan yang memiliki potensi dan kemauan untuk bertransformasi menjadi wilayah yang tangguh terhadap perubahan iklim.</li>
+        </ul>
+        <p>Informasi lengkap pada <a href="https://kemenlh.go.id/contents/16/Program-Kampung-Iklim-Proklim" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id — ProKlim">laman resmi ProKlim <span class="ext-note">membuka situs lain</span></a>.</p>
+      </div>
+      <div id="mekanisme" style="scroll-margin-top:110px">
+        <span class="eyebrow">Mekanisme Pelaksanaan</span>
+        <div style="display:grid;gap:var(--gutter);margin-top:var(--s5)">
+          <div class="card prg-card" data-reveal><span class="no">TAHAP 1</span><h3>Identifikasi Lokasi Potensial</h3><p>Pemerintah daerah, komunitas, atau lembaga dapat mengusulkan wilayahnya untuk diikutsertakan dalam ProKlim.</p></div>
+          <div class="card prg-card" data-reveal><span class="no">TAHAP 2</span><h3>Pendaftaran dan Verifikasi</h3><p>Wilayah yang memenuhi kriteria diverifikasi oleh tim dari KLH/BPLH dan dinilai berdasarkan indikator kegiatan adaptasi dan mitigasi.</p></div>
+          <div class="card prg-card" data-reveal><span class="no">TAHAP 3</span><h3>Pendampingan dan Fasilitasi</h3><p>KLH/BPLH dan mitra memberikan pelatihan, bimbingan teknis, dan dukungan dalam pelaksanaan kegiatan.</p></div>
+          <div class="card prg-card" data-reveal><span class="no">TAHAP 4</span><h3>Evaluasi dan Apresiasi</h3><p>Lokasi ProKlim yang berhasil diberikan penghargaan berupa sertifikat, piagam, hingga trofi ProKlim Nasional.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RUANG LINGKUP -->
+  <section class="section" style="background:var(--surface-2)" data-screen-label="ProKlim — Ruang Lingkup">
+    <div class="container">
+      <span class="eyebrow">Ruang Lingkup</span>
+      <h2>Kegiatan dalam ProKlim</h2>
+      <p class="lead" style="max-width:64ch">ProKlim mencakup dua kategori utama kegiatan: adaptasi perubahan iklim dan mitigasi perubahan iklim.</p>
+      <div class="prg-lingkup" style="margin-top:var(--s6)">
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--sky"><klh-icon name="drop" class="icon"></klh-icon></span>
+          <h3>Kegiatan Adaptasi</h3>
+          <p>Upaya untuk menyesuaikan diri dengan dampak perubahan iklim yang tidak dapat dihindari, antara lain:</p>
+          <ul>
+            <li><strong>Pengelolaan sumber daya air</strong> — sumur resapan, panen air hujan, embung desa.</li>
+            <li><strong>Ketahanan pangan</strong> — pertanian organik, vertical garden, pemanfaatan lahan pekarangan.</li>
+            <li><strong>Kesehatan masyarakat</strong> — pencegahan penyakit yang meningkat karena perubahan iklim (misalnya DBD).</li>
+            <li><strong>Pengurangan risiko bencana</strong> — peta rawan bencana, pelatihan tanggap darurat berbasis masyarakat.</li>
+          </ul>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="recycle" class="icon"></klh-icon></span>
+          <h3>Kegiatan Mitigasi</h3>
+          <p>Upaya untuk menurunkan atau mencegah emisi gas rumah kaca, antara lain:</p>
+          <ul>
+            <li><strong>Pengelolaan sampah terpadu</strong> — daur ulang, bank sampah, komposting.</li>
+            <li><strong>Efisiensi energi dan energi terbarukan</strong> — pemanfaatan biogas, panel surya, hemat listrik.</li>
+            <li><strong>Penghijauan dan konservasi</strong> — penanaman pohon, perlindungan kawasan resapan air.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KATEGORI PENGHARGAAN -->
+  <section class="section" data-screen-label="ProKlim — Penghargaan">
+    <div class="container">
+      <span class="eyebrow">Kategori Penghargaan</span>
+      <h2>Apresiasi berjenjang ProKlim</h2>
+      <p class="lead" style="max-width:64ch">ProKlim memberikan apresiasi berdasarkan tingkat keterlibatan dan keberhasilan komunitas.</p>
+      <div class="grid grid--2" style="margin-top:var(--s6)">
+        <div class="card nilai-chip" data-reveal><span class="svc-card__icon"><klh-icon name="sprout" class="icon"></klh-icon></span><div><h3 style="font-size:var(--t-body);margin-bottom:2px">ProKlim Pratama</h3><p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">Untuk komunitas yang memulai inisiatif awal.</p></div></div>
+        <div class="card nilai-chip" data-reveal><span class="svc-card__icon"><klh-icon name="leaf" class="icon"></klh-icon></span><div><h3 style="font-size:var(--t-body);margin-bottom:2px">ProKlim Madya</h3><p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">Untuk komunitas yang telah melaksanakan kegiatan adaptasi dan mitigasi.</p></div></div>
+        <div class="card nilai-chip" data-reveal><span class="svc-card__icon"><klh-icon name="tree" class="icon"></klh-icon></span><div><h3 style="font-size:var(--t-body);margin-bottom:2px">ProKlim Utama</h3><p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">Untuk komunitas yang memiliki sistem kelembagaan dan keberlanjutan program.</p></div></div>
+        <div class="card nilai-chip" data-reveal><span class="svc-card__icon svc-card__icon--earth"><klh-icon name="award" class="icon"></klh-icon></span><div><h3 style="font-size:var(--t-body);margin-bottom:2px">Trofi ProKlim Nasional</h3><p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">Penghargaan tertinggi untuk komunitas yang menunjukkan praktik terbaik dan bisa direplikasi.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANFAAT -->
+  <section class="section" style="background:var(--surface-2)" data-screen-label="ProKlim — Manfaat">
+    <div class="container">
+      <span class="eyebrow">Manfaat</span>
+      <h2>Mengapa komunitas perlu bergabung?</h2>
+      <div class="prg-jenjang" style="margin-top:var(--s6)">
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="leaf" class="icon"></klh-icon></span>
+          <h3>Kualitas lingkungan lokal</h3>
+          <p>Peningkatan kualitas lingkungan hidup di tingkat lokal.</p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--sky"><klh-icon name="people" class="icon"></klh-icon></span>
+          <h3>Pemberdayaan masyarakat</h3>
+          <p>Pemberdayaan masyarakat dan peningkatan kapasitas dalam menghadapi perubahan iklim.</p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--earth"><klh-icon name="institution" class="icon"></klh-icon></span>
+          <h3>Kelembagaan lokal kuat</h3>
+          <p>Penguatan kelembagaan lokal agar program berkelanjutan.</p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--earth"><klh-icon name="award" class="icon"></klh-icon></span>
+          <h3>Pengakuan pemerintah</h3>
+          <p>Pengakuan dan apresiasi dari pemerintah pusat.</p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="chartline" class="icon"></klh-icon></span>
+          <h3>Kontribusi penurunan emisi</h3>
+          <p>Kontribusi nyata terhadap target penurunan emisi GRK Indonesia.</p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--sky"><klh-icon name="handshake" class="icon"></klh-icon></span>
+          <h3>Kolaborasi lintas pihak</h3>
+          <p>Sinergi masyarakat, pemerintah, sektor swasta, dan lembaga swadaya masyarakat.</p>
+        </div>
+      </div>
+      <p style="font-size:var(--t-xs);color:var(--ink-500);margin-top:var(--s8)">Sumber: <a href="https://kemenlh.go.id/contents/16/Program-Kampung-Iklim-Proklim" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id">kemenlh.go.id — Program Kampung Iklim (ProKlim)</a></p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="padding-top:0;margin-top:var(--s10)" data-screen-label="ProKlim — CTA">
+    <div class="container">
+      <div class="cta-band" data-reveal>
+        <span id="cta-leaf"></span>
+        <div>
+          <h2>Mari wujudkan kampung yang tangguh iklim!</h2>
+          <p>Melalui ProKlim, Indonesia mengintegrasikan pembangunan berkelanjutan dengan perlindungan iklim di tingkat akar rumput.</p>
+        </div>
+        <div style="display:flex;gap:var(--s3);flex-wrap:wrap">
+          <a class="btn btn--inverse btn-lg" href="https://srn.kemenlh.go.id" target="_blank" rel="noopener noreferrer" data-ext="SRN PPI — Sistem Registri Nasional"><klh-icon name="sprout" class="icon icon--sm"></klh-icon> Daftar Sekarang</a>
+          <a class="btn btn-outline btn-lg" href="detail.html?p=proklim"><klh-icon name="book" class="icon icon--sm"></klh-icon> Ringkasan Program</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="../../assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  document.getElementById('hero-leaf').outerHTML = KLH.leafmark();
+  document.getElementById('cta-leaf').outerHTML = KLH.leafmark();
+})();
+</script>
+</body>
+</html>
