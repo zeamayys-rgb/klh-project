@@ -41,13 +41,14 @@
 ### Profil
 - [x] **Tentang KLH/BPLH** — Visi, Misi, Nilai · S · Resp · *(M01)*
 - [x] **Tugas & Fungsi** · S · *(M01)*
-- [x] **Struktur Organisasi (bagan interaktif)** — Menteri/Wamen/Eselon · S · Resp · *(M01)*
+- [x] **Struktur Organisasi (bagan interaktif)** — Menteri/Wamen/Sekretariat/5 Deputi/Ittama; kartu foto→jabatan→nama→LHKPN *(revisi review 3 Agu 2026)* · S · Resp · *(M01)*
 - [x] **Detail Jabatan** (template `detail-jabatan.html?id=`) — keterangan + LHKPN per pejabat · C · *(M01)*
 - [x] **Tata Kelola & Integritas** — Zona Integritas, LHKPN · C · *(M01)*
 
 ### Program (1 template, 7 isi)
 - [x] **Daftar Program** — indeks 7 program · S · Resp · *(M01)*
 - [x] **Detail Program (template `detail.html?p=`)** — Kalpataru/PROPER/Adipura/Adiwiyata/Proklim/Nirwasita/Ekonomi Sirkular + **CTA "Cara Ikut Serta"** · S · Resp · *(M01)*
+- [x] **Halaman khusus program** — `kalpataru.html` · `proper.html` (SIMPEL, peringkat warna) · `adiwiyata.html` (SIDIA) — desain pola Kalpataru *(revisi review 3 Agu 2026)* · S · Resp · *(M01)*
 
 ### Layanan (⚑ pengelompokan tunggu §9)
 - [x] **Indeks Layanan** — 4 kelompok per niat · **M** · Resp · *(M01)*

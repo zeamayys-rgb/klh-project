@@ -22,6 +22,7 @@
 <script src="../../assets/js/components/navbar.js"></script>
 <script src="../../assets/js/components/footer.js"></script>
 <script src="../../assets/js/components/widgets.js"></script>
+<script src="../../assets/js/vendor/image-slot.js"></script>
 
 <klh-navbar active="profil"></klh-navbar>
 
@@ -35,7 +36,7 @@
       </ol></nav>
       <span class="eyebrow">Profil</span>
       <h1>Struktur Organisasi</h1>
-      <p class="lead">Pilih kartu pejabat untuk membuka profil, keterangan jabatan, dan status LHKPN. Nama pada prototipe ini adalah contoh.</p>
+      <p class="lead">Pilih kartu pejabat untuk membuka profil, keterangan jabatan, dan status LHKPN. Data Menteri dan Wakil Menteri bersumber dari kemenlh.go.id; pejabat lainnya masih konten contoh.</p>
     </div>
     <span id="hero-leaf"></span>
   </section>
@@ -59,10 +60,13 @@
   'use strict';
   document.getElementById('hero-leaf').outerHTML = KLH.leafmark();
 
+  /* Susunan kartu sesuai review (tab Web Redesign 2.3):
+     foto pejabat → jabatan → nama → LHKPN, tanpa label tingkat pimpinan. */
   function card(p) {
     return '<a class="card org-card" href="detail-jabatan.html?id=' + p.id + '" data-reveal>' +
-      '<span class="ava">' + KLH.iconSVG(p.icon) + '</span>' +
-      '<span class="role">' + (p.level === 1 ? 'Pimpinan' : p.level === 2 ? 'Pimpinan Tinggi Madya' : 'Pimpinan Tinggi Pratama') + '</span>' +
+      '<span class="ava ava--photo">' + (p.foto
+        ? '<img src="' + KLH_ROOT + p.foto + '" alt="" style="object-position:' + (p.fotoPos || 'center top') + ';' + (p.fotoCss || '') + '">'
+        : '<image-slot id="pj-' + p.id + '" shape="circle" placeholder="Foto"></image-slot>') + '</span>' +
       '<h3>' + p.jabatan + '</h3>' +
       '<span style="font-size:var(--t-sm);color:var(--ink-500)">' + p.nama + '</span>' +
       '<span class="badge bg-success">' + KLH.iconSVG('check','icon') .replace('class="icon"','class="icon" style="width:12px;height:12px"') + ' LHKPN Lapor</span>' +
@@ -71,14 +75,11 @@
 
   var t1 = KLH.pejabat.filter(function (p) { return p.level === 1; });
   var t2 = KLH.pejabat.filter(function (p) { return p.level === 2; });
-  var t3 = KLH.pejabat.filter(function (p) { return p.level === 3; });
 
   document.getElementById('org-chart').innerHTML =
     '<div class="org__tier org__tier--1">' + t1.map(card).join('') + '</div>' +
     '<div class="org__joint" aria-hidden="true"><span></span></div>' +
-    '<div class="org__tier org__tier--2">' + t2.map(card).join('') + '</div>' +
-    '<div class="org__joint" aria-hidden="true"><span></span></div>' +
-    '<div class="org__tier org__tier--3">' + t3.map(card).join('') + '</div>';
+    '<div class="org__tier org__tier--2">' + t2.map(card).join('') + '</div>';
 })();
 </script>
 </body>

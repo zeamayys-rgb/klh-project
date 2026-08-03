@@ -260,7 +260,7 @@
     .filter(function (p) { return picks.indexOf(p.slug) > -1; })
     .map(function (p) {
       var toneCls = p.tone === 'earth' ? ' svc-card__icon--earth' : p.tone === 'sky' ? ' svc-card__icon--sky' : '';
-      return '<a class="card svc-card card__body" href="pages/program/detail.html?p=' + p.slug + '" data-reveal>' +
+      return '<a class="card svc-card card__body" href="' + KLH.progHref(p) + '" data-reveal>' +
         '<span class="svc-card__icon' + toneCls + '">' + KLH.iconSVG(p.icon) + '</span>' +
         '<div><h3 style="font-size:var(--t-h4)">' + p.name + '</h3><p>' + p.tagline + '</p></div>' +
         '<span class="svc-card__foot">Cara ikut serta ' + KLH.iconSVG('arrowright', 'icon icon--sm') + '</span></a>';

@@ -53,14 +53,14 @@
               items: [
                 { label: 'Kalpataru', desc: 'Perintis & pengabdi lingkungan', icon: 'award', href: 'pages/program/kalpataru.html' },
                 { label: 'Adipura', desc: 'Kabupaten/kota bersih', icon: 'award', href: 'pages/program/detail.html?p=adipura' },
-                { label: 'Adiwiyata', desc: 'Sekolah peduli lingkungan', icon: 'book', href: 'pages/program/detail.html?p=adiwiyata' },
+                { label: 'Adiwiyata', desc: 'Sekolah peduli lingkungan', icon: 'book', href: 'pages/program/adiwiyata.html' },
                 { label: 'Nirwasita Tantra', desc: 'Green leadership daerah', icon: 'flag', href: 'pages/program/detail.html?p=nirwasita-tantra' }
               ]
             },
             {
               col: 2, title: 'Kinerja & Partisipasi',
               items: [
-                { label: 'PROPER', desc: 'Peringkat kinerja perusahaan', icon: 'factory', href: 'pages/program/detail.html?p=proper' },
+                { label: 'PROPER', desc: 'Peringkat kinerja perusahaan', icon: 'factory', href: 'pages/program/proper.html' },
                 { label: 'Program Kampung Iklim', desc: 'Aksi iklim berbasis komunitas', icon: 'sprout', href: 'pages/program/detail.html?p=proklim' },
                 { label: 'Ekonomi Sirkular', desc: 'Daur ulang & guna ulang', icon: 'recycle', href: 'pages/program/detail.html?p=ekonomi-sirkular' }
               ]
@@ -86,7 +86,7 @@
               items: [
                 { label: 'PTSP Lingkungan Hidup', icon: 'institution', href: 'pages/layanan/perizinan-pengadaan.html' },
                 { label: 'OSS — Perizinan Berusaha', icon: 'external', href: 'https://oss.go.id', ext: true },
-                { label: 'LPSE / SiRUP Pengadaan', icon: 'external', href: 'https://lpse.menlhk.go.id', ext: true }
+                { label: 'LPSE / SiRUP Pengadaan', icon: 'external', href: 'https://spse.inaproc.id/kemenlh', ext: true }
               ]
             },
             {
@@ -111,7 +111,7 @@
               more: 'pages/layanan/data-lab-pengujian.html',
               items: [
                 { label: 'Laboratorium Pusarpedal', icon: 'flask', href: 'pages/layanan/data-lab-pengujian.html' },
-                { label: 'SRN PPI — Registri Iklim', icon: 'external', href: 'https://srn.menlhk.go.id', ext: true },
+                { label: 'SRN PPI — Registri Iklim', icon: 'external', href: 'https://srn.kemenlh.go.id', ext: true },
                 { label: 'Bursa Karbon (IDXCarbon)', icon: 'external', href: 'https://idxcarbon.co.id', ext: true }
               ]
             }
@@ -202,11 +202,11 @@
           links: [
             { label: 'SP4N-LAPOR!', href: 'https://www.lapor.go.id', ext: true },
             { label: 'OSS Berusaha', href: 'https://oss.go.id', ext: true },
-            { label: 'LPSE', href: 'https://lpse.menlhk.go.id', ext: true },
+            { label: 'LPSE', href: 'https://spse.inaproc.id/kemenlh', ext: true },
             { label: 'SiRUP LKPP', href: 'https://sirup.lkpp.go.id', ext: true },
             { label: 'e-LHKPN KPK', href: 'https://elhkpn.kpk.go.id', ext: true },
             { label: 'JDIH', href: 'pages/layanan/regulasi-pembelajaran.html' },
-            { label: 'SRN PPI', href: 'https://srn.menlhk.go.id', ext: true }
+            { label: 'SRN PPI', href: 'https://srn.kemenlh.go.id', ext: true }
           ]
         }
       ],

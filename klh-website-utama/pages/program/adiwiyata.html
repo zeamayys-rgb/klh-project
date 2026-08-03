@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adiwiyata — Sekolah Berbudaya Lingkungan — KLH/BPLH</title>
+<meta name="description" content="Adiwiyata — program nasional mewujudkan sekolah peduli dan berbudaya lingkungan. Tahapan, jenjang penghargaan, dan tata cara ikut serta melalui SIDIA.">
+<link rel="icon" type="image/png" href="../../assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/base.css">
+<link rel="stylesheet" href="../../assets/css/components.css">
+<link rel="stylesheet" href="../../assets/css/pages.css">
+<style>
+/* ---- Khusus halaman Adiwiyata (pola visual mengikuti kalpataru.html) ---- */
+.prg-hero {
+  position: relative; overflow: hidden; color: #fff;
+  background:
+    radial-gradient(80% 120% at 108% -10%, rgba(37,208,194,.22), transparent 52%),
+    radial-gradient(50% 70% at -5% 110%, rgba(249,121,16,.12), transparent 50%),
+    linear-gradient(155deg, var(--klh-green-800) 0%, var(--klh-green-900) 78%);
+  padding-block: var(--s12);
+}
+.prg-hero .leafmark { position: absolute; right: -60px; top: -90px; width: 360px; height: 360px; opacity: .1; color: var(--klh-green-300); pointer-events: none; }
+.prg-hero__grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: var(--s12); align-items: center; position: relative; }
+@media (max-width: 1024px) { .prg-hero__grid { grid-template-columns: 1fr; } }
+.prg-hero h1 { color: #fff; font-size: var(--t-display); }
+.prg-hero .lead { color: var(--klh-green-200); font-size: var(--t-h4); font-weight: 400; max-width: 52ch; }
+.prg-hero__photo { border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--sh-3); aspect-ratio: 16/11; }
+.prg-hero .btn-outline:hover { color: #fff; }
+@media (max-width: 1024px) { #prg-about { grid-template-columns: 1fr !important; } }
+
+/* Kartu tahapan & manfaat */
+.prg-card { display: flex; flex-direction: column; gap: var(--s3); padding: var(--s6); height: 100%; }
+.prg-card .svc-card__icon { width: 44px; height: 44px; border-radius: 12px; }
+.prg-card h3 { font-size: var(--t-h4); margin: 0; }
+.prg-card p { font-size: var(--t-sm); color: var(--ink-500); margin: 0; line-height: 1.6; }
+.prg-card .no { font-family: var(--font-mono); font-size: var(--t-xs); font-weight: 600; letter-spacing: .06em; color: var(--klh-green-700); }
+
+/* Jenjang penghargaan */
+.prg-jenjang { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); }
+@media (max-width: 860px) { .prg-jenjang { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<script>window.KLH_ROOT = '../../';</script>
+<script src="../../assets/js/components/icons.js"></script>
+<script src="../../assets/js/data/menu.js"></script>
+<script src="../../assets/js/data/content.js"></script>
+<script src="../../assets/js/components/navbar.js"></script>
+<script src="../../assets/js/components/footer.js"></script>
+<script src="../../assets/js/components/widgets.js"></script>
+<script src="../../assets/js/vendor/image-slot.js"></script>
+
+<klh-navbar active="program"></klh-navbar>
+
+<main id="konten">
+
+  <!-- HERO -->
+  <section class="prg-hero" data-screen-label="Adiwiyata — Hero">
+    <div class="container prg-hero__grid">
+      <div>
+        <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+          <li><a href="../../index.html">Beranda</a></li>
+          <li><a href="index.html">Program</a></li>
+          <li aria-current="page">Adiwiyata</li>
+        </ol></nav>
+        <span class="eyebrow" style="color:var(--klh-green-300)">Sekolah Berbudaya Lingkungan</span>
+        <h1>Adiwiyata</h1>
+        <p class="lead">Program nasional untuk mewujudkan sekolah yang peduli dan berbudaya lingkungan — tempat yang baik dan ideal untuk memperoleh ilmu pengetahuan sekaligus membentuk karakter peduli lingkungan.</p>
+        <div class="home-hero__cta">
+          <a class="btn btn--inverse btn-lg" href="https://pusatpglhk.bp2sdm.menlhk.go.id/sidia/register" target="_blank" rel="noopener noreferrer" data-ext="SIDIA — Sistem Informasi Adiwiyata"><klh-icon name="book" class="icon icon--sm"></klh-icon> Registrasi SIDIA</a>
+          <a class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,.5);color:#fff" href="#ikut"><klh-icon name="sprout" class="icon icon--sm"></klh-icon> Cara Ikut Serta</a>
+        </div>
+      </div>
+      <div class="prg-hero__photo">
+        <image-slot id="adw-hero" shape="rect" placeholder="Foto kegiatan sekolah Adiwiyata — seret foto dari kemenlh.go.id ke sini"></image-slot>
+      </div>
+    </div>
+    <span id="hero-leaf"></span>
+  </section>
+
+  <!-- TENTANG + TAHAPAN -->
+  <section class="section" data-screen-label="Adiwiyata — Tentang">
+    <div class="container" style="display:grid;grid-template-columns:1.1fr .9fr;gap:var(--s12);align-items:start" id="prg-about">
+      <div class="prose">
+        <span class="eyebrow">Tentang Program</span>
+        <h2 style="margin-top:0">Apa itu Adiwiyata?</h2>
+        <p>Adiwiyata adalah program nasional yang bertujuan mewujudkan sekolah yang <strong>peduli dan berbudaya lingkungan</strong> — mengintegrasikan pendidikan lingkungan ke seluruh proses pembelajaran: intrakurikuler, kokurikuler, dan ekstrakurikuler.</p>
+        <p>Program menjangkau seluruh jenjang pendidikan: <strong>SD/MI, SMP/MTs, SMA/MA, dan SMK/MAK</strong>. Sekolah menerapkan Gerakan Peduli dan Berbudaya Lingkungan Hidup di Sekolah (PBLHS) — dari kurikulum, sarana, hingga pembiasaan warga sekolah.</p>
+        <p>Dasar hukum: <a href="https://bit.ly/Permen_LH_5_2025_Adiwiyata" target="_blank" rel="noopener noreferrer" data-ext="Peraturan Menteri LH/BPLH No. 5 Tahun 2025">Peraturan Menteri LH/BPLH Nomor 5 Tahun 2025 <span class="ext-note">membuka dokumen</span></a>. Informasi lengkap pada <a href="https://kemenlh.go.id/contents/15/Adiwiyata" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id — Adiwiyata">laman resmi Adiwiyata <span class="ext-note">membuka situs lain</span></a>.</p>
+      </div>
+      <div>
+        <span class="eyebrow">Tahapan pelaksanaan</span>
+        <div style="display:grid;gap:var(--gutter);margin-top:var(--s5)">
+          <div class="card prg-card" data-reveal><span class="no">TAHAP 1</span><h3>Perencanaan</h3><p>Menyusun rencana Gerakan PBLHS dan membentuk tim sekolah Adiwiyata.</p></div>
+          <div class="card prg-card" data-reveal><span class="no">TAHAP 2</span><h3>Pelaksanaan</h3><p>Integrasi pendidikan lingkungan melalui pembelajaran dan aksi nyata warga sekolah.</p></div>
+          <div class="card prg-card" data-reveal><span class="no">TAHAP 3</span><h3>Penghargaan</h3><p>Penilaian berjenjang: tingkat kabupaten/kota, provinsi, hingga nasional.</p></div>
+          <div class="card prg-card" data-reveal><span class="no">TAHAP 4</span><h3>Pemantauan</h3><p>Evaluasi berkala untuk memastikan keberlanjutan gerakan di sekolah.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANFAAT -->
+  <section class="section" style="background:var(--surface-2)" data-screen-label="Adiwiyata — Manfaat">
+    <div class="container">
+      <span class="eyebrow">Manfaat</span>
+      <h2>Mengapa sekolah perlu ikut?</h2>
+      <div class="prg-jenjang" style="margin-top:var(--s6)">
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="leaf" class="icon"></klh-icon></span>
+          <h3>Lingkungan sekolah berkualitas</h3>
+          <p>Budaya bersih, sehat, dan hijau meningkatkan kenyamanan serta efisiensi sumber daya sekolah.</p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--sky"><klh-icon name="people" class="icon"></klh-icon></span>
+          <h3>Karakter peduli lingkungan</h3>
+          <p>Peserta didik terbiasa berperilaku ramah lingkungan sejak dini — di sekolah maupun di rumah.</p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--earth"><klh-icon name="handshake" class="icon"></klh-icon></span>
+          <h3>Kolaborasi komunitas</h3>
+          <p>Memperkuat kerja sama sekolah, orang tua, pemerintah daerah, dan masyarakat sekitar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARA IKUT SERTA -->
+  <section class="section" style="scroll-margin-top:110px" id="ikut" data-screen-label="Adiwiyata — Cara Ikut Serta">
+    <div class="container">
+      <div class="card tonal" style="box-shadow:none" data-reveal>
+        <div class="card__body">
+          <span class="eyebrow">Cara Ikut Serta</span>
+          <h2 style="font-size:var(--t-h3)">Empat langkah untuk bergabung</h2>
+          <ol class="step-list" style="margin-top:var(--s6)">
+            <li><span style="padding-top:5px;color:var(--ink-700)">Bentuk tim &amp; susun rencana Gerakan PBLHS, terbitkan SK Tim Sekolah Adiwiyata</span></li>
+            <li><span style="padding-top:5px;color:var(--ink-700)">Usulkan sekolah ke perangkat daerah bidang lingkungan hidup</span></li>
+            <li><span style="padding-top:5px;color:var(--ink-700)">Registrasi melalui Sistem Informasi Adiwiyata (SIDIA)</span></li>
+            <li><span style="padding-top:5px;color:var(--ink-700)">Ikuti penilaian &amp; pembinaan berjenjang hingga tingkat nasional</span></li>
+          </ol>
+          <div style="display:flex;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s8)">
+            <a class="btn btn-primary" href="https://pusatpglhk.bp2sdm.menlhk.go.id/sidia/register" target="_blank" rel="noopener noreferrer" data-ext="SIDIA — Sistem Informasi Adiwiyata"><klh-icon name="folder" class="icon icon--sm"></klh-icon> Registrasi SIDIA</a>
+            <a class="btn btn-outline" href="https://kemenlh.go.id/contents/15/Adiwiyata" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id — Adiwiyata"><klh-icon name="external" class="icon icon--sm"></klh-icon> Info Lengkap Adiwiyata</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="padding-top:0" data-screen-label="Adiwiyata — CTA">
+    <div class="container">
+      <div class="cta-band" data-reveal>
+        <span id="cta-leaf"></span>
+        <div>
+          <h2>Sekolah Anda siap berbudaya lingkungan?</h2>
+          <p>Mulai Gerakan PBLHS di sekolah Anda dan daftarkan melalui Sistem Informasi Adiwiyata (SIDIA).</p>
+        </div>
+        <div style="display:flex;gap:var(--s3);flex-wrap:wrap">
+          <a class="btn btn--inverse btn-lg" href="https://pusatpglhk.bp2sdm.menlhk.go.id/sidia/register" target="_blank" rel="noopener noreferrer" data-ext="SIDIA — Sistem Informasi Adiwiyata"><klh-icon name="book" class="icon icon--sm"></klh-icon> Daftar Sekarang</a>
+          <a class="btn btn-outline btn-lg" href="detail.html?p=adiwiyata"><klh-icon name="book" class="icon icon--sm"></klh-icon> Ringkasan Program</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="../../assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  document.getElementById('hero-leaf').outerHTML = KLH.leafmark();
+  document.getElementById('cta-leaf').outerHTML = KLH.leafmark();
+})();
+</script>
+</body>
+</html>

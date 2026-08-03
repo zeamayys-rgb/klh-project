@@ -73,7 +73,7 @@
       .filter(function (p) { return f === 'semua' || (MAP[p.slug] || []).indexOf(f) > -1; })
       .map(function (p) {
         var toneCls = p.tone === 'earth' ? ' svc-card__icon--earth' : p.tone === 'sky' ? ' svc-card__icon--sky' : '';
-        return '<a class="card svc-card card__body" href="detail.html?p=' + p.slug + '" data-reveal>' +
+        return '<a class="card svc-card card__body" href="../../' + KLH.progHref(p) + '" data-reveal>' +
           '<span class="svc-card__icon' + toneCls + '">' + KLH.iconSVG(p.icon) + '</span>' +
           '<div><h2 style="font-size:var(--t-h4);margin-bottom:var(--s1)">' + p.name + '</h2>' +
           '<p>' + p.tagline + '</p></div>' +

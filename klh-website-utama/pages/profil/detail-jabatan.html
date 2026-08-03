@@ -52,13 +52,15 @@
         <span class="eyebrow">Keterangan Jabatan</span>
         <h2 style="margin-top:0">Ruang lingkup tanggung jawab</h2>
         <p id="jab-profil"></p>
-        <p>Pejabat bertanggung jawab menyusun kebijakan teknis pada lingkupnya, mengoordinasikan unit kerja di bawahnya, serta memastikan target kinerja tahunan tercapai sesuai rencana strategis kementerian.</p>
-        <h3>Riwayat singkat (contoh)</h3>
-        <ul style="display:grid;gap:var(--s2);color:var(--ink-700)">
-          <li>2022 – kini · Jabatan saat ini di KLH/BPLH.</li>
-          <li>2017 – 2022 · Pimpinan unit kerja teknis bidang lingkungan hidup.</li>
-          <li>2010 – 2017 · Perencana / fungsional ahli pada instansi pemerintah pusat.</li>
-        </ul>
+        <div id="jab-riwayat">
+          <p>Pejabat bertanggung jawab menyusun kebijakan teknis pada lingkupnya, mengoordinasikan unit kerja di bawahnya, serta memastikan target kinerja tahunan tercapai sesuai rencana strategis kementerian.</p>
+          <h3>Riwayat singkat (contoh)</h3>
+          <ul style="display:grid;gap:var(--s2);color:var(--ink-700)">
+            <li>2022 – kini · Jabatan saat ini di KLH/BPLH.</li>
+            <li>2017 – 2022 · Pimpinan unit kerja teknis bidang lingkungan hidup.</li>
+            <li>2010 – 2017 · Perencana / fungsional ahli pada instansi pemerintah pusat.</li>
+          </ul>
+        </div>
       </div>
       <aside style="display:grid;gap:var(--gutter)">
         <div class="card card__body--sm" style="padding:var(--s5)" data-reveal>
@@ -88,8 +90,14 @@
 
   document.title = p.jabatan + ' — KLH/BPLH';
   document.getElementById('bc-current').textContent = p.jabatan;
-  document.getElementById('jab-ava').innerHTML = KLH.iconSVG(p.icon, 'icon icon--lg');
-  document.getElementById('jab-role').textContent = p.level === 1 ? 'Pimpinan Kementerian' : p.level === 2 ? 'Pimpinan Tinggi Madya' : 'Pimpinan Tinggi Pratama';
+  var ava = document.getElementById('jab-ava');
+  if (p.foto) {
+    ava.classList.add('ava--photo');
+    ava.innerHTML = '<img src="' + KLH_ROOT + p.foto + '" alt="Foto ' + p.nama + '" style="object-position:' + (p.fotoPos || 'center top') + ';' + (p.fotoCss || '') + '">';
+  } else {
+    ava.innerHTML = KLH.iconSVG(p.icon, 'icon icon--lg');
+  }
+  if (p.bio) document.getElementById('jab-riwayat').innerHTML = p.bio;
   document.getElementById('jab-title').textContent = p.jabatan;
   document.getElementById('jab-nama').textContent = p.nama;
   document.getElementById('jab-profil').textContent = p.profil;

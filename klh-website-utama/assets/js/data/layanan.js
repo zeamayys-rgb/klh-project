@@ -16,7 +16,7 @@
       services: [
         { name: 'PTSP Lingkungan Hidup', icon: 'institution', desc: 'Pelayanan Terpadu Satu Pintu untuk persetujuan lingkungan, teknis, dan layanan perizinan kementerian.', cta: 'Lihat persyaratan' },
         { name: 'OSS — Perizinan Berusaha', icon: 'external', desc: 'Pengurusan perizinan berusaha berbasis risiko dilakukan melalui sistem OSS nasional.', href: 'https://oss.go.id', ext: true },
-        { name: 'LPSE KLH/BPLH', icon: 'external', desc: 'Layanan Pengadaan Secara Elektronik: paket tender dan non-tender kementerian.', href: 'https://lpse.menlhk.go.id', ext: true },
+        { name: 'LPSE KLH/BPLH', icon: 'external', desc: 'Layanan Pengadaan Secara Elektronik: paket tender dan non-tender kementerian.', href: 'https://spse.inaproc.id/kemenlh', ext: true },
         { name: 'SiRUP — Rencana Umum Pengadaan', icon: 'external', desc: 'Telusuri rencana pengadaan tahunan KLH/BPLH pada portal SiRUP LKPP.', href: 'https://sirup.lkpp.go.id', ext: true }
       ],
       note: { type: 'info', icon: 'clock', title: 'Standar layanan PTSP', text: 'Kelengkapan berkas diverifikasi maksimal 3 hari kerja. Status permohonan dapat dipantau melalui akun pemohon.' }
@@ -48,7 +48,7 @@
       services: [
         { name: 'Pemantauan Kualitas Udara & Air', icon: 'drop', desc: 'Data indeks kualitas udara (ISPU) 34 kota dan kualitas air sungai prioritas, diperbarui berkala.', cta: 'Lihat data terkini' },
         { name: 'Laboratorium Pusarpedal', icon: 'flask', desc: 'Layanan pengujian parameter lingkungan (air, udara, tanah, limbah) terakreditasi KAN.', cta: 'Tarif & prosedur uji' },
-        { name: 'SRN PPI — Registri Iklim', icon: 'external', desc: 'Sistem Registri Nasional Pengendalian Perubahan Iklim: daftarkan aksi mitigasi/adaptasi Anda.', href: 'https://srn.menlhk.go.id', ext: true },
+        { name: 'SRN PPI — Registri Iklim', icon: 'external', desc: 'Sistem Registri Nasional Pengendalian Perubahan Iklim: daftarkan aksi mitigasi/adaptasi Anda.', href: 'https://srn.kemenlh.go.id', ext: true },
         { name: 'Bursa Karbon (IDXCarbon)', icon: 'external', desc: 'Perdagangan unit karbon Indonesia bagi pelaku usaha peserta nilai ekonomi karbon.', href: 'https://idxcarbon.co.id', ext: true }
       ],
       note: { type: 'info', icon: 'chartline', title: 'Data terbuka', text: 'Sebagian besar dataset tersedia dalam format terbuka (CSV/JSON) dan dapat dimintakan melalui PPID bila belum dipublikasikan.' }
