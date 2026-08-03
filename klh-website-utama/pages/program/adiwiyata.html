@@ -42,6 +42,14 @@
 /* Jenjang penghargaan */
 .prg-jenjang { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); }
 @media (max-width: 860px) { .prg-jenjang { grid-template-columns: 1fr; } }
+
+/* FAQ (details/summary native) */
+.faq { display: grid; gap: var(--s3); }
+.faq details { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface-1); }
+.faq summary { cursor: pointer; padding: var(--s4) var(--s5); font-weight: 600; font-family: var(--font-display); color: var(--ink-900); }
+.faq summary::marker { color: var(--klh-green-700); }
+.faq details p { margin: 0; padding: 0 var(--s5) var(--s4); color: var(--ink-500); line-height: 1.6; }
+.faq details[open] summary { border-bottom: 1px solid var(--line); margin-bottom: var(--s4); }
 </style>
 </head>
 <body>
@@ -88,17 +96,49 @@
       <div class="prose">
         <span class="eyebrow">Tentang Program</span>
         <h2 style="margin-top:0">Apa itu Adiwiyata?</h2>
-        <p>Adiwiyata adalah program nasional yang bertujuan mewujudkan sekolah yang <strong>peduli dan berbudaya lingkungan</strong> — mengintegrasikan pendidikan lingkungan ke seluruh proses pembelajaran: intrakurikuler, kokurikuler, dan ekstrakurikuler.</p>
-        <p>Program menjangkau seluruh jenjang pendidikan: <strong>SD/MI, SMP/MTs, SMA/MA, dan SMK/MAK</strong>. Sekolah menerapkan Gerakan Peduli dan Berbudaya Lingkungan Hidup di Sekolah (PBLHS) — dari kurikulum, sarana, hingga pembiasaan warga sekolah.</p>
-        <p>Dasar hukum: <a href="https://bit.ly/Permen_LH_5_2025_Adiwiyata" target="_blank" rel="noopener noreferrer" data-ext="Peraturan Menteri LH/BPLH No. 5 Tahun 2025">Peraturan Menteri LH/BPLH Nomor 5 Tahun 2025 <span class="ext-note">membuka dokumen</span></a>. Informasi lengkap pada <a href="https://kemenlh.go.id/contents/15/Adiwiyata" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id — Adiwiyata">laman resmi Adiwiyata <span class="ext-note">membuka situs lain</span></a>.</p>
+        <p>Adiwiyata adalah program nasional yang bertujuan mewujudkan sekolah yang <strong>peduli dan berbudaya lingkungan</strong>. Sekolah didorong mengintegrasikan pendidikan lingkungan hidup ke dalam seluruh proses pembelajaran — intrakurikuler, kokurikuler, maupun ekstrakurikuler — sehingga terbentuk perilaku ramah lingkungan yang berkelanjutan di lingkungan sekolah. Secara umum, Adiwiyata berarti <em>tempat yang baik dan ideal untuk memperoleh ilmu pengetahuan serta membentuk karakter peduli lingkungan</em>.</p>
+        <p>Program ini merupakan salah satu bentuk peran serta masyarakat dalam perlindungan dan pengelolaan lingkungan hidup, sekaligus upaya pemerintah meningkatkan kualitas lingkungan melalui dunia pendidikan. Adiwiyata dibina dan diselenggarakan oleh <strong>Kementerian Lingkungan Hidup/Badan Pengendalian Lingkungan Hidup</strong>.</p>
+        <p>Program Adiwiyata bertujuan menciptakan sekolah yang:</p>
+        <ul>
+          <li>Peduli terhadap lingkungan.</li>
+          <li>Berperilaku ramah lingkungan.</li>
+          <li>Menerapkan budaya lingkungan dalam kegiatan sehari-hari.</li>
+        </ul>
+        <p>Sasarannya seluruh jenjang pendidikan — <strong>SD/MI, SMP/MTs, SMA/MA, dan SMK/MAK</strong>. Seluruh sekolah dapat berpartisipasi dengan mengajukan diri melalui perangkat daerah yang membidangi lingkungan hidup.</p>
+        <p>Dasar hukum: <a href="https://bit.ly/Permen_LH_5_2025_Adiwiyata" target="_blank" rel="noopener noreferrer" data-ext="Peraturan Menteri LH/BPLH No. 5 Tahun 2025">Peraturan Menteri LH/BPLH Nomor 5 Tahun 2025 tentang Penyelenggaraan Program Adiwiyata <span class="ext-note">membuka dokumen</span></a>. Informasi lengkap pada <a href="https://kemenlh.go.id/contents/15/Adiwiyata" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id — Adiwiyata">laman resmi Adiwiyata <span class="ext-note">membuka situs lain</span></a>.</p>
       </div>
       <div>
         <span class="eyebrow">Tahapan pelaksanaan</span>
         <div style="display:grid;gap:var(--gutter);margin-top:var(--s5)">
-          <div class="card prg-card" data-reveal><span class="no">TAHAP 1</span><h3>Perencanaan</h3><p>Menyusun rencana Gerakan PBLHS dan membentuk tim sekolah Adiwiyata.</p></div>
-          <div class="card prg-card" data-reveal><span class="no">TAHAP 2</span><h3>Pelaksanaan</h3><p>Integrasi pendidikan lingkungan melalui pembelajaran dan aksi nyata warga sekolah.</p></div>
-          <div class="card prg-card" data-reveal><span class="no">TAHAP 3</span><h3>Penghargaan</h3><p>Penilaian berjenjang: tingkat kabupaten/kota, provinsi, hingga nasional.</p></div>
-          <div class="card prg-card" data-reveal><span class="no">TAHAP 4</span><h3>Pemantauan</h3><p>Evaluasi berkala untuk memastikan keberlanjutan gerakan di sekolah.</p></div>
+          <div class="card prg-card" data-reveal><span class="no">TAHAP 1</span><h3>Perencanaan</h3><p>Sekolah menyusun rencana kegiatan Adiwiyata, membentuk Tim Sekolah Adiwiyata, serta menyiapkan dokumen pendukung sesuai pedoman.</p></div>
+          <div class="card prg-card" data-reveal><span class="no">TAHAP 2</span><h3>Pelaksanaan</h3><p>Integrasi pendidikan lingkungan hidup melalui pembelajaran intrakurikuler, ekstrakurikuler, dan kokurikuler; pengelolaan sarana-prasarana ramah lingkungan; serta gerakan perilaku ramah lingkungan di sekolah.</p></div>
+          <div class="card prg-card" data-reveal><span class="no">TAHAP 3</span><h3>Pemberian Penghargaan</h3><p>Sekolah yang memenuhi kriteria memperoleh Penghargaan Adiwiyata tingkat kabupaten/kota, provinsi, dan nasional — sebagai apresiasi dan motivasi menjaga keberlanjutan budaya lingkungan.</p></div>
+          <div class="card prg-card" data-reveal><span class="no">TAHAP 4</span><h3>Pemantauan &amp; Evaluasi</h3><p>Dilakukan oleh pemerintah daerah dan pemerintah pusat untuk memastikan keberlanjutan pelaksanaan Program Adiwiyata.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ISTILAH PENTING -->
+  <section class="section" style="padding-top:0" data-screen-label="Adiwiyata — Istilah">
+    <div class="container">
+      <span class="eyebrow">Istilah Penting</span>
+      <h2>Istilah dalam Program Adiwiyata</h2>
+      <div class="prg-jenjang" style="margin-top:var(--s6)">
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="institution" class="icon"></klh-icon></span>
+          <h3>Sekolah Adiwiyata</h3>
+          <p>Sekolah yang telah mengikuti Program Adiwiyata dan/atau menerima penghargaan Adiwiyata dari pemerintah pusat, provinsi, atau kabupaten/kota.</p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--sky"><klh-icon name="user" class="icon"></klh-icon></span>
+          <h3>Kader Adiwiyata</h3>
+          <p>Peserta didik yang ditetapkan oleh kepala sekolah sebagai penggerak dan teladan perilaku ramah lingkungan di sekolah.</p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--earth"><klh-icon name="people" class="icon"></klh-icon></span>
+          <h3>Warga Sekolah Adiwiyata</h3>
+          <p>Seluruh unsur sekolah: kepala sekolah, komite sekolah, pendidik, peserta didik, serta tenaga kependidikan lainnya.</p>
         </div>
       </div>
     </div>
@@ -113,17 +153,32 @@
         <div class="card prg-card" data-reveal>
           <span class="svc-card__icon"><klh-icon name="leaf" class="icon"></klh-icon></span>
           <h3>Lingkungan sekolah berkualitas</h3>
-          <p>Budaya bersih, sehat, dan hijau meningkatkan kenyamanan serta efisiensi sumber daya sekolah.</p>
+          <p>Meningkatkan kualitas dan kenyamanan lingkungan sekolah bagi seluruh warganya.</p>
         </div>
         <div class="card prg-card" data-reveal>
           <span class="svc-card__icon svc-card__icon--sky"><klh-icon name="people" class="icon"></klh-icon></span>
           <h3>Karakter peduli lingkungan</h3>
-          <p>Peserta didik terbiasa berperilaku ramah lingkungan sejak dini — di sekolah maupun di rumah.</p>
+          <p>Membentuk karakter peserta didik yang peduli lingkungan — di sekolah maupun di rumah.</p>
         </div>
         <div class="card prg-card" data-reveal>
-          <span class="svc-card__icon svc-card__icon--earth"><klh-icon name="handshake" class="icon"></klh-icon></span>
+          <span class="svc-card__icon svc-card__icon--earth"><klh-icon name="sprout" class="icon"></klh-icon></span>
+          <h3>Budaya bersih, sehat, hijau</h3>
+          <p>Mendorong budaya sekolah yang bersih, sehat, dan hijau dalam kegiatan sehari-hari.</p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--sky"><klh-icon name="book" class="icon"></klh-icon></span>
+          <h3>Kapasitas guru meningkat</h3>
+          <p>Meningkatkan kapasitas guru dalam pendidikan lingkungan hidup.</p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon svc-card__icon--earth"><klh-icon name="award" class="icon"></klh-icon></span>
+          <h3>Nilai tambah sekolah</h3>
+          <p>Menjadi nilai tambah dalam akreditasi dan prestasi sekolah.</p>
+        </div>
+        <div class="card prg-card" data-reveal>
+          <span class="svc-card__icon"><klh-icon name="handshake" class="icon"></klh-icon></span>
           <h3>Kolaborasi komunitas</h3>
-          <p>Memperkuat kerja sama sekolah, orang tua, pemerintah daerah, dan masyarakat sekitar.</p>
+          <p>Memperkuat kolaborasi antara sekolah, orang tua, dan masyarakat.</p>
         </div>
       </div>
     </div>
@@ -137,16 +192,46 @@
           <span class="eyebrow">Cara Ikut Serta</span>
           <h2 style="font-size:var(--t-h3)">Empat langkah untuk bergabung</h2>
           <ol class="step-list" style="margin-top:var(--s6)">
-            <li><span style="padding-top:5px;color:var(--ink-700)">Bentuk tim &amp; susun rencana Gerakan PBLHS, terbitkan SK Tim Sekolah Adiwiyata</span></li>
-            <li><span style="padding-top:5px;color:var(--ink-700)">Usulkan sekolah ke perangkat daerah bidang lingkungan hidup</span></li>
-            <li><span style="padding-top:5px;color:var(--ink-700)">Registrasi melalui Sistem Informasi Adiwiyata (SIDIA)</span></li>
-            <li><span style="padding-top:5px;color:var(--ink-700)">Ikuti penilaian &amp; pembinaan berjenjang hingga tingkat nasional</span></li>
+            <li><span style="padding-top:5px;color:var(--ink-700)">Mengusulkan diri kepada perangkat daerah yang membidangi lingkungan hidup</span></li>
+            <li><span style="padding-top:5px;color:var(--ink-700)">Melakukan registrasi melalui Sistem Informasi Adiwiyata (SIDIA)</span></li>
+            <li><span style="padding-top:5px;color:var(--ink-700)">Melampirkan SK Tim Sekolah Adiwiyata saat proses registrasi</span></li>
+            <li><span style="padding-top:5px;color:var(--ink-700)">Melaksanakan seluruh tahapan program sesuai pedoman resmi</span></li>
           </ol>
           <div style="display:flex;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s8)">
             <a class="btn btn-primary" href="https://pusatpglhk.bp2sdm.menlhk.go.id/sidia/register" target="_blank" rel="noopener noreferrer" data-ext="SIDIA — Sistem Informasi Adiwiyata"><klh-icon name="folder" class="icon icon--sm"></klh-icon> Registrasi SIDIA</a>
             <a class="btn btn-outline" href="https://kemenlh.go.id/contents/15/Adiwiyata" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id — Adiwiyata"><klh-icon name="external" class="icon icon--sm"></klh-icon> Info Lengkap Adiwiyata</a>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" style="padding-top:0" data-screen-label="Adiwiyata — FAQ">
+    <div class="container" style="max-width:860px">
+      <span class="eyebrow">FAQ</span>
+      <h2>Pertanyaan yang sering diajukan</h2>
+      <div class="faq" style="margin-top:var(--s6)">
+        <details data-reveal>
+          <summary>Apakah semua sekolah dapat mengikuti Program Adiwiyata?</summary>
+          <p>Ya. Seluruh sekolah dari jenjang dasar hingga menengah dapat mengikuti Program Adiwiyata.</p>
+        </details>
+        <details data-reveal>
+          <summary>Apakah SK Tim Adiwiyata wajib?</summary>
+          <p>Wajib. SK Tim Adiwiyata menjadi syarat registrasi di SIDIA dan bukti komitmen sekolah.</p>
+        </details>
+        <details data-reveal>
+          <summary>Apa indikator penilaian Program Adiwiyata?</summary>
+          <p>Penilaian meliputi kebijakan sekolah berwawasan lingkungan, kurikulum, kegiatan partisipatif, serta pengelolaan sarana dan prasarana ramah lingkungan.</p>
+        </details>
+        <details data-reveal>
+          <summary>Apakah penghargaan Adiwiyata diberikan setiap tahun?</summary>
+          <p>Ya. Penghargaan diberikan secara berkala oleh pemerintah pusat, provinsi, dan kabupaten/kota.</p>
+        </details>
+        <details data-reveal>
+          <summary>Apakah sekolah yang sudah menerima penghargaan tetap dievaluasi?</summary>
+          <p>Ya. Pemantauan dan evaluasi tetap dilakukan untuk memastikan keberlanjutan program.</p>
+        </details>
       </div>
     </div>
   </section>
