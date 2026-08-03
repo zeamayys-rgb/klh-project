@@ -3,10 +3,10 @@
 
 **Proyek:** Pengembangan Konten User Interface Website KLH/BPLH
 **Vendor:** PT Bening Guru Semesta · **Penyusun:** Abdan (UI/UX Designer)
-**Status:** Draft v2 · **Lokasi Figma:** halaman **Wireframe** (26 artboard, 6 baris produk)
+**Status:** Draft v2 · disinkronkan dengan kondisi prototipe **21 Juli 2026** · **Lokasi Figma:** halaman **Wireframe** (26 artboard, 6 baris produk)
 **Prasyarat:** `F2_UserFlow-IA.md`, `F2_Checklist-Halaman.md`, `F1_MoSCoW.md`, `F1_Persona-Journey.md`, Design System
 
-> **Catatan validasi:** Semua wireframe low-fidelity (grayscale + aksen hijau KLH `#1B7A4B` hanya untuk aksi utama / status aktif-selesai). Tujuannya menguji **struktur, hierarki, alur** — bukan visual final. Label & pengelompokan mengikuti `F2_UserFlow-IA.md` yang masih tentatif sampai disahkan via Berita Acara (6 keputusan terbuka §9). Mockup high-fidelity (2.3) menyusul setelah struktur disetujui.
+> **Catatan validasi:** Semua wireframe low-fidelity (grayscale + aksen hijau KLH `#005952` hanya untuk aksi utama / status aktif-selesai). Tujuannya menguji **struktur, hierarki, alur** — bukan visual final. Label & pengelompokan mengikuti `F2_UserFlow-IA.md` yang masih tentatif sampai disahkan via Berita Acara (6 keputusan terbuka §9). Mockup high-fidelity (2.3) menyusul setelah struktur disetujui.
 
 ---
 
@@ -28,7 +28,7 @@
 ## 2. Konvensi Wireframe
 
 - **Fidelitas:** low-fidelity. Kotak abu = placeholder gambar/ikon; bar abu = placeholder teks; teks `[ kurung ]` = konten menyusul.
-- **Warna:** grayscale netral; **hijau KLH hanya** untuk aksi utama (primary CTA), status selesai/aktif. Sekunder pakai biru sky (info) / amber (peringatan SLA) / merah danger (error) — konsisten Design System.
+- **Warna:** grayscale netral; **hijau KLH `#005952` hanya** untuk aksi utama (primary CTA), status selesai/aktif. Sekunder pakai biru sky (info) / amber (peringatan SLA) / merah danger (error) — konsisten Design System.
 - **Tag telusur:** tiap artboard punya pil `● UR-xxx` yang menautkan ke requirement & momen kritis.
 - **Lebar artboard:** Web Utama 1024–1440px, PPID Web 720px, PPID Mobile 390×844 (frame ponsel), Omni 1280–1440px.
 - **Komponen:** semua memetakan ke komponen reusable Design System (navbar, search, form/input, data table, cards, filter, sidebar, dst).
@@ -41,7 +41,7 @@
 - **WF-01 Beranda Web Utama** (1440) — utility bar → navbar 4 menu + search → **hero "Layanan Cepat"** (CTA Lapor Pencemaran, anti information-overload) → grid 7 layanan → 3 kolom info terkini → footer. `UR-HOME-01`.
 - **WF-02 Form Permohonan PPID** (720) — **stepper 4 langkah**, langkah "Unggah Berkas" aktif: dropzone, baris berkas valid (✓ hijau) & error (merah, pesan cara perbaiki). `UR-PPID-01`.
 - **WF-03 Lacak Permohonan** (720) — kartu ID + badge status, **timeline status vertikal** + estimasi, kartu notifikasi aktif. Memecahkan "buta setelah kirim email". `UR-PPID-02`.
-- **WF-04 Dashboard & Unified Inbox** (1440) — sidebar + KPI strip + inbox split (daftar percakapan badge 5 kanal + filter, panel percakapan + eskalasi + reply). `UR-OMNI-01/02`.
+- **WF-04 Dashboard & Unified Inbox** (1440) — sidebar + KPI strip + inbox split (daftar percakapan badge kanal [build: 6 kanal · target KAK: 7] + filter, panel percakapan + eskalasi + reply). `UR-OMNI-01/02`.
 
 ### Baris ② — Website Utama
 - **WF-05 Hasil Pencarian** — search bar besar + sidebar filter tipe konten + daftar hasil ber-tag. `UR-SEARCH-01`.
@@ -92,7 +92,8 @@
 ## 5. Yang Belum Termasuk (sesi lanjutan)
 
 - **Versi responsif** (tablet/mobile) dari halaman Web Utama & PPID Web & Omni — UR-PERF-02.
-- **PPID Mobile** layar tambahan: Splash/Onboarding, Daftar Akun, Riwayat, Chat Bot.
+- **PPID Mobile** — ✅ **`[kondisi aktual 21 Jul]` prototipe UI 8 layar sudah dibangun** di `klh-ppid-mobile/` (Splash, Masuk, Daftar Akun, Beranda, Ajukan, Lacak, Riwayat, Chat Bot); melampaui 4 wireframe WF-18…21. Implementasi Flutter + backend tetap di luar lingkup UI.
+- **CMS Konten (Modul 04)** — di luar KAK; prototipe 8 halaman dibangun (lihat `F2_UserFlow-IA.md` §5B) — belum di-wireframe lo-fi.
 - **Halaman tunggu keputusan §9:** Mega Menu detail, pengelompokan Layanan final.
 - **Should/Could** belum di-wireframe (banyak = duplikasi template WF-08/09/10): Profil/Tugas-Fungsi, Detail Jabatan, Daftar Program (indeks), Agenda/Kalender, Galeri Video, Profil PPID, Regulasi, DIK, FAQ, Laporan Kinerja, Konsultasi, Riwayat & Notifikasi.
 - **Omni:** Routing & Auto-Reply, Analytics (heatmap/session), Role Management, Keamanan, Manajemen Kanal, Profil.
@@ -111,18 +112,18 @@
 
 ## 7. High-Fidelity / Mockup (2.3) — Hero per Produk
 
-Dibangun di zona kanan halaman **Wireframe** Figma (mulai `x = 6200`), terpisah dari low-fidelity. Menggunakan **Material Design 3** dari paket **Material Web 2.4.1** (upload klien) — token (shape scale 4/8/12/16/28, elevation level 1–3, M3 typescale) **diharmonisasikan dengan brand KLH** (primary `#1B7A4B`). Ikon memakai **Material Symbols Outlined autentik** (di-render sebagai vektor `createNodeFromSvg`, viewBox `0 -960 960 960`), bukan emoji. Tipografi: Plus Jakarta Sans (display/headline/title) + Inter (body/label) + JetBrains Mono (angka SLA).
+Dibangun di zona kanan halaman **Wireframe** Figma (mulai `x = 6200`), terpisah dari low-fidelity. Menggunakan **Material Design 3** dari paket **Material Web 2.4.1** (upload klien) — token (shape scale 4/8/12/16/28, elevation level 1–3, M3 typescale) **diharmonisasikan dengan brand KLH** (primary `#005952`). Ikon memakai **Material Symbols Outlined autentik** (di-render sebagai vektor `createNodeFromSvg`, viewBox `0 -960 960 960`), bukan emoji. Tipografi: Plus Jakarta Sans (display/headline/title) + Inter (body/label) + JetBrains Mono (angka SLA).
 
 | Kode | Layar | Produk | Frame | Node | Sorotan komponen M3 |
 |---|---|---|---|---|---|
 | **HF-WEB-01** | Beranda | Website Utama | 1440 | `84:689` | Gov-strip, top app bar (nav pills + filled button), hero gradient + scrim + AQI stat card (elevation 3), 8 service cards (tonal icon container), section berita (featured + list), footer gelap |
 | **HF-PPID-01** | Lacak Permohonan | PPID Web | 1440 | `88:689` | Status hero card gradient + **circular progress ring 66%**, timeline 4-tahap (marker dots + connector), kartu notifikasi (toggle), kartu detail, tombol bantuan |
 | **HF-OMNI-01** | Dashboard | Omni Channel | 1440 | `90:689` | **Sidebar gelap** + nav badge, 4 KPI card (trend delta), **Unified Inbox data table** (avatar, channel icon, status badge, SLA mono timer), distribusi kanal (bar), donut SLA 94%, alert tindakan |
-| **HF-PPID-M01** | Lacak Permohonan | PPID Mobile | **375** | `93:689` | Status bar + app bar primary, hero ring, timeline ringkas, toggle notifikasi, **M3 bottom navigation** |
+| **HF-PPID-M01** | Lacak Permohonan | PPID Mobile | **390** | `93:689` | Status bar + app bar primary, hero ring, timeline ringkas, toggle notifikasi, **M3 bottom navigation** |
 
 **Placeholder gambar:** image generation via Hugging Face diblokir di environment ini (`gradio=none`), sehingga area gambar memakai **placeholder M3 profesional** (gradien hijau + organic blob + ikon eco pudar + scrim) yang terlihat disengaja — siap diganti foto final saat tersedia.
 
-**Catatan konsistensi frame:** seluruh hi-fi web = **1440px**, mobile = **375px** sesuai instruksi. Banner zona "HIGH FIDELITY · Material Design 3" ditempatkan di atas keempat layar.
+**Catatan konsistensi frame:** seluruh hi-fi web = **1440px**, mobile = **390px** (selaras prototipe `klh-ppid-mobile/` & standar verifikasi QA 390×844). Banner zona "HIGH FIDELITY · Material Design 3" ditempatkan di atas keempat layar.
 
 > **Reminder:** centang ☑ `2.3 Mockup (hero)` di **STATUS PROGRESS** `PANDUAN_KERJA_UIUX_KLH.md`. Sisa mockup (61 halaman, 4 gelombang) menyusul. Token M3 + ikon Material Symbols menjadi acuan visual untuk seluruh mockup berikutnya.
 
