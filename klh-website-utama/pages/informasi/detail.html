@@ -34,43 +34,80 @@
         <li aria-current="page" id="bc-current">Detail</li>
       </ol></nav>
 
-      <article>
-        <header class="art-head">
-          <span class="badge bg-orange" id="a-mod" style="margin-bottom:var(--s4)">Modul</span>
-          <h1 id="a-title" style="font-size:var(--t-display)">Judul</h1>
-          <div class="art-meta">
-            <span><klh-icon name="calendar" class="icon" style="width:15px;height:15px;vertical-align:-2px"></klh-icon> <time id="a-date"></time></span>
-            <span><klh-icon name="user" class="icon" style="width:15px;height:15px;vertical-align:-2px"></klh-icon> <span id="a-author"></span></span>
-            <span><klh-icon name="eye" class="icon" style="width:15px;height:15px;vertical-align:-2px"></klh-icon> <span id="a-views"></span> dilihat</span>
+      <div class="art-layout">
+        <article>
+          <header class="art-head">
+            <span class="badge bg-orange" id="a-mod">Modul</span>
             <span class="badge bg-neutral">Konten contoh</span>
-          </div>
-        </header>
+            <h1 id="a-title">Judul</h1>
+            <div class="art-byline">
+              <span class="art-avatar" id="a-avatar" aria-hidden="true">·</span>
+              <div class="who">
+                <strong>Penulis: <span id="a-author"></span></strong>
+                <span>KLH/BPLH — <time id="a-date"></time> WIB</span>
+              </div>
+              <div class="art-meta">
+                <span><klh-icon name="eye" class="icon" style="width:15px;height:15px;vertical-align:-2px"></klh-icon> <span id="a-views"></span> dilihat</span>
+              </div>
+            </div>
+            <div class="art-share">
+              <a class="btn btn-outline btn-sm" id="sh-wa" target="_blank" rel="noopener noreferrer" data-ext="WhatsApp"><klh-icon name="speech" class="icon icon--sm"></klh-icon> WhatsApp</a>
+              <a class="btn btn-outline btn-sm" id="sh-fb" target="_blank" rel="noopener noreferrer" data-ext="Facebook"><klh-icon name="globe" class="icon icon--sm"></klh-icon> Facebook</a>
+              <a class="btn btn-outline btn-sm" id="sh-x" target="_blank" rel="noopener noreferrer" data-ext="X (Twitter)"><klh-icon name="share" class="icon icon--sm"></klh-icon> X</a>
+              <button class="btn btn-outline btn-sm" type="button" data-copy><klh-icon name="share" class="icon icon--sm"></klh-icon> Salin Tautan</button>
+              <button class="btn btn-ghost btn-sm" type="button" onclick="window.print()"><klh-icon name="printer" class="icon icon--sm"></klh-icon> Cetak</button>
+              <a class="btn btn-ghost btn-sm" href="#komentar"><klh-icon name="speech" class="icon icon--sm"></klh-icon> Komentar (<span id="c-count-top">0</span>)</a>
+              <span id="copy-ok" class="badge bg-success" hidden><klh-icon name="check" class="icon" style="width:12px;height:12px"></klh-icon> Tautan tersalin</span>
+            </div>
+          </header>
 
-        <div class="art-media" id="a-media"></div>
+          <figure class="art-figure">
+            <div class="art-media" id="a-media"></div>
+            <figcaption id="a-caption"></figcaption>
+          </figure>
 
-        <div style="display:grid;grid-template-columns:1fr 300px;gap:var(--s12);align-items:start" id="a-layout">
           <div class="art-body" id="a-body"></div>
 
-          <aside style="display:grid;gap:var(--gutter)">
-            <div class="card card__body--sm" style="padding:var(--s5)" data-reveal>
-              <span class="eyebrow">Bagikan</span>
-              <div class="art-share">
-                <button class="btn btn-outline btn-sm" type="button" data-copy><klh-icon name="share" class="icon icon--sm"></klh-icon> Salin Tautan</button>
-                <button class="btn btn-ghost btn-sm" type="button" onclick="window.print()"><klh-icon name="printer" class="icon icon--sm"></klh-icon> Cetak</button>
+          <div class="art-tags" id="a-tags">
+            <span class="eyebrow">Tag:</span>
+          </div>
+
+          <section class="cmt" id="komentar" aria-labelledby="cmt-h">
+            <h2 id="cmt-h" style="font-size:var(--t-h3)">Komentar (<span id="c-count">0</span>)</h2>
+            <p class="hint" style="font-size:var(--t-sm);color:var(--ink-500);margin-block:var(--s2) var(--s5)">Konten contoh — komentar pada prototipe ini hanya tersimpan selama sesi dan tidak dikirim ke server.</p>
+            <form id="c-form" novalidate>
+              <div class="field" id="f-nama">
+                <label for="c-nama">Nama</label>
+                <input class="input" type="text" id="c-nama" name="nama" autocomplete="name" aria-describedby="c-nama-err">
+                <p class="errmsg" id="c-nama-err"><klh-icon name="warning" class="icon" style="width:13px;height:13px"></klh-icon> Nama wajib diisi.</p>
               </div>
-              <p id="copy-ok" class="badge bg-success" hidden style="margin-top:var(--s3)"><klh-icon name="check" class="icon" style="width:12px;height:12px"></klh-icon> Tautan tersalin</p>
-            </div>
-            <div class="card card__body--sm" style="padding:var(--s5)" data-reveal>
-              <span class="eyebrow">Terbaru lainnya</span>
-              <div style="display:grid;gap:var(--s1)" id="a-others"></div>
-            </div>
-            <div class="alert alert-info" data-reveal>
-              <klh-icon name="folder" class="icon icon--sm"></klh-icon>
-              <div><strong>Butuh dokumen sumber?</strong>Ajukan melalui <a href="../ppid.html">PPID</a> bila belum dipublikasikan.</div>
-            </div>
-          </aside>
-        </div>
-      </article>
+              <div class="field" id="f-teks">
+                <label for="c-teks">Komentar</label>
+                <textarea class="textarea" id="c-teks" name="komentar" aria-describedby="c-teks-err"></textarea>
+                <p class="errmsg" id="c-teks-err"><klh-icon name="warning" class="icon" style="width:13px;height:13px"></klh-icon> Komentar wajib diisi.</p>
+              </div>
+              <button class="btn btn-primary" type="submit"><klh-icon name="speech" class="icon icon--sm"></klh-icon> Kirim Komentar</button>
+              <span id="c-ok" class="badge bg-success" hidden style="margin-left:var(--s3)"><klh-icon name="check" class="icon" style="width:12px;height:12px"></klh-icon> Komentar terkirim</span>
+            </form>
+            <ol class="cmt-list" id="c-list" aria-live="polite"></ol>
+          </section>
+        </article>
+
+        <aside style="display:grid;gap:var(--gutter)">
+          <div class="card card__body--sm" style="padding:var(--s5)" data-reveal>
+            <span class="eyebrow">Terpopuler</span>
+            <ol class="pop-list" id="a-pop"></ol>
+          </div>
+          <div class="card card__body--sm" style="padding:var(--s5)" data-reveal>
+            <span class="eyebrow">Terbaru lainnya</span>
+            <div style="display:grid;gap:var(--s1)" id="a-others"></div>
+          </div>
+          <div class="alert alert-info" data-reveal>
+            <klh-icon name="folder" class="icon icon--sm"></klh-icon>
+            <div><strong>Butuh dokumen sumber?</strong>Ajukan melalui <a href="../ppid.html">PPID</a> bila belum dipublikasikan.</div>
+          </div>
+        </aside>
+      </div>
     </div>
   </section>
 </main>
@@ -93,7 +130,9 @@
   document.getElementById('a-title').textContent = a.title;
   var dt = document.getElementById('a-date'); dt.textContent = KLH.fmtDate(a.date); dt.setAttribute('datetime', a.date);
   document.getElementById('a-author').textContent = a.author;
+  document.getElementById('a-avatar').textContent = a.author.split(/\s+/).map(function (w) { return w[0]; }).slice(0, 2).join('').toUpperCase();
   document.getElementById('a-views').textContent = KLH.fmtViews(a.views);
+
   var media = document.getElementById('a-media');
   if (a.img) {
     media.style.background = 'url(' + window.KLH_ROOT + a.img + ') center/cover no-repeat';
@@ -101,12 +140,48 @@
     media.className += ' ' + a.ph;
     media.innerHTML = KLH.iconSVG(a.icon, 'icon icon--lg');
   }
-  document.getElementById('a-body').innerHTML = a.body.map(function (p) { return '<p>' + p + '</p>'; }).join('') +
+  document.getElementById('a-caption').textContent = a.excerpt + ' (Foto: Dok. Biro Humas KLH/BPLH — konten contoh)';
+
+  /* Isi artikel + sisipan "Baca juga:" ala portal berita setelah paragraf kedua */
+  var related = KLH.articles.filter(function (x) { return x.slug !== a.slug && x.module === a.module; });
+  if (!related.length) related = KLH.articles.filter(function (x) { return x.slug !== a.slug; });
+  var bacaJuga = related.slice(0, 1).map(function (x) {
+    return '<div class="baca-juga"><strong>Baca juga:</strong> <a href="detail.html?a=' + x.slug + '">' + x.title + '</a></div>';
+  }).join('');
+  document.getElementById('a-body').innerHTML = a.body.map(function (p, i) {
+    return '<p>' + p + '</p>' + (i === 1 ? bacaJuga : '');
+  }).join('') +
     (a.module === 'publikasi' || a.module === 'sk' || a.module === 'permen'
       ? '<div class="alert alert-success" style="margin-top:var(--s6)">' + KLH.iconSVG('download', 'icon icon--sm') +
         '<div><strong>Lampiran dokumen</strong><a href="#">Unduh PDF (contoh — tautan CMS menyusul)</a></div></div>'
       : '');
 
+  /* Tag topik */
+  document.getElementById('a-tags').innerHTML = '<span class="eyebrow">Tag:</span>' +
+    '<a class="art-tag" href="indeks.html?m=' + mod.slug + '">' + mod.label + '</a>' +
+    ['Lingkungan Hidup', 'KLH/BPLH'].map(function (t) {
+      return '<a class="art-tag" href="../pencarian.html?q=' + encodeURIComponent(t) + '">' + t + '</a>';
+    }).join('');
+
+  /* Bagikan */
+  var url = encodeURIComponent(location.href), teks = encodeURIComponent(a.title);
+  document.getElementById('sh-wa').href = 'https://wa.me/?text=' + teks + '%20' + url;
+  document.getElementById('sh-fb').href = 'https://www.facebook.com/sharer/sharer.php?u=' + url;
+  document.getElementById('sh-x').href = 'https://x.com/intent/post?text=' + teks + '&url=' + url;
+  document.querySelector('[data-copy]').addEventListener('click', function () {
+    var ok = document.getElementById('copy-ok');
+    function show() { ok.hidden = false; setTimeout(function () { ok.hidden = true; }, 2200); }
+    if (navigator.clipboard) navigator.clipboard.writeText(location.href).then(show, show);
+    else show();
+  });
+
+  /* Sidebar: terpopuler (berdasarkan dilihat) & terbaru */
+  document.getElementById('a-pop').innerHTML = KLH.articles.slice()
+    .sort(function (x, y) { return y.views - x.views; }).slice(0, 5)
+    .map(function (x) {
+      return '<li><a href="detail.html?a=' + x.slug + '">' + x.title +
+        '<small>' + KLH.fmtViews(x.views) + ' dilihat</small></a></li>';
+    }).join('');
   document.getElementById('a-others').innerHTML = KLH.articles
     .filter(function (x) { return x.slug !== a.slug; })
     .sort(function (x, y) { return y.date.localeCompare(x.date); }).slice(0, 4)
@@ -115,16 +190,47 @@
         '<span>' + x.title + '<small>' + KLH.fmtDate(x.date) + '</small></span></a>';
     }).join('');
 
-  document.querySelector('[data-copy]').addEventListener('click', function () {
-    var ok = document.getElementById('copy-ok');
-    function show() { ok.hidden = false; setTimeout(function () { ok.hidden = true; }, 2200); }
-    if (navigator.clipboard) navigator.clipboard.writeText(location.href).then(show, show);
-    else show();
-  });
+  /* Kolom komentar — demo, hanya tersimpan selama sesi */
+  var comments = [
+    { nama: 'Sari Wulandari', waktu: '2 jam yang lalu', teks: 'Terima kasih infonya. Semoga programnya berlanjut dan warga sekitar terus dilibatkan.' },
+    { nama: 'Budi Hartono', waktu: '5 jam yang lalu', teks: 'Apakah ada jadwal kegiatan serupa di wilayah Jawa Timur? Mohon informasinya.' },
+    { nama: 'Ratna Dewi', waktu: 'Kemarin', teks: 'Liputan yang lengkap. Ditunggu publikasi data pendukungnya di laman PPID.' }
+  ];
+  var list = document.getElementById('c-list');
+  function inisial(n) { return n.split(/\s+/).map(function (w) { return w[0]; }).slice(0, 2).join('').toUpperCase(); }
+  function renderComments() {
+    list.innerHTML = comments.map(function (c) {
+      return '<li class="cmt-item"><span class="art-avatar" aria-hidden="true"></span>' +
+        '<div><div class="cmt-head"><strong></strong><time></time></div><p></p></div></li>';
+    }).join('');
+    /* isi via textContent agar aman dari markup */
+    Array.prototype.forEach.call(list.children, function (li, i) {
+      li.querySelector('.art-avatar').textContent = inisial(comments[i].nama);
+      li.querySelector('strong').textContent = comments[i].nama;
+      li.querySelector('time').textContent = comments[i].waktu;
+      li.querySelector('p').textContent = comments[i].teks;
+    });
+    document.getElementById('c-count').textContent = comments.length;
+    document.getElementById('c-count-top').textContent = comments.length;
+  }
+  renderComments();
 
-  var s = document.createElement('style');
-  s.textContent = '@media(max-width:1024px){#a-layout{grid-template-columns:1fr!important}}';
-  document.head.appendChild(s);
+  document.getElementById('c-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var nama = document.getElementById('c-nama'), teksEl = document.getElementById('c-teks');
+    var errNama = !nama.value.trim(), errTeks = !teksEl.value.trim();
+    document.getElementById('f-nama').classList.toggle('err', errNama);
+    document.getElementById('f-teks').classList.toggle('err', errTeks);
+    nama.setAttribute('aria-invalid', errNama);
+    teksEl.setAttribute('aria-invalid', errTeks);
+    if (errNama) { nama.focus(); return; }
+    if (errTeks) { teksEl.focus(); return; }
+    comments.unshift({ nama: nama.value.trim(), waktu: 'Baru saja', teks: teksEl.value.trim() });
+    renderComments();
+    this.reset();
+    var ok = document.getElementById('c-ok');
+    ok.hidden = false; setTimeout(function () { ok.hidden = true; }, 2200);
+  });
 })();
 </script>
 </body>

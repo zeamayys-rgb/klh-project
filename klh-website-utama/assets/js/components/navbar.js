@@ -31,7 +31,7 @@
             '<span>' + it.label + (ext ? extTail() : '') +
             (it.desc ? '<small>' + it.desc + '</small>' : '') + '</span></a></li>';
         }).join('');
-        return '<h3>' + g.title + '</h3><ul class="mega__list">' + lis + '</ul>';
+        return (g.title ? '<h3>' + g.title + '</h3>' : '') + '<ul class="mega__list">' + lis + '</ul>';
       }).join('<div style="height:var(--s4)"></div>') + '</div>';
     }
     var promo = '';
@@ -49,7 +49,7 @@
       return '<a class="drawer__link" href="' + href(item.href) + '">' + item.label + ' ' + ic('chevright') + '</a>';
     }
     var subs = item.panel.groups.map(function (g) {
-      return '<span class="grouplabel">' + g.title + '</span>' + g.items.map(function (it) {
+      return (g.title ? '<span class="grouplabel">' + g.title + '</span>' : '') + g.items.map(function (it) {
         return '<a href="' + href(it.href) + '"' + (it.ext ? extAttrs + ' data-ext="' + it.label + '"' : '') + '>' +
           ic(it.ext ? 'external' : it.icon) + '<span>' + it.label +
           (it.ext ? ' <span class="ext-note">· situs lain</span>' : '') + '</span></a>';

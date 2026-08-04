@@ -53,6 +53,7 @@
 ### Layanan (⚑ pengelompokan tunggu §9)
 - [x] **Indeks Layanan** — 4 kelompok per niat · **M** · Resp · *(M01)*
 - [x] **Perizinan & Pengadaan** — PTSP · OSS↗ · LPSE/SiRUP↗ · M · *(M01)*
+- [x] **PTSP Lingkungan Hidup** (`ptsp.html`) — visi misi · tugas & fungsi · poster Standar Pelayanan + Maklumat Layanan (sumber: pelayananterpadu.kemenlh.go.id) · kontak pengaduan *(tambahan review 4 Agu 2026)* · S · Resp · *(M01)*
 - [x] **Pengaduan & Aspirasi** — SP4N-LAPOR↗ · WCC · **M** *(entry Flow A / P1 — dialog serah-terima `data-ext` ✓)* · *(M01)*
 - [x] **Data, Lab & Pengujian** — Pusarpedal · SRN PPI↗ · Bursa Karbon↗ · S · *(M01)*
 - [x] **Regulasi & Pembelajaran** — JDIH · E-Learning · E-LHKPN · S · *(M01)*

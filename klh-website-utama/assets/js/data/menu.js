@@ -49,7 +49,7 @@
           cols: 2,
           groups: [
             {
-              col: 1, title: 'Penghargaan & Apresiasi',
+              col: 1,
               items: [
                 { label: 'Kalpataru', desc: 'Perintis & pengabdi lingkungan', icon: 'award', href: 'pages/program/kalpataru.html' },
                 { label: 'Adipura', desc: 'Kabupaten/kota bersih', icon: 'award', href: 'pages/program/adipura.html' },
@@ -58,7 +58,7 @@
               ]
             },
             {
-              col: 2, title: 'Kinerja & Partisipasi',
+              col: 2,
               items: [
                 { label: 'PROPER', desc: 'Peringkat kinerja perusahaan', icon: 'factory', href: 'pages/program/proper.html' },
                 { label: 'Program Kampung Iklim', desc: 'Aksi iklim berbasis komunitas', icon: 'sprout', href: 'pages/program/proklim.html' },
@@ -84,7 +84,7 @@
               col: 1, title: 'Perizinan & Pengadaan',
               more: 'pages/layanan/perizinan-pengadaan.html',
               items: [
-                { label: 'PTSP Lingkungan Hidup', icon: 'institution', href: 'pages/layanan/perizinan-pengadaan.html' },
+                { label: 'PTSP Lingkungan Hidup', icon: 'institution', href: 'pages/layanan/ptsp.html' },
                 { label: 'OSS — Perizinan Berusaha', icon: 'external', href: 'https://oss.go.id', ext: true },
                 { label: 'LPSE / SiRUP Pengadaan', icon: 'external', href: 'https://spse.inaproc.id/kemenlh', ext: true }
               ]
@@ -102,8 +102,8 @@
               more: 'pages/layanan/pengaduan-aspirasi.html',
               items: [
                 { label: 'Lapor Pencemaran / Kerusakan', icon: 'megaphone', href: 'pages/layanan/pengaduan-aspirasi.html' },
-                { label: 'SP4N-LAPOR!', icon: 'external', href: 'https://www.lapor.go.id', ext: true },
-                { label: 'Waste Crisis Center (WCC)', icon: 'phone', href: 'pages/layanan/pengaduan-aspirasi.html' }
+                { label: 'SP4N-LAPOR!', icon: 'external', href: 'https://kemenlh.lapor.go.id/', ext: true },
+                { label: 'Waste Crisis Center (WCC)', icon: 'external', href: 'https://datastudio.google.com/u/0/reporting/bacbb430-e850-41e4-adce-f6f22a32b4b9/page/p_dt3f9oh6vd', ext: true }
               ]
             },
             {
@@ -111,6 +111,8 @@
               more: 'pages/layanan/data-lab-pengujian.html',
               items: [
                 { label: 'Laboratorium Pusarpedal', icon: 'external', href: 'http://pusarpedal.kemenlh.go.id/', ext: true },
+                { label: 'ISPU — Kualitas Udara', icon: 'external', href: 'https://ispu.kemenlh.go.id/webv5/#/', ext: true },
+                { label: 'Onlimo — Kualitas Air', icon: 'external', href: 'https://onlimo.kemenlh.go.id/app/', ext: true },
                 { label: 'SRN PPI — Registri Iklim', icon: 'external', href: 'https://srn.kemenlh.go.id', ext: true },
                 { label: 'Bursa Karbon (IDXCarbon)', icon: 'external', href: 'https://idxcarbon.co.id', ext: true }
               ]
@@ -200,7 +202,7 @@
         {
           title: 'Tautan Sistem',
           links: [
-            { label: 'SP4N-LAPOR!', href: 'https://www.lapor.go.id', ext: true },
+            { label: 'SP4N-LAPOR!', href: 'https://kemenlh.lapor.go.id/', ext: true },
             { label: 'OSS Berusaha', href: 'https://oss.go.id', ext: true },
             { label: 'LPSE', href: 'https://spse.inaproc.id/kemenlh', ext: true },
             { label: 'SiRUP LKPP', href: 'https://sirup.lkpp.go.id', ext: true },

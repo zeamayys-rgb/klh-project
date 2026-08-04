@@ -102,10 +102,6 @@ code, .mono { font-family: var(--font-mono); font-size: .925em; }
   color: var(--klh-green-700);
   margin-bottom: var(--s3);
 }
-.eyebrow::before {
-  content: ""; width: 20px; height: 2px;
-  background: var(--klh-green-500); border-radius: 2px;
-}
 
 /* ---- Grid helpers ---- */
 .grid { display: grid; gap: var(--gutter); }

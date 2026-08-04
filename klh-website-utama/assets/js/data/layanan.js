@@ -14,7 +14,7 @@
       lead: 'Untuk pelaku usaha dan mitra: perizinan lingkungan satu pintu serta informasi pengadaan barang/jasa pemerintah.',
       niat: 'Saya ingin mengurus izin atau mengikuti pengadaan',
       services: [
-        { name: 'PTSP Lingkungan Hidup', icon: 'institution', desc: 'Pelayanan Terpadu Satu Pintu untuk persetujuan lingkungan, teknis, dan layanan perizinan kementerian.', cta: 'Lihat persyaratan' },
+        { name: 'PTSP Lingkungan Hidup', icon: 'institution', desc: 'Pelayanan Terpadu Satu Pintu untuk persetujuan lingkungan, teknis, dan layanan perizinan kementerian.', cta: 'Lihat profil & standar pelayanan', href: 'pages/layanan/ptsp.html', internal: true },
         { name: 'OSS — Perizinan Berusaha', icon: 'external', desc: 'Pengurusan perizinan berusaha berbasis risiko dilakukan melalui sistem OSS nasional.', href: 'https://oss.go.id', ext: true },
         { name: 'LPSE KLH/BPLH', icon: 'external', desc: 'Layanan Pengadaan Secara Elektronik: paket tender dan non-tender kementerian.', href: 'https://spse.inaproc.id/kemenlh', ext: true },
         { name: 'SiRUP — Rencana Umum Pengadaan', icon: 'external', desc: 'Telusuri rencana pengadaan tahunan KLH/BPLH pada portal SiRUP LKPP.', href: 'https://sirup.lkpp.go.id', ext: true }
@@ -29,8 +29,7 @@
       niat: 'Saya ingin melaporkan masalah lingkungan',
       services: [
         { name: 'Pengaduan Lingkungan KLH', icon: 'megaphone', desc: 'Formulir pengaduan resmi kementerian untuk dugaan pencemaran dan/atau kerusakan lingkungan. Dapat dilampiri foto/video.', cta: 'Isi formulir pengaduan' },
-        { name: 'SP4N-LAPOR!', icon: 'external', desc: 'Kanal pengaduan nasional lintas instansi. Laporan Anda otomatis diteruskan ke unit yang berwenang.', href: 'https://www.lapor.go.id', ext: true },
-        { name: 'Call Center (WCC)', icon: 'phone', desc: 'Konsultasi dan pengaduan melalui pusat kontak 1500-XXX, Senin–Jumat 08.00–16.00 WIB.', cta: 'Lihat jam layanan' },
+        { name: 'SP4N-LAPOR!', icon: 'external', desc: 'Kanal pengaduan nasional lintas instansi. Laporan Anda otomatis diteruskan ke unit yang berwenang.', href: 'https://kemenlh.lapor.go.id/', ext: true },
         { name: 'Whistleblowing System', icon: 'shield', desc: 'Laporkan dugaan pelanggaran integritas pegawai KLH/BPLH. Kerahasiaan pelapor dijamin.', cta: 'Lapor secara rahasia' }
       ],
       steps: {
@@ -46,7 +45,8 @@
       lead: 'Akses data kualitas lingkungan, layanan laboratorium terakreditasi, serta registri aksi iklim nasional.',
       niat: 'Saya butuh data atau pengujian lingkungan',
       services: [
-        { name: 'Pemantauan Kualitas Udara & Air', icon: 'drop', desc: 'Data indeks kualitas udara (ISPU) 34 kota dan kualitas air sungai prioritas, diperbarui berkala.', cta: 'Lihat data terkini' },
+        { name: 'ISPU — Pemantauan Kualitas Udara', icon: 'external', desc: 'Indeks Standar Pencemar Udara: data kualitas udara kota-kota Indonesia, diperbarui berkala.', href: 'https://ispu.kemenlh.go.id/webv5/#/', ext: true },
+        { name: 'Onlimo — Pemantauan Kualitas Air', icon: 'external', desc: 'Online Monitoring: data kualitas air sungai prioritas secara kontinu dan real-time.', href: 'https://onlimo.kemenlh.go.id/app/', ext: true },
         { name: 'Laboratorium Pusarpedal', icon: 'external', desc: 'Layanan pengujian parameter lingkungan (air, udara, tanah, limbah) terakreditasi KAN.', href: 'http://pusarpedal.kemenlh.go.id/', ext: true },
         { name: 'SRN PPI — Registri Iklim', icon: 'external', desc: 'Sistem Registri Nasional Pengendalian Perubahan Iklim: daftarkan aksi mitigasi/adaptasi Anda.', href: 'https://srn.kemenlh.go.id', ext: true },
         { name: 'Bursa Karbon (IDXCarbon)', icon: 'external', desc: 'Perdagangan unit karbon Indonesia bagi pelaku usaha peserta nilai ekonomi karbon.', href: 'https://idxcarbon.co.id', ext: true }

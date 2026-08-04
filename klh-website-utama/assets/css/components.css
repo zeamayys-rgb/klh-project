@@ -269,7 +269,6 @@
 .page-hero h1 { color: #fff; font-size: var(--t-display); max-width: 20ch; }
 .page-hero .lead { color: var(--klh-green-200); font-size: var(--t-h4); font-weight: 400; max-width: 58ch; }
 .page-hero .eyebrow { color: var(--klh-green-300); }
-.page-hero .eyebrow::before { background: var(--klh-green-400); }
 
 .breadcrumb {
   display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2);
