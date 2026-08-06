@@ -55,7 +55,6 @@
               <button class="btn btn-outline btn-sm" type="button" id="btn-like" aria-pressed="false"><klh-icon name="thumbup" class="icon icon--sm"></klh-icon> <span id="like-label">Suka</span></button>
               <a class="btn btn-outline btn-sm" id="sh-wa" target="_blank" rel="noopener noreferrer" data-ext="WhatsApp"><klh-icon name="speech" class="icon icon--sm"></klh-icon> WhatsApp</a>
               <a class="btn btn-outline btn-sm" id="sh-fb" target="_blank" rel="noopener noreferrer" data-ext="Facebook"><klh-icon name="globe" class="icon icon--sm"></klh-icon> Facebook</a>
-              <a class="btn btn-outline btn-sm" id="sh-x" target="_blank" rel="noopener noreferrer" data-ext="X (Twitter)"><klh-icon name="share" class="icon icon--sm"></klh-icon> X</a>
               <button class="btn btn-outline btn-sm" type="button" data-copy><klh-icon name="share" class="icon icon--sm"></klh-icon> Salin Tautan</button>
               <button class="btn btn-ghost btn-sm" type="button" onclick="window.print()"><klh-icon name="printer" class="icon icon--sm"></klh-icon> Cetak</button>
               <a class="btn btn-ghost btn-sm" href="#komentar"><klh-icon name="speech" class="icon icon--sm"></klh-icon> Komentar (<span id="c-count-top">0</span>)</a>
@@ -177,7 +176,6 @@
   var url = encodeURIComponent(location.href), teks = encodeURIComponent(a.title);
   document.getElementById('sh-wa').href = 'https://wa.me/?text=' + teks + '%20' + url;
   document.getElementById('sh-fb').href = 'https://www.facebook.com/sharer/sharer.php?u=' + url;
-  document.getElementById('sh-x').href = 'https://x.com/intent/post?text=' + teks + '&url=' + url;
   document.querySelector('[data-copy]').addEventListener('click', function () {
     var ok = document.getElementById('copy-ok');
     function show() { ok.hidden = false; setTimeout(function () { ok.hidden = true; }, 2200); }

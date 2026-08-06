@@ -101,6 +101,17 @@
       { id: 'AGD-109', judul: 'Cuti Bersama (contoh)', jenis: 'libur', mulai: '2026-07-17', lokasi: '—', status: 'draf' }
     ],
 
+    /* ---- PIC agenda (nama contoh, dengan eselon) ---- */
+    pic: [
+      { nama: 'Dr. Ir. Bambang Prasetyo, M.Sc.', eselon: 1 },
+      { nama: 'Dra. Sri Rahayu Ningsih, M.Si.', eselon: 1 },
+      { nama: 'Ir. Agus Salim Widodo, M.T.', eselon: 2 },
+      { nama: 'Dewi Kartika Sari, S.T., M.Env.', eselon: 2 },
+      { nama: 'Rudi Hermawan, S.Si., M.Sc.', eselon: 3 },
+      { nama: 'Fitri Handayani, S.Hut.', eselon: 3 },
+      { nama: 'Andika Mahesa Putra, S.KM.', eselon: 4 }
+    ],
+
     /* ---- PPID: Daftar Informasi Publik ---- */
     dip: [
       { id: 'DIP-2026-041', judul: 'Laporan Kinerja Instansi Pemerintah (LKjIP) 2025', klas: 'berkala', format: 'PDF', ukuran: '4,2 MB', t: '2026-06-28', status: 'terbit' },

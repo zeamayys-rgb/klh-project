@@ -74,6 +74,12 @@
               <label for="a-lokasi">Lokasi (opsional)</label>
               <input class="input" id="a-lokasi" placeholder="Tempat / tautan daring">
             </div>
+            <div class="field">
+              <label for="a-pic">PIC</label>
+              <select class="select" id="a-pic">
+                <option value="">— Pilih PIC —</option>
+              </select>
+            </div>
             <button class="btn btn-primary" type="submit" style="width:100%"><klh-icon name="calendar" class="icon icon--sm"></klh-icon> Tambahkan ke kalender</button>
             <p class="hint" style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s3)">Entri baru berstatus <strong>Menunggu Review</strong> hingga disetujui Editor.</p>
           </form>
@@ -93,6 +99,12 @@
   var tb = document.getElementById('tb-agenda');
   var JB = { agenda: 'bg-info', hari: 'bg-success', libur: 'bg-danger' };
   var JL = { agenda: 'Agenda', hari: 'Hari lingkungan', libur: 'Libur' };
+
+  /* Dropdown PIC dari KLH.cms.pic (nama + eselon) */
+  document.getElementById('a-pic').innerHTML = '<option value="">— Pilih PIC —</option>' +
+    KLH.cms.pic.map(function (p) {
+      return '<option value="' + p.nama + '">' + p.nama + ' (Eselon ' + p.eselon + ')</option>';
+    }).join('');
 
   function render() {
     tb.innerHTML = data.map(function (g, i) {
@@ -137,6 +149,7 @@
       jenis: document.getElementById('a-jenis').value,
       mulai: tgl.value,
       lokasi: document.getElementById('a-lokasi').value.trim() || '—',
+      pic: document.getElementById('a-pic').value || '—',
       status: 'review'
     });
     data.sort(function (a, b) { return a.mulai < b.mulai ? -1 : 1; });
