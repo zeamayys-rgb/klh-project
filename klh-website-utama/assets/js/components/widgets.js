@@ -74,9 +74,9 @@
 
       /* --- FAB stack --- */
       '<div class="fab-stack">' +
-        '<button class="fab fab--top" data-top-fab aria-label="Kembali ke atas halaman">' + ic('arrowup') + '</button>' +
-        '<button class="fab fab--a11y" data-a11y-fab aria-label="Buka pengaturan aksesibilitas" aria-expanded="false">' + ic('access') + '</button>' +
-        '<button class="fab fab--chat" data-chat-fab aria-label="Buka Chat Bot AI" aria-expanded="false">' + ic('speech') + '</button>' +
+        '<button class="fab fab--top" data-top-fab data-tip="Kembali ke Atas" aria-label="Kembali ke atas halaman">' + ic('arrowup') + '</button>' +
+        '<button class="fab fab--a11y" data-a11y-fab data-tip="Aksesibilitas" aria-label="Buka pengaturan aksesibilitas" aria-expanded="false">' + ic('access') + '</button>' +
+        '<button class="fab fab--chat" data-chat-fab data-tip="Chat Bot" aria-label="Buka Chat Bot AI" aria-expanded="false">' + ic('speech') + '</button>' +
       '</div>';
 
     var chatPanel = el.querySelector('.chat-panel');

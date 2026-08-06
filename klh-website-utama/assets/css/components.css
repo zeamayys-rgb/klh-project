@@ -32,7 +32,8 @@
 .btn-outline:hover { background: color-mix(in srgb, var(--klh-green-50) 40%, transparent); color: var(--klh-green-800); }
 
 .btn-ghost { background: transparent; color: var(--ink-700); }
-.btn-ghost:hover { background: var(--surface-2); color: var(--ink-900); }
+/* Hover ghost harus tegas: isi tint hijau + outline, bukan sekadar abu tipis */
+.btn-ghost:hover { background: var(--klh-green-50); color: var(--klh-green-800); border-color: var(--klh-green-600); }
 
 .btn-blue { background: var(--b-600); color: #fff; }
 .btn-blue:hover { background: var(--b-700); color: #fff; }
@@ -308,6 +309,7 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
   display: grid; place-items: center; flex: none; /* cegah menyusut saat jadi anak flex row (.nilai-chip/.svc-row) */
   background: var(--klh-green-100); color: var(--klh-green-700);
 }
+.svc-card__icon { margin-bottom: var(--s3); }
 .svc-card__icon--earth { background: var(--o-100); color: var(--o-700); }
 .svc-card__icon--sky { background: var(--b-100); color: var(--b-700); }
 .svc-card h3, .svc-card h4 { padding-top: var(--s2); margin-bottom: var(--s1); display: flex; align-items: center; gap: var(--s2); }
@@ -505,7 +507,7 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
 .footer-contact li { display: flex; gap: var(--s2); font-size: var(--t-sm); align-items: flex-start; }
 .footer-contact .icon--sm { color: var(--klh-green-400); margin-top: 2px; }
 /* Media sosial KLH — target sentuh 44px */
-.footer-social { display: flex; gap: var(--s2); margin-top: var(--s5); flex-wrap: wrap; }
+.footer-social { display: flex; gap: var(--s2); margin-top: var(--s5); margin-bottom: var(--s8); flex-wrap: wrap; justify-content: center; }
 .footer-social a {
   display: inline-flex; align-items: center; justify-content: center;
   width: 44px; height: 44px; padding: 0; margin: 0; border-radius: var(--r-md);
@@ -527,6 +529,7 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
   display: flex; flex-direction: column; gap: var(--s3); align-items: flex-end;
 }
 .fab {
+  position: relative;
   display: grid; place-items: center;
   width: 56px; height: 56px; border-radius: var(--r-pill);
   border: 0; cursor: pointer;
@@ -534,8 +537,33 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
   transition: transform var(--dur-1) var(--ease);
 }
 .fab:hover { transform: translateY(-2px); }
+/* Tooltip FAB (dari data-tip), muncul di kiri tombol saat hover/fokus */
+.fab[data-tip]::before {
+  content: attr(data-tip);
+  position: absolute; right: calc(100% + var(--s3)); top: 50%; transform: translateY(-50%);
+  background: var(--ink-900); color: #fff;
+  padding: 6px 10px; border-radius: var(--r-sm);
+  font-size: var(--t-xs); font-weight: 600; white-space: nowrap;
+  box-shadow: var(--sh-2); pointer-events: none;
+  opacity: 0; visibility: hidden;
+  transition: opacity var(--dur-1) var(--ease), visibility var(--dur-1);
+}
+.fab[data-tip]:hover::before, .fab[data-tip]:focus-visible::before { opacity: 1; visibility: visible; }
+@media (prefers-reduced-motion: reduce) { .fab[data-tip]::before { transition: none; } }
 .fab--chat { background: var(--klh-green-600); color: #fff; }
-.fab--a11y { background: var(--surface); color: var(--klh-green-800); border: 1.5px solid var(--line-strong); width: 48px; height: 48px; }
+/* FAB aksesibilitas: biru solid (konvensi widget a11y) */
+.fab--a11y { position: relative; background: var(--b-600); color: #fff; }
+.fab--a11y:hover { background: var(--b-700); }
+/* Ring denyut 2× saat halaman dimuat untuk menarik perhatian */
+.fab--a11y::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  animation: fab-pulse 1.6s var(--ease) .8s 2;
+}
+@keyframes fab-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(14, 102, 196, .5); }
+  100% { box-shadow: 0 0 0 16px rgba(14, 102, 196, 0); }
+}
+@media (prefers-reduced-motion: reduce) { .fab--a11y::after { animation: none; } }
 .fab--top {
   background: var(--surface); color: var(--klh-green-800); border: 1.5px solid var(--line-strong); width: 48px; height: 48px;
   opacity: 0; visibility: hidden; transform: translateY(8px);

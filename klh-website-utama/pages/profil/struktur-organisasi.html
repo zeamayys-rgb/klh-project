@@ -64,9 +64,9 @@
      foto pejabat → jabatan → nama → LHKPN, tanpa label tingkat pimpinan. */
   function card(p) {
     return '<a class="card org-card" href="detail-jabatan.html?id=' + p.id + '" data-reveal>' +
-      '<span class="ava ava--photo">' + (p.foto
-        ? '<img src="' + KLH_ROOT + p.foto + '" alt="" style="object-position:' + (p.fotoPos || 'center top') + ';' + (p.fotoCss || '') + '">'
-        : '<image-slot id="pj-' + p.id + '" shape="circle" placeholder="Foto"></image-slot>') + '</span>' +
+      (p.foto
+        ? '<span class="ava ava--photo"><img src="' + KLH_ROOT + p.foto + '" alt="" style="object-position:' + (p.fotoPos || 'center top') + ';' + (p.fotoCss || '') + '"></span>'
+        : '<span class="ava ava--icon">' + KLH.iconSVG('user', 'icon icon--lg') + '</span>') +
       '<h3>' + p.jabatan + '</h3>' +
       '<span style="font-size:var(--t-sm);color:var(--ink-500)">' + p.nama + '</span>' +
       '<span class="badge bg-success">' + KLH.iconSVG('check','icon') .replace('class="icon"','class="icon" style="width:12px;height:12px"') + ' LHKPN Lapor</span>' +

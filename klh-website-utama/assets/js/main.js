@@ -88,6 +88,21 @@
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   }, true);
 
+  /* ---- Dropdown <details data-dropdown>: tutup saat klik di luar / Esc ---- */
+  document.addEventListener('click', function (e) {
+    document.querySelectorAll('details[data-dropdown][open]').forEach(function (d) {
+      if (!d.contains(e.target)) d.removeAttribute('open');
+    });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape' || (hoDlg && !hoDlg.hidden)) return;
+    document.querySelectorAll('details[data-dropdown][open]').forEach(function (d) {
+      d.removeAttribute('open');
+      var s = d.querySelector('summary');
+      if (s && d.contains(document.activeElement)) s.focus();
+    });
+  });
+
   /* ---- Media artikel: foto asli bila ada, fallback placeholder ---- */
   KLH.mediaCls = function (a) { return a.img ? '' : ' ' + a.ph; };
   KLH.mediaStyle = function (a) {

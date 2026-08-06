@@ -34,16 +34,23 @@
         <span class="eyebrow" style="color:var(--klh-green-300)">Kementerian Lingkungan Hidup / BPLH</span>
         <h1 id="hero-title">Layanan lingkungan hidup, <em>kini semudah satu klik.</em></h1>
         <p class="lead">Laporkan pencemaran, ajukan informasi publik, urus perizinan, dan ikuti program lingkungan — semuanya dari satu portal resmi.</p>
-        <p class="eyebrow" style="color:var(--klh-green-300);margin-top:var(--s6)">Indeks Kualitas Lingkungan Hidup</p>
-        <div class="hero-quick">
-          <a href="https://ispu.kemenlh.go.id/webv5/#/" target="_blank" rel="noopener noreferrer" data-ext="ISPU — Pemantauan Kualitas Udara"><klh-icon name="sun" class="icon icon--sm"></klh-icon> ISPU — Pemantauan Kualitas Udara<span class="sr-only"> (membuka situs lain)</span></a>
-          <a href="https://onlimo.kemenlh.go.id/app/" target="_blank" rel="noopener noreferrer" data-ext="Onlimo — Pemantauan Kualitas Air"><klh-icon name="drop" class="icon icon--sm"></klh-icon> Onlimo — Pemantauan Kualitas Air<span class="sr-only"> (membuka situs lain)</span></a>
-          <a href="https://idxcarbon.co.id" target="_blank" rel="noopener noreferrer" data-ext="Bursa Karbon IDXCarbon"><klh-icon name="chartline" class="icon icon--sm"></klh-icon> Bursa Karbon (IDXCarbon)<span class="sr-only"> (membuka situs lain)</span></a>
-        </div>
+        <details class="hero-iklh" data-dropdown>
+          <summary class="btn btn-primary">Indeks Kualitas Lingkungan Hidup <klh-icon name="chevdown" class="icon icon--sm"></klh-icon></summary>
+          <div class="hero-iklh__menu">
+            <a href="https://ispu.kemenlh.go.id/webv5/#/" target="_blank" rel="noopener noreferrer" data-ext="ISPU — Pemantauan Kualitas Udara"><klh-icon name="sun" class="icon icon--sm"></klh-icon> ISPU — Pemantauan Kualitas Udara<span class="sr-only"> (membuka situs lain)</span></a>
+            <a href="https://onlimo.kemenlh.go.id/app/" target="_blank" rel="noopener noreferrer" data-ext="Onlimo — Pemantauan Kualitas Air"><klh-icon name="drop" class="icon icon--sm"></klh-icon> Onlimo — Pemantauan Kualitas Air<span class="sr-only"> (membuka situs lain)</span></a>
+            <a href="https://idxcarbon.co.id" target="_blank" rel="noopener noreferrer" data-ext="Bursa Karbon IDXCarbon"><klh-icon name="chartline" class="icon icon--sm"></klh-icon> Bursa Karbon (IDXCarbon)<span class="sr-only"> (membuka situs lain)</span></a>
+          </div>
+        </details>
       </div>
 
-      <div class="slideshow" id="hero-slides" aria-roledescription="carousel" aria-label="Pengumuman terbaru">
-        <!-- Slide diisi JS dari KLH.articles -->
+      <div class="slideshow-wrap">
+        <div class="slideshow" id="hero-slides" aria-roledescription="carousel" aria-label="Pengumuman terbaru">
+          <!-- Slide diisi JS dari KLH.articles -->
+        </div>
+        <div class="slideshow__nav" id="hero-slides-nav">
+          <!-- Panah + dot diisi JS -->
+        </div>
       </div>
     </div>
   </section>
@@ -138,9 +145,9 @@
     <div class="container">
       <div class="section-head">
         <div>
-          <span class="eyebrow">Program Nasional</span>
+          <span class="eyebrow">Program</span>
           <h2 id="prog-title">Program Lingkungan Hidup</h2>
-          <p class="lead">Program nasional dengan jalur partisipasi untuk warga, sekolah, komunitas, dan dunia usaha.</p>
+          <p class="lead">Program lingkungan hidup untuk partisipasi warga, sekolah, komunitas, dan dunia usaha.</p>
         </div>
         <a class="btn btn-outline" href="pages/program/index.html">Semua Program <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></a>
       </div>
@@ -184,14 +191,19 @@
       '<span class="badge bg-orange">' + mod.label + '</span>' +
       '<h3>' + a.title + '</h3>' +
       '<time datetime="' + a.date + '">' + KLH.fmtDate(a.date) + ' · ' + a.author + '</time></a>';
-  }).join('') +
-  '<div class="slideshow__nav" role="tablist" aria-label="Pilih slide">' +
-    top3.map(function (a, i) {
-      return '<button class="slideshow__dot' + (i === 0 ? ' on' : '') + '" role="tab" aria-selected="' + (i === 0) + '" aria-label="Slide ' + (i + 1) + '"></button>';
-    }).join('') + '</div>';
+  }).join('');
+
+  var nav = document.getElementById('hero-slides-nav');
+  nav.innerHTML =
+    '<button class="slideshow__arrow" data-prev aria-label="Slide sebelumnya">' + KLH.iconSVG('chevleft', 'icon icon--sm') + '</button>' +
+    '<div class="slideshow__dots" role="tablist" aria-label="Pilih slide">' +
+      top3.map(function (a, i) {
+        return '<button class="slideshow__dot' + (i === 0 ? ' on' : '') + '" role="tab" aria-selected="' + (i === 0) + '" aria-label="Slide ' + (i + 1) + '"></button>';
+      }).join('') + '</div>' +
+    '<button class="slideshow__arrow" data-next aria-label="Slide berikutnya">' + KLH.iconSVG('chevright', 'icon icon--sm') + '</button>';
 
   var slides = box.querySelectorAll('.slide');
-  var dots = box.querySelectorAll('.slideshow__dot');
+  var dots = nav.querySelectorAll('.slideshow__dot');
   var cur = 0, timer;
   function go(n) {
     slides[cur].classList.remove('on'); slides[cur].setAttribute('tabindex', '-1'); slides[cur].setAttribute('aria-hidden', 'true');
@@ -202,6 +214,8 @@
   }
   function auto() { timer = setInterval(function () { go(cur + 1); }, 6000); }
   dots.forEach(function (d, i) { d.addEventListener('click', function () { clearInterval(timer); go(i); auto(); }); });
+  nav.querySelector('[data-prev]').addEventListener('click', function () { clearInterval(timer); go(cur - 1); auto(); });
+  nav.querySelector('[data-next]').addEventListener('click', function () { clearInterval(timer); go(cur + 1); auto(); });
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) auto();
 
   /* ---- Kolom informasi terkini ---- */
@@ -227,10 +241,10 @@
         (e.jenis === 'hari-besar' ? 'Hari besar lingkungan' : e.jenis === 'agenda' ? 'Agenda kementerian' : 'Libur nasional') + '</span></span></a>';
     }).join('');
 
-  /* ---- Sorotan program (revisi Biro Humas: Adiwiyata & Adipura) ---- */
-  var picks = ['adiwiyata', 'adipura'];
-  document.getElementById('prog-grid').innerHTML = KLH.programs
-    .filter(function (p) { return picks.indexOf(p.slug) > -1; })
+  /* ---- Sorotan program (revisi Biro Humas 2026-08: Adipura & PROPER) ---- */
+  var picks = ['adipura', 'proper'];
+  document.getElementById('prog-grid').innerHTML = picks
+    .map(function (s) { return KLH.programs.find(function (p) { return p.slug === s; }); })
     .map(function (p) {
       var toneCls = p.tone === 'earth' ? ' svc-card__icon--earth' : p.tone === 'sky' ? ' svc-card__icon--sky' : '';
       return '<a class="card svc-card card__body" href="' + KLH.progHref(p) + '" data-reveal>' +

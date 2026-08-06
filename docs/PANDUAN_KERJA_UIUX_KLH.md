@@ -221,7 +221,7 @@ Versi   : tambahkan _v2, _final bila revisi
 - **Menu:** Layanan → Pengaduan & Aspirasi kini SP4N-LAPOR! · Pengaduan LH (e-Gakkum) · Whistleblowing System (URL e-Gakkum & WBS = placeholder pola kemenlh.go.id, perlu konfirmasi URL resmi); SRN PPI & Laboratorium Pusarpedal dihapus dari mega menu + footer Tautan Sistem (masih ada di indeks layanan `layanan.js` — hanya menu yang diminta dihapus).
 - **Informasi terkini:** kolom "Siaran Pers & Pengumuman" → **Siaran Pers** (filter modul siaran-pers saja); +2 siaran pers konten contoh agar kolom terisi (`sp-hari-mangrove`, `sp-kolaborasi-daerah`).
 - **Kartu berita & siaran pers:** meta kini kategori · tanggal · 👍 suka · 💬 komentar (`KLH.likesOf`/`KLH.commentsOf` di content.js — angka dummy menunggu CMS, bisa dioverride per artikel via field `likes`/`comments`); halaman detail menambah "N suka" pada byline.
-- **Program beranda:** eyebrow "Program Nasional", judul "Program Lingkungan Hidup", sorotan Adiwiyata + Adipura (grid 2 kolom).
+- **Program beranda:** eyebrow "Program", judul "Program Lingkungan Hidup", sorotan Adiwiyata + Adipura (grid 2 kolom).
 - **Footer medsos:** deretan ikon Instagram/X/Facebook/YouTube/TikTok (ikon garis baru di icons.js) di kolom brand, di atas baris legal berisi tautan Aksesibilitas — handle medsos contoh, verifikasi sebelum produksi.
 - Verifikasi: Playwright beranda + indeks berita/siaran pers + detail × (1440px + 390px) — **nol error JS**, link-check internal lolos.
 

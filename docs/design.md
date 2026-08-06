@@ -143,7 +143,7 @@ CoreUI Icons (MIT) — kanvas 24×24, gaya garis, `fill: currentColor`. Ikon fun
 
 ## 8. Komponen (Inventori v2)
 
-**Dasar** — Tombol (primary hijau, blue, orange CTA, secondary, outline — hover diisi `--g-50` pada 40% opasitas agar terbaca di latar terang & gelap, ghost, danger; ukuran sm/md/lg; icon-only; loading; disabled) · Badge status · Chip filter · Tag removable · Search bar · Filter panel · Form (input, select, textarea, checkbox, radio, switch; status error/valid; hint perbaikan) · Dropzone unggah + file chip · Alert 4 varian.
+**Dasar** — Tombol (primary hijau, blue, orange CTA, secondary, outline — hover diisi `--g-50` pada 40% opasitas agar terbaca di latar terang & gelap, ghost — hover diisi `--g-50` penuh + border `--g-600` agar perubahan status jelas, danger; ukuran sm/md/lg; icon-only; loading; disabled) · Badge status · Chip filter · Tag removable · Search bar · Filter panel · Form (input, select, textarea, checkbox, radio, switch; status error/valid; hint perbaikan) · Dropzone unggah + file chip · Alert 4 varian.
 
 **Navigasi** — Breadcrumb · Tabs (garis & pill) · Pagination · Stepper (alur permohonan 4 langkah) · Mega menu citizen-centric (3 kolom + panel akses cepat) · Accordion FAQ · User profile dropdown · Tooltip.
 

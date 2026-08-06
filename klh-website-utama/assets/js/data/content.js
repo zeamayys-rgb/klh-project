@@ -192,6 +192,12 @@
         '</div></div>',
         '<p style="font-size:var(--t-xs);color:var(--ink-500);margin-top:var(--s6)">Sumber: <a href="https://kemenlh.go.id/contents/18/Ekonomi-Sirkular" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id">kemenlh.go.id — Ekonomi Sirkular</a></p>'
       ].join('')
+    },
+    {
+      slug: 'sipsn', name: 'SIPSN — Sampah Nasional', icon: 'recycle', tone: 'earth',
+      external: 'https://sampahnasional.kemenlh.go.id/',
+      tagline: 'Sistem Informasi Pengelolaan Sampah Nasional — data timbulan, pengurangan, dan penanganan sampah.',
+      audiens: 'Pemerintah daerah & publik'
     }
   ];
 

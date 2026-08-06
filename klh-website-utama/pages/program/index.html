@@ -33,7 +33,7 @@
         <li aria-current="page">Program</li>
       </ol></nav>
       <span class="eyebrow">Program Lingkungan</span>
-      <h1>Tujuh jalan untuk ikut menjaga bumi</h1>
+      <h1>Delapan jalan untuk ikut menjaga bumi</h1>
       <p class="lead">Bukan sekadar daftar penghargaan — setiap program punya jalur <strong>"Cara Ikut Serta"</strong> untuk warga, sekolah, komunitas, pemerintah daerah, dan dunia usaha.</p>
     </div>
     <span id="hero-leaf"></span>
@@ -64,7 +64,7 @@
   var MAP = {
     kalpataru: ['warga'], proper: ['usaha'], adipura: ['pemda'],
     adiwiyata: ['sekolah'], proklim: ['warga'], 'nirwasita-tantra': ['pemda'],
-    'ekonomi-sirkular': ['usaha', 'warga']
+    'ekonomi-sirkular': ['usaha', 'warga'], sipsn: ['pemda', 'warga']
   };
 
   var box = document.getElementById('prog-list');
@@ -73,12 +73,15 @@
       .filter(function (p) { return f === 'semua' || (MAP[p.slug] || []).indexOf(f) > -1; })
       .map(function (p) {
         var toneCls = p.tone === 'earth' ? ' svc-card__icon--earth' : p.tone === 'sky' ? ' svc-card__icon--sky' : '';
-        return '<a class="card svc-card card__body" href="../../' + KLH.progHref(p) + '" data-reveal>' +
+        var ext = !!p.external;
+        return '<a class="card svc-card card__body" href="' + (ext ? p.external : '../../' + KLH.progHref(p)) + '"' +
+          (ext ? ' target="_blank" rel="noopener noreferrer" data-ext="' + p.name + '"' : '') + ' data-reveal>' +
           '<span class="svc-card__icon' + toneCls + '">' + KLH.iconSVG(p.icon) + '</span>' +
-          '<div><h2 style="font-size:var(--t-h4);margin-bottom:var(--s1)">' + p.name + '</h2>' +
+          '<div><h2 style="font-size:var(--t-h4);margin-bottom:var(--s1)">' + p.name +
+          (ext ? ' <span class="ext-note">' + KLH.iconSVG('external', 'icon').replace('class="icon"', 'class="icon" style="width:13px;height:13px"') + ' situs lain</span>' : '') + '</h2>' +
           '<p>' + p.tagline + '</p></div>' +
           '<div class="meta-row"><span class="badge bg-neutral">' + KLH.iconSVG('people','icon') .replace('class="icon"','class="icon" style="width:12px;height:12px"') + ' ' + p.audiens + '</span></div>' +
-          '<span class="svc-card__foot">Cara ikut serta ' + KLH.iconSVG('arrowright', 'icon icon--sm') + '</span></a>';
+          '<span class="svc-card__foot">' + (ext ? 'Kunjungi situs' : 'Cara ikut serta') + ' ' + KLH.iconSVG('arrowright', 'icon icon--sm') + '</span></a>';
       }).join('') || '<p style="color:var(--ink-500)">Tidak ada program pada saringan ini.</p>';
     Array.prototype.forEach.call(box.querySelectorAll('[data-reveal]'), function (n) { n.classList.add('is-in'); });
   }

@@ -65,9 +65,8 @@
       <aside style="display:grid;gap:var(--gutter)">
         <div class="card card__body--sm" style="padding:var(--s5)" data-reveal>
           <span class="eyebrow">Integritas</span>
-          <p class="badge bg-neutral" style="margin-bottom:var(--s2)">Konten contoh — bukan data pejabat sebenarnya</p>
           <div class="a11y-row" style="border:0;padding-top:0"><span class="lbl">LHKPN<small>Laporan Harta Kekayaan</small></span><span class="badge bg-success"><klh-icon name="check" class="icon" style="width:12px;height:12px"></klh-icon> Lapor 2026</span></div>
-          <div class="a11y-row"><span class="lbl">Verifikasi<small>Basis data KPK</small></span><a class="btn btn-outline btn-sm" href="https://elhkpn.kpk.go.id" target="_blank" rel="noopener noreferrer" data-ext="e-LHKPN KPK">e-LHKPN <klh-icon name="external" class="icon" style="width:13px;height:13px"></klh-icon></a></div>
+          <a class="btn btn-ghost btn-sm" style="margin-top:var(--s3)" href="https://elhkpn.kpk.go.id" target="_blank" rel="noopener noreferrer" data-ext="e-LHKPN KPK">Lihat detil <klh-icon name="arrowright" class="icon icon--sm"></klh-icon><span class="sr-only"> (membuka situs lain)</span></a>
         </div>
         <div class="card card__body--sm" style="padding:var(--s5)" data-reveal>
           <span class="eyebrow">Pejabat lainnya</span>
@@ -95,7 +94,7 @@
     ava.classList.add('ava--photo');
     ava.innerHTML = '<img src="' + KLH_ROOT + p.foto + '" alt="Foto ' + p.nama + '" style="object-position:' + (p.fotoPos || 'center top') + ';' + (p.fotoCss || '') + '">';
   } else {
-    ava.innerHTML = KLH.iconSVG(p.icon, 'icon icon--lg');
+    ava.innerHTML = KLH.iconSVG('user', 'icon').replace('class="icon"', 'class="icon" style="width:56px;height:56px"');
   }
   if (p.bio) document.getElementById('jab-riwayat').innerHTML = p.bio;
   document.getElementById('jab-title').textContent = p.jabatan;

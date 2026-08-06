@@ -62,7 +62,8 @@
               items: [
                 { label: 'PROPER', desc: 'Peringkat kinerja perusahaan', icon: 'factory', href: 'pages/program/proper.html' },
                 { label: 'Program Kampung Iklim', desc: 'Aksi iklim berbasis komunitas', icon: 'sprout', href: 'pages/program/proklim.html' },
-                { label: 'Ekonomi Sirkular', desc: 'Daur ulang & guna ulang', icon: 'recycle', href: 'pages/program/ekonomi-sirkular.html' }
+                { label: 'Ekonomi Sirkular', desc: 'Daur ulang & guna ulang', icon: 'recycle', href: 'pages/program/ekonomi-sirkular.html' },
+                { label: 'SIPSN — Sampah Nasional', desc: 'Data pengelolaan sampah nasional', icon: 'recycle', href: 'https://sampahnasional.kemenlh.go.id/', ext: true }
               ]
             }
           ],
@@ -102,7 +103,7 @@
               more: 'pages/layanan/pengaduan-aspirasi.html',
               items: [
                 { label: 'SP4N-LAPOR!', icon: 'external', href: 'https://kemenlh.lapor.go.id/', ext: true },
-                { label: 'Pengaduan LH (e-Gakkum)', icon: 'external', href: 'https://gakkum.kemenlh.go.id/', ext: true },
+                { label: 'Pengaduan LH (e-Gakkum)', icon: 'external', href: 'https://egakkum.kemenlh.go.id/', ext: true },
                 { label: 'Whistleblowing System', icon: 'external', href: 'https://wbs.kemenlh.go.id/', ext: true }
               ]
             },

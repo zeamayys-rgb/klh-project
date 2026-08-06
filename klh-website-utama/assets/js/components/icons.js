@@ -45,6 +45,7 @@
     arrowleft: '<path d="M20 12H5"/><path d="M10.5 18l-6-6 6-6"/>',
     chevdown: '<path d="M6 9.5l6 6 6-6"/>',
     chevright: '<path d="M9.5 6l6 6-6 6"/>',
+    chevleft: '<path d="M14.5 6l-6 6 6 6"/>',
     menu: '<path d="M4 6.5h16M4 12h16M4 17.5h16"/>',
     close: '<path d="M6 6l12 12M18 6L6 18"/>',
     eye: '<path d="M2.5 12S6 5.8 12 5.8 21.5 12 21.5 12 18 18.2 12 18.2 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/>',

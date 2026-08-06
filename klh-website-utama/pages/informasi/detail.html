@@ -52,6 +52,7 @@
               </div>
             </div>
             <div class="art-share">
+              <button class="btn btn-outline btn-sm" type="button" id="btn-like" aria-pressed="false"><klh-icon name="thumbup" class="icon icon--sm"></klh-icon> <span id="like-label">Suka</span></button>
               <a class="btn btn-outline btn-sm" id="sh-wa" target="_blank" rel="noopener noreferrer" data-ext="WhatsApp"><klh-icon name="speech" class="icon icon--sm"></klh-icon> WhatsApp</a>
               <a class="btn btn-outline btn-sm" id="sh-fb" target="_blank" rel="noopener noreferrer" data-ext="Facebook"><klh-icon name="globe" class="icon icon--sm"></klh-icon> Facebook</a>
               <a class="btn btn-outline btn-sm" id="sh-x" target="_blank" rel="noopener noreferrer" data-ext="X (Twitter)"><klh-icon name="share" class="icon icon--sm"></klh-icon> X</a>
@@ -103,10 +104,6 @@
             <span class="eyebrow">Terbaru lainnya</span>
             <div style="display:grid;gap:var(--s1)" id="a-others"></div>
           </div>
-          <div class="alert alert-info" data-reveal>
-            <klh-icon name="folder" class="icon icon--sm"></klh-icon>
-            <div><strong>Butuh dokumen sumber?</strong>Ajukan melalui <a href="../ppid.html">PPID</a> bila belum dipublikasikan.</div>
-          </div>
         </aside>
       </div>
     </div>
@@ -133,7 +130,18 @@
   document.getElementById('a-author').textContent = a.author;
   document.getElementById('a-avatar').textContent = a.author.split(/\s+/).map(function (w) { return w[0]; }).slice(0, 2).join('').toUpperCase();
   document.getElementById('a-views').textContent = KLH.fmtViews(a.views);
-  document.getElementById('a-likes').textContent = KLH.fmtViews(KLH.likesOf(a));
+  /* Tombol suka — demo, hitungan hanya selama sesi halaman */
+  var likeBtn = document.getElementById('btn-like');
+  var baseLikes = KLH.likesOf(a), liked = false;
+  function paintLikes() {
+    document.getElementById('a-likes').textContent = KLH.fmtViews(baseLikes + (liked ? 1 : 0));
+    document.getElementById('like-label').textContent = liked ? 'Disukai' : 'Suka';
+    likeBtn.setAttribute('aria-pressed', String(liked));
+    likeBtn.classList.toggle('btn-primary', liked);
+    likeBtn.classList.toggle('btn-outline', !liked);
+  }
+  likeBtn.addEventListener('click', function () { liked = !liked; paintLikes(); });
+  paintLikes();
 
   var media = document.getElementById('a-media');
   if (a.img) {
@@ -192,7 +200,13 @@
         '<span>' + x.title + '<small>' + KLH.fmtDate(x.date) + '</small></span></a>';
     }).join('');
 
-  /* Kolom komentar — demo, hanya tersimpan selama sesi */
+  /* Kolom komentar — demo, hanya tersimpan selama sesi.
+     Dokumen resmi (SK & Peraturan Menteri) tidak menerima komentar. */
+  if (a.module === 'sk' || a.module === 'permen') {
+    document.getElementById('komentar').remove();
+    document.querySelector('a[href="#komentar"]').remove();
+    return;
+  }
   var comments = [
     { nama: 'Sari Wulandari', waktu: '2 jam yang lalu', teks: 'Terima kasih infonya. Semoga programnya berlanjut dan warga sekitar terus dilibatkan.' },
     { nama: 'Budi Hartono', waktu: '5 jam yang lalu', teks: 'Apakah ada jadwal kegiatan serupa di wilayah Jawa Timur? Mohon informasinya.' },

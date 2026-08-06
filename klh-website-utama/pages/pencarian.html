@@ -73,7 +73,7 @@
     INDEX.push({
       crumb: 'Program › Program Unggulan',
       title: p.name, text: p.desc || '',
-      href: R + KLH.progHref(p)
+      href: p.external || R + KLH.progHref(p)
     });
   });
 

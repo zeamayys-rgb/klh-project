@@ -32,16 +32,15 @@
               '<ul class="footer-contact" style="margin-top:var(--s5)">' +
                 f.contact.map(function (c) { return '<li>' + ic(c.icon) + '<span>' + c.text + '</span></li>'; }).join('') +
               '</ul>' +
-              '<div class="footer-social">' +
-                (f.socials || []).map(function (s) {
-                  return '<a href="' + s.href + '" target="_blank" rel="noopener noreferrer" data-ext="' + s.label + '" aria-label="' + s.label + ' KLH (membuka situs lain)">' + ic(s.icon) + '</a>';
-                }).join('') +
-              '</div>' +
             '</div>' + cols +
           '</div>' +
+          '<div class="footer-social">' +
+            (f.socials || []).map(function (s) {
+              return '<a href="' + s.href + '" target="_blank" rel="noopener noreferrer" data-ext="' + s.label + '" aria-label="' + s.label + ' KLH (membuka situs lain)">' + ic(s.icon) + '</a>';
+            }).join('') +
+          '</div>' +
           '<div class="footer-bottom">' +
-            '<span class="gov">' + ic('institution') + ' © 2026 Kementerian Lingkungan Hidup / BPLH — Republik Indonesia' +
-              ' <span class="badge bg-neutral" style="margin-left:var(--s3)">Prototipe · konten contoh</span></span>' +
+            '<span class="gov">' + ic('institution') + ' © 2026 Kementerian Lingkungan Hidup / BPLH — Republik Indonesia</span>' +
             '<span>' + f.legal.map(function (l) {
               return '<a href="' + href(l.href) + '" style="margin-left:var(--s4)">' + l.label + '</a>';
             }).join('') + '</span>' +
