@@ -48,6 +48,7 @@
               </div>
               <div class="art-meta">
                 <span><klh-icon name="eye" class="icon" style="width:15px;height:15px;vertical-align:-2px"></klh-icon> <span id="a-views"></span> dilihat</span>
+                <span><klh-icon name="thumbup" class="icon" style="width:15px;height:15px;vertical-align:-2px"></klh-icon> <span id="a-likes"></span> suka</span>
               </div>
             </div>
             <div class="art-share">
@@ -132,6 +133,7 @@
   document.getElementById('a-author').textContent = a.author;
   document.getElementById('a-avatar').textContent = a.author.split(/\s+/).map(function (w) { return w[0]; }).slice(0, 2).join('').toUpperCase();
   document.getElementById('a-views').textContent = KLH.fmtViews(a.views);
+  document.getElementById('a-likes').textContent = KLH.fmtViews(KLH.likesOf(a));
 
   var media = document.getElementById('a-media');
   if (a.img) {

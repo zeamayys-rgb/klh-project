@@ -66,7 +66,13 @@
     grid: '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
     micro: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0012 0"/><path d="M12 17v3.5M9 20.5h6"/>',
     sun: '<circle cx="12" cy="12" r="4"/><path d="M12 3v2.2M12 18.8V21M3 12h2.2M18.8 12H21M5.6 5.6l1.6 1.6M16.8 16.8l1.6 1.6M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6"/>',
-    list: '<path d="M9 6h11M9 12h11M9 18h11"/><path d="M4.5 6h.01M4.5 12h.01M4.5 18h.01"/>'
+    list: '<path d="M9 6h11M9 12h11M9 18h11"/><path d="M4.5 6h.01M4.5 12h.01M4.5 18h.01"/>',
+    thumbup: '<path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3z"/><path d="M7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/>',
+    facebook: '<path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>',
+    instagram: '<rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.2 6.8h.01"/>',
+    x: '<path d="M4 4l6.8 9.5L4.4 20h2.2l5.2-5.6L15.9 20H20l-7.1-9.9L18.9 4h-2.2l-4.8 5.2L8.1 4H4z"/>',
+    youtube: '<path d="M22 8.2a2.8 2.8 0 00-2-2C18.3 5.8 12 5.8 12 5.8s-6.3 0-8 .4a2.8 2.8 0 00-2 2A29 29 0 001.6 12 29 29 0 002 15.8a2.8 2.8 0 002 2c1.7.4 8 .4 8 .4s6.3 0 8-.4a2.8 2.8 0 002-2A29 29 0 0022.4 12 29 29 0 0022 8.2z"/><path d="M9.9 15.1L15.4 12 9.9 8.9v6.2z"/>',
+    tiktok: '<path d="M9.2 12.2a4.3 4.3 0 104.3 4.3V3.5c.6 2.7 2.6 4.7 5.3 5.1"/>'
   };
 
   KLH.iconSVG = function (name, cls) {

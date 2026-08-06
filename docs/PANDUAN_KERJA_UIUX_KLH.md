@@ -215,6 +215,16 @@ Versi   : tambahkan _v2, _final bila revisi
 
 ### LOG DELIVERABLE
 
+**6 Agu 2026 — Revisi M01 dari feedback Kepala Biro Humas (`docs/administrative/Revisi Website KLH.docx`) SELESAI**
+- **Hero beranda:** slider kanan atas kini menampilkan **Pengumuman** (bukan berita); tombol "Lapor Pencemaran" dihapus; tombol "Cek Kualitas Udara & Air" diganti label **Indeks Kualitas Lingkungan Hidup** dengan 3 tautan eksternal: ISPU (udara), Onlimo (air), Bursa Karbon IDXCarbon; deretan quick-link PPID/PTSP/Ikut Program dihapus.
+- **Layanan publik beranda dipangkas jadi 4 kartu:** PTSP Perizinan · Pengaduan Lingkungan Hidup · JDIH · Layanan Lainnya (indeks). Judul section → "Layanan utama untuk Anda".
+- **Menu:** Layanan → Pengaduan & Aspirasi kini SP4N-LAPOR! · Pengaduan LH (e-Gakkum) · Whistleblowing System (URL e-Gakkum & WBS = placeholder pola kemenlh.go.id, perlu konfirmasi URL resmi); SRN PPI & Laboratorium Pusarpedal dihapus dari mega menu + footer Tautan Sistem (masih ada di indeks layanan `layanan.js` — hanya menu yang diminta dihapus).
+- **Informasi terkini:** kolom "Siaran Pers & Pengumuman" → **Siaran Pers** (filter modul siaran-pers saja); +2 siaran pers konten contoh agar kolom terisi (`sp-hari-mangrove`, `sp-kolaborasi-daerah`).
+- **Kartu berita & siaran pers:** meta kini kategori · tanggal · 👍 suka · 💬 komentar (`KLH.likesOf`/`KLH.commentsOf` di content.js — angka dummy menunggu CMS, bisa dioverride per artikel via field `likes`/`comments`); halaman detail menambah "N suka" pada byline.
+- **Program beranda:** eyebrow "Program Nasional", judul "Program Lingkungan Hidup", sorotan Adiwiyata + Adipura (grid 2 kolom).
+- **Footer medsos:** deretan ikon Instagram/X/Facebook/YouTube/TikTok (ikon garis baru di icons.js) di kolom brand, di atas baris legal berisi tautan Aksesibilitas — handle medsos contoh, verifikasi sebelum produksi.
+- Verifikasi: Playwright beranda + indeks berita/siaran pers + detail × (1440px + 390px) — **nol error JS**, link-check internal lolos.
+
 **4 Agu 2026 — Revisi M01 dari review user (lanjutan) SELESAI**
 - **Menu Program flat:** judul section "Penghargaan & Apresiasi" / "Kinerja & Partisipasi" dihapus dari dropdown Program (mega menu desktop + drawer mobile) — renderer navbar.js kini melewati heading bila grup tanpa `title`; menu lain tidak berubah.
 - **Layanan redirect baru:** ISPU — Kualitas Udara → `ispu.kemenlh.go.id/webv5/#/` dan Onlimo — Kualitas Air → `onlimo.kemenlh.go.id/app/` ditambahkan ke mega menu (grup Data, Lab & Pengujian) + kartu halaman `data-lab-pengujian.html` (menggantikan kartu "Pemantauan Kualitas Udara & Air" yang tanpa tautan), pola `ext: true` dengan dialog handoff.

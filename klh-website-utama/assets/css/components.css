@@ -504,6 +504,14 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
 .footer-brand .brand__sub { color: var(--klh-green-300); }
 .footer-contact li { display: flex; gap: var(--s2); font-size: var(--t-sm); align-items: flex-start; }
 .footer-contact .icon--sm { color: var(--klh-green-400); margin-top: 2px; }
+/* Media sosial KLH — target sentuh 44px */
+.footer-social { display: flex; gap: var(--s2); margin-top: var(--s5); flex-wrap: wrap; }
+.footer-social a {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; padding: 0; margin: 0; border-radius: var(--r-md);
+  background: rgba(255,255,255,.08); color: var(--klh-green-200);
+}
+.footer-social a:hover { background: var(--klh-green-600); color: #fff; text-decoration: none; }
 .footer-bottom {
   border-top: 1px solid rgba(255,255,255,.14);
   padding-block: var(--s5);

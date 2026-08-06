@@ -106,7 +106,8 @@
         '<div class="news-card__meta">' +
           '<span class="badge bg-orange">' + (mod ? mod.label : a.module) + '</span>' +
           '<time datetime="' + a.date + '">' + KLH.fmtDate(a.date) + '</time>' +
-          '<span>' + KLH.iconSVG('eye', 'icon') .replace('class="icon"', 'class="icon" style="width:13px;height:13px;vertical-align:-2px"') + ' ' + KLH.fmtViews(a.views) + '</span>' +
+          '<span>' + KLH.iconSVG('thumbup', 'icon').replace('class="icon"', 'class="icon" style="width:13px;height:13px;vertical-align:-2px"') + ' ' + KLH.fmtViews(KLH.likesOf(a)) + '<span class="sr-only"> suka</span></span>' +
+          '<span>' + KLH.iconSVG('speech', 'icon').replace('class="icon"', 'class="icon" style="width:13px;height:13px;vertical-align:-2px"') + ' ' + KLH.commentsOf(a) + '<span class="sr-only"> komentar</span></span>' +
         '</div>' +
         '<' + (opts.h || 'h3') + '>' + a.title + '</' + (opts.h || 'h3') + '>' +
         (opts.excerpt === false ? '' : '<p>' + a.excerpt + '</p>') +

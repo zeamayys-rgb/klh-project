@@ -101,19 +101,17 @@
               col: 2, title: 'Pengaduan & Aspirasi',
               more: 'pages/layanan/pengaduan-aspirasi.html',
               items: [
-                { label: 'Lapor Pencemaran / Kerusakan', icon: 'megaphone', href: 'pages/layanan/pengaduan-aspirasi.html' },
                 { label: 'SP4N-LAPOR!', icon: 'external', href: 'https://kemenlh.lapor.go.id/', ext: true },
-                { label: 'Waste Crisis Center (WCC)', icon: 'external', href: 'https://datastudio.google.com/u/0/reporting/bacbb430-e850-41e4-adce-f6f22a32b4b9/page/p_dt3f9oh6vd', ext: true }
+                { label: 'Pengaduan LH (e-Gakkum)', icon: 'external', href: 'https://gakkum.kemenlh.go.id/', ext: true },
+                { label: 'Whistleblowing System', icon: 'external', href: 'https://wbs.kemenlh.go.id/', ext: true }
               ]
             },
             {
               col: 3, title: 'Data, Lab & Pengujian',
               more: 'pages/layanan/data-lab-pengujian.html',
               items: [
-                { label: 'Laboratorium Pusarpedal', icon: 'external', href: 'http://pusarpedal.kemenlh.go.id/', ext: true },
                 { label: 'ISPU — Kualitas Udara', icon: 'external', href: 'https://ispu.kemenlh.go.id/webv5/#/', ext: true },
                 { label: 'Onlimo — Kualitas Air', icon: 'external', href: 'https://onlimo.kemenlh.go.id/app/', ext: true },
-                { label: 'SRN PPI — Registri Iklim', icon: 'external', href: 'https://srn.kemenlh.go.id', ext: true },
                 { label: 'Bursa Karbon (IDXCarbon)', icon: 'external', href: 'https://idxcarbon.co.id', ext: true }
               ]
             }
@@ -177,6 +175,14 @@
         { icon: 'phone', text: '(021) 8580101 · (021) 8580103' },
         { icon: 'envelope', text: 'layanan@kemenlh.go.id' }
       ],
+      /* Media sosial resmi KLH — tautan contoh, verifikasi handle sebelum produksi */
+      socials: [
+        { icon: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/kementerianlh' },
+        { icon: 'x', label: 'X (Twitter)', href: 'https://x.com/KementerianLH' },
+        { icon: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/kementerianlh' },
+        { icon: 'youtube', label: 'YouTube', href: 'https://www.youtube.com/@kementerianlingkunganhidup' },
+        { icon: 'tiktok', label: 'TikTok', href: 'https://www.tiktok.com/@kementerianlh' }
+      ],
       cols: [
         {
           title: 'Peta Situs',
@@ -207,8 +213,7 @@
             { label: 'LPSE', href: 'https://spse.inaproc.id/kemenlh', ext: true },
             { label: 'SiRUP LKPP', href: 'https://sirup.lkpp.go.id', ext: true },
             { label: 'e-LHKPN KPK', href: 'https://elhkpn.kpk.go.id', ext: true },
-            { label: 'JDIH', href: 'https://jdih.kemenlh.go.id', ext: true },
-            { label: 'SRN PPI', href: 'https://srn.kemenlh.go.id', ext: true }
+            { label: 'JDIH', href: 'https://jdih.kemenlh.go.id', ext: true }
           ]
         }
       ],

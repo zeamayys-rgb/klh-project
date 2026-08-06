@@ -32,6 +32,11 @@
               '<ul class="footer-contact" style="margin-top:var(--s5)">' +
                 f.contact.map(function (c) { return '<li>' + ic(c.icon) + '<span>' + c.text + '</span></li>'; }).join('') +
               '</ul>' +
+              '<div class="footer-social">' +
+                (f.socials || []).map(function (s) {
+                  return '<a href="' + s.href + '" target="_blank" rel="noopener noreferrer" data-ext="' + s.label + '" aria-label="' + s.label + ' KLH (membuka situs lain)">' + ic(s.icon) + '</a>';
+                }).join('') +
+              '</div>' +
             '</div>' + cols +
           '</div>' +
           '<div class="footer-bottom">' +

@@ -28,7 +28,7 @@
     { k: /lapor|cemar|aduan|pengaduan/i, a: 'Untuk melaporkan pencemaran, buka <b>Layanan → Pengaduan & Aspirasi</b>. Anda dapat memilih kanal SP4N-LAPOR! (situs eksternal) atau formulir pengaduan KLH. Setiap laporan diberi nomor tiket agar dapat dilacak.' },
     { k: /ppid|informasi publik|permohonan/i, a: 'Permohonan informasi publik diajukan melalui portal <b>PPID</b>. Anda perlu akun (email aktif), lalu isi formulir bertahap dan lacak statusnya secara real-time.' },
     { k: /izin|oss|ptsp|usaha/i, a: 'Perizinan lingkungan diproses melalui <b>PTSP</b> dan sistem <b>OSS</b> (oss.go.id — situs eksternal). Lihat halaman Layanan → Perizinan & Pengadaan untuk daftar persyaratan.' },
-    { k: /udara|air|kualitas|lab/i, a: 'Data kualitas udara & air dan layanan pengujian tersedia di <b>Layanan → Data, Lab & Pengujian</b> (Laboratorium Pusarpedal).' },
+    { k: /udara|air|kualitas|lab/i, a: 'Indeks Kualitas Lingkungan Hidup tersedia melalui <b>ISPU</b> (pemantauan kualitas udara) dan <b>Onlimo</b> (pemantauan kualitas air) — lihat Layanan → Data, Lab & Pengujian.' },
     { k: /program|proper|adipura|kalpataru|adiwiyata|proklim/i, a: 'Ada 7 program lingkungan yang bisa Anda ikuti — masing-masing punya panduan <b>"Cara Ikut Serta"</b>. Buka menu Program untuk melihat semuanya.' }
   ];
   var BOT_FALLBACK = 'Terima kasih atas pertanyaannya. Saya asisten virtual KLH/BPLH (versi prototipe). Coba kata kunci: <b>lapor pencemaran</b>, <b>PPID</b>, <b>perizinan</b>, atau <b>program</b>. Anda juga dapat memakai pencarian di bagian atas halaman.';

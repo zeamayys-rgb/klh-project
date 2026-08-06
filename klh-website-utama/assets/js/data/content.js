@@ -241,6 +241,20 @@
       body: ['Setelah enam hari operasi intensif, penanganan kebakaran TPA Jatiwaringin, Kabupaten Tangerang menunjukkan hasil signifikan: luas area terbakar berkurang dari sekitar 70 persen menjadi tinggal 3,6 persen berkat kolaborasi pemerintah pusat, daerah, BNPB, TNI, dan Polri. (Siaran Pers No. SR.145/HUMAS/KLH-BPLH/7/2026)', 'Menteri Lingkungan Hidup Moh Jumhur Hidayat mengingatkan pekerjaan belum selesai — cuaca panas masih berpotensi memicu kebakaran kembali, sehingga bupati dan wali kota diminta memperkuat mitigasi dan kesiapsiagaan TPA selama musim kemarau.', 'Penanganan memadukan water bombing, penyiraman, injeksi air ke lapisan bawah timbunan sampah, dan pemadaman darat berkelanjutan; modifikasi cuaca disiapkan saat kondisi atmosfer memungkinkan.']
     },
     {
+      slug: 'sp-hari-mangrove', module: 'siaran-pers', ph: 'ph',
+      icon: 'megaphone', title: 'Siaran Pers: Aksi Serentak Hari Mangrove Sedunia 2026 Dipusatkan di Bali, Seluruh Daerah Diajak Menanam',
+      date: '2026-07-04', views: 2380, author: 'Biro Humas',
+      excerpt: 'KLH mengajak pemerintah daerah, dunia usaha, dan masyarakat mengikuti aksi penanaman mangrove serentak pada 26 Juli 2026. (Konten contoh)',
+      body: ['Kementerian Lingkungan Hidup mengundang seluruh elemen masyarakat mengikuti aksi penanaman mangrove serentak dalam rangka Hari Mangrove Sedunia 2026 bertema "Menjaga Mangrove, Mengamankan Generasi Mendatang", dipusatkan di Bali pada 26 Juli 2026. (Konten contoh — siaran pers prototipe)', 'Pendaftaran rencana kegiatan dilakukan melalui formulir daring hingga 15 Juli 2026. Setiap daerah didorong menyelenggarakan penanaman di wilayah pesisirnya masing-masing.', 'Aksi ini merupakan bagian dari percepatan rehabilitasi ekosistem mangrove nasional serta kontribusi pada target penanaman dua miliar pohon.']
+    },
+    {
+      slug: 'sp-kolaborasi-daerah', module: 'siaran-pers', ph: 'ph--sky',
+      icon: 'megaphone', title: 'Siaran Pers: KLH Perkuat Kolaborasi Pemantauan Kualitas Lingkungan Bersama Pemerintah Daerah',
+      date: '2026-07-01', views: 1875, author: 'Biro Humas',
+      excerpt: 'KLH dan pemerintah daerah memperluas jangkauan pemantauan kualitas udara dan air secara kontinu. (Konten contoh)',
+      body: ['Kementerian Lingkungan Hidup memperkuat kolaborasi dengan pemerintah daerah untuk memperluas jangkauan pemantauan kualitas udara (ISPU) dan kualitas air (Onlimo) secara kontinu. (Konten contoh — siaran pers prototipe)', 'Data pemantauan terintegrasi menjadi dasar Indeks Kualitas Lingkungan Hidup yang dapat diakses publik melalui portal resmi.', 'Pemerintah daerah diminta memastikan keandalan stasiun pemantau serta menindaklanjuti indikasi penurunan kualitas lingkungan di wilayahnya.']
+    },
+    {
       slug: 'kelana-anak-muda', module: 'berita', ph: 'ph--mist', img: 'assets/img/news/kelana-anak-muda.jpg',
       icon: 'people', title: 'KELANA Buktikan Anak Muda Bisa Jadi Penggerak Aksi Lingkungan',
       date: '2026-07-05', views: 2711, author: 'Biro Humas',
@@ -412,6 +426,10 @@
   KLH.fmtViews = function (n) {
     return n >= 1000 ? (n / 1000).toFixed(1).replace('.', ',') + ' rb' : String(n);
   };
+  /* Konten contoh — angka suka & komentar dummy menunggu CMS;
+     bisa dioverride per artikel via field `likes` / `comments`. */
+  KLH.likesOf = function (a) { return a.likes != null ? a.likes : Math.round(a.views * 0.032); };
+  KLH.commentsOf = function (a) { return a.comments != null ? a.comments : 3; };
   KLH.qs = function (key) {
     return new URLSearchParams(location.search).get(key);
   };
