@@ -85,7 +85,7 @@
               col: 1, title: 'Perizinan & Pengadaan',
               more: 'pages/layanan/perizinan-pengadaan.html',
               items: [
-                { label: 'PTSP Lingkungan Hidup', icon: 'institution', href: 'pages/layanan/ptsp.html' },
+                { label: 'Perizinan Lingkungan Hidup (PTSP)', icon: 'institution', href: 'pages/layanan/ptsp.html' },
                 { label: 'OSS — Perizinan Berusaha', icon: 'external', href: 'https://oss.go.id', ext: true },
                 { label: 'LPSE / SiRUP Pengadaan', icon: 'external', href: 'https://spse.inaproc.id/kemenlh', ext: true }
               ]
@@ -94,7 +94,7 @@
               col: 1, title: 'Regulasi & Pembelajaran',
               more: 'pages/layanan/regulasi-pembelajaran.html',
               items: [
-                { label: 'JDIH — Produk Hukum', icon: 'external', href: 'https://jdih.kemenlh.go.id', ext: true },
+                { label: 'Peraturan Lingkungan Hidup (JDIH)', icon: 'external', href: 'https://jdih.kemenlh.go.id', ext: true },
                 { label: 'E-Learning Lingkungan', icon: 'external', href: 'https://p2sdm.kemenlh.go.id/', ext: true }
               ]
             },

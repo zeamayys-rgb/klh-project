@@ -241,8 +241,8 @@
         (e.jenis === 'hari-besar' ? 'Hari besar lingkungan' : e.jenis === 'agenda' ? 'Agenda kementerian' : 'Libur nasional') + '</span></span></a>';
     }).join('');
 
-  /* ---- Sorotan program (revisi Biro Humas 2026-08: Adipura & PROPER) ---- */
-  var picks = ['adipura', 'proper'];
+  /* ---- Sorotan program (revisi Biro Humas 2026-08: + Kalpataru & Adiwiyata) ---- */
+  var picks = ['adipura', 'proper', 'kalpataru', 'adiwiyata'];
   document.getElementById('prog-grid').innerHTML = picks
     .map(function (s) { return KLH.programs.find(function (p) { return p.slug === s; }); })
     .map(function (p) {
