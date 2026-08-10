@@ -233,7 +233,7 @@ a.agenda-item { display: flex; gap: var(--s5); align-items: flex-start; padding:
 .baca-juga a { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .art-tags { display: flex; align-items: center; gap: var(--s2); flex-wrap: wrap; margin-top: var(--s8); padding-top: var(--s5); border-top: 1px solid var(--line); }
 .art-tags .eyebrow { margin: 0; }
-.art-tag { display: inline-flex; align-items: center; min-height: 32px; padding: 0 var(--s3); border: 1px solid var(--line-strong); border-radius: var(--r-pill); font-size: var(--t-xs); font-weight: 600; color: var(--ink-700); background: var(--surface); }
+.art-tag { display: inline-flex; align-items: center; min-height: 32px; padding: 0 var(--s3); border: 1px solid var(--line-strong); border-radius: var(--r-pill); font-size: var(--t-xs); font-weight: 600; color: var(--ink-700); background: var(--surface); text-decoration: none; }
 a.art-tag:hover { border-color: var(--klh-green-600); color: var(--klh-green-700); }
 /* Kolom komentar (demo) */
 .cmt { margin-top: var(--s10); padding-top: var(--s8); border-top: 2px solid var(--line-strong); }
@@ -247,14 +247,27 @@ a.art-tag:hover { border-color: var(--klh-green-600); color: var(--klh-green-700
 .cmt-head strong { font-family: var(--font-display); font-size: var(--t-sm); }
 .cmt-head time { font-size: var(--t-xs); color: var(--ink-500); }
 .cmt-item p { font-size: var(--t-sm); margin-top: 2px; }
-/* Sidebar terpopuler */
+/* Sidebar Terpopuler — nomor peringkat */
 .pop-list { list-style: none; counter-reset: pop; margin: 0; padding: 0; }
 .pop-list li { counter-increment: pop; }
 .pop-list li + li { border-top: 1px solid var(--line); }
-.pop-list a { display: flex; gap: var(--s3); align-items: flex-start; padding-block: var(--s3); font-size: var(--t-sm); font-weight: 600; line-height: var(--lh-snug); color: var(--ink-700); }
-.pop-list a:hover { color: var(--klh-green-700); }
+.pop-list a { display: flex; gap: var(--s3); align-items: flex-start; padding: var(--s3); border-radius: var(--r-sm); font-size: var(--t-sm); font-weight: 600; line-height: var(--lh-snug); color: var(--ink-700); text-decoration: none; }
+.pop-list a:hover { background: var(--klh-green-50); color: var(--klh-green-800); }
 .pop-list a::before { content: counter(pop); flex: none; font-family: var(--font-display); font-weight: 800; font-size: var(--t-h3); line-height: 1; color: var(--klh-green-300); }
 .pop-list small { display: block; font-weight: 400; color: var(--ink-500); margin-top: 2px; }
+/* Sidebar Terbaru lainnya — thumbnail kecil (foto artikel, fallback placeholder ph--*) */
+.samping-item {
+  display: flex; gap: var(--s3); align-items: flex-start;
+  padding: 6px; border-radius: var(--r-sm);
+  font-size: var(--t-sm); font-weight: 600; line-height: var(--lh-snug);
+  color: var(--ink-700); text-decoration: none;
+}
+.samping-item:hover { background: var(--klh-green-50); color: var(--klh-green-800); }
+.samping-item__thumb {
+  flex: none; width: 44px; height: 44px; border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center; color: #fff;
+}
+.samping-item small { display: block; font-weight: 400; color: var(--ink-500); margin-top: 2px; }
 @media (max-width: 1024px) {
   .art-layout { grid-template-columns: minmax(0, 1fr); }
   .art-byline .art-meta { margin-left: 0; width: 100%; }

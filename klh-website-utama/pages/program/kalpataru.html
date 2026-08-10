@@ -54,12 +54,12 @@
 .kal-stat b { font-family: var(--font-mono); font-size: var(--t-h1); line-height: 1.1; color: var(--klh-green-800); }
 .kal-stat span { font-size: var(--t-sm); color: var(--ink-500); font-weight: 500; }
 .kal-bar { display: grid; gap: var(--s3); margin-top: var(--s6); }
-.kal-bar__row { display: grid; grid-template-columns: 170px 1fr 56px; gap: var(--s3); align-items: center; font-size: var(--t-sm); }
+.kal-bar__row { display: grid; grid-template-columns: 170px 1fr 96px; gap: var(--s3); align-items: center; font-size: var(--t-sm); }
 .kal-bar__row .lbl { color: var(--ink-700); font-weight: 500; }
 .kal-bar__row .num { font-family: var(--font-mono); text-align: right; color: var(--klh-green-800); font-weight: 500; }
 .kal-bar__track { height: 22px; border-radius: var(--r-xs); background: var(--klh-green-100); overflow: hidden; }
-.kal-bar__fill { height: 100%; background: linear-gradient(90deg, var(--klh-green-500), var(--klh-green-700)); border-radius: inherit; }
-@media (max-width: 640px) { .kal-bar__row { grid-template-columns: 110px 1fr 48px; } }
+.kal-bar__fill { display: block; height: 100%; background: linear-gradient(90deg, var(--klh-green-500), var(--klh-green-700)); border-radius: inherit; }
+@media (max-width: 640px) { .kal-bar__row { grid-template-columns: 110px 1fr 82px; } }
 
 /* Linimasa sejarah */
 .kal-tl { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
@@ -208,11 +208,12 @@
 
       <div class="card" style="margin-top:var(--gutter)" data-reveal><div class="card__body">
         <h3 style="font-size:var(--t-h4);margin-bottom:var(--s2)">Penerima per kategori</h3>
-        <div class="kal-bar" role="img" aria-label="Grafik batang penerima Kalpataru per kategori: Penyelamat Lingkungan 127, Perintis Lingkungan 126, Pengabdi Lingkungan 103, Pembina Lingkungan 67">
-          <div class="kal-bar__row"><span class="lbl">Penyelamat Lingkungan</span><span class="kal-bar__track"><span class="kal-bar__fill" style="width:100%"></span></span><span class="num">127</span></div>
-          <div class="kal-bar__row"><span class="lbl">Perintis Lingkungan</span><span class="kal-bar__track"><span class="kal-bar__fill" style="width:99.2%"></span></span><span class="num">126</span></div>
-          <div class="kal-bar__row"><span class="lbl">Pengabdi Lingkungan</span><span class="kal-bar__track"><span class="kal-bar__fill" style="width:81.1%"></span></span><span class="num">103</span></div>
-          <div class="kal-bar__row"><span class="lbl">Pembina Lingkungan</span><span class="kal-bar__track"><span class="kal-bar__fill" style="width:52.8%"></span></span><span class="num">67</span></div>
+        <!-- Lebar bar = persentase terhadap total 423, agar proporsi visual cocok dengan angka total di atas -->
+        <div class="kal-bar" role="img" aria-label="Grafik batang penerima Kalpataru per kategori dari total 423: Penyelamat Lingkungan 127 (30 persen), Perintis Lingkungan 126 (29,8 persen), Pengabdi Lingkungan 103 (24,3 persen), Pembina Lingkungan 67 (15,8 persen)">
+          <div class="kal-bar__row"><span class="lbl">Penyelamat Lingkungan</span><span class="kal-bar__track"><span class="kal-bar__fill" style="width:30%"></span></span><span class="num">127 · 30%</span></div>
+          <div class="kal-bar__row"><span class="lbl">Perintis Lingkungan</span><span class="kal-bar__track"><span class="kal-bar__fill" style="width:29.8%"></span></span><span class="num">126 · 29,8%</span></div>
+          <div class="kal-bar__row"><span class="lbl">Pengabdi Lingkungan</span><span class="kal-bar__track"><span class="kal-bar__fill" style="width:24.3%"></span></span><span class="num">103 · 24,3%</span></div>
+          <div class="kal-bar__row"><span class="lbl">Pembina Lingkungan</span><span class="kal-bar__track"><span class="kal-bar__fill" style="width:15.8%"></span></span><span class="num">67 · 15,8%</span></div>
         </div>
       </div></div>
     </div>

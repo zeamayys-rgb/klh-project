@@ -187,14 +187,15 @@
   document.getElementById('a-pop').innerHTML = KLH.articles.slice()
     .sort(function (x, y) { return y.views - x.views; }).slice(0, 5)
     .map(function (x) {
-      return '<li><a href="detail.html?a=' + x.slug + '">' + x.title +
-        '<small>' + KLH.fmtViews(x.views) + ' dilihat</small></a></li>';
+      return '<li><a href="detail.html?a=' + x.slug + '"><span>' + x.title +
+        '<small>' + KLH.fmtViews(x.views) + ' dilihat</small></span></a></li>';
     }).join('');
   document.getElementById('a-others').innerHTML = KLH.articles
     .filter(function (x) { return x.slug !== a.slug; })
     .sort(function (x, y) { return y.date.localeCompare(x.date); }).slice(0, 4)
     .map(function (x) {
-      return '<a class="mega__link" href="detail.html?a=' + x.slug + '">' + KLH.iconSVG(x.icon, 'icon icon--sm') +
+      return '<a class="samping-item" href="detail.html?a=' + x.slug + '">' +
+        '<span class="samping-item__thumb' + KLH.mediaCls(x) + '"' + KLH.mediaStyle(x) + '>' + KLH.mediaIcon(x, 'icon icon--sm') + '</span>' +
         '<span>' + x.title + '<small>' + KLH.fmtDate(x.date) + '</small></span></a>';
     }).join('');
 

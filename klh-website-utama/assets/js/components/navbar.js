@@ -158,30 +158,6 @@
     requestAnimationFrame(clampPanels);
     window.addEventListener('resize', clampPanels);
 
-    /* ---- Animasi garis bawah judul kartu promo (GSAP lokal, ease in-out) ---- */
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      var muatGsap = function (cb) {
-        if (window.gsap) return cb();
-        if (muatGsap.q) return muatGsap.q.push(cb);
-        muatGsap.q = [cb];
-        var s = document.createElement('script');
-        s.src = href('assets/js/vendor/gsap.min.js');
-        s.onload = function () { muatGsap.q.forEach(function (f) { f(); }); muatGsap.q = null; };
-        document.head.appendChild(s);
-      };
-      Array.prototype.forEach.call(el.querySelectorAll('.mega__promo'), function (card) {
-        var garis = card.querySelector('.mega__promo-garis');
-        if (!garis) return;
-        var ke = function (x) {
-          return function () { muatGsap(function () { window.gsap.to(garis, { scaleX: x, duration: .4, ease: 'power2.inOut' }); }); };
-        };
-        card.addEventListener('mouseenter', ke(1));
-        card.addEventListener('mouseleave', ke(0));
-        card.addEventListener('focus', ke(1));
-        card.addEventListener('blur', ke(0));
-      });
-    }
-
     /* ---- Drawer mobile ---- */
     var drawer = el.querySelector('.drawer');
     var burger = el.querySelector('[data-drawer-open]');
