@@ -34,6 +34,9 @@
             <p class="greet__hi">Selamat datang,</p>
             <p class="greet__name" id="nama-akun">Bayu Prakoso</p>
           </div>
+          <button class="btn btn-ghost" type="button" id="btn-keluar" style="margin-left:auto">
+            <klh-icon name="arrowright" class="icon"></klh-icon> Keluar
+          </button>
         </div>
 
         <div class="mini-stat" data-reveal>
@@ -90,6 +93,12 @@
     document.getElementById('nama-akun').textContent = sesi.nama;
     document.getElementById('avatar').textContent = sesi.nama.trim().charAt(0).toUpperCase();
   }
+
+  /* Keluar (demo): hapus sesi lalu kembali ke layar Masuk */
+  document.getElementById('btn-keluar').addEventListener('click', function () {
+    KLH.session.clear();
+    window.location.href = 'masuk.html';
+  });
 
   var data = KLH.ppid.permohonan || [];
   var aktif = data.filter(function (p) { return ['Diterima', 'Verifikasi', 'Diproses'].indexOf(p.status) > -1; }).length;

@@ -30,7 +30,8 @@
       services: [
         { name: 'Pengaduan Lingkungan KLH', icon: 'megaphone', desc: 'Formulir pengaduan resmi kementerian untuk dugaan pencemaran dan/atau kerusakan lingkungan. Dapat dilampiri foto/video.', cta: 'Isi formulir pengaduan' },
         { name: 'SP4N-LAPOR!', icon: 'external', desc: 'Kanal pengaduan nasional lintas instansi. Laporan Anda otomatis diteruskan ke unit yang berwenang.', href: 'https://kemenlh.lapor.go.id/', ext: true },
-        { name: 'Whistleblowing System', icon: 'shield', desc: 'Laporkan dugaan pelanggaran integritas pegawai KLH/BPLH. Kerahasiaan pelapor dijamin.', cta: 'Lapor secara rahasia' }
+        { name: 'Whistleblowing System', icon: 'shield', desc: 'Laporkan dugaan pelanggaran integritas pegawai KLH/BPLH. Kerahasiaan pelapor dijamin.', cta: 'Lapor secara rahasia' },
+        { name: 'Waste Crisis Center (WCC)', icon: 'external', desc: 'Dashboard nasional penanganan krisis sampah — pantau data dan status penanganan secara terbuka.', href: 'https://datastudio.google.com/u/0/reporting/bacbb430-e850-41e4-adce-f6f22a32b4b9/page/p_dt3f9oh6vd', ext: true }
       ],
       steps: {
         title: 'Bagaimana laporan Anda diproses?',

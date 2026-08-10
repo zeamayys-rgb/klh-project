@@ -104,7 +104,8 @@
               items: [
                 { label: 'SP4N-LAPOR!', icon: 'external', href: 'https://kemenlh.lapor.go.id/', ext: true },
                 { label: 'Pengaduan LH (e-Gakkum)', icon: 'external', href: 'https://egakkum.kemenlh.go.id/', ext: true },
-                { label: 'Whistleblowing System', icon: 'external', href: 'https://wbs.kemenlh.go.id/', ext: true }
+                { label: 'Whistleblowing System', icon: 'external', href: 'https://wbs.kemenlh.go.id/', ext: true },
+                { label: 'Waste Crisis Center (WCC)', icon: 'external', href: 'https://datastudio.google.com/u/0/reporting/bacbb430-e850-41e4-adce-f6f22a32b4b9/page/p_dt3f9oh6vd', ext: true }
               ]
             },
             {
@@ -182,7 +183,7 @@
         { icon: 'x', label: 'X (Twitter)', href: 'https://x.com/KementerianLH' },
         { icon: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/kementerianlh' },
         { icon: 'youtube', label: 'YouTube', href: 'https://www.youtube.com/@kementerianlingkunganhidup' },
-        { icon: 'tiktok', label: 'TikTok', href: 'https://www.tiktok.com/@kementerianlh' }
+        { icon: 'tiktok', label: 'TikTok', href: 'https://www.tiktok.com/@kemenlh_bplh' }
       ],
       cols: [
         {
