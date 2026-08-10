@@ -45,7 +45,7 @@
       </div>
 
       <div class="slideshow-wrap">
-        <div class="slideshow" id="hero-slides" aria-roledescription="carousel" aria-label="Pengumuman terbaru">
+        <div class="slideshow" id="hero-slides" aria-roledescription="carousel" aria-label="Informasi terbaru">
           <!-- Slide diisi JS dari KLH.articles -->
         </div>
         <div class="slideshow__nav" id="hero-slides-nav">
@@ -92,7 +92,7 @@
         </a>
         <a class="card svc-card card__body" href="https://jdih.kemenlh.go.id" target="_blank" rel="noopener noreferrer" data-ext="JDIH — Jaringan Dokumentasi dan Informasi Hukum" data-reveal>
           <span class="svc-card__icon"><klh-icon name="scale"></klh-icon></span>
-          <div><h3 style="font-size:var(--t-h4)">Peraturan Lingkungan Hidup (JDIH) <span class="ext-note"><klh-icon name="external" class="icon" style="width:13px;height:13px"></klh-icon> situs lain</span></h3><p>Jaringan dokumentasi &amp; informasi hukum lingkungan.</p></div>
+          <div><h3 style="font-size:var(--t-h4)">Peraturan Lingkungan Hidup (JDIH) <span class="ext-note"><klh-icon name="external" class="icon" style="width:13px;height:13px"></klh-icon><span class="sr-only">membuka situs lain</span></span></h3><p>Jaringan dokumentasi &amp; informasi hukum lingkungan.</p></div>
           <span class="svc-card__foot">Kunjungi situs <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></span>
         </a>
         <a class="card svc-card card__body tonal" style="box-shadow:none" href="pages/layanan/index.html" data-reveal>
@@ -181,14 +181,20 @@
 <script>
 (function () {
   'use strict';
-  /* ---- Slideshow hero dari pengumuman terbaru (revisi Biro Humas 2026-08) ---- */
+  /* ---- Slideshow hero: 5 slide campuran pengumuman, berita & siaran pers (revisi 2026-08) ---- */
   var box = document.getElementById('hero-slides');
-  var top3 = KLH.articles.filter(function (a) { return a.module === 'pengumuman'; }).sort(function (a, b) { return b.date.localeCompare(a.date); }).slice(0, 3);
+  var heroMods = ['pengumuman', 'berita', 'siaran-pers'];
+  var heroBadge = { pengumuman: 'bg-orange', berita: 'bg-info', 'siaran-pers': 'bg-success' };
+  var pool = KLH.articles.filter(function (a) { return heroMods.indexOf(a.module) !== -1; }).sort(function (a, b) { return b.date.localeCompare(a.date); });
+  /* satu slide per kategori dulu agar bervariasi, sisanya diisi yang terbaru */
+  var top3 = heroMods.map(function (m) { return pool.find(function (a) { return a.module === m; }); }).filter(Boolean);
+  pool.forEach(function (a) { if (top3.length < 5 && top3.indexOf(a) === -1) top3.push(a); });
+  top3.sort(function (a, b) { return b.date.localeCompare(a.date); });
   box.innerHTML = top3.map(function (a, i) {
     var mod = KLH.modules.find(function (m) { return m.slug === a.module; });
     return '<a class="slide' + KLH.mediaCls(a) + (i === 0 ? ' on' : '') + '" href="pages/informasi/detail.html?a=' + a.slug + '"' + KLH.mediaStyle(a) + ' ' +
       (i === 0 ? '' : 'tabindex="-1" aria-hidden="true"') + '>' +
-      '<span class="badge bg-orange">' + mod.label + '</span>' +
+      '<span class="badge ' + (heroBadge[a.module] || 'bg-orange') + '">' + mod.label + '</span>' +
       '<h3>' + a.title + '</h3>' +
       '<time datetime="' + a.date + '">' + KLH.fmtDate(a.date) + ' · ' + a.author + '</time></a>';
   }).join('');

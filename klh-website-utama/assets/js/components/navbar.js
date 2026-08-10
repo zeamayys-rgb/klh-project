@@ -38,7 +38,7 @@
     if (p.promo) {
       promo = '<a class="mega__promo" href="' + href(p.promo.href) + '">' + KLH.leafmark() +
         '<span class="eyebrow" style="color:var(--klh-green-300);margin:0">' + p.promo.eyebrow + '</span>' +
-        '<strong>' + p.promo.title + '</strong><p>' + p.promo.desc + '</p>' +
+        '<strong>' + p.promo.title + '<span class="mega__promo-garis" aria-hidden="true"></span></strong><p>' + p.promo.desc + '</p>' +
         '<span class="btn btn--inverse btn-sm" style="align-self:flex-start">' + p.promo.cta + ' ' + ic('arrowright') + '</span></a>';
     }
     return '<div class="mega" role="menu" aria-label="Submenu ' + item.label + '" style="--mega-cols:' + colCount + '">' + colsHtml + promo + '</div>';
@@ -91,8 +91,7 @@
         '<nav class="navbar" aria-label="Navigasi utama"><div class="container">' +
           '<a class="brand" href="' + href('index.html') + '">' +
             '<img class="brand__logo" src="' + href('assets/img/klh-logo.png') + '" alt="" width="44" height="44">' +
-            '<span class="brand__name">KLH <span style="color:var(--klh-green-600)">/</span> BPLH' +
-            '<span class="brand__sub">Kementerian Lingkungan Hidup RI</span></span>' +
+            '<span class="brand__name brand__name--penuh">Kementerian Lingkungan<br>Hidup / Badan Pengendalian<br>Lingkungan Hidup</span>' +
           '</a>' +
           '<ul class="nav-menu">' + navLis + '</ul>' +
           '<form class="nav-search" role="search" action="' + href('pages/pencarian.html') + '" method="get">' +
@@ -158,6 +157,30 @@
     }
     requestAnimationFrame(clampPanels);
     window.addEventListener('resize', clampPanels);
+
+    /* ---- Animasi garis bawah judul kartu promo (GSAP lokal, ease in-out) ---- */
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      var muatGsap = function (cb) {
+        if (window.gsap) return cb();
+        if (muatGsap.q) return muatGsap.q.push(cb);
+        muatGsap.q = [cb];
+        var s = document.createElement('script');
+        s.src = href('assets/js/vendor/gsap.min.js');
+        s.onload = function () { muatGsap.q.forEach(function (f) { f(); }); muatGsap.q = null; };
+        document.head.appendChild(s);
+      };
+      Array.prototype.forEach.call(el.querySelectorAll('.mega__promo'), function (card) {
+        var garis = card.querySelector('.mega__promo-garis');
+        if (!garis) return;
+        var ke = function (x) {
+          return function () { muatGsap(function () { window.gsap.to(garis, { scaleX: x, duration: .4, ease: 'power2.inOut' }); }); };
+        };
+        card.addEventListener('mouseenter', ke(1));
+        card.addEventListener('mouseleave', ke(0));
+        card.addEventListener('focus', ke(1));
+        card.addEventListener('blur', ke(0));
+      });
+    }
 
     /* ---- Drawer mobile ---- */
     var drawer = el.querySelector('.drawer');

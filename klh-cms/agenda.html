@@ -58,9 +58,18 @@
               <span class="errmsg" id="a-judul-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Judul wajib diisi.</span>
             </div>
             <div class="field">
-              <label for="a-tgl">Tanggal <span class="req" aria-hidden="true">*</span></label>
+              <label for="a-tgl">Tanggal mulai <span class="req" aria-hidden="true">*</span></label>
               <input class="input" id="a-tgl" type="date" min="2026-07-01" aria-describedby="a-tgl-err">
-              <span class="errmsg" id="a-tgl-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Pilih tanggal kegiatan.</span>
+              <span class="errmsg" id="a-tgl-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Pilih tanggal mulai kegiatan.</span>
+            </div>
+            <div class="field">
+              <label for="a-tgl-selesai">Tanggal selesai (opsional)</label>
+              <input class="input" id="a-tgl-selesai" type="date" min="2026-07-01" aria-describedby="a-tgl-selesai-err">
+              <span class="errmsg" id="a-tgl-selesai-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Tanggal selesai tidak boleh sebelum tanggal mulai.</span>
+            </div>
+            <div class="field">
+              <label for="a-deskripsi">Deskripsi (opsional)</label>
+              <textarea class="textarea" id="a-deskripsi" rows="3" placeholder="Ringkasan singkat kegiatan / peringatan"></textarea>
             </div>
             <div class="field">
               <label for="a-jenis">Jenis</label>
@@ -109,8 +118,8 @@
   function render() {
     tb.innerHTML = data.map(function (g, i) {
       return '<tr>' +
-        '<td class="mono" style="font-family:var(--font-mono);white-space:nowrap">' + KLH.fmtDate(g.mulai) + '</td>' +
-        '<td><strong>' + g.judul + '</strong></td>' +
+        '<td class="mono" style="font-family:var(--font-mono);white-space:nowrap">' + KLH.fmtDate(g.mulai) + (g.selesai && g.selesai !== g.mulai ? ' – ' + KLH.fmtDate(g.selesai) : '') + '</td>' +
+        '<td><strong>' + g.judul + '</strong>' + (g.deskripsi ? '<br><span style="font-size:var(--t-xs);color:var(--ink-500);font-weight:400">' + g.deskripsi + '</span>' : '') + '</td>' +
         '<td><span class="badge ' + (JB[g.jenis] || 'bg-neutral') + '">' + (JL[g.jenis] || g.jenis) + '</span></td>' +
         '<td>' + g.lokasi + '</td>' +
         '<td>' + KLH.statusBadge(g.status) + '</td>' +
@@ -140,14 +149,18 @@
     e.preventDefault();
     var judul = document.getElementById('a-judul');
     var tgl = document.getElementById('a-tgl');
+    var selesai = document.getElementById('a-tgl-selesai');
     var ok = true;
     ok = setErr('a-judul', !judul.value.trim()) && ok;
     ok = setErr('a-tgl', !tgl.value) && ok;
+    ok = setErr('a-tgl-selesai', selesai.value && tgl.value && selesai.value < tgl.value) && ok;
     if (!ok) { this.querySelector('[aria-invalid="true"]').focus(); return; }
     data.push({
       id: 'AGD-BARU', judul: judul.value.trim(),
       jenis: document.getElementById('a-jenis').value,
       mulai: tgl.value,
+      selesai: selesai.value || '',
+      deskripsi: document.getElementById('a-deskripsi').value.trim(),
       lokasi: document.getElementById('a-lokasi').value.trim() || '—',
       pic: document.getElementById('a-pic').value || '—',
       status: 'review'
