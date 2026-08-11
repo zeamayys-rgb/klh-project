@@ -648,10 +648,59 @@ body.login { background: var(--bg); }
 .rte-bar button:hover { background: var(--surface); color: var(--g-700); }
 .rte-bar .sep { width: 1px; background: var(--line-strong); margin: 4px 4px; }
 .rte-area { border-radius: 0 0 var(--r-sm) var(--r-sm) !important; min-height: 260px; resize: vertical; }
+.rte-bar button[aria-pressed="true"] { background: var(--g-100); color: var(--g-700); }
+.rte-area[contenteditable] { overflow-y: auto; max-height: 60vh; cursor: text; }
+.rte-area[contenteditable]:empty::before { content: attr(data-placeholder); color: var(--ink-300, var(--ink-400)); pointer-events: none; }
+.rte-area h2 { font-size: var(--t-h4); margin: var(--s4) 0 var(--s2); }
+.rte-area h3 { font-size: var(--t-base); margin: var(--s3) 0 var(--s2); }
+.rte-area p { margin: 0 0 var(--s3); }
+.rte-area ul, .rte-area ol { margin: 0 0 var(--s3); padding-left: var(--s6); }
+.rte-area blockquote { margin: 0 0 var(--s3); padding: var(--s2) var(--s4); border-left: 3px solid var(--g-600); background: var(--surface-2); border-radius: 0 var(--r-xs) var(--r-xs) 0; color: var(--ink-500); }
+.rte-area a { color: var(--g-700); text-decoration: underline; }
+.rte-area img { max-width: min(100%, 420px); border-radius: var(--r-sm); display: block; margin: var(--s2) 0 var(--s3); }
+.rte-area table { border-collapse: collapse; width: 100%; margin: var(--s2) 0 var(--s3); font-size: var(--t-sm); }
+.rte-area th, .rte-area td { border: 1px solid var(--line-strong); padding: var(--s2) var(--s3); text-align: left; min-width: 48px; }
+.rte-area th { background: var(--surface-2); font-weight: 600; }
+
+/* ---- Editor: dialog kecil tautan & gambar ---- */
+.rte-dlg { border: 0; border-radius: var(--r-lg); box-shadow: var(--sh-3); padding: var(--s5); width: min(440px, calc(100vw - 48px)); }
+.rte-dlg::backdrop { background: rgba(9, 30, 27, 0.5); }
+.rte-dlg h2 { display: inline-flex; align-items: center; gap: var(--s2); }
 .slug-row { display: flex; align-items: center; gap: var(--s2); font-size: var(--t-xs); color: var(--ink-400); font-family: var(--font-mono); flex-wrap: wrap; }
 .side-panel { display: grid; gap: var(--s5); position: sticky; top: calc(var(--tb-h, 64px) + 16px); }
 @media (max-width: 1100px) { .side-panel { position: static; } }
 .status-now { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); }
+/* ---- Badge deadline lewat tenggat: maroon + teks putih (kontras AA) ---- */
+.badge.bg-maroon { background: #7E1D10; color: #fff; }
+
+/* ---- Header tabel dapat diurutkan (ppid.html) ---- */
+.th-sort {
+  background: none; border: 0; padding: 0; cursor: pointer;
+  font: inherit; font-weight: inherit; color: inherit;
+  text-transform: inherit; letter-spacing: inherit;
+  display: inline-flex; align-items: center; gap: 4px; min-height: 24px;
+}
+.th-sort::after { content: "↕"; opacity: .35; font-size: 11px; }
+th[aria-sort="ascending"] .th-sort::after { content: "↑"; opacity: 1; }
+th[aria-sort="descending"] .th-sort::after { content: "↓"; opacity: 1; }
+.th-sort:hover::after, .th-sort:focus-visible::after { opacity: .8; }
+
+/* ---- Surat perpanjangan PPID (pratinjau + cetak/unduh PDF) ---- */
+.surat { background: #fff; color: #16211E; font-size: 13px; line-height: 1.65; padding: var(--s7); border: 1px solid var(--line); border-radius: var(--r-md); }
+.surat header { text-align: center; border-bottom: 3px double #16211E; padding-bottom: var(--s3); margin-bottom: var(--s5); }
+.surat header strong { display: block; font-family: var(--font-display); font-size: 15px; }
+.surat header small { color: var(--ink-500); }
+.surat .surat-no { display: grid; gap: 2px; margin-bottom: var(--s4); }
+.surat .surat-isi p { margin-bottom: var(--s3); }
+.surat .surat-rincian { margin: var(--s3) 0 var(--s3) var(--s5); display: grid; gap: 4px; }
+.surat .surat-ttd { margin-top: var(--s6); text-align: right; }
+.surat-print { display: none; }
+@media print {
+  body.cetak-surat > :not(.surat-print) { display: none !important; }
+  body.cetak-surat .surat-print { display: block !important; }
+  body.cetak-surat .surat { border: 0; border-radius: 0; padding: 0; }
+}
+
 .alur-list { list-style: none; margin: var(--s3) 0 0; padding: 0; display: grid; gap: 6px; font-size: var(--t-xs); color: var(--ink-400); }
 .alur-list li { display: flex; gap: var(--s2); align-items: center; }
 .alur-list .icon { color: var(--g-500); }
@@ -659,6 +708,14 @@ body.login { background: var(--bg); }
 .foto-pilih button { border: 2px solid transparent; border-radius: var(--r-sm); padding: 0; cursor: pointer; background: none; overflow: hidden; }
 .foto-pilih img { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; border-radius: calc(var(--r-sm) - 2px); }
 .foto-pilih button[aria-pressed="true"] { border-color: var(--g-600); box-shadow: 0 0 0 2px var(--g-100); }
+.thumb-pilih img { aspect-ratio: 300/200; }
+
+/* ---- Editor: dialog pratinjau halaman detail Website Utama ---- */
+.pratinjau-dlg { border: 0; border-radius: var(--r-lg); box-shadow: var(--sh-3); padding: 0; width: min(1100px, calc(100vw - 48px)); height: min(88vh, 900px); overflow: hidden; }
+.pratinjau-dlg::backdrop { background: rgba(9, 30, 27, 0.5); }
+.pratinjau-dlg .pd-head { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); padding: var(--s3) var(--s4); border-bottom: 1px solid var(--line); background: var(--surface); }
+.pratinjau-dlg .pd-head h2 { display: inline-flex; align-items: center; gap: var(--s2); }
+.pratinjau-dlg iframe { width: 100%; height: calc(100% - 53px); border: 0; display: block; background: var(--bg); }
 
 /* ---- Pustaka media ---- */
 .media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: var(--s4); }

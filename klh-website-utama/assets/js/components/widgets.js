@@ -1,6 +1,6 @@
 /* ============================================================
    Widget global persisten (checklist "Lainnya"):
-   1. <klh-widgets> — Chat Bot AI (FAB + panel demo, UR-CHATBOT)
+   1. <klh-widgets> - Chat Bot AI (FAB + panel demo, UR-CHATBOT)
    2. Panel Aksesibilitas (UR-A11Y-02): kontras tinggi + ukuran
       teks (100–200%), tersimpan di localStorage bila tersedia.
    ============================================================ */
@@ -27,9 +27,9 @@
   var BOT_REPLIES = [
     { k: /lapor|cemar|aduan|pengaduan/i, a: 'Untuk melaporkan pencemaran, buka <b>Layanan → Pengaduan & Aspirasi</b>. Anda dapat memilih kanal SP4N-LAPOR! (situs eksternal) atau formulir pengaduan KLH. Setiap laporan diberi nomor tiket agar dapat dilacak.' },
     { k: /ppid|informasi publik|permohonan/i, a: 'Permohonan informasi publik diajukan melalui portal <b>PPID</b>. Anda perlu akun (email aktif), lalu isi formulir bertahap dan lacak statusnya secara real-time.' },
-    { k: /izin|oss|ptsp|usaha/i, a: 'Perizinan lingkungan diproses melalui <b>PTSP</b> dan sistem <b>OSS</b> (oss.go.id — situs eksternal). Lihat halaman Layanan → Perizinan & Pengadaan untuk daftar persyaratan.' },
-    { k: /udara|air|kualitas|lab/i, a: 'Indeks Kualitas Lingkungan Hidup tersedia melalui <b>ISPU</b> (pemantauan kualitas udara) dan <b>Onlimo</b> (pemantauan kualitas air) — lihat Layanan → Data, Lab & Pengujian.' },
-    { k: /program|proper|adipura|kalpataru|adiwiyata|proklim/i, a: 'Ada 7 program lingkungan yang bisa Anda ikuti — masing-masing punya panduan <b>"Cara Ikut Serta"</b>. Buka menu Program untuk melihat semuanya.' }
+    { k: /izin|oss|ptsp|usaha/i, a: 'Perizinan lingkungan diproses melalui <b>PTSP</b> dan sistem <b>OSS</b> (oss.go.id, situs eksternal). Lihat halaman Layanan → Perizinan & Pengadaan untuk daftar persyaratan.' },
+    { k: /udara|air|kualitas|lab/i, a: 'Indeks Kualitas Lingkungan Hidup tersedia melalui <b>ISPU</b> (pemantauan kualitas udara) dan <b>Onlimo</b> (pemantauan kualitas air), lihat Layanan → Data, Lab & Pengujian.' },
+    { k: /program|proper|adipura|kalpataru|adiwiyata|proklim/i, a: 'Ada 7 program lingkungan yang bisa Anda ikuti, masing-masing punya panduan <b>"Cara Ikut Serta"</b>. Buka menu Program untuk melihat semuanya.' }
   ];
   var BOT_FALLBACK = 'Terima kasih atas pertanyaannya. Saya asisten virtual KLH/BPLH (versi prototipe). Coba kata kunci: <b>lapor pencemaran</b>, <b>PPID</b>, <b>perizinan</b>, atau <b>program</b>. Anda juga dapat memakai pencarian di bagian atas halaman.';
 
@@ -69,7 +69,7 @@
         '</div>' +
         '<form class="chat-input"><input type="text" placeholder="Tulis pertanyaan…" aria-label="Tulis pertanyaan untuk asisten">' +
           '<button class="btn btn-primary" type="submit" aria-label="Kirim pesan">' + ic('arrowright', 'icon icon--sm') + '</button></form>' +
-        '<p class="chat-note">Prototipe — jawaban berbasis skenario, belum terhubung RAG.</p>' +
+        '<p class="chat-note">Prototipe, jawaban berbasis skenario, belum terhubung RAG.</p>' +
       '</div>' +
 
       /* --- FAB stack --- */

@@ -1,10 +1,10 @@
 /* ============================================================
-   <klh-navbar active="profil"> — navigasi global
+   <klh-navbar active="profil">, navigasi global
    - Utility bar: SPBE, Aksesibilitas, Bahasa, Masuk
    - Navbar: brand + 4 menu utama (Mega Menu) + PPID + search
    - Mobile (<1024px): hamburger → drawer akordeon (target ≥44px)
    - Keyboard: Enter/Space buka panel, Esc tutup, fokus keluar tutup
-   Data: KLH.menu (assets/js/data/menu.js) — satu sumber kebenaran.
+   Data: KLH.menu (assets/js/data/menu.js), satu sumber kebenaran.
    ============================================================ */
 (function () {
   'use strict';
@@ -83,7 +83,7 @@
           '<span class="utilbar__actions">' +
             '<button type="button" data-a11y-open aria-label="Aksesibilitas">' + ic('access') + '<span class="utilbar__long"> Aksesibilitas</span></button>' +
             '<span class="sep" aria-hidden="true"></span>' +
-            '<button type="button" aria-label="Ganti bahasa — saat ini Bahasa Indonesia">' + ic('translate') + ' ID / EN</button>' +
+            '<button type="button" aria-label="Ganti bahasa (saat ini Bahasa Indonesia)">' + ic('translate') + ' ID / EN</button>' +
             '<span class="sep" aria-hidden="true"></span>' +
             '<a class="utilbtn" href="' + href('pages/ppid.html') + '">' + ic('user') + ' Masuk</a>' +
           '</span>' +
@@ -129,7 +129,7 @@
     megaItems.forEach(function (li) {
       var btn = li.querySelector('.nav-link');
       /* Hover hanya memberi umpan balik visual (abu-abu); panel dibuka lewat
-         KLIK dan tetap terbuka sampai pengguna menutupnya —
+         KLIK dan tetap terbuka sampai pengguna menutupnya -
          klik ulang tombol, klik di luar area dropdown, atau Esc. */
       btn.addEventListener('click', function () {
         var open = li.classList.toggle('open');

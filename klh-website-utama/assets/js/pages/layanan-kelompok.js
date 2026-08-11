@@ -1,10 +1,10 @@
 /* ============================================================
-   layanan-kelompok.js — renderer bersama 4 halaman kelompok
+   layanan-kelompok.js, renderer bersama 4 halaman kelompok
    layanan. Halaman shell hanya menyetel:
      <body data-kelompok="pengaduan-aspirasi">
    Termasuk HANDOFF TRANSPARAN untuk tautan eksternal (Flow A):
    klik tautan ↗ memunculkan dialog "Anda akan diarahkan ke …"
-   — menjawab temuan audit "disorientasi sistem pihak ketiga".
+  , menjawab temuan audit "disorientasi sistem pihak ketiga".
    ============================================================ */
 (function () {
   'use strict';
@@ -15,7 +15,7 @@
     var g = KLH.layanan[slug];
     if (!g) return;
 
-    document.title = g.title + ' — Layanan KLH/BPLH';
+    document.title = g.title + ' | Layanan KLH/BPLH';
 
     /* ---- Hero ---- */
     var hero = document.getElementById('lk-hero');

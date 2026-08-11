@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Detail — Informasi &amp; Publikasi KLH/BPLH</title>
+<title>Detail | Informasi &amp; Publikasi KLH/BPLH</title>
 <meta name="description" content="Detail berita, artikel, dan publikasi KLH/BPLH.">
 <link rel="icon" type="image/png" href="../../assets/img/klh-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,7 +44,7 @@
               <span class="art-avatar" id="a-avatar" aria-hidden="true">·</span>
               <div class="who">
                 <strong>Penulis: <span id="a-author"></span></strong>
-                <span>KLH/BPLH — <time id="a-date"></time> WIB</span>
+                <span>KLH/BPLH · <time id="a-date"></time> WIB</span>
               </div>
               <div class="art-meta">
                 <span><klh-icon name="eye" class="icon" style="width:15px;height:15px;vertical-align:-2px"></klh-icon> <span id="a-views"></span> dilihat</span>
@@ -73,9 +73,15 @@
             <span class="eyebrow">Tag:</span>
           </div>
 
+          <section class="art-galeri" id="galeri" aria-labelledby="gal-h" hidden>
+            <h2 id="gal-h" style="font-size:var(--t-h3)">Galeri Foto (<span id="gal-count">0</span>)</h2>
+            <p class="hint" style="font-size:var(--t-sm);color:var(--ink-500);margin-block:var(--s2) var(--s5)">Konten contoh: pilih foto untuk melihat ukuran besar; gunakan tombol panah untuk berpindah foto.</p>
+            <ul class="gal-grid" id="gal-grid"></ul>
+          </section>
+
           <section class="cmt" id="komentar" aria-labelledby="cmt-h">
             <h2 id="cmt-h" style="font-size:var(--t-h3)">Komentar (<span id="c-count">0</span>)</h2>
-            <p class="hint" style="font-size:var(--t-sm);color:var(--ink-500);margin-block:var(--s2) var(--s5)">Konten contoh — komentar pada prototipe ini hanya tersimpan selama sesi dan tidak dikirim ke server.</p>
+            <p class="hint" style="font-size:var(--t-sm);color:var(--ink-500);margin-block:var(--s2) var(--s5)">Konten contoh: komentar pada prototipe ini hanya tersimpan selama sesi dan tidak dikirim ke server.</p>
             <form id="c-form" novalidate>
               <div class="field" id="f-nama">
                 <label for="c-nama">Nama</label>
@@ -119,7 +125,7 @@
   var a = KLH.articles.find(function (x) { return x.slug === slug; }) || KLH.articles[0];
   var mod = KLH.modules.find(function (m) { return m.slug === a.module; });
 
-  document.title = a.title + ' — KLH/BPLH';
+  document.title = a.title + ' | KLH/BPLH';
   var bcm = document.getElementById('bc-mod-a');
   bcm.textContent = mod.label; bcm.href = 'indeks.html?m=' + mod.slug;
   document.getElementById('bc-current').textContent = a.title.length > 48 ? a.title.slice(0, 48) + '…' : a.title;
@@ -129,7 +135,7 @@
   document.getElementById('a-author').textContent = a.author;
   document.getElementById('a-avatar').textContent = a.author.split(/\s+/).map(function (w) { return w[0]; }).slice(0, 2).join('').toUpperCase();
   document.getElementById('a-views').textContent = KLH.fmtViews(a.views);
-  /* Tombol suka — demo, hitungan hanya selama sesi halaman */
+  /* Tombol suka - demo, hitungan hanya selama sesi halaman */
   var likeBtn = document.getElementById('btn-like');
   var baseLikes = KLH.likesOf(a), liked = false;
   function paintLikes() {
@@ -149,7 +155,7 @@
     media.className += ' ' + a.ph;
     media.innerHTML = KLH.iconSVG(a.icon, 'icon icon--lg');
   }
-  document.getElementById('a-caption').textContent = a.excerpt + ' (Foto: Dok. Biro Humas KLH/BPLH — konten contoh)';
+  document.getElementById('a-caption').textContent = a.excerpt + ' (Foto: Dok. Biro Humas KLH/BPLH, konten contoh)';
 
   /* Isi artikel + sisipan "Baca juga:" ala portal berita setelah paragraf kedua */
   var related = KLH.articles.filter(function (x) { return x.slug !== a.slug && x.module === a.module; });
@@ -162,7 +168,7 @@
   }).join('') +
     (a.module === 'publikasi' || a.module === 'sk' || a.module === 'permen'
       ? '<div class="alert alert-success" style="margin-top:var(--s6)">' + KLH.iconSVG('download', 'icon icon--sm') +
-        '<div><strong>Lampiran dokumen</strong><a href="#">Unduh PDF (contoh — tautan CMS menyusul)</a></div></div>'
+        '<div><strong>Lampiran dokumen</strong><a href="#">Unduh PDF (contoh, tautan CMS menyusul)</a></div></div>'
       : '');
 
   /* Tag topik */
@@ -171,6 +177,91 @@
     ['Lingkungan Hidup', 'KLH/BPLH'].map(function (t) {
       return '<a class="art-tag" href="../pencarian.html?q=' + encodeURIComponent(t) + '">' + t + '</a>';
     }).join('');
+
+  /* Galeri foto - tampil hanya bila artikel punya > 1 foto (konten contoh).
+     Lightbox meminjam pola dialog serah-terima main.js: overlay .drawer,
+     loop fokus, Esc menutup, panah kiri/kanan berpindah foto. */
+  var gal = a.galeri || [];
+  if (gal.length > 1) {
+    var galSec = document.getElementById('galeri');
+    galSec.hidden = false;
+    document.getElementById('gal-count').textContent = gal.length;
+    document.getElementById('gal-grid').innerHTML = gal.map(function (g, i) {
+      return '<li><button class="gal-thumb" type="button" data-gal="' + i + '"' +
+        ' style="background-image:url(' + window.KLH_ROOT + g.img + ')">' +
+        '<span class="gal-thumb__zoom">' + KLH.iconSVG('search', 'icon icon--sm') + '</span>' +
+        '<span class="sr-only">Buka foto ' + (i + 1) + ' dari ' + gal.length + ': ' + g.ket + '</span>' +
+        '</button></li>';
+    }).join('');
+
+    var lb = null, lbIdx = 0, lbTrigger = null;
+    function lbBuild() {
+      lb = document.createElement('div');
+      lb.className = 'drawer gal-lb'; lb.hidden = true;
+      lb.innerHTML =
+        '<div class="drawer__scrim gal-lb__scrim" data-lb-close></div>' +
+        '<div class="gal-lb__box" role="dialog" aria-modal="true" aria-label="Galeri foto">' +
+          '<div class="gal-lb__bar">' +
+            '<span class="gal-lb__count" id="lb-count" aria-live="polite"></span>' +
+            '<button class="btn btn-ghost btn-sm gal-lb__btn" type="button" data-lb-close>' + KLH.iconSVG('close', 'icon icon--sm') + ' Tutup</button>' +
+          '</div>' +
+          '<figure class="gal-lb__stage">' +
+            '<button class="gal-lb__nav gal-lb__nav--prev" type="button" data-lb-prev aria-label="Foto sebelumnya">' + KLH.iconSVG('chevleft', 'icon') + '</button>' +
+            '<img class="gal-lb__img" id="lb-img" alt="">' +
+            '<button class="gal-lb__nav gal-lb__nav--next" type="button" data-lb-next aria-label="Foto berikutnya">' + KLH.iconSVG('chevright', 'icon') + '</button>' +
+            '<figcaption class="gal-lb__cap" id="lb-cap"></figcaption>' +
+          '</figure>' +
+        '</div>';
+      document.body.appendChild(lb);
+      lb.addEventListener('click', function (e) {
+        if (e.target.closest('[data-lb-close]')) lbClose();
+        else if (e.target.closest('[data-lb-prev]')) lbGo(-1);
+        else if (e.target.closest('[data-lb-next]')) lbGo(1);
+      });
+    }
+    function lbPaint() {
+      var g = gal[lbIdx];
+      var img = document.getElementById('lb-img');
+      img.src = window.KLH_ROOT + g.img;
+      img.alt = g.ket;
+      document.getElementById('lb-cap').textContent = g.ket + ' (Foto: Dok. Biro Humas KLH/BPLH, konten contoh)';
+      document.getElementById('lb-count').textContent = 'Foto ' + (lbIdx + 1) + ' dari ' + gal.length;
+    }
+    function lbGo(step) { lbIdx = (lbIdx + step + gal.length) % gal.length; lbPaint(); }
+    function lbOpen(i, trigger) {
+      if (!lb) lbBuild();
+      lbIdx = i; lbTrigger = trigger || null;
+      lbPaint();
+      lb.hidden = false; lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      lb.querySelector('[data-lb-next]').focus();
+    }
+    function lbClose() {
+      if (!lb || lb.hidden) return;
+      lb.hidden = true; lb.classList.remove('open');
+      document.body.style.overflow = '';
+      if (lbTrigger && lbTrigger.focus) lbTrigger.focus();
+      lbTrigger = null;
+    }
+    document.getElementById('gal-grid').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-gal]');
+      if (b) lbOpen(parseInt(b.getAttribute('data-gal'), 10), b);
+    });
+    /* Fase capture + stopPropagation: selaras pola dialog main.js agar Esc
+       tidak ikut menutup komponen lain di belakang lightbox */
+    document.addEventListener('keydown', function (e) {
+      if (!lb || lb.hidden) return;
+      if (e.key === 'Escape') { e.stopPropagation(); lbClose(); return; }
+      if (e.key === 'ArrowLeft') { lbGo(-1); return; }
+      if (e.key === 'ArrowRight') { lbGo(1); return; }
+      if (e.key !== 'Tab') return;
+      var f = lb.querySelectorAll('button');
+      var first = f[0], last = f[f.length - 1];
+      if (!lb.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+      else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }, true);
+  }
 
   /* Bagikan */
   var url = encodeURIComponent(location.href), teks = encodeURIComponent(a.title);
@@ -199,7 +290,7 @@
         '<span>' + x.title + '<small>' + KLH.fmtDate(x.date) + '</small></span></a>';
     }).join('');
 
-  /* Kolom komentar — demo, hanya tersimpan selama sesi.
+  /* Kolom komentar - demo, hanya tersimpan selama sesi.
      Dokumen resmi (SK & Peraturan Menteri) tidak menerima komentar. */
   if (a.module === 'sk' || a.module === 'permen') {
     document.getElementById('komentar').remove();

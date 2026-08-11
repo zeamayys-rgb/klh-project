@@ -32,6 +32,7 @@
         <h1 id="judul-halaman">Tulis Konten Baru</h1>
       </div>
       <div class="aksi">
+        <button class="btn btn-ghost" type="button" id="btn-pratinjau"><klh-icon name="globe" class="icon icon--sm"></klh-icon> Pratinjau</button>
         <button class="btn btn-outline" type="button" id="btn-draf"><klh-icon name="document" class="icon icon--sm"></klh-icon> Simpan draf</button>
         <button class="btn btn-primary" type="button" id="btn-review"><klh-icon name="eye" class="icon icon--sm"></klh-icon> Kirim ke review</button>
       </div>
@@ -57,18 +58,31 @@
             </div>
             <div class="field" style="margin-bottom:0">
               <label for="f-isi">Isi konten <span class="req" aria-hidden="true">*</span></label>
-              <div class="rte-bar" role="toolbar" aria-label="Format teks (demo)">
-                <button type="button" title="Tebal" aria-label="Tebal"><strong>B</strong></button>
-                <button type="button" title="Miring" aria-label="Miring"><em>I</em></button>
+              <div class="rte-bar" role="toolbar" aria-label="Format teks">
+                <button type="button" data-cmd="undo" title="Urungkan (Ctrl+Z)" aria-label="Urungkan"><klh-icon name="arrowleft" class="icon icon--sm"></klh-icon></button>
+                <button type="button" data-cmd="redo" title="Ulangi (Ctrl+Y)" aria-label="Ulangi"><klh-icon name="arrowright" class="icon icon--sm"></klh-icon></button>
                 <span class="sep" aria-hidden="true"></span>
-                <button type="button" title="Judul bagian" aria-label="Judul bagian">H2</button>
-                <button type="button" title="Daftar" aria-label="Daftar butir"><klh-icon name="list" class="icon icon--sm"></klh-icon></button>
-                <button type="button" title="Tautan" aria-label="Sisipkan tautan"><klh-icon name="external" class="icon icon--sm"></klh-icon></button>
-                <button type="button" title="Gambar" aria-label="Sisipkan gambar dari pustaka"><klh-icon name="folder" class="icon icon--sm"></klh-icon></button>
+                <button type="button" data-cmd="bold" title="Tebal (Ctrl+B)" aria-label="Tebal" aria-pressed="false"><strong>B</strong></button>
+                <button type="button" data-cmd="italic" title="Miring (Ctrl+I)" aria-label="Miring" aria-pressed="false"><em>I</em></button>
+                <button type="button" data-cmd="underline" title="Garis bawah (Ctrl+U)" aria-label="Garis bawah" aria-pressed="false"><u>U</u></button>
+                <span class="sep" aria-hidden="true"></span>
+                <button type="button" data-block="h2" title="Judul bagian" aria-label="Judul bagian" aria-pressed="false">H2</button>
+                <button type="button" data-block="h3" title="Anak judul" aria-label="Anak judul" aria-pressed="false">H3</button>
+                <button type="button" data-block="blockquote" title="Kutipan" aria-label="Kutipan" aria-pressed="false">&#8220;&#8221;</button>
+                <span class="sep" aria-hidden="true"></span>
+                <button type="button" data-cmd="insertUnorderedList" title="Daftar butir" aria-label="Daftar butir" aria-pressed="false"><klh-icon name="list" class="icon icon--sm"></klh-icon></button>
+                <button type="button" data-cmd="insertOrderedList" title="Daftar bernomor" aria-label="Daftar bernomor" aria-pressed="false">1.</button>
+                <span class="sep" aria-hidden="true"></span>
+                <button type="button" data-aksi="tautan" title="Sisipkan tautan" aria-label="Sisipkan tautan"><klh-icon name="external" class="icon icon--sm"></klh-icon></button>
+                <button type="button" data-cmd="unlink" title="Hapus tautan" aria-label="Hapus tautan"><klh-icon name="close" class="icon icon--sm"></klh-icon></button>
+                <button type="button" data-aksi="gambar" title="Sisipkan gambar dari pustaka" aria-label="Sisipkan gambar dari pustaka"><klh-icon name="folder" class="icon icon--sm"></klh-icon></button>
+                <button type="button" data-aksi="tabel" title="Sisipkan tabel" aria-label="Sisipkan tabel"><klh-icon name="grid" class="icon icon--sm"></klh-icon></button>
+                <span class="sep" aria-hidden="true"></span>
+                <button type="button" data-cmd="removeFormat" title="Bersihkan format" aria-label="Bersihkan format">T&#215;</button>
               </div>
-              <textarea class="textarea rte-area" id="f-isi" placeholder="Tulis isi konten di sini… (editor teks kaya diintegrasikan tim pengembang)" aria-describedby="f-isi-err"></textarea>
+              <div class="textarea rte-area" id="f-isi" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Isi konten" aria-describedby="f-isi-err" data-placeholder="Tulis isi konten di sini&#8230;"></div>
               <span class="errmsg" id="f-isi-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Isi konten wajib diisi.</span>
-              <p class="hint" style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s2)">Toolbar format bersifat demo — produksi memakai editor teks kaya dengan pemeriksaan aksesibilitas (alt gambar wajib).</p>
+              <p class="hint" style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s2)">Struktur mengikuti penulisan blog/email: judul bagian, daftar, kutipan, tautan, dan gambar dari pustaka (alt otomatis terisi).</p>
             </div>
           </div>
         </section>
@@ -87,6 +101,18 @@
             </div>
           </div>
         </section>
+
+        <section class="panel">
+          <div class="panel__head"><h2>Thumbnail berita</h2><span class="ket">300×200 px</span></div>
+          <div class="panel__body">
+            <div class="dropzone" id="thumb-drop" role="button" tabindex="0" aria-label="Unggah gambar thumbnail — klik atau seret berkas">
+              <div><klh-icon name="download" class="icon icon--lg"></klh-icon><br><strong>Seret berkas ke sini</strong> atau klik untuk memilih<br><span style="font-size:var(--t-xs)">JPG/PNG · 300×200 px · maks 2 MB</span></div>
+            </div>
+            <input type="file" id="thumb-file" accept="image/jpeg,image/png" hidden aria-hidden="true">
+            <p style="font-size:var(--t-xs);color:var(--ink-400);margin:var(--s3) 0 0">Atau pilih dari pustaka media — gambar dipotong otomatis ke rasio 300×200 px:</p>
+            <div class="foto-pilih thumb-pilih" id="thumb-pilih" role="group" aria-label="Pilih thumbnail berita dari pustaka"></div>
+          </div>
+        </section>
       </div>
 
       <!-- ===== Panel samping ===== -->
@@ -102,9 +128,10 @@
             </ul>
             <hr style="border:0;border-top:1px dashed var(--line);margin:var(--s4) 0">
             <div class="field" style="margin-bottom:0">
-              <label for="f-jadwal">Jadwalkan tayang (opsional)</label>
-              <input class="input" id="f-jadwal" type="datetime-local" value="">
-              <p class="hint" style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s2)">Kosongkan untuk tayang segera setelah disetujui.</p>
+              <label for="f-tanggal">Tanggal agenda/kegiatan/berita <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" id="f-tanggal" type="date" aria-describedby="f-tanggal-err">
+              <span class="errmsg" id="f-tanggal-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Tanggal wajib diisi.</span>
+              <p class="hint" style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s2)">Tanggal yang tampil pada berita/agenda di Website Utama.</p>
             </div>
           </div>
         </section>
@@ -135,6 +162,55 @@
       </div>
     </form>
 
+    <dialog class="pratinjau-dlg" id="dlg-pratinjau" aria-label="Pratinjau konten pada halaman detail Website Utama">
+      <div class="pd-head">
+        <h2 style="margin:0;font-size:var(--t-h4)"><klh-icon name="globe" class="icon icon--sm"></klh-icon> Pratinjau — halaman detail Website Utama</h2>
+        <button class="btn btn-ghost btn-sm" type="button" data-tutup aria-label="Tutup pratinjau"><klh-icon name="close" class="icon icon--sm"></klh-icon> Tutup</button>
+      </div>
+      <iframe id="pratinjau-frame" title="Pratinjau berita pada halaman detail Website Utama"></iframe>
+    </dialog>
+
+    <dialog class="rte-dlg" id="dlg-tautan" aria-label="Sisipkan tautan">
+      <h2 style="margin:0 0 var(--s4);font-size:var(--t-h4)"><klh-icon name="external" class="icon icon--sm"></klh-icon> Sisipkan tautan</h2>
+      <div class="field">
+        <label for="f-url">Alamat tautan (URL)</label>
+        <input class="input" id="f-url" type="url" placeholder="https://&#8230;" autocomplete="off">
+        <p class="hint" style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s2)">Tanpa teks terpilih, alamat disisipkan sebagai teks tautan.</p>
+      </div>
+      <div style="display:flex;gap:var(--s3);justify-content:flex-end">
+        <button class="btn btn-ghost" type="button" data-batal>Batal</button>
+        <button class="btn btn-primary" type="button" data-terapkan>Terapkan</button>
+      </div>
+    </dialog>
+
+    <dialog class="rte-dlg" id="dlg-gambar" aria-label="Sisipkan gambar dari pustaka">
+      <h2 style="margin:0 0 var(--s3);font-size:var(--t-h4)"><klh-icon name="folder" class="icon icon--sm"></klh-icon> Sisipkan gambar dari pustaka</h2>
+      <p style="font-size:var(--t-xs);color:var(--ink-400);margin:0 0 var(--s2)">Teks alternatif ikut tersisip dari pustaka media (WCAG).</p>
+      <div class="foto-pilih" id="rte-gambar-pilih" role="group" aria-label="Pilih gambar untuk disisipkan"></div>
+      <div style="display:flex;justify-content:flex-end;margin-top:var(--s4)">
+        <button class="btn btn-ghost" type="button" data-batal>Batal</button>
+      </div>
+    </dialog>
+
+    <dialog class="rte-dlg" id="dlg-tabel" aria-label="Sisipkan tabel">
+      <h2 style="margin:0 0 var(--s4);font-size:var(--t-h4)"><klh-icon name="grid" class="icon icon--sm"></klh-icon> Sisipkan tabel</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)">
+        <div class="field">
+          <label for="f-tb-baris">Baris (isi)</label>
+          <input class="input" id="f-tb-baris" type="number" min="1" max="10" value="3">
+        </div>
+        <div class="field">
+          <label for="f-tb-kolom">Kolom</label>
+          <input class="input" id="f-tb-kolom" type="number" min="1" max="6" value="3">
+        </div>
+      </div>
+      <p class="hint" style="font-size:var(--t-xs);color:var(--ink-400);margin:0 0 var(--s4)">Baris judul ditambahkan otomatis. Klik sel untuk mengisi.</p>
+      <div style="display:flex;gap:var(--s3);justify-content:flex-end">
+        <button class="btn btn-ghost" type="button" data-batal>Batal</button>
+        <button class="btn btn-primary" type="button" data-terapkan>Sisipkan</button>
+      </div>
+    </dialog>
+
     <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — penyimpanan pada prototipe ini bersifat simulasi (tidak permanen).</p>
   </main>
 </div>
@@ -153,11 +229,13 @@
     document.title = 'Sunting ' + art.id + ' — CMS Konten KLH/BPLH';
     document.getElementById('f-judul').value = art.judul;
     document.getElementById('f-ringkas').value = art.ringkas;
-    document.getElementById('f-isi').value = art.ringkas + '\n\n(Isi lengkap artikel — konten contoh prototipe.)';
+    document.getElementById('f-isi').innerHTML =
+      '<p>' + art.ringkas + '</p><h2>Latar belakang</h2><p>(Isi lengkap artikel — konten contoh prototipe.)</p>';
     document.getElementById('f-kategori').value = art.kategori;
     document.getElementById('inf-id').textContent = art.id;
     document.getElementById('inf-penulis').textContent = art.penulis;
     document.getElementById('inf-t').textContent = KLH.fmtDateTime(art.t);
+    document.getElementById('f-tanggal').value = String(art.t).split('T')[0];
     if (art.foto) document.getElementById('f-alt').value = (KLH.cms.media.filter(function (m) { return m.file === art.foto; })[0] || {}).alt || '';
   } else {
     document.getElementById('inf-penulis').textContent = (KLH.session.get() || KLH.cms.admin).nama;
@@ -195,6 +273,192 @@
     if (m) document.getElementById('f-alt').value = m.alt;
   });
 
+  /* ---- Pilih thumbnail berita (200×300) dari pustaka ---- */
+  var thumbWrap = document.getElementById('thumb-pilih');
+  thumbWrap.innerHTML = KLH.cms.media.slice(0, 6).map(function (m) {
+    var on = art && art.foto === m.file;
+    return '<button type="button" aria-pressed="' + on + '" data-f="' + m.file + '" aria-label="Pilih thumbnail: ' + m.alt + '">' +
+      '<img src="assets/img/media/' + m.file + '" alt="" loading="lazy"></button>';
+  }).join('');
+  thumbWrap.addEventListener('click', function (e) {
+    var btn = e.target.closest('button[data-f]');
+    if (!btn) return;
+    Array.prototype.forEach.call(thumbWrap.querySelectorAll('button'), function (b) {
+      b.setAttribute('aria-pressed', String(b === btn));
+    });
+  });
+
+  /* ---- Unggah thumbnail (pratinjau lokal — simulasi, tidak diunggah ke server) ---- */
+  var thumbDrop = document.getElementById('thumb-drop');
+  var thumbFile = document.getElementById('thumb-file');
+  function bukaPilihBerkas() { thumbFile.click(); }
+  thumbDrop.addEventListener('click', bukaPilihBerkas);
+  thumbDrop.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); bukaPilihBerkas(); }
+  });
+  thumbDrop.addEventListener('dragover', function (e) { e.preventDefault(); });
+  thumbDrop.addEventListener('drop', function (e) {
+    e.preventDefault();
+    if (e.dataTransfer.files.length) tampilkanUnggahan(e.dataTransfer.files[0]);
+  });
+  thumbFile.addEventListener('change', function () {
+    if (thumbFile.files.length) tampilkanUnggahan(thumbFile.files[0]);
+  });
+  function tampilkanUnggahan(berkas) {
+    if (!/^image\/(jpeg|png)$/.test(berkas.type)) {
+      KLH.toast('Format tidak didukung — pilih berkas JPG atau PNG.', 'warning'); return;
+    }
+    if (berkas.size > 2 * 1024 * 1024) {
+      KLH.toast('Ukuran berkas melebihi 2 MB.', 'warning'); return;
+    }
+    var lama = thumbWrap.querySelector('button[data-unggah]');
+    if (lama) lama.remove();
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.setAttribute('data-unggah', '');
+    btn.setAttribute('data-f', berkas.name);
+    btn.setAttribute('aria-label', 'Thumbnail unggahan: ' + berkas.name);
+    btn.innerHTML = '<img src="' + URL.createObjectURL(berkas) + '" alt="">';
+    thumbWrap.insertBefore(btn, thumbWrap.firstChild);
+    Array.prototype.forEach.call(thumbWrap.querySelectorAll('button'), function (b) {
+      b.setAttribute('aria-pressed', String(b === btn));
+    });
+    KLH.toast('Thumbnail <strong>' + berkas.name + '</strong> siap dipakai (pratinjau lokal — simulasi).');
+  }
+
+  /* ---- Pratinjau: modal iframe halaman detail Website Utama ---- */
+  var dlgPratinjau = document.getElementById('dlg-pratinjau');
+  var framePratinjau = document.getElementById('pratinjau-frame');
+  document.getElementById('btn-pratinjau').addEventListener('click', function () {
+    framePratinjau.src = '../klh-website-utama/pages/informasi/detail.html?a=' + encodeURIComponent(slug.textContent);
+    dlgPratinjau.showModal();
+  });
+  dlgPratinjau.querySelector('[data-tutup]').addEventListener('click', function () { dlgPratinjau.close(); });
+  dlgPratinjau.addEventListener('close', function () { framePratinjau.src = 'about:blank'; });
+
+  /* ---- Editor teks kaya (contenteditable + execCommand, tanpa dependensi) ---- */
+  var rte = document.getElementById('f-isi');
+  var rteBar = document.querySelector('.rte-bar');
+  try { document.execCommand('defaultParagraphSeparator', false, 'p'); } catch (e) {}
+
+  function seleksiDiEditor() {
+    var sel = window.getSelection();
+    return sel.rangeCount && rte.contains(sel.getRangeAt(0).commonAncestorContainer);
+  }
+  var rangeTersimpan = null;
+  function simpanRange() {
+    var sel = window.getSelection();
+    rangeTersimpan = seleksiDiEditor() ? sel.getRangeAt(0).cloneRange() : null;
+  }
+  function pulihkanRange() {
+    rte.focus();
+    if (!rangeTersimpan) return;
+    var sel = window.getSelection();
+    sel.removeAllRanges(); sel.addRange(rangeTersimpan);
+  }
+
+  /* Jangan curi fokus/seleksi editor saat tombol toolbar diklik */
+  rteBar.addEventListener('mousedown', function (e) {
+    if (e.target.closest('button')) e.preventDefault();
+  });
+  rteBar.addEventListener('click', function (e) {
+    var btn = e.target.closest('button');
+    if (!btn) return;
+    rte.focus();
+    if (btn.hasAttribute('data-cmd')) {
+      document.execCommand(btn.getAttribute('data-cmd'), false, null);
+    } else if (btn.hasAttribute('data-block')) {
+      var tag = btn.getAttribute('data-block');
+      var kini = String(document.queryCommandValue('formatBlock')).toLowerCase();
+      document.execCommand('formatBlock', false, kini === tag ? 'p' : tag);
+    } else if (btn.getAttribute('data-aksi') === 'tautan') {
+      simpanRange();
+      document.getElementById('f-url').value = '';
+      dlgTautan.showModal();
+    } else if (btn.getAttribute('data-aksi') === 'gambar') {
+      simpanRange();
+      dlgGambar.showModal();
+    } else if (btn.getAttribute('data-aksi') === 'tabel') {
+      simpanRange();
+      dlgTabel.showModal();
+    }
+    perbaruiToolbar();
+  });
+
+  /* Status aktif tombol mengikuti posisi kursor (ala Gmail/WordPress) */
+  var CMD_TOGGLE = ['bold', 'italic', 'underline', 'insertUnorderedList', 'insertOrderedList'];
+  function perbaruiToolbar() {
+    if (!seleksiDiEditor()) return;
+    CMD_TOGGLE.forEach(function (c) {
+      var b = rteBar.querySelector('[data-cmd="' + c + '"]');
+      try { b.setAttribute('aria-pressed', String(document.queryCommandState(c))); } catch (e) {}
+    });
+    var blok = String(document.queryCommandValue('formatBlock')).toLowerCase();
+    Array.prototype.forEach.call(rteBar.querySelectorAll('[data-block]'), function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-block') === blok));
+    });
+  }
+  document.addEventListener('selectionchange', perbaruiToolbar);
+
+  /* Dialog tautan */
+  var dlgTautan = document.getElementById('dlg-tautan');
+  dlgTautan.querySelector('[data-batal]').addEventListener('click', function () { dlgTautan.close(); });
+  dlgTautan.querySelector('[data-terapkan]').addEventListener('click', function () {
+    var url = document.getElementById('f-url').value.trim();
+    if (!url) { document.getElementById('f-url').focus(); return; }
+    if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+    dlgTautan.close();
+    pulihkanRange();
+    if (window.getSelection().isCollapsed) {
+      document.execCommand('insertHTML', false, '<a href="' + url + '">' + url + '</a>');
+    } else {
+      document.execCommand('createLink', false, url);
+    }
+  });
+
+  /* Dialog gambar dari pustaka (alt ikut tersisip) */
+  var dlgGambar = document.getElementById('dlg-gambar');
+  var gambarWrap = document.getElementById('rte-gambar-pilih');
+  gambarWrap.innerHTML = KLH.cms.media.slice(0, 6).map(function (m) {
+    return '<button type="button" data-f="' + m.file + '" data-alt="' + m.alt + '" aria-label="Sisipkan: ' + m.alt + '">' +
+      '<img src="assets/img/media/' + m.file + '" alt="" loading="lazy"></button>';
+  }).join('');
+  gambarWrap.addEventListener('click', function (e) {
+    var btn = e.target.closest('button[data-f]');
+    if (!btn) return;
+    dlgGambar.close();
+    pulihkanRange();
+    document.execCommand('insertHTML', false,
+      '<img src="assets/img/media/' + btn.getAttribute('data-f') + '" alt="' + btn.getAttribute('data-alt') + '">');
+  });
+  dlgGambar.querySelector('[data-batal]').addEventListener('click', function () { dlgGambar.close(); });
+
+  /* Dialog tabel (baris × kolom, baris judul otomatis — ala WordPress/Outlook) */
+  var dlgTabel = document.getElementById('dlg-tabel');
+  dlgTabel.querySelector('[data-batal]').addEventListener('click', function () { dlgTabel.close(); });
+  dlgTabel.querySelector('[data-terapkan]').addEventListener('click', function () {
+    var baris = Math.min(Math.max(parseInt(document.getElementById('f-tb-baris').value, 10) || 3, 1), 10);
+    var kolom = Math.min(Math.max(parseInt(document.getElementById('f-tb-kolom').value, 10) || 3, 1), 6);
+    var k, r, html = '<table><thead><tr>';
+    for (k = 1; k <= kolom; k++) html += '<th>Kolom ' + k + '</th>';
+    html += '</tr></thead><tbody>';
+    for (r = 0; r < baris; r++) {
+      html += '<tr>';
+      for (k = 0; k < kolom; k++) html += '<td><br></td>';
+      html += '</tr>';
+    }
+    html += '</tbody></table><p><br></p>';
+    dlgTabel.close();
+    pulihkanRange();
+    document.execCommand('insertHTML', false, html);
+  });
+
+  /* Tempel = teks polos agar bersih dari markup luar (ala editor email) */
+  rte.addEventListener('paste', function (e) {
+    e.preventDefault();
+    document.execCommand('insertText', false, (e.clipboardData || window.clipboardData).getData('text/plain'));
+  });
+
   /* ---- Validasi + aksi simpan (simulasi) ---- */
   function setErr(fid, tampil) {
     var input = document.getElementById(fid);
@@ -208,7 +472,9 @@
   function valid() {
     var ok = true;
     ok = setErr('f-judul', fJudul.value.trim().length < 10) && ok;
-    ok = setErr('f-isi', !document.getElementById('f-isi').value.trim()) && ok;
+    var rteEl = document.getElementById('f-isi');
+    ok = setErr('f-isi', !rteEl.textContent.trim() && !rteEl.querySelector('img')) && ok;
+    ok = setErr('f-tanggal', !document.getElementById('f-tanggal').value) && ok;
     if (!ok) {
       var pertama = document.querySelector('[aria-invalid="true"]');
       if (pertama) pertama.focus();
@@ -222,11 +488,8 @@
   });
   document.getElementById('btn-review').addEventListener('click', function () {
     if (!valid()) return;
-    var jadwal = document.getElementById('f-jadwal').value;
-    status = jadwal ? 'terjadwal' : 'review'; renderStatus();
-    KLH.toast(jadwal
-      ? 'Konten dijadwalkan tayang <strong>' + jadwal.replace('T', ' · ') + '</strong> setelah review (simulasi).'
-      : 'Konten dikirim ke antrean review Editor (simulasi).');
+    status = 'review'; renderStatus();
+    KLH.toast('Konten dikirim ke antrean review Editor (simulasi).');
   });
 })();
 </script>

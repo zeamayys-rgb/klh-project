@@ -35,7 +35,6 @@
 .hero-track-card { background: var(--surface); border-radius: var(--r-xl); box-shadow: var(--sh-3); padding: var(--s8); color: var(--ink-900); }
 .hero-track-card h2 { font-size: var(--t-h3); display: flex; align-items: center; gap: var(--s2); }
 .hero-track-card .icon { color: var(--klh-green-600); }
-.ppid-cat { display: flex; flex-direction: column; gap: var(--s3); padding: var(--s6); height: 100%; }
 .quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gutter); }
 @media (max-width: 1024px) { .quick-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .quick-grid { grid-template-columns: 1fr; } }
@@ -158,9 +157,23 @@
 .dip-toolbar { display: grid; grid-template-columns: 1fr auto; gap: var(--s4); align-items: center; margin-bottom: var(--s5); }
 @media (max-width: 860px) { .dip-toolbar { grid-template-columns: 1fr; } }
 .dip-search { position: relative; max-width: 420px; }
-.dip-search .icon--sm { position: absolute; left: 12px; top: 50%; translate: 0 -50%; color: var(--ink-400); pointer-events: none; }
+.dip-search klh-icon { position: absolute; left: 12px; top: 50%; translate: 0 -50%; color: var(--ink-400); pointer-events: none; }
 .dip-search input { width: 100%; padding: 11px 14px 11px 38px; font: inherit; font-size: var(--t-sm); border: 1.5px solid var(--line-strong); border-radius: var(--r-pill); background: var(--surface); }
 .dip-search input:focus { outline: none; border-color: var(--klh-green-500); box-shadow: 0 0 0 3px var(--klh-green-100); }
+
+/* ---- Daftar informasi gaya kartu (pola PPID Kemendag) ---- */
+.dip-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s3); }
+.dip-item {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s3) var(--s5);
+  align-items: center; border: 1px solid var(--line); border-radius: var(--r-lg);
+  background: var(--surface); padding: var(--s5) var(--s6);
+}
+@media (max-width: 640px) { .dip-item { grid-template-columns: 1fr; } }
+.dip-item__badges { display: flex; flex-wrap: wrap; gap: var(--s2); margin-bottom: var(--s2); }
+.dip-item h3 { font-size: var(--t-body); margin-bottom: var(--s1); }
+.dip-item p { font-size: var(--t-sm); color: var(--ink-500); margin: 0; }
+.dip-item__meta { font-size: var(--t-xs); color: var(--ink-400); margin-top: var(--s2); display: flex; flex-wrap: wrap; gap: var(--s1) var(--s3); }
+.dip-item__aksi { white-space: nowrap; }
 
 /* ============ FAQ — accordion aksesibel ============ */
 .acc { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); overflow: hidden; }

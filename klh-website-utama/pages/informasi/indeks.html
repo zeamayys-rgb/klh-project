@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Informasi &amp; Publikasi — KLH/BPLH</title>
+<title>Informasi &amp; Publikasi | KLH/BPLH</title>
 <meta name="description" content="Indeks berita, siaran pers, pengumuman, artikel, publikasi, dan regulasi KLH/BPLH.">
 <link rel="icon" type="image/png" href="../../assets/img/klh-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -79,7 +79,7 @@
   var mod = KLH.modules.find(function (m) { return m.slug === cur; }) || KLH.modules[0];
   cur = mod.slug;
 
-  document.title = mod.label + ' — Informasi & Publikasi KLH/BPLH';
+  document.title = mod.label + ' | Informasi & Publikasi KLH/BPLH';
   document.getElementById('bc-current').textContent = mod.label;
   document.getElementById('m-title').textContent = mod.label;
   document.getElementById('m-desc').textContent = mod.desc;
@@ -91,7 +91,7 @@
       KLH.iconSVG(m.icon, 'icon icon--sm') + m.label + '</a>';
   }).join('');
 
-  /* Daftar kartu — modul kosong diisi placeholder wajar */
+  /* Daftar kartu - modul kosong diisi placeholder wajar */
   var items = KLH.articles.filter(function (a) { return a.module === cur; });
   var listBox = document.getElementById('m-list');
   var countBox = document.getElementById('m-count');

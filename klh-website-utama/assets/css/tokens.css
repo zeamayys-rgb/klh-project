@@ -1,12 +1,12 @@
 /* ============================================================
-   KLH/BPLH Design Tokens — v2.0
+   KLH/BPLH Design Tokens - v2.0
    Sumber kebenaran tunggal (design.md §4–§6, Design_System_KLH_BPLH_2.html).
    Palet diekstrak dari lambang resmi: Hijau #005952 (primer),
    Biru #147DEF & Oranye #F97910 (sekunder).
    Jangan menulis nilai warna/spasi langsung di komponen.
    ============================================================ */
 :root {
-  /* ---- Hijau KLH — PRIMER (anchor logo di 600) ---- */
+  /* ---- Hijau KLH - PRIMER (anchor logo di 600) ---- */
   --g-50:  #F1F8F8;
   --g-100: #DEF2F1;
   --g-200: #B8EAE6;
@@ -18,8 +18,8 @@
   --g-800: #003631;
   --g-900: #002623;
 
-  /* ---- Biru KLH — SEKUNDER (anchor logo di 500) ----
-     Peran: informasi & data — tautan, visualisasi, elemen informatif.
+  /* ---- Biru KLH - SEKUNDER (anchor logo di 500) ----
+     Peran: informasi & data - tautan, visualisasi, elemen informatif.
      #147DEF hanya utk teks besar/ikon/grafik; teks normal pakai 600+. */
   --b-50:  #EFF5FA;
   --b-100: #DAE8F6;
@@ -32,8 +32,8 @@
   --b-800: #083E77;
   --b-900: #062D56;
 
-  /* ---- Oranye KLH — SEKUNDER (anchor logo di 500) ----
-     Peran: sorotan & energi — aksen garis, notifikasi, CTA kampanye
+  /* ---- Oranye KLH - SEKUNDER (anchor logo di 500) ----
+     Peran: sorotan & energi - aksen garis, notifikasi, CTA kampanye
      (maks ±10% halaman). Jangan teks putih di atas oranye-500. */
   --o-50:  #FCF4EE;
   --o-100: #F9E4D2;
@@ -64,7 +64,7 @@
   --warning: #AE5104;  --warning-bg: #F9E4D2;  --warning-line: #F8C8A0;
   --danger:  #C03A2B;  --danger-bg:  #FBE3E0;  --danger-line:  #EFAFA6;
   --infoc:   #0B529D;  --info-bg:    #DAE8F6;  --info-line:    #B1D0F1;
-  /* Token turunan — pengganti warna mentah di komponen (A1-09) */
+  /* Token turunan - pengganti warna mentah di komponen (A1-09) */
   --danger-700:  #A93226;   /* hover btn-danger */
   --on-orange:   #3A1B02;   /* teks di atas oranye-500 */
   --success-ink: #0A5A3A;   /* teks alert-success */
@@ -129,7 +129,7 @@
 }
 
 /* ============================================================
-   Mode kontras tinggi — [data-contrast="high"] (UR-A11Y-02)
+   Mode kontras tinggi - [data-contrast="high"] (UR-A11Y-02)
    Menggelapkan primer, sekunder, garis & teks (DS v2 §9).
    ============================================================ */
 [data-contrast="high"] {

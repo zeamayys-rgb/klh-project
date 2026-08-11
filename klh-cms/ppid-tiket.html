@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detail Tiket PPID — CMS Konten KLH/BPLH</title>
+<meta name="description" content="Kelola satu tiket PPID: verifikasi, penerusan ke unit terkait, tindak lanjut berkategori, atau penolakan beralasan.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="app">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/cms.js"></script>
+<script src="assets/js/components/cmsshell.js"></script>
+
+<klh-sidebar></klh-sidebar>
+<div class="app-main">
+  <klh-topbar judul="Detail Tiket PPID"></klh-topbar>
+
+  <main id="konten" class="content">
+    <div class="page-head" data-reveal>
+      <div>
+        <a class="btn btn-ghost btn-sm" href="ppid.html" style="margin-bottom:var(--s3)"><klh-icon name="arrowleft" class="icon icon--sm"></klh-icon> Kembali ke Tiket PPID</a>
+        <h1 class="mono" id="h-id" style="font-size:var(--t-h3)">—</h1>
+        <p class="lead" id="h-status"></p>
+      </div>
+    </div>
+
+    <div class="tkt-grid" data-reveal>
+      <div class="tkt-thread">
+        <!-- Detail permohonan -->
+        <section class="panel">
+          <div class="panel__head"><h2>Detail permohonan</h2></div>
+          <div class="panel__body">
+            <ul class="info-list" id="dl-detail"></ul>
+          </div>
+        </section>
+
+        <!-- Hasil tindak lanjut / penolakan (muncul sesuai status) -->
+        <section class="panel" id="pnl-hasil" hidden>
+          <div class="panel__head"><h2 id="hasil-judul">Hasil</h2></div>
+          <div class="panel__body" id="hasil-body"></div>
+        </section>
+
+        <!-- Riwayat proses -->
+        <section class="panel">
+          <div class="panel__head"><h2>Riwayat proses</h2></div>
+          <div class="panel__body">
+            <ol class="timeline" id="tl-riwayat"></ol>
+          </div>
+        </section>
+      </div>
+
+      <aside class="tkt-side">
+        <section class="panel">
+          <div class="panel__head"><h2>Status &amp; aksi</h2></div>
+          <div class="panel__body">
+            <div id="side-status"></div>
+            <ul class="info-list" id="side-deadline"></ul>
+            <div class="tkt-aksi" id="side-aksi"></div>
+            <p class="sub" id="side-ket" style="font-size:var(--t-xs);color:var(--ink-400);margin:0"></p>
+          </div>
+        </section>
+        <section class="panel">
+          <div class="panel__head"><h2>Alur tiket</h2></div>
+          <div class="panel__body">
+            <ul class="alur-list">
+              <li><klh-icon name="inbox" class="icon icon--sm"></klh-icon> Publik mengajukan lewat Portal PPID</li>
+              <li><klh-icon name="eye" class="icon icon--sm"></klh-icon> Humas memverifikasi: tolak / teruskan</li>
+              <li><klh-icon name="send" class="icon icon--sm"></klh-icon> Unit terkait: tindak lanjut / tolak</li>
+              <li><klh-icon name="check" class="icon icon--sm"></klh-icon> Tindak lanjut wajib kategori + tag informasi</li>
+              <li><klh-icon name="lock" class="icon icon--sm"></klh-icon> Dikecualikan → dikirim personal, tidak tayang publik</li>
+            </ul>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <!-- Dialog: teruskan ke unit -->
+    <dialog id="dlg-teruskan" class="card" style="max-width:480px;border:0;border-radius:var(--r-lg);box-shadow:var(--sh-3);padding:var(--s6)">
+      <h2 style="margin-bottom:var(--s2)">Teruskan ke unit terkait</h2>
+      <p style="font-size:var(--t-sm);color:var(--ink-500);margin-bottom:var(--s4)">Tiket berpindah ke unit tujuan untuk ditindaklanjuti atau ditolak dengan alasan.</p>
+      <div class="field">
+        <label for="f-unit">Unit tujuan <span class="req" aria-hidden="true">*</span></label>
+        <select class="select" id="f-unit"></select>
+      </div>
+      <div class="field">
+        <label for="f-catatan">Catatan untuk unit (opsional)</label>
+        <textarea class="textarea" id="f-catatan" rows="3" placeholder="mis. mohon prioritaskan, terkait liputan media"></textarea>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:var(--s2);margin-top:var(--s5)">
+        <button class="btn btn-ghost" type="button" data-tutup>Batal</button>
+        <button class="btn btn-primary" type="button" id="btn-teruskan-ok">Teruskan tiket</button>
+      </div>
+    </dialog>
+
+    <!-- Dialog: tolak (alasan wajib + PDF pendukung opsional) -->
+    <dialog id="dlg-tolak" class="card" style="max-width:520px;border:0;border-radius:var(--r-lg);box-shadow:var(--sh-3);padding:var(--s6)">
+      <h2 style="margin-bottom:var(--s2)">Tolak pengajuan</h2>
+      <p style="font-size:var(--t-sm);color:var(--ink-500);margin-bottom:var(--s4)">Alasan penolakan <strong>wajib diisi</strong> dan dikirim ke pemohon agar jelas dasar penolakannya.</p>
+      <div class="field">
+        <label for="f-alasan">Alasan penolakan <span class="req" aria-hidden="true">*</span></label>
+        <textarea class="textarea" id="f-alasan" rows="4" required aria-describedby="err-alasan" placeholder="mis. informasi termasuk kategori dikecualikan (Pasal 17 UU 14/2008)…"></textarea>
+        <p class="errmsg" id="err-alasan" hidden>Alasan penolakan wajib diisi.</p>
+      </div>
+      <div class="field">
+        <span style="display:block;font-weight:600;font-size:var(--t-sm);margin-bottom:var(--s2)">Dokumen pendukung penolakan (PDF, opsional)</span>
+        <div class="dropzone" role="button" tabindex="0" id="dz-tolak" aria-label="Pilih berkas PDF pendukung penolakan (opsional)">
+          <div><klh-icon name="document" class="icon icon--lg"></klh-icon><br><strong>Pilih berkas</strong> PDF · maks 10 MB</div>
+        </div>
+        <div class="file-list" id="fl-tolak"></div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:var(--s2);margin-top:var(--s5)">
+        <button class="btn btn-ghost" type="button" data-tutup>Batal</button>
+        <button class="btn btn-danger" type="button" id="btn-tolak-ok">Tolak &amp; kirim alasan</button>
+      </div>
+    </dialog>
+
+    <!-- Dialog: tindak lanjut (kategori + tag + output tautan/PDF) -->
+    <dialog id="dlg-tindak" class="card" style="max-width:560px;border:0;border-radius:var(--r-lg);box-shadow:var(--sh-3);padding:var(--s6)">
+      <h2 style="margin-bottom:var(--s2)">Tindak lanjuti tiket</h2>
+      <p style="font-size:var(--t-sm);color:var(--ink-500);margin-bottom:var(--s4)">Tentukan kategori informasi, tag informasi, dan bentuk output jawaban.</p>
+      <div class="field">
+        <label for="f-kategori">Kategori informasi <span class="req" aria-hidden="true">*</span></label>
+        <select class="select" id="f-kategori"></select>
+      </div>
+      <div class="field" id="wrap-tag">
+        <label for="f-tag">Tag informasi <span class="req" aria-hidden="true">*</span></label>
+        <select class="select" id="f-tag"></select>
+      </div>
+      <div class="alert alert-warning" id="note-dik" hidden style="margin-bottom:var(--s4)">
+        <klh-icon name="lock" class="icon icon--sm"></klh-icon>
+        <span>Kategori <strong>dikecualikan</strong>: jawaban tidak tayang di daftar publik — dikirim personal ke akun pemohon.</span>
+      </div>
+      <fieldset class="field" style="border:0;padding:0;margin:0 0 var(--s4)">
+        <legend style="font-weight:600;font-size:var(--t-sm);margin-bottom:var(--s2)">Bentuk output <span class="req" aria-hidden="true">*</span></legend>
+        <div style="display:flex;gap:var(--s5);flex-wrap:wrap">
+          <label style="display:flex;gap:var(--s2);align-items:center;font-size:var(--t-sm);min-height:44px"><input type="radio" name="f-output" value="link" checked> Tautan (berita, program, halaman web)</label>
+          <label style="display:flex;gap:var(--s2);align-items:center;font-size:var(--t-sm);min-height:44px"><input type="radio" name="f-output" value="pdf"> Dokumen PDF terlampir</label>
+        </div>
+      </fieldset>
+      <div class="field" id="wrap-url">
+        <label for="f-url">Alamat tautan <span class="req" aria-hidden="true">*</span></label>
+        <input class="input" id="f-url" type="url" aria-describedby="err-url" placeholder="https://klh.go.id/…">
+        <p class="errmsg" id="err-url" hidden>Alamat tautan wajib diisi.</p>
+      </div>
+      <div class="field" id="wrap-pdf" hidden>
+        <span style="display:block;font-weight:600;font-size:var(--t-sm);margin-bottom:var(--s2)">Dokumen jawaban (PDF) <span class="req" aria-hidden="true">*</span></span>
+        <div class="dropzone" role="button" tabindex="0" id="dz-tindak" aria-label="Pilih berkas PDF jawaban">
+          <div><klh-icon name="document" class="icon icon--lg"></klh-icon><br><strong>Pilih berkas</strong> PDF · maks 10 MB</div>
+        </div>
+        <div class="file-list" id="fl-tindak"></div>
+      </div>
+      <div class="field">
+        <label for="f-tindak-catatan">Catatan / deskripsi tindak lanjut <span style="font-weight:400;color:var(--ink-400)">(opsional)</span></label>
+        <textarea class="textarea" id="f-tindak-catatan" rows="3" placeholder="mis. data disiapkan Pusdatin dari IKLH 2025; mencakup 38 provinsi"></textarea>
+        <p style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s2)">Tercatat di riwayat proses dan dikirim ke pemohon bersama jawaban.</p>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:var(--s2);margin-top:var(--s5)">
+        <button class="btn btn-ghost" type="button" data-tutup>Batal</button>
+        <button class="btn btn-primary" type="button" id="btn-tindak-ok">Simpan tindak lanjut</button>
+      </div>
+    </dialog>
+
+    <!-- Dialog: ubah deadline (fungsi Humas, satuan hari) -->
+    <dialog id="dlg-deadline" class="card" style="max-width:440px;border:0;border-radius:var(--r-lg);box-shadow:var(--sh-3);padding:var(--s6)">
+      <h2 style="margin-bottom:var(--s2)">Ubah deadline</h2>
+      <p style="font-size:var(--t-sm);color:var(--ink-500);margin-bottom:var(--s4)">Sistem men-set deadline umum (bawaan 7 hari, dapat diatur di halaman Tiket PPID) sejak pengajuan. Tim Humas dapat mengubah rentang waktunya di sini.</p>
+      <div class="field">
+        <label for="f-hari">Rentang waktu (hari, sejak tanggal pengajuan) <span class="req" aria-hidden="true">*</span></label>
+        <input class="input" id="f-hari" type="number" min="1" step="1" inputmode="numeric" aria-describedby="err-hari ket-hari">
+        <p class="errmsg" id="err-hari" hidden>Isi jumlah hari yang valid (minimal 1).</p>
+        <p id="ket-hari" style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s2)">Lebih dari deadline umum = proses panjang — <strong>surat perpanjangan</strong> untuk pemohon tersedia otomatis.</p>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:var(--s2);margin-top:var(--s5)">
+        <button class="btn btn-ghost" type="button" data-tutup>Batal</button>
+        <button class="btn btn-primary" type="button" id="btn-deadline-ok">Simpan deadline</button>
+      </div>
+    </dialog>
+
+    <!-- Dialog: surat perpanjangan (pratinjau + unduh PDF) -->
+    <dialog id="dlg-surat" class="card" style="max-width:640px;width:calc(100vw - 48px);border:0;border-radius:var(--r-lg);box-shadow:var(--sh-3);padding:var(--s6)">
+      <h2 style="margin-bottom:var(--s2)">Surat perpanjangan waktu</h2>
+      <p style="font-size:var(--t-sm);color:var(--ink-500);margin-bottom:var(--s4)">Berisi konten pengajuan PPID dan keterangan permintaan perpanjangan waktu — dikirim/diunduh sebagai PDF untuk pemohon.</p>
+      <div id="surat-preview"></div>
+      <div style="display:flex;justify-content:flex-end;gap:var(--s2);margin-top:var(--s5)">
+        <button class="btn btn-ghost" type="button" data-tutup>Tutup</button>
+        <button class="btn btn-primary" type="button" id="btn-surat-unduh"><klh-icon name="download" class="icon icon--sm"></klh-icon> Unduh PDF</button>
+      </div>
+    </dialog>
+
+    <p class="demo-note" style="margin-top:var(--s5)"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — aksi pada prototipe ini bersifat simulasi dan tidak tersimpan permanen.</p>
+  </main>
+</div>
+
+<!-- Target cetak surat (di luar app agar bisa dicetak sendirian) -->
+<div class="surat-print" id="surat-print" aria-hidden="true"></div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var P = KLH.cms.ppid;
+  var tiket = P.tiket.filter(function (t) { return t.id === KLH.qs('id'); })[0] || P.tiket[0];
+  var NOW = KLH.cms.now;
+  var ic = function (n, c) { return KLH.iconSVG(n, c || 'icon icon--sm'); };
+
+  function katLabel(slug) {
+    var k = P.kategori.filter(function (x) { return x.slug === slug; })[0];
+    return k ? k.label : slug;
+  }
+
+  /* ---- Render seluruh halaman dari objek tiket ---- */
+  function render() {
+    document.getElementById('h-id').textContent = tiket.id;
+    document.getElementById('h-status').innerHTML = 'Diajukan ' + KLH.fmtDateTime(tiket.t) + ' oleh <strong>' + tiket.pemohon.nama + '</strong>';
+    document.title = tiket.id + ' — Tiket PPID · CMS Konten KLH/BPLH';
+
+    document.getElementById('dl-detail').innerHTML =
+      '<li><span class="k">Pemohon</span><span class="v"><strong>' + tiket.pemohon.nama + '</strong> · ' + tiket.pemohon.email + '</span></li>' +
+      '<li><span class="k">No. WhatsApp</span><span class="v mono">' + (tiket.pemohon.wa || '—') + '</span></li>' +
+      '<li><span class="k">Informasi yang diminta</span><span class="v">' + tiket.info + '</span></li>' +
+      '<li><span class="k">Tujuan penggunaan</span><span class="v">' + tiket.tujuan + '</span></li>' +
+      '<li><span class="k">Unit terkait</span><span class="v">' + (tiket.unit || '—') + '</span></li>';
+
+    /* Riwayat */
+    document.getElementById('tl-riwayat').innerHTML = tiket.riwayat.map(function (r, i) {
+      var last = i === tiket.riwayat.length - 1;
+      var akhir = tiket.status === 'selesai' || tiket.status === 'ditolak';
+      return '<li class="' + (last && !akhir ? 'now' : 'done') + '">' +
+        '<span class="dot">' + ic(last && (tiket.status === 'ditolak') ? 'close' : 'check', 'icon icon--sm') + '</span>' +
+        '<h4>' + r.label + '</h4>' +
+        '<p style="font-size:var(--t-sm);color:var(--ink-500)">' + r.ket + '</p>' +
+        '<span class="tmeta">' + KLH.fmtDateTime(r.t) + '</span></li>';
+    }).join('');
+
+    /* Panel hasil */
+    var pnl = document.getElementById('pnl-hasil');
+    var hb = document.getElementById('hasil-body');
+    if (tiket.status === 'selesai') {
+      pnl.hidden = false;
+      document.getElementById('hasil-judul').textContent = 'Hasil tindak lanjut';
+      var dik = tiket.kategori === 'dikecualikan';
+      hb.innerHTML =
+        '<ul class="info-list">' +
+          '<li><span class="k">Kategori informasi</span><span class="v"><span class="badge ' + (dik ? 'bg-neutral' : 'bg-brand') + '">' + katLabel(tiket.kategori) + '</span></span></li>' +
+          (tiket.tag ? '<li><span class="k">Tag informasi</span><span class="v"><span class="badge bg-info">' + tiket.tag + '</span></span></li>' : '') +
+          '<li><span class="k">Output</span><span class="v">' + (tiket.output.jenis === 'link'
+            ? ic('external') + ' Tautan — <a href="' + tiket.output.url + '">' + tiket.output.url + '</a>'
+            : ic('document') + ' Dokumen PDF — <span class="mono" style="font-size:var(--t-xs)">' + tiket.output.file + '</span>' + (tiket.output.ukuran ? ' · ' + tiket.output.ukuran : '')) + '</span></li>' +
+          (tiket.catatan ? '<li><span class="k">Catatan tindak lanjut</span><span class="v">' + tiket.catatan + '</span></li>' : '') +
+        '</ul>' +
+        (dik ? '<div class="alert alert-warning" style="margin-top:var(--s4)">' + ic('lock') + '<span>Informasi <strong>dikecualikan</strong> — tidak tayang di daftar publik; jawaban dikirim personal ke akun pemohon (' + tiket.pemohon.email + ').</span></div>'
+             : '<div class="alert alert-success" style="margin-top:var(--s4)">' + ic('check') + '<span>Tayang di daftar informasi publik Portal PPID.</span></div>');
+    } else if (tiket.status === 'ditolak') {
+      pnl.hidden = false;
+      document.getElementById('hasil-judul').textContent = 'Alasan penolakan';
+      hb.innerHTML =
+        '<div class="alert alert-danger">' + ic('warning') + '<span><strong>Ditolak oleh ' + tiket.tolak.oleh + '.</strong> ' + tiket.tolak.alasan + '</span></div>' +
+        (tiket.tolak.dok
+          ? '<div class="file-list"><div class="file-row">' + ic('document') + '<span class="fname">' + tiket.tolak.dok + '</span><span class="fsize">PDF</span></div></div>'
+          : '<p style="font-size:var(--t-sm);color:var(--ink-400);margin-top:var(--s3)">Tanpa dokumen pendukung.</p>') +
+        '<p style="font-size:var(--t-sm);color:var(--ink-500);margin-top:var(--s3)">Alasan dikirim ke pemohon (' + tiket.pemohon.email + '). Pemohon berhak mengajukan keberatan.</p>';
+    } else { pnl.hidden = true; }
+
+    /* Status, deadline & aksi samping */
+    document.getElementById('side-status').innerHTML = KLH.ppidBadge(tiket.status);
+    var aktifT = tiket.status === 'baru' || tiket.status === 'diteruskan';
+    var hari = tiket.deadlineHari || KLH.ppidDefaultHari();
+    document.getElementById('side-deadline').innerHTML =
+      '<li><span class="k">Deadline (' + hari + ' hari sejak pengajuan)</span>' +
+      '<span class="v">' + KLH.fmtDate(KLH.ppidDeadline(tiket)) + ' ' + KLH.deadlineBadge(tiket) + '</span></li>';
+
+    var aksi = document.getElementById('side-aksi');
+    var ket = document.getElementById('side-ket');
+    var btnSurat = hari > KLH.ppidDefaultHari()
+      ? '<button class="btn btn-secondary" type="button" data-buka="dlg-surat">' + ic('document') + ' Surat perpanjangan (PDF)</button>'
+      : '';
+    if (tiket.status === 'baru') {
+      aksi.innerHTML =
+        '<button class="btn btn-primary" type="button" data-buka="dlg-teruskan">' + ic('send') + ' Teruskan ke unit terkait</button>' +
+        '<button class="btn btn-outline btn-danger" type="button" data-buka="dlg-tolak">' + ic('close') + ' Tolak pengajuan</button>' +
+        '<button class="btn btn-ghost" type="button" data-buka="dlg-deadline">' + ic('clock') + ' Ubah deadline</button>' + btnSurat;
+      ket.textContent = 'Tahap verifikasi Humas: teruskan ke unit terkait, atau tolak dengan alasan.';
+    } else if (tiket.status === 'diteruskan') {
+      aksi.innerHTML =
+        '<button class="btn btn-primary" type="button" data-buka="dlg-tindak">' + ic('check') + ' Tindak lanjuti</button>' +
+        '<button class="btn btn-outline btn-danger" type="button" data-buka="dlg-tolak">' + ic('close') + ' Tolak pengajuan</button>' +
+        '<button class="btn btn-ghost" type="button" data-buka="dlg-deadline">' + ic('clock') + ' Ubah deadline</button>' + btnSurat;
+      ket.textContent = 'Tahap unit terkait (' + tiket.unit + '): tindak lanjuti dengan kategori + tag informasi, atau tolak dengan alasan.';
+    } else {
+      aksi.innerHTML = btnSurat;
+      ket.textContent = 'Tiket telah ' + (tiket.status === 'selesai' ? 'selesai ditindaklanjuti.' : 'ditolak — tidak ada aksi lanjutan.');
+    }
+    Array.prototype.forEach.call(aksi.querySelectorAll('[data-buka]'), function (b) {
+      b.addEventListener('click', function () {
+        if (b.getAttribute('data-buka') === 'dlg-surat') isiSurat();
+        if (b.getAttribute('data-buka') === 'dlg-deadline') document.getElementById('f-hari').value = tiket.deadlineHari || KLH.ppidDefaultHari();
+        document.getElementById(b.getAttribute('data-buka')).showModal();
+      });
+    });
+  }
+
+  /* ---- Dialog umum: tombol Batal ---- */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-tutup]'), function (b) {
+    b.addEventListener('click', function () { b.closest('dialog').close(); });
+  });
+
+  /* ---- Dropzone simulasi: klik = "memilih" berkas contoh ---- */
+  function pasangDropzone(dzId, flId, namaFile) {
+    var dz = document.getElementById(dzId);
+    var fl = document.getElementById(flId);
+    function pilih() {
+      fl.innerHTML = '<div class="file-row">' + ic('document') + '<span class="fname">' + namaFile + '</span><span class="fsize">PDF · 1,2 MB</span>' +
+        '<button type="button" aria-label="Hapus berkas">' + ic('close') + '</button></div>';
+      fl.querySelector('button').addEventListener('click', function () { fl.innerHTML = ''; });
+    }
+    dz.addEventListener('click', pilih);
+    dz.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pilih(); } });
+    return function () { return fl.querySelector('.fname') ? fl.querySelector('.fname').textContent : ''; };
+  }
+  var fileTolak = pasangDropzone('dz-tolak', 'fl-tolak', 'dasar-penolakan-' + tiket.id.slice(-6) + '.pdf');
+  var fileTindak = pasangDropzone('dz-tindak', 'fl-tindak', 'jawaban-' + tiket.id.toLowerCase() + '.pdf');
+
+  /* ---- Teruskan ke unit ---- */
+  var selUnit = document.getElementById('f-unit');
+  selUnit.innerHTML = P.unit.map(function (u) { return '<option>' + u + '</option>'; }).join('');
+  document.getElementById('btn-teruskan-ok').addEventListener('click', function () {
+    tiket.status = 'diteruskan';
+    tiket.unit = selUnit.value;
+    var cat = document.getElementById('f-catatan').value.trim();
+    tiket.riwayat.push({ t: NOW, label: 'Diteruskan ke unit terkait', ket: 'Humas meneruskan ke ' + selUnit.value + (cat ? ' — catatan: ' + cat : '') });
+    document.getElementById('dlg-teruskan').close();
+    render();
+  });
+
+  /* ---- Tolak (alasan wajib, PDF opsional) ---- */
+  document.getElementById('btn-tolak-ok').addEventListener('click', function () {
+    var alasan = document.getElementById('f-alasan').value.trim();
+    var err = document.getElementById('err-alasan');
+    if (!alasan) { err.hidden = false; document.getElementById('f-alasan').focus(); return; }
+    err.hidden = true;
+    var oleh = tiket.status === 'baru' ? 'Humas' : ('Unit ' + (tiket.unit || 'terkait'));
+    tiket.status = 'ditolak';
+    tiket.tolak = { oleh: oleh, alasan: alasan, dok: fileTolak() };
+    tiket.riwayat.push({ t: NOW, label: 'Pengajuan ditolak', ket: 'Ditolak ' + oleh + ' — alasan' + (tiket.tolak.dok ? ' & dokumen pendukung' : '') + ' dikirim ke pemohon' });
+    document.getElementById('dlg-tolak').close();
+    render();
+  });
+
+  /* ---- Tindak lanjut: kategori → tag → output ---- */
+  var selKat = document.getElementById('f-kategori');
+  var selTag = document.getElementById('f-tag');
+  selKat.innerHTML = P.kategori.map(function (k) { return '<option value="' + k.slug + '">' + k.label + '</option>'; }).join('');
+  function syncTag() {
+    var k = P.kategori.filter(function (x) { return x.slug === selKat.value; })[0];
+    var dik = selKat.value === 'dikecualikan';
+    document.getElementById('wrap-tag').hidden = dik;
+    document.getElementById('note-dik').hidden = !dik;
+    selTag.innerHTML = (k.tags || []).map(function (t) { return '<option>' + t + '</option>'; }).join('');
+  }
+  selKat.addEventListener('change', syncTag);
+  syncTag();
+
+  var radios = document.querySelectorAll('input[name="f-output"]');
+  function syncOutput() {
+    var jenis = document.querySelector('input[name="f-output"]:checked').value;
+    document.getElementById('wrap-url').hidden = jenis !== 'link';
+    document.getElementById('wrap-pdf').hidden = jenis !== 'pdf';
+  }
+  Array.prototype.forEach.call(radios, function (r) { r.addEventListener('change', syncOutput); });
+  syncOutput();
+
+  document.getElementById('btn-tindak-ok').addEventListener('click', function () {
+    var jenis = document.querySelector('input[name="f-output"]:checked').value;
+    var dik = selKat.value === 'dikecualikan';
+    if (jenis === 'link') {
+      var url = document.getElementById('f-url').value.trim();
+      var errU = document.getElementById('err-url');
+      if (!url) { errU.hidden = false; document.getElementById('f-url').focus(); return; }
+      errU.hidden = true;
+      tiket.output = { jenis: 'link', url: url };
+    } else {
+      tiket.output = { jenis: 'pdf', file: fileTindak() || ('jawaban-' + tiket.id.toLowerCase() + '.pdf'), ukuran: '1,2 MB' };
+    }
+    tiket.status = 'selesai';
+    tiket.kategori = selKat.value;
+    tiket.tag = dik ? '' : selTag.value;
+    tiket.catatan = document.getElementById('f-tindak-catatan').value.trim();
+    tiket.riwayat.push({ t: NOW, label: 'Ditindaklanjuti',
+      ket: (dik
+        ? 'Kategori Dikecualikan — jawaban dikirim personal ke akun pemohon, tidak tayang publik'
+        : 'Kategori ' + katLabel(selKat.value) + ' · tag ' + tiket.tag + ' — ' + (jenis === 'link' ? 'tautan' : 'dokumen PDF') + ' dipublikasikan ke daftar informasi') +
+        (tiket.catatan ? ' — catatan: ' + tiket.catatan : '') });
+    document.getElementById('dlg-tindak').close();
+    render();
+  });
+
+  /* ---- Ubah deadline (Humas, satuan hari) ---- */
+  var inHari = document.getElementById('f-hari');
+  document.getElementById('btn-deadline-ok').addEventListener('click', function () {
+    var n = parseInt(inHari.value, 10);
+    var err = document.getElementById('err-hari');
+    if (!n || n < 1) { err.hidden = false; inHari.focus(); return; }
+    err.hidden = true;
+    tiket.deadlineHari = n;
+    tiket.riwayat.push({ t: NOW, label: n > KLH.ppidDefaultHari() ? 'Deadline diperpanjang' : 'Deadline diubah',
+      ket: 'Humas mengubah deadline menjadi ' + n + ' hari (s.d. ' + KLH.fmtDate(KLH.ppidDeadline(tiket)) + ')' +
+           (n > KLH.ppidDefaultHari() ? ' — surat perpanjangan tersedia untuk pemohon' : '') });
+    document.getElementById('dlg-deadline').close();
+    if (KLH.toast) KLH.toast('Deadline diubah menjadi <strong>' + n + ' hari</strong>' + (n > KLH.ppidDefaultHari() ? ' — surat perpanjangan kini tersedia.' : '.'));
+    render();
+  });
+
+  /* ---- Surat perpanjangan: konten pengajuan + keterangan perpanjangan ---- */
+  function suratHTML() {
+    var hari = tiket.deadlineHari || KLH.ppidDefaultHari();
+    return '<article class="surat">' +
+      '<header><strong>KEMENTERIAN LINGKUNGAN HIDUP / BPLH</strong>' +
+      '<span>Pejabat Pengelola Informasi dan Dokumentasi (PPID)</span><br>' +
+      '<small>Menara Plaza Kuningan, Jl. H.R. Rasuna Said Kav. C11-14, Jakarta Selatan · ppid@kemenlh.go.id</small></header>' +
+      '<div class="surat-no">' +
+        '<span>Nomor: PJ/' + tiket.id + '</span>' +
+        '<span>Perihal: <strong>Pemberitahuan Perpanjangan Waktu Layanan Informasi</strong></span>' +
+      '</div>' +
+      '<div class="surat-isi">' +
+        '<p>Kepada Yth. <strong>' + tiket.pemohon.nama + '</strong> (' + tiket.pemohon.email + (tiket.pemohon.wa ? ' · WA ' + tiket.pemohon.wa : '') + ')</p>' +
+        '<p>Merujuk pengajuan informasi publik yang kami terima melalui Portal PPID Online:</p>' +
+        '<div class="surat-rincian">' +
+          '<span>Nomor pengajuan&nbsp;: <strong class="mono">' + tiket.id + '</strong></span>' +
+          '<span>Tanggal pengajuan&nbsp;: ' + KLH.fmtDateTime(tiket.t) + '</span>' +
+          '<span>Informasi diminta&nbsp;: ' + tiket.info + '</span>' +
+          '<span>Tujuan penggunaan&nbsp;: ' + tiket.tujuan + '</span>' +
+        '</div>' +
+        '<p>dengan ini kami memberitahukan bahwa jangka waktu pemenuhan permohonan tersebut ' +
+        '<strong>diperpanjang dari ' + KLH.ppidDefaultHari() + ' hari menjadi ' + hari + ' hari</strong> (sampai dengan ' +
+        KLH.fmtDate(KLH.ppidDeadline(tiket)) + '), sesuai ketentuan perpanjangan waktu Perki No. 1 Tahun 2021, ' +
+        'karena informasi yang dimohonkan memerlukan koordinasi lebih lanjut dengan unit terkait.</p>' +
+        '<p>Demikian pemberitahuan ini kami sampaikan. Terima kasih atas pengertian Anda.</p>' +
+      '</div>' +
+      '<div class="surat-ttd"><p>Jakarta, ' + KLH.fmtDate(NOW) + '<br><br><br><strong>Atasan PPID KLH/BPLH</strong><br><small>(dokumen contoh — prototipe)</small></p></div>' +
+    '</article>';
+  }
+  function isiSurat() {
+    document.getElementById('surat-preview').innerHTML = suratHTML();
+  }
+  document.getElementById('btn-surat-unduh').addEventListener('click', function () {
+    document.getElementById('surat-print').innerHTML = suratHTML();
+    document.body.classList.add('cetak-surat');
+    window.print();
+    document.body.classList.remove('cetak-surat');
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

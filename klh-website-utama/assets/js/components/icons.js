@@ -1,5 +1,5 @@
 /* ============================================================
-   KLH Icons — registry SVG garis 24×24 (stroke 1.8, currentColor)
+   KLH Icons, registry SVG garis 24×24 (stroke 1.8, currentColor)
    Pemakaian: <klh-icon name="leaf" class="icon"></klh-icon>
    Ikon dekoratif otomatis aria-hidden; beri atribut `label`
    untuk ikon fungsional (menghasilkan role="img" + aria-label).
@@ -91,7 +91,7 @@
     this.style.flex = 'none';
     this.innerHTML = KLH.iconSVG(name, cls);
     this.removeAttribute('class');
-    /* Ukuran inline pada host (mis. style="width:13px") diteruskan ke svg —
+    /* Ukuran inline pada host (mis. style="width:13px") diteruskan ke svg -
        tanpa ini svg memakai ukuran kelasnya (24px) dan meluber keluar host */
     if (this.style.width || this.style.height) {
       var svg = this.firstChild;

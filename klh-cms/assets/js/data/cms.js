@@ -2,8 +2,8 @@
    KLH.cms — data dummy terpusat Modul 04 · CMS Konten KLH/BPLH
    Seluruh entri adalah KONTEN CONTOH untuk prototipe UI —
    nama, dokumen, dan tanggal fiktif; siap diganti data produksi.
-   Dipakai oleh: login, index, konten, konten-edit, agenda, ppid,
-   media, pengguna + cmsshell.
+   Dipakai oleh: login, index, konten, konten-edit, agenda,
+   media, pengguna, ppid, ppid-tiket + cmsshell.
    ============================================================ */
 (function () {
   'use strict';
@@ -57,12 +57,50 @@
   /* ---- Badge produk tujuan ---- */
   var PRODUK = {
     web:  { label: 'Website Utama', cls: 'bg-brand' },
-    ppid: { label: 'PPID',          cls: 'bg-info' },
     omni: { label: 'Omni Channel',  cls: 'bg-orange' }
   };
   KLH.produkBadge = function (p) {
     var v = PRODUK[p] || PRODUK.web;
     return '<span class="badge ' + v.cls + '">' + v.label + '</span>';
+  };
+
+  /* ---- Badge status tiket PPID (Baru → Diteruskan → Selesai | Ditolak) ---- */
+  var TIKET_STATUS = {
+    baru:       { label: 'Menunggu Verifikasi', cls: 'bg-warning' },
+    diteruskan: { label: 'Diproses Unit',       cls: 'bg-info' },
+    selesai:    { label: 'Selesai',             cls: 'bg-success' },
+    ditolak:    { label: 'Ditolak',             cls: 'bg-danger' }
+  };
+  KLH.ppidBadge = function (s) {
+    var v = TIKET_STATUS[s] || TIKET_STATUS.baru;
+    return '<span class="badge ' + v.cls + '">' + v.label + '</span>';
+  };
+  KLH.ppidLabel = function (s) { return (TIKET_STATUS[s] || TIKET_STATUS.baru).label; };
+
+  /* ---- Deadline tiket PPID ----
+     Sistem men-set deadline 7 hari sejak pengajuan; Humas dapat
+     mengubahnya (satuan hari) → simpan di t.deadlineHari.
+     > 7 hari = proses panjang → surat perpanjangan tersedia. ---- */
+  /* Default global dapat diubah lewat "Pengaturan deadline" di ppid.html */
+  KLH.ppidDefaultHari = function () {
+    return (KLH.cms.ppid && KLH.cms.ppid.defaultHari) || 7;
+  };
+  KLH.ppidDeadline = function (t) {
+    var d = new Date(t.t);
+    d.setDate(d.getDate() + (t.deadlineHari || KLH.ppidDefaultHari()));
+    var p = function (n) { return (n < 10 ? '0' : '') + n; };
+    return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
+  };
+  KLH.ppidSisaHari = function (t) {
+    return Math.ceil((new Date(KLH.ppidDeadline(t)) - new Date(KLH.cms.now.split('T')[0])) / 864e5);
+  };
+  KLH.deadlineBadge = function (t) {
+    if (t.status === 'selesai' || t.status === 'ditolak') return '';
+    var s = KLH.ppidSisaHari(t);
+    /* lewat = maroon (teks putih) · mepet 0–1 hari = merah muda · ≤2 = kuning */
+    var cls = s < 0 ? 'bg-maroon' : (s <= 1 ? 'bg-danger' : (s <= 2 ? 'bg-warning' : 'bg-neutral'));
+    var lbl = s < 0 ? 'Lewat ' + (-s) + ' hari' : 'Sisa ' + s + ' hari';
+    return '<span class="badge ' + cls + '">' + lbl + '</span>';
   };
 
   KLH.cms = {
@@ -112,37 +150,6 @@
       { nama: 'Andika Mahesa Putra, S.KM.', eselon: 4 }
     ],
 
-    /* ---- PPID: Daftar Informasi Publik ---- */
-    dip: [
-      { id: 'DIP-2026-041', judul: 'Laporan Kinerja Instansi Pemerintah (LKjIP) 2025', klas: 'berkala', format: 'PDF', ukuran: '4,2 MB', t: '2026-06-28', status: 'terbit' },
-      { id: 'DIP-2026-040', judul: 'Daftar Izin Pengelolaan Limbah B3 Triwulan II 2026', klas: 'berkala', format: 'PDF', ukuran: '1,8 MB', t: '2026-07-01', status: 'terbit' },
-      { id: 'DIP-2026-039', judul: 'Peringatan Dini Kualitas Udara Jabodetabek', klas: 'serta-merta', format: 'PDF', ukuran: '640 KB', t: '2026-07-05', status: 'terbit' },
-      { id: 'DIP-2026-038', judul: 'Rencana Strategis KLH/BPLH 2025–2029', klas: 'setiap-saat', format: 'PDF', ukuran: '6,1 MB', t: '2026-05-12', status: 'terbit' },
-      { id: 'DIP-2026-037', judul: 'Statistik Pengaduan Lingkungan Semester I 2026', klas: 'berkala', format: 'XLSX', ukuran: '890 KB', t: '2026-07-06', status: 'review' },
-      { id: 'DIP-2026-036', judul: 'Hasil Uji Laboratorium Kualitas Air Sungai (Juni)', klas: 'berkala', format: 'PDF', ukuran: '2,3 MB', t: '2026-07-03', status: 'terbit' },
-      { id: 'DIP-2026-035', judul: 'Dokumen Kajian Internal Penegakan Hukum (contoh)', klas: 'dikecualikan', format: '—', ukuran: '—', t: '2026-06-20', status: 'terbit' },
-      { id: 'DIP-2026-034', judul: 'Daftar Aset Barang Milik Negara 2025', klas: 'setiap-saat', format: 'PDF', ukuran: '3,4 MB', t: '2026-04-30', status: 'draf' }
-    ],
-
-    /* ---- PPID: Regulasi ---- */
-    regulasi: [
-      { id: 'REG-021', judul: 'UU No. 14 Tahun 2008 — Keterbukaan Informasi Publik', jenis: 'Undang-Undang', t: '2008-04-30', status: 'terbit' },
-      { id: 'REG-020', judul: 'UU No. 32 Tahun 2009 — Perlindungan & Pengelolaan LH', jenis: 'Undang-Undang', t: '2009-10-03', status: 'terbit' },
-      { id: 'REG-019', judul: 'PP No. 22 Tahun 2021 — Penyelenggaraan Perlindungan LH', jenis: 'Peraturan Pemerintah', t: '2021-02-02', status: 'terbit' },
-      { id: 'REG-018', judul: 'Permen LHK ttg Pelayanan Informasi Publik (konsolidasi)', jenis: 'Peraturan Menteri', t: '2024-01-15', status: 'terbit' },
-      { id: 'REG-017', judul: 'SOP Layanan Permohonan Informasi PPID (rev. 3)', jenis: 'SOP Internal', t: '2026-06-01', status: 'review' }
-    ],
-
-    /* ---- PPID: FAQ ---- */
-    faq: [
-      { id: 'FAQ-01', q: 'Bagaimana cara mengajukan permohonan informasi publik?', a: 'Melalui Portal PPID daring: buat akun, isi formulir 4 langkah, lampirkan identitas, lalu pantau lewat halaman Lacak.', status: 'terbit' },
-      { id: 'FAQ-02', q: 'Berapa lama permohonan saya dijawab?', a: 'Maksimal 10 hari kerja sejak permohonan lengkap, dapat diperpanjang 7 hari kerja dengan pemberitahuan tertulis (UU 14/2008).', status: 'terbit' },
-      { id: 'FAQ-03', q: 'Apa itu informasi yang dikecualikan?', a: 'Informasi yang tidak dapat diberikan berdasarkan Pasal 17 UU 14/2008, mis. data pribadi atau proses penegakan hukum.', status: 'terbit' },
-      { id: 'FAQ-04', q: 'Bagaimana jika permohonan saya ditolak?', a: 'Anda berhak mengajukan keberatan kepada Atasan PPID dalam 30 hari kerja sejak penolakan diterima.', status: 'terbit' },
-      { id: 'FAQ-05', q: 'Apakah layanan PPID berbayar?', a: 'Tidak. Seluruh layanan informasi publik gratis; biaya penggandaan/pengiriman (bila ada) ditanggung pemohon sesuai ketentuan.', status: 'terbit' },
-      { id: 'FAQ-06', q: 'Kanal apa saja untuk menghubungi KLH/BPLH?', a: 'WhatsApp resmi, email, formulir web, Instagram, X, dan SP4N-LAPOR! — semuanya terpantau di satu sistem terpadu.', status: 'review' }
-    ],
-
     /* ---- Pustaka media ---- */
     media: [
       { file: 'wamen-el-nino-tpa.jpg', alt: 'Wakil Menteri LH meninjau area TPA regional', ukuran: '148 KB', t: '2026-07-05' },
@@ -160,39 +167,117 @@
     peran: [
       { id: 'admin', nama: 'Admin Utama', ket: 'Akses penuh seluruh produk, pengguna, dan pengaturan.', jumlah: 2 },
       { id: 'editor', nama: 'Editor Konten', ket: 'Menulis, menyunting, dan menerbitkan konten Website Utama.', jumlah: 3 },
-      { id: 'ppid', nama: 'Verifikator PPID', ket: 'Mengelola DIP/DIK, regulasi, FAQ, dan menyetujui konten PPID.', jumlah: 2 },
       { id: 'kontributor', nama: 'Kontributor', ket: 'Menulis draf; tidak dapat menerbitkan (wajib review).', jumlah: 4 }
     ],
     izin: [
-      { label: 'Tulis & sunting draf',            admin: 1, editor: 1, ppid: 1, kontributor: 1 },
-      { label: 'Terbitkan konten Website Utama',  admin: 1, editor: 1, ppid: 0, kontributor: 0 },
-      { label: 'Kelola DIP/DIK & regulasi PPID',  admin: 1, editor: 0, ppid: 1, kontributor: 0 },
-      { label: 'Kelola pustaka media',            admin: 1, editor: 1, ppid: 1, kontributor: 0 },
-      { label: 'Kelola pengguna & peran',         admin: 1, editor: 0, ppid: 0, kontributor: 0 }
+      { label: 'Tulis & sunting draf',            admin: 1, editor: 1, kontributor: 1 },
+      { label: 'Terbitkan konten Website Utama',  admin: 1, editor: 1, kontributor: 0 },
+      { label: 'Kelola pustaka media',            admin: 1, editor: 1, kontributor: 0 },
+      { label: 'Kelola pengguna & peran',         admin: 1, editor: 0, kontributor: 0 }
     ],
     pengguna: [
       { nama: 'Dewi Anggraini', inisial: 'DA', email: 'dewi.anggraini@klh.go.id', peran: 'Editor Konten', unit: 'Biro Humas', aktif: '2026-07-07T10:02:00', status: 'aktif' },
       { nama: 'Fajar Nugraha', inisial: 'FN', email: 'fajar.nugraha@klh.go.id', peran: 'Kontributor', unit: 'Biro Humas', aktif: '2026-07-07T08:44:00', status: 'aktif' },
-      { nama: 'Ratna Prameswari', inisial: 'RP', email: 'ratna.prameswari@klh.go.id', peran: 'Verifikator PPID', unit: 'PPID', aktif: '2026-07-06T16:20:00', status: 'aktif' },
       { nama: 'Bimo Aji Saputro', inisial: 'BA', email: 'bimo.saputro@klh.go.id', peran: 'Admin Utama', unit: 'Pusdatin', aktif: '2026-07-06T13:05:00', status: 'aktif' },
       { nama: 'Rio Pratama', inisial: 'RI', email: 'rio.pratama@klh.go.id', peran: 'Kontributor', unit: 'Ditjen PPKL', aktif: '2026-07-05T09:30:00', status: 'aktif' },
       { nama: 'Sari Kusuma (nonaktif)', inisial: 'SK', email: 'sari.kusuma@klh.go.id', peran: 'Editor Konten', unit: 'Biro Humas', aktif: '2026-05-02T11:00:00', status: 'nonaktif' }
     ],
 
+    /* ---- Tiket PPID — pengajuan informasi publik dari Portal PPID ----
+       Alur: publik mengajukan → Humas menolak ATAU meneruskan ke unit
+       terkait → unit menindaklanjuti (wajib kategori + tag informasi,
+       output tautan/PDF) ATAU menolak. Semua penolakan wajib beralasan,
+       dapat diperkuat dokumen pendukung (PDF, opsional).
+       Kategori "dikecualikan" tidak tayang publik — jawaban dikirim
+       personal ke akun pemohon. ---- */
+    ppid: {
+      defaultHari: 7, /* deadline default sistem — dapat diubah tim Humas */
+      unit: ['Sekretariat Jenderal', 'Biro Humas', 'Biro Hukum', 'Pusat Data & Informasi',
+             'Ditjen Pengendalian Pencemaran', 'Ditjen Penegakan Hukum', 'Ditjen Planologi'],
+      kategori: [
+        { slug: 'berkala', label: 'Informasi Berkala', tags: ['Laporan Kinerja', 'Laporan Keuangan', 'Program & Anggaran', 'Profil Lembaga'] },
+        { slug: 'serta-merta', label: 'Informasi Serta-Merta', tags: ['Berita', 'Siaran Pers', 'Pengumuman', 'Peringatan Dini'] },
+        { slug: 'setiap-saat', label: 'Informasi Setiap Saat', tags: ['Data & Statistik', 'Perizinan', 'Perjanjian', 'Prosedur Layanan'] },
+        { slug: 'dikecualikan', label: 'Informasi Dikecualikan', tags: [] }
+      ],
+      tiket: [
+        { id: 'PPID-2026-000162', t: '2026-07-07T08:20:00', status: 'baru',
+          pemohon: { nama: 'Sari Wulandari', email: 'sari.wulandari@mail.com', wa: '0812-3456-7801' },
+          info: 'Data indeks kualitas air Sungai Ciliwung 2023–2025',
+          tujuan: 'Bahan penelitian skripsi teknik lingkungan',
+          riwayat: [
+            { t: '2026-07-07T08:20:00', label: 'Pengajuan diterima', ket: 'Formulir masuk melalui Portal PPID Online' }
+          ] },
+        { id: 'PPID-2026-000161', t: '2026-07-06T15:05:00', status: 'baru',
+          pemohon: { nama: 'Yayasan Hijau Lestari', email: 'sekretariat@hijaulestari.or.id', wa: '0813-9002-4415' },
+          info: 'Salinan perjanjian kerja sama rehabilitasi mangrove dengan pemda pesisir',
+          tujuan: 'Pemantauan pelaksanaan program oleh masyarakat sipil',
+          riwayat: [
+            { t: '2026-07-06T15:05:00', label: 'Pengajuan diterima', ket: 'Formulir masuk melalui Portal PPID Online' }
+          ] },
+        { id: 'PPID-2026-000158', t: '2026-07-04T10:40:00', status: 'diteruskan', unit: 'Pusat Data & Informasi', deadlineHari: 14,
+          pemohon: { nama: 'Rendra Maulana', email: 'rendra.maulana@mail.com', wa: '0821-7788-1290' },
+          info: 'Data timbulan sampah nasional per provinsi 2025',
+          tujuan: 'Analisis kebijakan pengelolaan sampah daerah',
+          riwayat: [
+            { t: '2026-07-04T10:40:00', label: 'Pengajuan diterima', ket: 'Formulir masuk melalui Portal PPID Online — deadline otomatis 7 hari' },
+            { t: '2026-07-05T09:12:00', label: 'Diteruskan ke unit terkait', ket: 'Humas meneruskan ke Pusat Data & Informasi' },
+            { t: '2026-07-06T14:30:00', label: 'Deadline diperpanjang', ket: 'Humas mengubah deadline menjadi 14 hari — surat perpanjangan tersedia untuk pemohon' }
+          ] },
+        { id: 'PPID-2026-000156', t: '2026-07-03T13:25:00', status: 'diteruskan', unit: 'Ditjen Planologi',
+          pemohon: { nama: 'PT Media Kabar Nusantara', email: 'redaksi@kabarnusantara.id', wa: '0811-2004-5566' },
+          info: 'Daftar izin lingkungan yang diterbitkan semester I 2026',
+          tujuan: 'Bahan liputan jurnalistik investigatif',
+          riwayat: [
+            { t: '2026-07-03T13:25:00', label: 'Pengajuan diterima', ket: 'Formulir masuk melalui Portal PPID Online' },
+            { t: '2026-07-03T16:02:00', label: 'Diteruskan ke unit terkait', ket: 'Humas meneruskan ke Ditjen Planologi' }
+          ] },
+        { id: 'PPID-2026-000149', t: '2026-06-28T09:10:00', status: 'selesai', unit: 'Biro Humas',
+          kategori: 'serta-merta', tag: 'Siaran Pers',
+          output: { jenis: 'link', url: 'https://klh.go.id/informasi/siaran-pers-citarum-iii' },
+          catatan: 'Siaran pers resmi telah tayang; tautan sama dengan yang dipublikasikan di kanal media KLH.',
+          pemohon: { nama: 'Andini Prameswari', email: 'andini.pr@mail.com', wa: '0857-1122-3344' },
+          info: 'Pernyataan resmi penanganan pencemaran Sungai Citarum tahap III',
+          tujuan: 'Verifikasi informasi yang beredar di media sosial',
+          riwayat: [
+            { t: '2026-06-28T09:10:00', label: 'Pengajuan diterima', ket: 'Formulir masuk melalui Portal PPID Online' },
+            { t: '2026-06-29T10:30:00', label: 'Diteruskan ke unit terkait', ket: 'Humas meneruskan ke Biro Humas (siaran pers)' },
+            { t: '2026-07-01T14:15:00', label: 'Ditindaklanjuti', ket: 'Kategori Serta-Merta · tag Siaran Pers — tautan dipublikasikan ke daftar informasi' }
+          ] },
+        { id: 'PPID-2026-000144', t: '2026-06-24T11:55:00', status: 'selesai', unit: 'Ditjen Penegakan Hukum',
+          kategori: 'dikecualikan', tag: '',
+          output: { jenis: 'pdf', file: 'jawaban-ppid-2026-000144.pdf', ukuran: '1,1 MB' },
+          pemohon: { nama: 'Bagus Prakoso', email: 'bagus.prakoso@mail.com', wa: '0819-4455-6070' },
+          info: 'Ringkasan status penanganan pengaduan yang ia laporkan sendiri',
+          tujuan: 'Mengetahui tindak lanjut pengaduan pribadi',
+          riwayat: [
+            { t: '2026-06-24T11:55:00', label: 'Pengajuan diterima', ket: 'Formulir masuk melalui Portal PPID Online' },
+            { t: '2026-06-25T08:40:00', label: 'Diteruskan ke unit terkait', ket: 'Humas meneruskan ke Ditjen Penegakan Hukum' },
+            { t: '2026-06-30T15:20:00', label: 'Ditindaklanjuti', ket: 'Kategori Dikecualikan — jawaban PDF dikirim personal ke akun pemohon, tidak tayang publik' }
+          ] },
+        { id: 'PPID-2026-000141', t: '2026-06-20T14:30:00', status: 'ditolak',
+          tolak: { oleh: 'Humas', alasan: 'Informasi memuat data pribadi pihak ketiga yang dilindungi (Pasal 17 huruf h UU 14/2008). Pemohon berhak mengajukan keberatan.', dok: 'dasar-penolakan-000141.pdf' },
+          pemohon: { nama: 'Cahyo Nugroho', email: 'cahyo.nugroho@mail.com', wa: '0838-9911-2233' },
+          info: 'Daftar nama dan alamat lengkap pelapor pengaduan 2025',
+          tujuan: 'Kajian partisipasi masyarakat',
+          riwayat: [
+            { t: '2026-06-20T14:30:00', label: 'Pengajuan diterima', ket: 'Formulir masuk melalui Portal PPID Online' },
+            { t: '2026-06-23T10:05:00', label: 'Pengajuan ditolak', ket: 'Ditolak Humas — alasan & dokumen dasar penolakan dikirim ke pemohon' }
+          ] }
+      ]
+    },
+
     /* ---- Notifikasi CMS ---- */
     notifikasi: [
       { jenis: 'review', baru: true, judul: '2 artikel menunggu review', isi: '"Rehabilitasi Mangrove" & "TPA Jatiwaringin" dikirim kontributor.', url: 'konten.html?status=review', t: '2026-07-07T09:48:00' },
-      { jenis: 'review', baru: true, judul: 'DIP menunggu persetujuan', isi: 'Statistik Pengaduan Semester I 2026 (XLSX) menunggu Verifikator PPID.', url: 'ppid.html', t: '2026-07-07T08:15:00' },
       { jenis: 'sistem', baru: true, judul: 'Konten terjadwal akan tayang', isi: '"Gerakan Kelana" tayang otomatis 9 Jul 07.00 WIB.', url: 'konten-edit.html?id=ART-0908', t: '2026-07-07T07:00:00' },
-      { jenis: 'sistem', baru: false, judul: 'Pencadangan konten berhasil', isi: 'Cadangan otomatis harian tersimpan (06.00 WIB).', url: 'index.html', t: '2026-07-07T06:00:00' },
-      { jenis: 'review', baru: false, judul: 'FAQ baru menunggu review', isi: '"Kanal apa saja untuk menghubungi KLH/BPLH?" dari Biro Humas.', url: 'ppid.html', t: '2026-07-06T15:12:00' }
+      { jenis: 'sistem', baru: false, judul: 'Pencadangan konten berhasil', isi: 'Cadangan otomatis harian tersimpan (06.00 WIB).', url: 'index.html', t: '2026-07-07T06:00:00' }
     ],
 
     /* ---- Aktivitas terakhir (log ringkas) ---- */
     aktivitas: [
       { siapa: 'Dewi Anggraini', aksi: 'menerbitkan artikel', obj: 'Wamen LH Tinjau Penanganan El Nino', t: '2026-07-07T09:20:00' },
       { siapa: 'Fajar Nugraha', aksi: 'mengirim ke review', obj: 'Perpanjangan Rehabilitasi Mangrove', t: '2026-07-06T15:40:00' },
-      { siapa: 'Ratna Prameswari', aksi: 'memperbarui DIP', obj: 'Peringatan Dini Kualitas Udara', t: '2026-07-06T14:02:00' },
       { siapa: 'Rio Pratama', aksi: 'mengunggah media', obj: 'tpa-jatiwaringin.jpg', t: '2026-07-06T11:08:00' },
       { siapa: 'Bimo Aji Saputro', aksi: 'menambah pengguna', obj: 'Rio Pratama (Kontributor)', t: '2026-07-05T09:31:00' },
       { siapa: 'Dewi Anggraini', aksi: 'menjadwalkan konten', obj: 'Gerakan Kelana — 9 Jul 07.00', t: '2026-07-04T16:20:00' }

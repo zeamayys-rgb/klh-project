@@ -36,34 +36,60 @@
 
   KLH.ppid = {
 
-    /* ---- 4 kategori informasi (UU 14/2008) ---- */
+    /* ---- 4 kategori informasi (UU 14/2008) ----
+       Struktur mengikuti pola PPID Kemendag: tiap kategori punya
+       "tag informasi" sendiri; entri DIP mengacu (kategori, tag). */
     kategori: [
       { slug: 'berkala', label: 'Informasi Berkala', icon: 'calendar', tone: 'green',
-        desc: 'Diumumkan rutin tanpa diminta: laporan kinerja, laporan keuangan, program kerja, dan profil lembaga.' },
+        desc: 'Diumumkan rutin tanpa diminta: laporan kinerja, laporan keuangan, program kerja, dan profil lembaga.',
+        tags: ['Laporan Kinerja', 'Laporan Keuangan', 'Program & Anggaran', 'Profil Lembaga'] },
       { slug: 'serta-merta', label: 'Informasi Serta-Merta', icon: 'megaphone', tone: 'sky',
-        desc: 'Diumumkan segera karena menyangkut hajat hidup orang banyak: peringatan pencemaran, bencana, dan darurat lingkungan.' },
+        desc: 'Diumumkan segera karena menyangkut hajat hidup orang banyak: peringatan pencemaran, bencana, dan darurat lingkungan.',
+        tags: ['Berita', 'Siaran Pers', 'Pengumuman', 'Peringatan Dini'] },
       { slug: 'setiap-saat', label: 'Informasi Setiap Saat', icon: 'folder', tone: 'earth',
-        desc: 'Tersedia dan dapat diminta kapan saja: DIP, regulasi, perjanjian, dan data pendukung.' },
+        desc: 'Tersedia dan dapat diminta kapan saja: DIP, regulasi, perjanjian, dan data pendukung.',
+        tags: ['Data & Statistik', 'Perizinan', 'Perjanjian', 'Prosedur Layanan'] },
       { slug: 'dikecualikan', label: 'Informasi Dikecualikan', icon: 'lock', tone: 'neutral',
         desc: 'Tidak dapat diberikan berdasarkan pengujian konsekuensi (Pasal 17 UU KIP), mis. data pribadi dan rahasia negara.' }
     ],
 
-    /* ---- Daftar Informasi Publik (≥12 entri) ---- */
+    /* ---- Daftar Informasi Publik ----
+       Output tiap entri hanya 2 jenis:
+       - output 'link' → url (berita, program, halaman web, dsb.)
+       - output 'pdf'  → dokumen terlampir (ukuran) */
     dip: [
-      { no: 'DIP-001', judul: 'Laporan Kinerja Instansi Pemerintah (LAKIP) 2025', kategori: 'berkala', unit: 'Sekretariat Jenderal', tahun: 2026, format: 'PDF', ukuran: '4,2 MB' },
-      { no: 'DIP-002', judul: 'Laporan Keuangan Audited Tahun Anggaran 2025', kategori: 'berkala', unit: 'Biro Keuangan', tahun: 2026, format: 'PDF', ukuran: '6,8 MB' },
-      { no: 'DIP-003', judul: 'Rencana Strategis KLH/BPLH 2025–2029', kategori: 'berkala', unit: 'Biro Perencanaan', tahun: 2025, format: 'PDF', ukuran: '3,1 MB' },
-      { no: 'DIP-004', judul: 'Profil Pejabat & Struktur Organisasi', kategori: 'berkala', unit: 'Biro Kepegawaian', tahun: 2026, format: 'PDF', ukuran: '1,9 MB' },
-      { no: 'DIP-005', judul: 'Peringatan Dini Kualitas Udara Jabodetabek (ISPU)', kategori: 'serta-merta', unit: 'Ditjen Pengendalian Pencemaran', tahun: 2026, format: 'Web', ukuran: '—' },
-      { no: 'DIP-006', judul: 'Status Darurat Kebakaran Hutan & Lahan', kategori: 'serta-merta', unit: 'Ditjen Pengendalian Perubahan Iklim', tahun: 2026, format: 'Web', ukuran: '—' },
-      { no: 'DIP-007', judul: 'Daftar Izin Lingkungan yang Diterbitkan 2025', kategori: 'setiap-saat', unit: 'Ditjen Planologi', tahun: 2025, format: 'XLSX', ukuran: '820 KB' },
-      { no: 'DIP-008', judul: 'Data Indeks Kualitas Lingkungan Hidup per Provinsi', kategori: 'setiap-saat', unit: 'Pusat Data & Informasi', tahun: 2025, format: 'XLSX', ukuran: '1,4 MB' },
-      { no: 'DIP-009', judul: 'Rekapitulasi Pengaduan Lingkungan 2025', kategori: 'setiap-saat', unit: 'Ditjen Penegakan Hukum', tahun: 2026, format: 'PDF', ukuran: '2,3 MB' },
-      { no: 'DIP-010', judul: 'Perjanjian Kerja Sama dengan Pemerintah Daerah', kategori: 'setiap-saat', unit: 'Biro Hukum', tahun: 2025, format: 'PDF', ukuran: '5,5 MB' },
-      { no: 'DIP-011', judul: 'Daftar Aset & Barang Milik Negara', kategori: 'setiap-saat', unit: 'Biro Umum', tahun: 2025, format: 'PDF', ukuran: '3,7 MB' },
-      { no: 'DIP-012', judul: 'Ringkasan Program Kerja & Anggaran 2026', kategori: 'berkala', unit: 'Biro Perencanaan', tahun: 2026, format: 'PDF', ukuran: '2,0 MB' },
-      { no: 'DIP-013', judul: 'Standar Pelayanan Publik KLH/BPLH', kategori: 'setiap-saat', unit: 'Biro Humas', tahun: 2024, format: 'PDF', ukuran: '980 KB' },
-      { no: 'DIP-014', judul: 'Laporan Layanan Informasi Publik PPID 2025', kategori: 'berkala', unit: 'PPID', tahun: 2026, format: 'PDF', ukuran: '1,6 MB' }
+      { no: 'DIP-001', judul: 'Laporan Kinerja Instansi Pemerintah (LAKIP) 2025', kategori: 'berkala', tag: 'Laporan Kinerja', unit: 'Sekretariat Jenderal', tanggal: '2026-02-10', output: 'pdf', ukuran: '4,2 MB',
+        ringkas: 'Capaian kinerja tahunan seluruh unit kerja KLH/BPLH beserta realisasi indikator utama.' },
+      { no: 'DIP-002', judul: 'Laporan Keuangan Audited Tahun Anggaran 2025', kategori: 'berkala', tag: 'Laporan Keuangan', unit: 'Biro Keuangan', tanggal: '2026-04-22', output: 'pdf', ukuran: '6,8 MB',
+        ringkas: 'Laporan keuangan yang telah diaudit BPK dengan opini dan catatan atas laporan keuangan.' },
+      { no: 'DIP-003', judul: 'Rencana Strategis KLH/BPLH 2025–2029', kategori: 'berkala', tag: 'Program & Anggaran', unit: 'Biro Perencanaan', tanggal: '2025-03-14', output: 'pdf', ukuran: '3,1 MB',
+        ringkas: 'Arah kebijakan, sasaran strategis, dan kerangka pendanaan lima tahunan.' },
+      { no: 'DIP-004', judul: 'Ringkasan Program Kerja & Anggaran 2026', kategori: 'berkala', tag: 'Program & Anggaran', unit: 'Biro Perencanaan', tanggal: '2026-01-08', output: 'pdf', ukuran: '2,0 MB',
+        ringkas: 'Ringkasan DIPA dan program prioritas tahun berjalan.' },
+      { no: 'DIP-005', judul: 'Profil Pejabat & Struktur Organisasi', kategori: 'berkala', tag: 'Profil Lembaga', unit: 'Biro Kepegawaian', tanggal: '2026-06-01', output: 'link', url: '../klh-website-utama/pages/profil/struktur-organisasi.html',
+        ringkas: 'Struktur organisasi dan profil pimpinan — tersedia sebagai halaman web yang selalu mutakhir.' },
+      { no: 'DIP-006', judul: 'Laporan Layanan Informasi Publik PPID 2025', kategori: 'berkala', tag: 'Laporan Kinerja', unit: 'PPID', tanggal: '2026-03-02', output: 'pdf', ukuran: '1,6 MB',
+        ringkas: 'Rekapitulasi permohonan, keberatan, dan waktu layanan informasi selama setahun.' },
+      { no: 'DIP-007', judul: 'Peringatan Dini Kualitas Udara Jabodetabek (ISPU)', kategori: 'serta-merta', tag: 'Peringatan Dini', unit: 'Ditjen Pengendalian Pencemaran', tanggal: '2026-07-04', output: 'link', url: '../klh-website-utama/pages/informasi/indeks.html',
+        ringkas: 'Pantauan ISPU harian dan imbauan bagi kelompok sensitif saat kualitas udara menurun.' },
+      { no: 'DIP-008', judul: 'Status Darurat Kebakaran Hutan & Lahan', kategori: 'serta-merta', tag: 'Peringatan Dini', unit: 'Ditjen Pengendalian Perubahan Iklim', tanggal: '2026-07-01', output: 'link', url: '../klh-website-utama/pages/informasi/indeks.html',
+        ringkas: 'Status siaga karhutla per provinsi beserta langkah tanggap darurat yang berjalan.' },
+      { no: 'DIP-009', judul: 'Siaran Pers: Penanganan Pencemaran Sungai Citarum Tahap III', kategori: 'serta-merta', tag: 'Siaran Pers', unit: 'Biro Humas', tanggal: '2026-06-28', output: 'link', url: '../klh-website-utama/pages/informasi/detail.html',
+        ringkas: 'Pernyataan resmi kementerian atas progres pemulihan Sungai Citarum.' },
+      { no: 'DIP-010', judul: 'Berita: Rehabilitasi Mangrove Pesisir Utara Diperpanjang', kategori: 'serta-merta', tag: 'Berita', unit: 'Biro Humas', tanggal: '2026-06-20', output: 'link', url: '../klh-website-utama/pages/informasi/detail.html',
+        ringkas: 'Target 12.000 hektare mangrove direhabilitasi hingga akhir 2027.' },
+      { no: 'DIP-011', judul: 'Pengumuman Penghentian Sementara Aktivitas Industri Terdampak', kategori: 'serta-merta', tag: 'Pengumuman', unit: 'Ditjen Penegakan Hukum', tanggal: '2026-06-15', output: 'pdf', ukuran: '640 KB',
+        ringkas: 'Salinan pengumuman resmi penghentian sementara kegiatan yang mencemari lingkungan.' },
+      { no: 'DIP-012', judul: 'Daftar Izin Lingkungan yang Diterbitkan 2025', kategori: 'setiap-saat', tag: 'Perizinan', unit: 'Ditjen Planologi', tanggal: '2026-01-20', output: 'pdf', ukuran: '820 KB',
+        ringkas: 'Rekap izin lingkungan terbit per sektor dan provinsi sepanjang 2025.' },
+      { no: 'DIP-013', judul: 'Data Indeks Kualitas Lingkungan Hidup per Provinsi', kategori: 'setiap-saat', tag: 'Data & Statistik', unit: 'Pusat Data & Informasi', tanggal: '2025-12-12', output: 'pdf', ukuran: '1,4 MB',
+        ringkas: 'IKLH tahunan: indeks kualitas air, udara, dan tutupan lahan seluruh provinsi.' },
+      { no: 'DIP-014', judul: 'Rekapitulasi Pengaduan Lingkungan 2025', kategori: 'setiap-saat', tag: 'Data & Statistik', unit: 'Ditjen Penegakan Hukum', tanggal: '2026-02-05', output: 'pdf', ukuran: '2,3 MB',
+        ringkas: 'Statistik pengaduan masuk, ditindaklanjuti, dan selesai per kanal pelaporan.' },
+      { no: 'DIP-015', judul: 'Perjanjian Kerja Sama dengan Pemerintah Daerah', kategori: 'setiap-saat', tag: 'Perjanjian', unit: 'Biro Hukum', tanggal: '2025-11-03', output: 'pdf', ukuran: '5,5 MB',
+        ringkas: 'Himpunan PKS pengelolaan lingkungan hidup antara KLH/BPLH dan pemda.' },
+      { no: 'DIP-016', judul: 'Standar Pelayanan Publik KLH/BPLH', kategori: 'setiap-saat', tag: 'Prosedur Layanan', unit: 'Biro Humas', tanggal: '2024-09-17', output: 'pdf', ukuran: '980 KB',
+        ringkas: 'Standar layanan, maklumat pelayanan, dan prosedur pengaduan layanan publik.' }
     ],
 
     /* ---- Daftar Informasi Dikecualikan ---- */

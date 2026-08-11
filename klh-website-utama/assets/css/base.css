@@ -1,5 +1,5 @@
 /* ============================================================
-   Base — reset, tipografi, primitif layout, aksesibilitas
+   Base - reset, tipografi, primitif layout, aksesibilitas
    ============================================================ */
 *, *::before, *::after { box-sizing: border-box; }
 

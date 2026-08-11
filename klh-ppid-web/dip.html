@@ -30,21 +30,21 @@
     <div class="container">
       <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
         <li><a href="index.html">Beranda</a></li>
-        <li aria-current="page">Daftar Informasi Publik</li>
+        <li aria-current="page" id="crumb-akhir">Daftar Informasi Publik</li>
       </ol></nav>
       <span class="eyebrow">Tersedia Terbuka</span>
-      <h1>Daftar Informasi Publik (DIP)</h1>
-      <p class="lead">Dokumen yang wajib disediakan dan diumumkan — telusuri, lalu unduh langsung tanpa permohonan.</p>
+      <h1 id="judul-hal">Daftar Informasi Publik (DIP)</h1>
+      <p class="lead" id="lead-hal">Informasi yang wajib disediakan dan diumumkan — telusuri per kategori dan tag, lalu akses langsung tanpa permohonan.</p>
     </div>
   </section>
 
   <section class="section section--tight">
     <div class="container">
-      <!-- Toolbar: cari + filter kategori (WF-16) -->
+      <!-- Toolbar: cari + filter kategori + tag informasi (pola PPID Kemendag) -->
       <div class="dip-toolbar">
         <div class="dip-search">
           <klh-icon name="search" class="icon icon--sm"></klh-icon>
-          <input type="search" id="cari" placeholder="Cari judul dokumen…" aria-label="Cari judul dokumen dalam DIP">
+          <input type="search" id="cari" placeholder="Cari judul informasi…" aria-label="Cari judul informasi">
         </div>
         <div class="filterbar" role="group" aria-label="Filter kategori informasi">
           <button class="fchip on" type="button" data-k="" aria-pressed="true">Semua</button>
@@ -54,23 +54,13 @@
         </div>
       </div>
 
+      <!-- Tag informasi per kategori — muncul saat satu kategori aktif -->
+      <div class="filterbar" id="tag-bar" role="group" aria-label="Filter tag informasi" hidden style="margin-bottom:var(--s5)"></div>
+
       <p id="hasil-info" aria-live="polite" style="font-size:var(--t-sm);color:var(--ink-500);margin-bottom:var(--s3)"></p>
 
-      <div class="tbl-wrap">
-        <table class="tbl">
-          <caption class="sr-only">Daftar Informasi Publik KLH/BPLH — konten contoh</caption>
-          <thead><tr>
-            <th scope="col">No.</th>
-            <th scope="col">Judul Dokumen</th>
-            <th scope="col">Kategori</th>
-            <th scope="col">Unit Penguasa</th>
-            <th scope="col">Tahun</th>
-            <th scope="col">Berkas</th>
-          </tr></thead>
-          <tbody id="dip-body"></tbody>
-        </table>
-      </div>
-      <p style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s4)">Seluruh entri adalah <strong>konten contoh</strong> prototipe; tombol unduh belum terhubung berkas sebenarnya. Butuh dokumen di luar daftar? <a href="permohonan.html">Ajukan permohonan informasi</a>.</p>
+      <ul class="dip-list" id="dip-body" aria-label="Daftar Informasi Publik KLH/BPLH — konten contoh"></ul>
+      <p style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s4)">Seluruh entri adalah <strong>konten contoh</strong> prototipe; tautan &amp; unduhan bersifat simulasi. Butuh informasi di luar daftar? <a href="permohonan.html">Ajukan permohonan informasi</a>.</p>
     </div>
   </section>
 </main>
@@ -84,32 +74,75 @@
   var KAT = { 'berkala': ['Berkala', 'bg-brand'], 'serta-merta': ['Serta-Merta', 'bg-info'], 'setiap-saat': ['Setiap Saat', 'bg-orange'] };
   var body = document.getElementById('dip-body');
   var info = document.getElementById('hasil-info');
-  var chips = Array.prototype.slice.call(document.querySelectorAll('.fchip'));
+  var tagBar = document.getElementById('tag-bar');
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.dip-toolbar .fchip'));
   var cari = document.getElementById('cari');
   var aktif = '';
+  var tagAktif = '';
+
+  function katData(slug) {
+    return KLH.ppid.kategori.filter(function (x) { return x.slug === slug; })[0];
+  }
 
   function render() {
     var q = cari.value.trim().toLowerCase();
     var rows = KLH.ppid.dip.filter(function (d) {
-      return (!aktif || d.kategori === aktif) && (!q || d.judul.toLowerCase().indexOf(q) !== -1);
+      return (!aktif || d.kategori === aktif) &&
+             (!tagAktif || d.tag === tagAktif) &&
+             (!q || d.judul.toLowerCase().indexOf(q) !== -1);
     });
     info.textContent = rows.length
-      ? 'Menampilkan ' + rows.length + ' dari ' + KLH.ppid.dip.length + ' dokumen.'
-      : 'Tidak ada dokumen yang cocok — coba kata kunci lain atau ganti filter.';
+      ? 'Menampilkan ' + rows.length + ' dari ' + KLH.ppid.dip.length + ' informasi.'
+      : 'Tidak ada informasi yang cocok — coba kata kunci lain atau ganti filter.';
     body.innerHTML = rows.map(function (d) {
       var k = KAT[d.kategori] || ['—', 'bg-neutral'];
-      return '<tr>' +
-        '<td class="mono" style="font-size:var(--t-xs);white-space:nowrap">' + d.no + '</td>' +
-        '<td style="font-weight:600;min-width:260px">' + d.judul + '</td>' +
-        '<td><span class="badge ' + k[1] + '">' + k[0] + '</span></td>' +
-        '<td style="color:var(--ink-500)">' + d.unit + '</td>' +
-        '<td class="num">' + d.tahun + '</td>' +
-        '<td style="white-space:nowrap">' +
-          (d.format === 'Web'
-            ? '<a class="btn btn-ghost btn-sm" href="index.html">' + KLH.iconSVG('external', 'icon icon--sm') + ' Buka</a>'
-            : '<a class="btn btn-secondary btn-sm" href="#" onclick="return false" aria-label="Unduh ' + d.judul.replace(/"/g, '&quot;') + ' (' + d.format + ', simulasi)">' + KLH.iconSVG('download', 'icon icon--sm') + ' ' + d.format + ' · ' + d.ukuran + '</a>') +
-        '</td></tr>';
+      var aksi = d.output === 'link'
+        ? '<a class="btn btn-ghost btn-sm" href="' + d.url + '">' + KLH.iconSVG('external', 'icon icon--sm') + ' Kunjungi tautan</a>'
+        : '<a class="btn btn-secondary btn-sm" href="#" onclick="return false" aria-label="Unduh ' + d.judul.replace(/"/g, '&quot;') + ' (PDF, simulasi)">' + KLH.iconSVG('download', 'icon icon--sm') + ' Unduh PDF · ' + d.ukuran + '</a>';
+      return '<li class="dip-item">' +
+        '<div>' +
+          '<div class="dip-item__badges">' +
+            '<span class="badge ' + k[1] + '">' + k[0] + '</span>' +
+            '<span class="badge bg-neutral">' + d.tag + '</span>' +
+          '</div>' +
+          '<h3>' + d.judul + '</h3>' +
+          '<p>' + d.ringkas + '</p>' +
+          '<div class="dip-item__meta"><span class="mono">' + d.no + '</span><span>' + d.unit + '</span><span>' + KLH.fmtDate(d.tanggal) + '</span></div>' +
+        '</div>' +
+        '<div class="dip-item__aksi">' + aksi + '</div>' +
+      '</li>';
     }).join('');
+  }
+
+  /* Tag informasi mengikuti kategori aktif (pola dropdown kategori Kemendag) */
+  function renderTags() {
+    var kd = aktif && katData(aktif);
+    tagAktif = '';
+    if (!kd || !kd.tags) { tagBar.hidden = true; tagBar.innerHTML = ''; return; }
+    tagBar.hidden = false;
+    tagBar.innerHTML = '<button class="fchip on" type="button" data-t="" aria-pressed="true">Semua tag</button>' +
+      kd.tags.map(function (t) {
+        return '<button class="fchip" type="button" data-t="' + t + '" aria-pressed="false">' + t + '</button>';
+      }).join('');
+    Array.prototype.forEach.call(tagBar.querySelectorAll('.fchip'), function (c) {
+      c.addEventListener('click', function () {
+        Array.prototype.forEach.call(tagBar.querySelectorAll('.fchip'), function (x) {
+          x.classList.toggle('on', x === c);
+          x.setAttribute('aria-pressed', String(x === c));
+        });
+        tagAktif = c.getAttribute('data-t');
+        render();
+      });
+    });
+  }
+
+  /* Judul & remah menyesuaikan kategori aktif (halaman per kategori ala Kemendag) */
+  function setHero() {
+    var kd = aktif && katData(aktif);
+    document.getElementById('judul-hal').textContent = kd ? kd.label : 'Daftar Informasi Publik (DIP)';
+    document.getElementById('lead-hal').textContent = kd ? kd.desc : 'Informasi yang wajib disediakan dan diumumkan — telusuri per kategori dan tag, lalu akses langsung tanpa permohonan.';
+    document.getElementById('crumb-akhir').textContent = kd ? kd.label : 'Daftar Informasi Publik';
+    document.title = (kd ? kd.label : 'Daftar Informasi Publik') + ' — PPID KLH/BPLH';
   }
 
   /* A2-06 · status chip juga diumumkan ke pembaca layar (aria-pressed) */
@@ -123,7 +156,7 @@
     c.addEventListener('click', function () {
       setChip(c);
       aktif = c.getAttribute('data-k');
-      render();
+      setHero(); renderTags(); render();
     });
   });
   cari.addEventListener('input', render);
@@ -134,7 +167,7 @@
     aktif = k;
     setChip(chips.filter(function (x) { return x.getAttribute('data-k') === k; })[0]);
   }
-  render();
+  setHero(); renderTags(); render();
 })();
 </script>
 </body>

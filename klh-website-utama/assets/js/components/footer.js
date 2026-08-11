@@ -1,5 +1,5 @@
 /* ============================================================
-   <klh-footer> — footer global (WF-01 §3.6)
+   <klh-footer>, footer global (WF-01 §3.6)
    Kolom: brand+kontak · Peta Situs · Layanan Cepat · Tautan Sistem
    Data: KLH.menu.footer
    ============================================================ */
@@ -40,7 +40,7 @@
             }).join('') +
           '</div>' +
           '<div class="footer-bottom">' +
-            '<span class="gov">' + ic('institution') + ' © 2026 Kementerian Lingkungan Hidup / BPLH — Republik Indonesia</span>' +
+            '<span class="gov">' + ic('institution') + ' © 2026 Kementerian Lingkungan Hidup / BPLH, Republik Indonesia</span>' +
             '<span>' + f.legal.map(function (l) {
               return '<a href="' + href(l.href) + '" style="margin-left:var(--s4)">' + l.label + '</a>';
             }).join('') + '</span>' +

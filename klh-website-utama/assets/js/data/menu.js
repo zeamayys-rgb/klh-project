@@ -1,5 +1,5 @@
 /* ============================================================
-   KLH.menu — Arsitektur Informasi (sumber: F2_UserFlow-IA.md §3)
+   KLH.menu - Arsitektur Informasi (sumber: F2_UserFlow-IA.md §3)
    Satu sumber kebenaran untuk navbar, mega menu, drawer & footer.
    Semua href relatif terhadap ROOT situs; komponen menambahkan
    window.KLH_ROOT sesuai kedalaman halaman.
@@ -63,7 +63,7 @@
                 { label: 'PROPER', desc: 'Peringkat kinerja perusahaan', icon: 'factory', href: 'pages/program/proper.html' },
                 { label: 'Program Kampung Iklim', desc: 'Aksi iklim berbasis komunitas', icon: 'sprout', href: 'pages/program/proklim.html' },
                 { label: 'Ekonomi Sirkular', desc: 'Daur ulang & guna ulang', icon: 'recycle', href: 'pages/program/ekonomi-sirkular.html' },
-                { label: 'SIPSN — Sampah Nasional', desc: 'Data pengelolaan sampah nasional', icon: 'recycle', href: 'https://sampahnasional.kemenlh.go.id/', ext: true }
+                { label: 'SIPSN (Sampah Nasional)', desc: 'Data pengelolaan sampah nasional', icon: 'recycle', href: 'https://sampahnasional.kemenlh.go.id/', ext: true }
               ]
             }
           ],
@@ -86,7 +86,7 @@
               more: 'pages/layanan/perizinan-pengadaan.html',
               items: [
                 { label: 'Perizinan Lingkungan Hidup (PTSP)', icon: 'institution', href: 'pages/layanan/ptsp.html' },
-                { label: 'OSS — Perizinan Berusaha', icon: 'external', href: 'https://oss.go.id', ext: true },
+                { label: 'OSS (Perizinan Berusaha)', icon: 'external', href: 'https://oss.go.id', ext: true },
                 { label: 'LPSE / SiRUP Pengadaan', icon: 'external', href: 'https://spse.inaproc.id/kemenlh', ext: true }
               ]
             },
@@ -112,8 +112,8 @@
               col: 3, title: 'Data, Lab & Pengujian',
               more: 'pages/layanan/data-lab-pengujian.html',
               items: [
-                { label: 'ISPU — Kualitas Udara', icon: 'external', href: 'https://ispu.kemenlh.go.id/webv5/#/', ext: true },
-                { label: 'Onlimo — Kualitas Air', icon: 'external', href: 'https://onlimo.kemenlh.go.id/app/', ext: true },
+                { label: 'ISPU (Kualitas Udara)', icon: 'external', href: 'https://ispu.kemenlh.go.id/webv5/#/', ext: true },
+                { label: 'Onlimo (Kualitas Air)', icon: 'external', href: 'https://onlimo.kemenlh.go.id/app/', ext: true },
                 { label: 'Bursa Karbon (IDXCarbon)', icon: 'external', href: 'https://idxcarbon.co.id', ext: true }
               ]
             }
@@ -121,7 +121,7 @@
           promo: {
             eyebrow: 'Layanan publik',
             title: 'Temukan layanan sesuai kebutuhan Anda',
-            desc: 'Empat kelompok layanan — perizinan, pengaduan, data & pengujian, regulasi & pembelajaran.',
+            desc: 'Empat kelompok layanan, perizinan, pengaduan, data & pengujian, regulasi & pembelajaran.',
             cta: 'Semua Layanan', href: 'pages/layanan/index.html'
           }
         }
@@ -171,13 +171,13 @@
 
     /* ---- Footer (WF-01 §3.6: tautan eksisting + peta situs) ---- */
     footer: {
-      tagline: 'Wujudkan lingkungan hidup dengan aksi nyata — setiap tindakan kecil berdampak besar bagi bumi kita.',
+      tagline: 'Wujudkan lingkungan hidup dengan aksi nyata, setiap tindakan kecil berdampak besar bagi bumi kita.',
       contact: [
         { icon: 'pin', text: 'Menara Plaza Kuningan, Jl. H.R. Rasuna Said Kav. C11-14, Kuningan, Jakarta Selatan' },
         { icon: 'phone', text: '(021) 8580101 · (021) 8580103' },
         { icon: 'envelope', text: 'layanan@kemenlh.go.id' }
       ],
-      /* Media sosial resmi KLH — tautan contoh, verifikasi handle sebelum produksi */
+      /* Media sosial resmi KLH - tautan contoh, verifikasi handle sebelum produksi */
       socials: [
         { icon: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/kementerianlh' },
         { icon: 'x', label: 'X (Twitter)', href: 'https://x.com/KementerianLH' },

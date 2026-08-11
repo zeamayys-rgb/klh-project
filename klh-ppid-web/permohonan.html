@@ -74,8 +74,9 @@
               <span class="errmsg" id="email-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Masukkan alamat email yang valid.</span>
             </div>
             <div class="field">
-              <label for="hp">No. Telepon/WA <span style="font-weight:400;color:var(--ink-400)">(opsional)</span></label>
-              <input class="input" id="hp" type="tel" inputmode="numeric" autocomplete="tel" placeholder="08xxxxxxxxxx">
+              <label for="hp">No. WhatsApp</label>
+              <input class="input" id="hp" type="tel" inputmode="numeric" autocomplete="tel" placeholder="08xxxxxxxxxx" aria-describedby="hp-err">
+              <span class="errmsg" id="hp-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Masukkan nomor WhatsApp aktif (10–15 digit, mis. 08xxxxxxxxxx).</span>
             </div>
           </div>
           <div class="field" style="margin-bottom:0">
@@ -239,6 +240,7 @@
       var nik = document.getElementById('nik').value.trim();
       ok = setErr('nik', !(/^\d{16}$/.test(nik) || nik.length >= 8)) && ok;
       ok = setErr('email', !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('email').value.trim())) && ok;
+      ok = setErr('hp', !/^(\+?62|0)\d{8,13}$/.test(document.getElementById('hp').value.replace(/[\s-]/g, ''))) && ok;
       ok = setErr('alamat', !document.getElementById('alamat').value.trim()) && ok;
     } else if (step === 2) {
       ok = setErr('rincian', document.getElementById('rincian').value.trim().length < 20) && ok;
@@ -265,7 +267,7 @@
       ['Nama', document.getElementById('nama').value],
       ['NIK / Akta', document.getElementById('nik').value],
       ['Email', document.getElementById('email').value],
-      ['Telepon', document.getElementById('hp').value || '—'],
+      ['No. WhatsApp', document.getElementById('hp').value],
       ['Alamat', document.getElementById('alamat').value],
       ['Informasi diminta', document.getElementById('rincian').value],
       ['Tujuan penggunaan', document.getElementById('tujuan').value],

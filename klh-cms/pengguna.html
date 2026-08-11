@@ -74,7 +74,7 @@
 
   document.getElementById('role-grid').innerHTML = C.peran.map(function (p) {
     return '<div class="role-card card panel"><div class="kanal-card__head">' +
-      '<span class="kanal-card__ic">' + KLH.iconSVG(p.id === 'admin' ? 'shield' : (p.id === 'ppid' ? 'document' : (p.id === 'editor' ? 'newspaper' : 'user')), 'icon') + '</span>' +
+      '<span class="kanal-card__ic">' + KLH.iconSVG(p.id === 'admin' ? 'shield' : (p.id === 'editor' ? 'newspaper' : 'user'), 'icon') + '</span>' +
       '<span><h3 style="margin:0;font-size:var(--t-h4)">' + p.nama + '</h3><small>' + p.jumlah + ' pengguna</small></span></div>' +
       '<p style="margin:0;font-size:var(--t-sm);color:var(--ink-500)">' + p.ket + '</p></div>';
   }).join('');
@@ -86,7 +86,7 @@
     head.appendChild(th);
   });
   document.getElementById('mx-body').innerHTML = C.izin.map(function (z) {
-    var sel = ['admin', 'editor', 'ppid', 'kontributor'].map(function (k) {
+    var sel = ['admin', 'editor', 'kontributor'].map(function (k) {
       return '<td>' + (z[k]
         ? '<span class="matrix-ya">' + KLH.iconSVG('check', 'icon icon--sm') + ' Ya</span>'
         : '<span class="matrix-tidak">— Tidak</span>') + '</td>';

@@ -294,10 +294,12 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
 .svc-card__icon {
   width: 52px; height: 52px; border-radius: 14px;
   display: grid; place-items: center;
+  margin-bottom: var(--s3);
   background: var(--klh-green-100); color: var(--klh-green-700);
 }
 .svc-card__icon--earth { background: var(--o-100); color: var(--o-700); }
 .svc-card__icon--sky { background: var(--b-100); color: var(--b-700); }
+.svc-card__icon--neutral { background: var(--surface-2); color: var(--ink-500); }
 .svc-card h3, .svc-card h4 { margin-bottom: var(--s1); display: flex; align-items: center; gap: var(--s2); }
 .svc-card p { color: var(--ink-500); font-size: var(--t-sm); margin: 0; }
 .svc-card__foot {

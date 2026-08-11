@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Indeks Layanan — KLH/BPLH</title>
+<title>Indeks Layanan | KLH/BPLH</title>
 <meta name="description" content="Seluruh layanan publik KLH/BPLH dikelompokkan berdasarkan kebutuhan Anda: perizinan, pengaduan, data & lab, serta regulasi & pembelajaran.">
 <link rel="icon" type="image/png" href="../../assets/img/klh-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,7 +35,7 @@
       </ol></nav>
       <span class="eyebrow">Layanan Publik</span>
       <h1>Mulai dari kebutuhan Anda</h1>
-      <p class="lead">Layanan dikelompokkan berdasarkan niat pengguna — bukan struktur birokrasi. Tautan bertanda ↗ membuka sistem lain dan selalu diberi konfirmasi jelas.</p>
+      <p class="lead">Layanan dikelompokkan berdasarkan niat pengguna, bukan struktur birokrasi. Tautan bertanda ↗ membuka sistem lain dan selalu diberi konfirmasi jelas.</p>
     </div>
     <span id="hero-leaf"></span>
   </section>
@@ -48,7 +48,7 @@
         <div>
           <span class="eyebrow" style="color:var(--klh-green-300)">Tidak menemukan yang dicari?</span>
           <h2>Tanya Asisten KLH atau gunakan pencarian.</h2>
-          <p>Asisten virtual kami dapat mengarahkan Anda ke kanal yang tepat — atau telusuri seluruh situs lewat pencarian terpusat.</p>
+          <p>Asisten virtual kami dapat mengarahkan Anda ke kanal yang tepat, atau telusuri seluruh situs lewat pencarian terpusat.</p>
         </div>
         <div style="display:grid;gap:var(--s3)">
           <button class="btn btn--inverse btn-lg" type="button" onclick="document.querySelector('[data-chat-fab]').click()"><klh-icon name="speech" class="icon icon--sm"></klh-icon> Buka Chat Bot</button>
@@ -76,7 +76,7 @@
       '<h2 style="font-size:var(--t-h3);margin-bottom:var(--s2)">' + g.title + '</h2>' +
       '<p>' + g.lead + '</p></div>' +
       '<div class="meta-row">' + g.services.slice(0, 4).map(function (s) {
-        return '<span class="badge bg-neutral">' + s.name.split('—')[0].trim() + (s.ext ? ' ↗' : '') + '</span>';
+        return '<span class="badge bg-neutral">' + s.name.split('(')[0].trim() + (s.ext ? ' ↗' : '') + '</span>';
       }).join('') + '</div>' +
       '<span class="svc-card__foot">Buka kelompok ' + KLH.iconSVG('arrowright', 'icon icon--sm') + '</span></a>';
   }).join('');

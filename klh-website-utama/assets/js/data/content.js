@@ -1,5 +1,5 @@
 /* ============================================================
-   KLH.content — data konten prototipe (dummy, siap diganti CMS)
+   KLH.content, data konten prototipe (dummy, siap diganti CMS)
    Dipakai oleh: program/detail, informasi/indeks & detail,
    struktur organisasi, agenda, galeri, dan pencarian.
    ============================================================ */
@@ -19,18 +19,18 @@
       periode: 'Pendaftaran Januari – Maret, penganugerahan Juni',
       manfaat: ['Pengakuan nasional atas dedikasi lingkungan', 'Pendampingan penguatan kapasitas komunitas', 'Jejaring penerima Kalpataru lintas daerah'],
       langkah: ['Siapkan profil kiprah lingkungan calon (perorangan atau kelompok)', 'Ajukan usulan secara daring melalui aplikasi SITARU (sitaru.kemenlh.go.id)', 'Lengkapi dokumen pendukung & ikuti verifikasi lapangan', 'Penilaian Dewan Pertimbangan Kalpataru & penganugerahan'],
-      daftar: { label: 'Usulkan Calon (SITARU)', href: 'https://sitaru.kemenlh.go.id/auth/login', ext: 'SITARU — Sistem Informasi Penghargaan Kalpataru' }
+      daftar: { label: 'Usulkan Calon (SITARU)', href: 'https://sitaru.kemenlh.go.id/auth/login', ext: 'SITARU (Sistem Informasi Penghargaan Kalpataru)' }
     },
     {
       slug: 'proper', name: 'PROPER', icon: 'factory', tone: 'green',
       page: 'pages/program/proper.html',
       tagline: 'Program Penilaian Peringkat Kinerja Perusahaan dalam Pengelolaan Lingkungan Hidup.',
-      desc: 'PROPER adalah singkatan dari Program Penilaian Peringkat Kinerja Perusahaan dalam Pengelolaan Lingkungan Hidup — evaluasi kinerja bagi penanggung jawab usaha dan/atau kegiatan di bidang pengelolaan lingkungan hidup, dengan peringkat warna Emas, Hijau, Biru, Merah, dan Hitam.',
+      desc: 'PROPER adalah singkatan dari Program Penilaian Peringkat Kinerja Perusahaan dalam Pengelolaan Lingkungan Hidup, evaluasi kinerja bagi penanggung jawab usaha dan/atau kegiatan di bidang pengelolaan lingkungan hidup, dengan peringkat warna Emas, Hijau, Biru, Merah, dan Hitam.',
       audiens: 'Perusahaan & pelaku usaha',
       periode: 'Penilaian sepanjang tahun, publikasi Desember',
       manfaat: ['Citra ketaatan lingkungan yang terverifikasi', 'Insentif reputasi bagi peringkat Emas & Hijau', 'Peta jalan perbaikan bagi peringkat Merah'],
       langkah: ['Registrasi perusahaan pada sistem SIMPEL', 'Sampaikan dokumen swapantau berkala', 'Ikuti verifikasi lapangan tim penilai', 'Pantau hasil & tindak lanjuti rekomendasi'],
-      daftar: { label: 'Daftar / Ajukan Usulan', href: 'https://simpel.kemenlh.go.id/2023/landing', ext: 'SIMPEL — Sistem Pelaporan Elektronik' }
+      daftar: { label: 'Daftar / Ajukan Usulan', href: 'https://simpel.kemenlh.go.id/2023/landing', ext: 'SIMPEL (Sistem Pelaporan Elektronik)' }
     },
     {
       slug: 'adipura', name: 'Adipura', icon: 'award', tone: 'green',
@@ -48,23 +48,23 @@
       slug: 'adiwiyata', name: 'Adiwiyata', icon: 'book', tone: 'sky',
       page: 'pages/program/adiwiyata.html',
       tagline: 'Gerakan sekolah peduli dan berbudaya lingkungan hidup.',
-      desc: 'Adiwiyata adalah program nasional untuk mewujudkan sekolah yang peduli dan berbudaya lingkungan — mengintegrasikan pendidikan lingkungan ke pembelajaran intrakurikuler, kokurikuler, dan ekstrakurikuler pada jenjang SD/MI hingga SMA/SMK sederajat.',
+      desc: 'Adiwiyata adalah program nasional untuk mewujudkan sekolah yang peduli dan berbudaya lingkungan, mengintegrasikan pendidikan lingkungan ke pembelajaran intrakurikuler, kokurikuler, dan ekstrakurikuler pada jenjang SD/MI hingga SMA/SMK sederajat.',
       audiens: 'Sekolah (SD–SMA/SMK sederajat)',
       periode: 'Usulan Februari – April, penetapan akhir tahun',
       manfaat: ['Penghargaan berjenjang kabupaten/kota, provinsi & nasional', 'Karakter peduli lingkungan sejak dini', 'Budaya sekolah bersih, sehat & hijau'],
       langkah: ['Bentuk tim & susun rencana Gerakan PBLHS, terbitkan SK Tim Sekolah Adiwiyata', 'Usulkan sekolah ke perangkat daerah bidang lingkungan hidup', 'Registrasi melalui Sistem Informasi Adiwiyata (SIDIA)', 'Ikuti penilaian & pembinaan berjenjang hingga tingkat nasional'],
-      daftar: { label: 'Registrasi SIDIA', href: 'https://pusatpglhk.bp2sdm.menlhk.go.id/sidia/register', ext: 'SIDIA — Sistem Informasi Adiwiyata' },
+      daftar: { label: 'Registrasi SIDIA', href: 'https://pusatpglhk.bp2sdm.menlhk.go.id/sidia/register', ext: 'SIDIA (Sistem Informasi Adiwiyata)' },
       info: { label: 'Info lengkap Adiwiyata', href: 'https://kemenlh.go.id/contents/15/Adiwiyata' }
     },
     {
       slug: 'proklim', name: 'Program Kampung Iklim', icon: 'sprout', tone: 'green',
       page: 'pages/program/proklim.html',
       tagline: 'Aksi adaptasi dan mitigasi perubahan iklim berbasis komunitas.',
-      desc: 'ProKlim adalah gerakan nasional berbasis komunitas untuk adaptasi dampak perubahan iklim dan mitigasi emisi gas rumah kaca secara berkelanjutan — dari tingkat RT/RW, dusun, hingga desa dan kelurahan.',
+      desc: 'ProKlim adalah gerakan nasional berbasis komunitas untuk adaptasi dampak perubahan iklim dan mitigasi emisi gas rumah kaca secara berkelanjutan, dari tingkat RT/RW, dusun, hingga desa dan kelurahan.',
       audiens: 'RT/RW, dusun, desa & komunitas',
       periode: 'Registrasi sepanjang tahun via SRN PPI',
       manfaat: ['Ketahanan kampung terhadap dampak iklim', 'Apresiasi berjenjang Pratama, Madya, Utama & Trofi Nasional', 'Akses pendampingan teknis & pendanaan mitra'],
-      langkah: ['Identifikasi lokasi potensial — pemda, komunitas, atau lembaga mengusulkan wilayahnya', 'Pendaftaran & verifikasi oleh tim KLH/BPLH berdasarkan indikator adaptasi dan mitigasi', 'Pendampingan & fasilitasi: pelatihan, bimbingan teknis, dan dukungan pelaksanaan', 'Evaluasi & apresiasi: sertifikat, piagam, hingga trofi ProKlim Nasional'],
+      langkah: ['Identifikasi lokasi potensial, pemda, komunitas, atau lembaga mengusulkan wilayahnya', 'Pendaftaran & verifikasi oleh tim KLH/BPLH berdasarkan indikator adaptasi dan mitigasi', 'Pendampingan & fasilitasi: pelatihan, bimbingan teknis, dan dukungan pelaksanaan', 'Evaluasi & apresiasi: sertifikat, piagam, hingga trofi ProKlim Nasional'],
       info: { label: 'Info lengkap ProKlim', href: 'https://kemenlh.go.id/contents/16/Program-Kampung-Iklim-Proklim' },
       konten: [
         '<figure style="margin:0">',
@@ -106,14 +106,14 @@
         '<div class="card nilai-chip"><span class="svc-card__icon">', KLH.iconSVG('tree', 'icon'), '</span><div><h3 style="font-size:var(--t-body);margin-bottom:2px">ProKlim Utama</h3><p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">Kelembagaan kuat dan kegiatan berkelanjutan.</p></div></div>',
         '<div class="card nilai-chip"><span class="svc-card__icon">', KLH.iconSVG('award', 'icon'), '</span><div><h3 style="font-size:var(--t-body);margin-bottom:2px">Trofi ProKlim Nasional</h3><p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">Praktik terbaik nasional yang menjadi teladan antar daerah.</p></div></div>',
         '</div>',
-        '<p style="font-size:var(--t-xs);color:var(--ink-500);margin-top:var(--s6)">Sumber: <a href="https://kemenlh.go.id/contents/16/Program-Kampung-Iklim-Proklim" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id">kemenlh.go.id — Program Kampung Iklim (ProKlim)</a></p>'
+        '<p style="font-size:var(--t-xs);color:var(--ink-500);margin-top:var(--s6)">Sumber: <a href="https://kemenlh.go.id/contents/16/Program-Kampung-Iklim-Proklim" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id">kemenlh.go.id · Program Kampung Iklim (ProKlim)</a></p>'
       ].join('')
     },
     {
       slug: 'nirwasita-tantra', name: 'Nirwasita Tantra', icon: 'flag', tone: 'earth',
       page: 'pages/program/nirwasita-tantra.html',
       tagline: 'Green leadership award bagi kepala daerah dan DPRD.',
-      desc: 'Nirwasita Tantra adalah penghargaan pemerintah bagi kepala daerah yang berhasil merumuskan dan menerapkan kebijakan pembangunan berkelanjutan berwawasan lingkungan — dinilai dari Status Lingkungan Hidup Daerah (SLHD) dan inovasi kebijakannya.',
+      desc: 'Nirwasita Tantra adalah penghargaan pemerintah bagi kepala daerah yang berhasil merumuskan dan menerapkan kebijakan pembangunan berkelanjutan berwawasan lingkungan, dinilai dari Status Lingkungan Hidup Daerah (SLHD) dan inovasi kebijakannya.',
       audiens: 'Pemerintah provinsi & kabupaten/kota',
       periode: 'Penyerahan SLHD paling lambat 30 April, penganugerahan Juni',
       manfaat: ['Rekognisi kepemimpinan hijau daerah', 'Basis data lingkungan daerah yang kuat', 'Insentif & sinergi kebijakan pusat–daerah'],
@@ -122,7 +122,7 @@
       konten: [
         '<div class="prose">',
         '<h2 style="font-size:var(--t-h3)">SLHD sebagai dasar penilaian</h2>',
-        '<p>Penilaian berbasis <strong>Status Lingkungan Hidup Daerah (SLHD)</strong> — laporan tahunan kinerja pengelolaan lingkungan hidup yang disusun pemerintah daerah. Mulai 2026, pedoman SLHD yang disempurnakan menggantikan DIKPLHD, mencakup keanekaragaman hayati, kualitas air, laut &amp; pesisir, kualitas udara, lahan &amp; hutan, pengelolaan sampah &amp; limbah, perubahan iklim, serta risiko bencana.</p>',
+        '<p>Penilaian berbasis <strong>Status Lingkungan Hidup Daerah (SLHD)</strong>: laporan tahunan kinerja pengelolaan lingkungan hidup yang disusun pemerintah daerah. Mulai 2026, pedoman SLHD yang disempurnakan menggantikan DIKPLHD, mencakup keanekaragaman hayati, kualitas air, laut &amp; pesisir, kualitas udara, lahan &amp; hutan, pengelolaan sampah &amp; limbah, perubahan iklim, serta risiko bencana.</p>',
         '<h2 style="font-size:var(--t-h3)">Tujuan program</h2>',
         '<ul><li>Memperkuat basis data & informasi lingkungan daerah.</li>',
         '<li>Evaluasi mandiri kebijakan pemda berbasis data lingkungan hidup.</li>',
@@ -147,23 +147,23 @@
         '<div class="card tonal" style="box-shadow:none;margin-top:var(--s8)"><div class="card__body" style="padding:var(--s5)">',
         '<span class="eyebrow">Linimasa Nirwasita Tantra 2026</span>',
         '<ul style="margin:var(--s3) 0 0;padding-left:var(--s5);color:var(--ink-700);font-size:var(--t-sm);display:grid;gap:var(--s2)">',
-        '<li><strong>Desember 2025</strong> — diseminasi & sosialisasi pedoman penyusunan SLHD.</li>',
-        '<li><strong>30 April 2026</strong> — batas waktu penyerahan SLHD (unggah di laman daerah & PDF ke <a href="mailto:nirwasitatantra@kemenlh.go.id">nirwasitatantra@kemenlh.go.id</a>).</li>',
-        '<li><strong>Mei 2026</strong> — penapisan dokumen & penilaian Dewan Pertimbangan.</li>',
-        '<li><strong>Juni 2026</strong> — penganugerahan pada puncak acara Hari Lingkungan Hidup.</li></ul>',
+        '<li><strong>Desember 2025</strong>: diseminasi & sosialisasi pedoman penyusunan SLHD.</li>',
+        '<li><strong>30 April 2026</strong>: batas waktu penyerahan SLHD (unggah di laman daerah & PDF ke <a href="mailto:nirwasitatantra@kemenlh.go.id">nirwasitatantra@kemenlh.go.id</a>).</li>',
+        '<li><strong>Mei 2026</strong>: penapisan dokumen & penilaian Dewan Pertimbangan.</li>',
+        '<li><strong>Juni 2026</strong>: penganugerahan pada puncak acara Hari Lingkungan Hidup.</li></ul>',
         '</div></div>',
         '<div class="prose"><h2 style="font-size:var(--t-h3)">Dasar hukum</h2>',
         '<ul><li>UU No. 32 Tahun 2009 tentang Perlindungan & Pengelolaan Lingkungan Hidup, Pasal 62 ayat (1).</li>',
         '<li>UU No. 14 Tahun 2008 tentang Keterbukaan Informasi Publik, Pasal 2 ayat (3).</li>',
         '<li>PP No. 22 Tahun 2021 tentang Penyelenggaraan Perlindungan & Pengelolaan Lingkungan Hidup.</li></ul></div>',
-        '<p style="font-size:var(--t-xs);color:var(--ink-500);margin-top:var(--s6)">Sumber: <a href="https://kemenlh.go.id/contents/17/Nirwasita-Tantra-Green-Leadership" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id">kemenlh.go.id — Nirwasita Tantra (Green Leadership)</a></p>'
+        '<p style="font-size:var(--t-xs);color:var(--ink-500);margin-top:var(--s6)">Sumber: <a href="https://kemenlh.go.id/contents/17/Nirwasita-Tantra-Green-Leadership" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id">kemenlh.go.id · Nirwasita Tantra (Green Leadership)</a></p>'
       ].join('')
     },
     {
       slug: 'ekonomi-sirkular', name: 'Ekonomi Sirkular', icon: 'recycle', tone: 'sky',
       page: 'pages/program/ekonomi-sirkular.html',
       tagline: 'Transformasi ekonomi: kurangi, gunakan ulang, daur ulang.',
-      desc: 'Ekonomi Sirkular adalah pendekatan pembangunan yang menempatkan efisiensi pemanfaatan sumber daya dan perlindungan lingkungan hidup sebagai satu kesatuan yang tidak terpisahkan — beralih dari pola linear ambil–olah–buang menuju pengurangan limbah, guna ulang, dan pencegahan pencemaran sejak hulu.',
+      desc: 'Ekonomi Sirkular adalah pendekatan pembangunan yang menempatkan efisiensi pemanfaatan sumber daya dan perlindungan lingkungan hidup sebagai satu kesatuan yang tidak terpisahkan, beralih dari pola linear ambil–olah–buang menuju pengurangan limbah, guna ulang, dan pencegahan pencemaran sejak hulu.',
       audiens: 'Industri, UMKM & komunitas',
       periode: 'Pendampingan bergulir sepanjang tahun',
       manfaat: ['Efisiensi sumber daya & energi', 'Lapangan kerja hijau & peluang usaha daur ulang', 'Pengurangan pencemaran & tekanan sumber daya alam'],
@@ -172,7 +172,7 @@
       konten: [
         '<div class="prose">',
         '<h2 style="font-size:var(--t-h3)">Dari linear menuju sirkular</h2>',
-        '<p>Model produksi dan konsumsi dialihkan dari ekonomi linear (ambil–olah–buang) ke sistem yang menekankan pengurangan limbah, pemanfaatan kembali sumber daya, serta pencegahan pencemaran sejak hulu — sehingga nilai material dipertahankan selama mungkin dalam rantai ekonomi.</p>',
+        '<p>Model produksi dan konsumsi dialihkan dari ekonomi linear (ambil–olah–buang) ke sistem yang menekankan pengurangan limbah, pemanfaatan kembali sumber daya, serta pencegahan pencemaran sejak hulu, sehingga nilai material dipertahankan selama mungkin dalam rantai ekonomi.</p>',
         '<h2 style="font-size:var(--t-h3)">Empat prinsip utama</h2>',
         '</div>',
         '<div class="grid grid--2" style="margin-top:var(--s5)">',
@@ -190,13 +190,13 @@
         '<span style="flex:none;margin-top:2px;color:var(--klh-green-700)">', KLH.iconSVG('institution', 'icon'), '</span>',
         '<p style="margin:0;font-size:var(--t-sm)"><strong>Peran KLH & BPLH:</strong> Kementerian Lingkungan Hidup merumuskan kebijakan nasional ekonomi sirkular; Badan Pengendalian Lingkungan Hidup menjalankan fungsi pemantauan, pengawasan, dan penegakan hukum lingkungan.</p>',
         '</div></div>',
-        '<p style="font-size:var(--t-xs);color:var(--ink-500);margin-top:var(--s6)">Sumber: <a href="https://kemenlh.go.id/contents/18/Ekonomi-Sirkular" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id">kemenlh.go.id — Ekonomi Sirkular</a></p>'
+        '<p style="font-size:var(--t-xs);color:var(--ink-500);margin-top:var(--s6)">Sumber: <a href="https://kemenlh.go.id/contents/18/Ekonomi-Sirkular" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id">kemenlh.go.id · Ekonomi Sirkular</a></p>'
       ].join('')
     },
     {
-      slug: 'sipsn', name: 'SIPSN — Sampah Nasional', icon: 'recycle', tone: 'earth',
+      slug: 'sipsn', name: 'SIPSN (Sampah Nasional)', icon: 'recycle', tone: 'earth',
       external: 'https://sampahnasional.kemenlh.go.id/',
-      tagline: 'Sistem Informasi Pengelolaan Sampah Nasional — data timbulan, pengurangan, dan penanganan sampah.',
+      tagline: 'Sistem Informasi Pengelolaan Sampah Nasional, data timbulan, pengurangan, dan penanganan sampah.',
       audiens: 'Pemerintah daerah & publik'
     }
   ];
@@ -223,14 +223,21 @@
       icon: 'sprout', title: 'Buka Peluang Ekonomi Hijau Baru, Menteri LH Tegaskan Semangat Tobat Ekologis Lewat Restorasi Mangrove di Sumbawa',
       date: '2026-07-07', views: 4107, author: 'Biro Humas',
       excerpt: 'Restorasi mangrove di Desa Labuhan Alas, Sumbawa menjadi wujud gerakan tobat ekologis nasional untuk melindungi pesisir dari krisis iklim.',
-      body: ['Kementerian Lingkungan Hidup bersama mitra dunia usaha meluncurkan program pemulihan ekosistem mangrove di Desa Labuhan Alas, Sumbawa, sebagai wujud gerakan "tobat ekologis" nasional untuk melindungi pesisir dari krisis iklim.', 'Hingga pertengahan 2026, kolaborasi ini telah merehabilitasi 484 hektare kawasan pesisir di Nusa Tenggara Barat melalui skema padat karya yang melibatkan 1.500 warga lokal menanam 1,5 juta bibit mangrove jenis Rhizophora.', 'Restorasi mangrove berkontribusi pada target nasional penanaman dua miliar pohon sekaligus membuka peluang ekonomi berkelanjutan: perikanan lestari, ekowisata, dan usaha mikro berbasis jasa lingkungan pesisir.']
+      body: ['Kementerian Lingkungan Hidup bersama mitra dunia usaha meluncurkan program pemulihan ekosistem mangrove di Desa Labuhan Alas, Sumbawa, sebagai wujud gerakan "tobat ekologis" nasional untuk melindungi pesisir dari krisis iklim.', 'Hingga pertengahan 2026, kolaborasi ini telah merehabilitasi 484 hektare kawasan pesisir di Nusa Tenggara Barat melalui skema padat karya yang melibatkan 1.500 warga lokal menanam 1,5 juta bibit mangrove jenis Rhizophora.', 'Restorasi mangrove berkontribusi pada target nasional penanaman dua miliar pohon sekaligus membuka peluang ekonomi berkelanjutan: perikanan lestari, ekowisata, dan usaha mikro berbasis jasa lingkungan pesisir.'],
+      /* Galeri foto liputan (konten contoh) - dirender bila > 1 foto */
+      galeri: [
+        { img: 'assets/img/news/mangrove-sumbawa.jpg', ket: 'Menteri LH bersama warga menanam bibit mangrove di pesisir Desa Labuhan Alas, Sumbawa.' },
+        { img: 'assets/img/news/mangrove-perpanjangan.jpg', ket: 'Kawasan restorasi mangrove yang telah direhabilitasi melalui skema padat karya.' },
+        { img: 'assets/img/news/kelana-anak-muda.jpg', ket: 'Keterlibatan komunitas dan anak muda dalam gerakan tobat ekologis nasional.' },
+        { img: 'assets/img/news/brebes-asri.jpg', ket: 'Peluang ekonomi berkelanjutan: ekowisata dan perikanan lestari di kawasan pesisir.' }
+      ]
     },
     {
       slug: 'pasar-karbon-singapura', module: 'berita', ph: 'ph--sky', img: 'assets/img/news/pasar-karbon-singapura.jpg',
       icon: 'globe', title: 'Tak Sekadar Wacana, Menteri LH: Bersama Singapura Kita Kelola Pasar Karbon yang Berkeadilan dan Perkuat Pelestarian Alam',
       date: '2026-07-06', views: 3480, author: 'Biro Humas',
       excerpt: 'Indonesia dan Singapura menandatangani dua MoU strategis tentang perlindungan lingkungan dan kolaborasi kredit karbon berdasarkan Pasal 6 Persetujuan Paris.',
-      body: ['Indonesia dan Singapura menandatangani dua Memorandum Saling Pengertian strategis tentang perlindungan lingkungan dan kolaborasi kredit karbon berdasarkan Pasal 6 Persetujuan Paris. Penandatanganan dipimpin Menteri Lingkungan Hidup Moh Jumhur Hidayat dan Menteri Keberlanjutan Singapura Grace Fu.', 'Kedua negara akan berkolaborasi melalui peningkatan kapasitas aparatur, riset bersama, pertukaran ahli teknis, dan proyek percontohan — termasuk mekanisme verifikasi dan transfer hasil mitigasi internasional berintegritas tinggi agar tidak terjadi penghitungan emisi ganda.', 'Pemerintah menekankan pasar karbon harus menjamin keadilan iklim yang inklusif: manfaat ekonominya dirasakan hingga masyarakat lokal dan masyarakat adat yang terdampak perubahan iklim.']
+      body: ['Indonesia dan Singapura menandatangani dua Memorandum Saling Pengertian strategis tentang perlindungan lingkungan dan kolaborasi kredit karbon berdasarkan Pasal 6 Persetujuan Paris. Penandatanganan dipimpin Menteri Lingkungan Hidup Moh Jumhur Hidayat dan Menteri Keberlanjutan Singapura Grace Fu.', 'Kedua negara akan berkolaborasi melalui peningkatan kapasitas aparatur, riset bersama, pertukaran ahli teknis, dan proyek percontohan, termasuk mekanisme verifikasi dan transfer hasil mitigasi internasional berintegritas tinggi agar tidak terjadi penghitungan emisi ganda.', 'Pemerintah menekankan pasar karbon harus menjamin keadilan iklim yang inklusif: manfaat ekonominya dirasakan hingga masyarakat lokal dan masyarakat adat yang terdampak perubahan iklim.']
     },
     {
       slug: 'wamen-el-nino-tpa', module: 'berita', ph: 'ph--earth', img: 'assets/img/news/wamen-el-nino-tpa.jpg',
@@ -244,28 +251,28 @@
       icon: 'megaphone', title: 'Penanganan Kebakaran TPA Jatiwaringin Tunjukkan Hasil, Menteri LH: Area Terbakar Tinggal 3,6 Persen',
       date: '2026-07-05', views: 4102, author: 'Biro Humas',
       excerpt: 'Setelah enam hari operasi intensif, luas area terbakar TPA Jatiwaringin berkurang dari 70 persen menjadi 3,6 persen.',
-      body: ['Setelah enam hari operasi intensif, penanganan kebakaran TPA Jatiwaringin, Kabupaten Tangerang menunjukkan hasil signifikan: luas area terbakar berkurang dari sekitar 70 persen menjadi tinggal 3,6 persen berkat kolaborasi pemerintah pusat, daerah, BNPB, TNI, dan Polri. (Siaran Pers No. SR.145/HUMAS/KLH-BPLH/7/2026)', 'Menteri Lingkungan Hidup Moh Jumhur Hidayat mengingatkan pekerjaan belum selesai — cuaca panas masih berpotensi memicu kebakaran kembali, sehingga bupati dan wali kota diminta memperkuat mitigasi dan kesiapsiagaan TPA selama musim kemarau.', 'Penanganan memadukan water bombing, penyiraman, injeksi air ke lapisan bawah timbunan sampah, dan pemadaman darat berkelanjutan; modifikasi cuaca disiapkan saat kondisi atmosfer memungkinkan.']
+      body: ['Setelah enam hari operasi intensif, penanganan kebakaran TPA Jatiwaringin, Kabupaten Tangerang menunjukkan hasil signifikan: luas area terbakar berkurang dari sekitar 70 persen menjadi tinggal 3,6 persen berkat kolaborasi pemerintah pusat, daerah, BNPB, TNI, dan Polri. (Siaran Pers No. SR.145/HUMAS/KLH-BPLH/7/2026)', 'Menteri Lingkungan Hidup Moh Jumhur Hidayat mengingatkan pekerjaan belum selesai, cuaca panas masih berpotensi memicu kebakaran kembali, sehingga bupati dan wali kota diminta memperkuat mitigasi dan kesiapsiagaan TPA selama musim kemarau.', 'Penanganan memadukan water bombing, penyiraman, injeksi air ke lapisan bawah timbunan sampah, dan pemadaman darat berkelanjutan; modifikasi cuaca disiapkan saat kondisi atmosfer memungkinkan.']
     },
     {
       slug: 'sp-hari-mangrove', module: 'siaran-pers', ph: 'ph',
       icon: 'megaphone', title: 'Siaran Pers: Aksi Serentak Hari Mangrove Sedunia 2026 Dipusatkan di Bali, Seluruh Daerah Diajak Menanam',
       date: '2026-07-04', views: 2380, author: 'Biro Humas',
       excerpt: 'KLH mengajak pemerintah daerah, dunia usaha, dan masyarakat mengikuti aksi penanaman mangrove serentak pada 26 Juli 2026. (Konten contoh)',
-      body: ['Kementerian Lingkungan Hidup mengundang seluruh elemen masyarakat mengikuti aksi penanaman mangrove serentak dalam rangka Hari Mangrove Sedunia 2026 bertema "Menjaga Mangrove, Mengamankan Generasi Mendatang", dipusatkan di Bali pada 26 Juli 2026. (Konten contoh — siaran pers prototipe)', 'Pendaftaran rencana kegiatan dilakukan melalui formulir daring hingga 15 Juli 2026. Setiap daerah didorong menyelenggarakan penanaman di wilayah pesisirnya masing-masing.', 'Aksi ini merupakan bagian dari percepatan rehabilitasi ekosistem mangrove nasional serta kontribusi pada target penanaman dua miliar pohon.']
+      body: ['Kementerian Lingkungan Hidup mengundang seluruh elemen masyarakat mengikuti aksi penanaman mangrove serentak dalam rangka Hari Mangrove Sedunia 2026 bertema "Menjaga Mangrove, Mengamankan Generasi Mendatang", dipusatkan di Bali pada 26 Juli 2026. (Konten contoh, siaran pers prototipe)', 'Pendaftaran rencana kegiatan dilakukan melalui formulir daring hingga 15 Juli 2026. Setiap daerah didorong menyelenggarakan penanaman di wilayah pesisirnya masing-masing.', 'Aksi ini merupakan bagian dari percepatan rehabilitasi ekosistem mangrove nasional serta kontribusi pada target penanaman dua miliar pohon.']
     },
     {
       slug: 'sp-kolaborasi-daerah', module: 'siaran-pers', ph: 'ph--sky',
       icon: 'megaphone', title: 'Siaran Pers: KLH Perkuat Kolaborasi Pemantauan Kualitas Lingkungan Bersama Pemerintah Daerah',
       date: '2026-07-01', views: 1875, author: 'Biro Humas',
       excerpt: 'KLH dan pemerintah daerah memperluas jangkauan pemantauan kualitas udara dan air secara kontinu. (Konten contoh)',
-      body: ['Kementerian Lingkungan Hidup memperkuat kolaborasi dengan pemerintah daerah untuk memperluas jangkauan pemantauan kualitas udara (ISPU) dan kualitas air (Onlimo) secara kontinu. (Konten contoh — siaran pers prototipe)', 'Data pemantauan terintegrasi menjadi dasar Indeks Kualitas Lingkungan Hidup yang dapat diakses publik melalui portal resmi.', 'Pemerintah daerah diminta memastikan keandalan stasiun pemantau serta menindaklanjuti indikasi penurunan kualitas lingkungan di wilayahnya.']
+      body: ['Kementerian Lingkungan Hidup memperkuat kolaborasi dengan pemerintah daerah untuk memperluas jangkauan pemantauan kualitas udara (ISPU) dan kualitas air (Onlimo) secara kontinu. (Konten contoh, siaran pers prototipe)', 'Data pemantauan terintegrasi menjadi dasar Indeks Kualitas Lingkungan Hidup yang dapat diakses publik melalui portal resmi.', 'Pemerintah daerah diminta memastikan keandalan stasiun pemantau serta menindaklanjuti indikasi penurunan kualitas lingkungan di wilayahnya.']
     },
     {
       slug: 'kelana-anak-muda', module: 'berita', ph: 'ph--mist', img: 'assets/img/news/kelana-anak-muda.jpg',
       icon: 'people', title: 'KELANA Buktikan Anak Muda Bisa Jadi Penggerak Aksi Lingkungan',
       date: '2026-07-05', views: 2711, author: 'Biro Humas',
       excerpt: 'KELANA (Kenali Lingkungan Bareng Anak Muda) menjadi ruang belajar generasi muda memahami isu lingkungan dan ikut berkontribusi pada solusinya.',
-      body: ['KELANA (Kenali Lingkungan Bareng Anak Muda) adalah inisiatif KLH/BPLH yang dirancang sebagai ruang pembelajaran generasi muda untuk memahami isu lingkungan dan turut berkontribusi dalam solusinya — memadukan kunjungan lapangan, diskusi publik, dan aktivitas di sekolah serta kampus.', 'Pada Episode 2, peserta mengunjungi fasilitas PGN Pagardewa untuk mempelajari praktik pengelolaan lingkungan sektor migas, termasuk manajemen limbah dan pemberdayaan masyarakat lokal.', 'Sepanjang Juli 2026, KLH/BPLH menggelar "KELANA Challenge: Spill Insight KELANA Episode 2" — mengajak peserta dan publik membagikan aksi nyata yang terinspirasi dari program ini.']
+      body: ['KELANA (Kenali Lingkungan Bareng Anak Muda) adalah inisiatif KLH/BPLH yang dirancang sebagai ruang pembelajaran generasi muda untuk memahami isu lingkungan dan turut berkontribusi dalam solusinya, memadukan kunjungan lapangan, diskusi publik, dan aktivitas di sekolah serta kampus.', 'Pada Episode 2, peserta mengunjungi fasilitas PGN Pagardewa untuk mempelajari praktik pengelolaan lingkungan sektor migas, termasuk manajemen limbah dan pemberdayaan masyarakat lokal.', 'Sepanjang Juli 2026, KLH/BPLH menggelar "KELANA Challenge: Spill Insight KELANA Episode 2", mengajak peserta dan publik membagikan aksi nyata yang terinspirasi dari program ini.']
     },
     {
       slug: 'brebes-asri', module: 'berita', ph: 'ph', img: 'assets/img/news/brebes-asri.jpg',
@@ -300,13 +307,13 @@
       icon: 'recycle', title: 'Panduan Praktis Memilah Sampah Rumah Tangga dari Dapur Sendiri',
       date: '2026-06-08', views: 8342, author: 'Tim Edukasi',
       excerpt: 'Tiga wadah sederhana di rumah dapat memangkas hingga 60% sampah yang berakhir di TPA.',
-      body: ['Memilah sampah tidak memerlukan peralatan mahal. Tiga wadah — organik, anorganik daur ulang, dan residu — sudah cukup untuk memulai dari dapur sendiri.', 'Sampah organik dapat diolah menjadi kompos dengan ember tumpuk atau lubang biopori. Sampah daur ulang bernilai ekonomi bila disetorkan ke bank sampah terdekat.', 'Bila konsisten, rumah tangga dapat memangkas hingga 60% sampah yang berakhir di TPA — sekaligus mengurangi emisi metana.']
+      body: ['Memilah sampah tidak memerlukan peralatan mahal. Tiga wadah (organik, anorganik daur ulang, dan residu) sudah cukup untuk memulai dari dapur sendiri.', 'Sampah organik dapat diolah menjadi kompos dengan ember tumpuk atau lubang biopori. Sampah daur ulang bernilai ekonomi bila disetorkan ke bank sampah terdekat.', 'Bila konsisten, rumah tangga dapat memangkas hingga 60% sampah yang berakhir di TPA, sekaligus mengurangi emisi metana.']
     },
     {
       slug: 'statistik-lh-2025', module: 'publikasi', ph: 'ph--sky',
       icon: 'book', title: 'Statistik Lingkungan Hidup Indonesia 2025 (Buku Digital)',
       date: '2026-05-30', views: 1937, author: 'Pusat Data',
-      excerpt: 'Kompilasi data kualitas air, udara, tutupan lahan, dan pengelolaan sampah nasional — unduh gratis.',
+      excerpt: 'Kompilasi data kualitas air, udara, tutupan lahan, dan pengelolaan sampah nasional, unduh gratis.',
       body: ['Buku Statistik Lingkungan Hidup Indonesia 2025 memuat kompilasi data kualitas air, udara, tutupan lahan, timbulan sampah, dan kinerja pengelolaan lingkungan seluruh provinsi.', 'Publikasi ini terbuka untuk peneliti, jurnalis, dan masyarakat umum. Seluruh tabel tersedia dalam format terbuka yang dapat diolah ulang.', 'Unduh versi PDF dan lampiran data melalui tautan pada halaman ini.']
     },
     {
@@ -341,14 +348,14 @@
         '<p>Selain itu, beliau juga menekankan pentingnya penguatan komunikasi publik dan transparansi informasi lingkungan sebagai bagian dari upaya membangun kepercayaan masyarakat. KLH/BPLH di bawah kepemimpinannya diharapkan mampu menjadi institusi yang tidak hanya responsif terhadap isu lingkungan, tetapi juga proaktif dalam mengedukasi dan menggerakkan partisipasi publik.</p>',
         '<p>Dengan kepemimpinan Moh Jumhur Hidayat, KLH/BPLH optimistis dapat memperkuat peran strategis dalam menjaga kualitas lingkungan hidup Indonesia, sekaligus mendukung agenda pembangunan nasional menuju Indonesia yang hijau, tangguh, dan berkelanjutan.</p>',
         '<h3>Pendidikan</h3>',
-        '<ul><li>Sarjana — Universitas Nasional (1996).</li>',
-        '<li>Magister Sains — Universitas Indonesia (2013).</li></ul>',
+        '<ul><li>Sarjana, Universitas Nasional (1996).</li>',
+        '<li>Magister Sains, Universitas Indonesia (2013).</li></ul>',
         '<h3>Riwayat karier</h3>',
         '<ul style="display:grid;gap:var(--s2);color:var(--ink-700)">',
         '<li>2026 – kini · Menteri Lingkungan Hidup / Kepala BPLH.</li>',
         '<li>2022 – 2027 · Ketua Umum Konfederasi Serikat Pekerja Seluruh Indonesia (KSPSI).</li>',
         '<li>2007 – 2014 · Kepala Badan Nasional Penempatan dan Perlindungan Tenaga Kerja Indonesia (BNP2TKI).</li></ul>',
-        '<p style="font-size:var(--t-xs);color:var(--ink-500)">Sumber: <a href="https://kemenlh.go.id/contents/8/Profil-Menteri" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id">kemenlh.go.id — Profil Menteri</a></p>'
+        '<p style="font-size:var(--t-xs);color:var(--ink-500)">Sumber: <a href="https://kemenlh.go.id/contents/8/Profil-Menteri" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id">kemenlh.go.id · Profil Menteri</a></p>'
       ].join('') },
     { id: 'wamen', nama: 'Diaz Faisal Malik Hendropriyono', jabatan: 'Wakil Menteri Lingkungan Hidup / Wakil Kepala BPLH', level: 1, icon: 'user',
       foto: 'assets/img/pejabat/pejabat2.png', fotoPos: '55% top', fotoCss: 'transform:scale(2.1);transform-origin:54% 8%',
@@ -361,14 +368,14 @@
         '<p>Ruang lingkup bidang tugas Wakil Menteri/Wakil Kepala meliputi: membantu Menteri/Kepala dalam perumusan dan/atau pelaksanaan kebijakan Kementerian LH/BPLH; dan membantu Menteri/Kepala dalam mengoordinasikan pencapaian kebijakan strategis lintas unit organisasi jabatan pimpinan tinggi madya di lingkungan Kementerian LH/BPLH.</p>',
         '<h3>Pendidikan</h3>',
         '<ul><li>Norwich Military University, Amerika Serikat.</li>',
-        '<li>Hawaii Pacific University — Master of Business Administration dan Master of Arts in Global Leadership.</li></ul>',
+        '<li>Hawaii Pacific University: Master of Business Administration dan Master of Arts in Global Leadership.</li></ul>',
         '<h3>Riwayat karier</h3>',
         '<ul style="display:grid;gap:var(--s2);color:var(--ink-700)">',
         '<li>2024 – kini · Wakil Menteri Lingkungan Hidup / Wakil Kepala BPLH.</li>',
         '<li>2019 – 2024 · Staf Khusus Kepresidenan pada pemerintahan Presiden Joko Widodo.</li>',
         '<li>2015 · Komisaris PT Telkomsel.</li>',
         '<li>Direktur PT Ulam Sari Samudra; analis pada perusahaan konsultan publik di Amerika Serikat; PT KIA Otomotif Indonesia (1999).</li></ul>',
-        '<p style="font-size:var(--t-xs);color:var(--ink-500)">Sumber: <a href="https://kemenlh.go.id/contents/9/Profil-Wakil-Menteri" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id">kemenlh.go.id — Profil Wakil Menteri</a></p>'
+        '<p style="font-size:var(--t-xs);color:var(--ink-500)">Sumber: <a href="https://kemenlh.go.id/contents/9/Profil-Wakil-Menteri" target="_blank" rel="noopener noreferrer" data-ext="kemenlh.go.id">kemenlh.go.id · Profil Wakil Menteri</a></p>'
       ].join('') },
     { id: 'sekut', nama: 'Ir. Bambang Nugraha, M.M.', jabatan: 'Sekretariat Kementerian / Sekretariat Utama', level: 2, icon: 'institution',
       profil: 'Mengoordinasikan dukungan administrasi, perencanaan, keuangan, dan kehumasan seluruh unit kerja.' },
@@ -404,8 +411,11 @@
       waktu: '08.30–16.00 WIB', lokasi: 'Daring (Zoom) & Kantor KLH Jakarta', unit: 'Sekretariat PROPER',
       desc: 'Bimbingan teknis pengisian dokumen swapantau PROPER 2026 bagi perusahaan wajib lapor. Pendaftaran melalui sistem SIMPEL. (Konten contoh)' },
     { d: '2026-07-15', label: 'Batas Unggah Rencana Penanaman Mangrove', jenis: 'agenda',
-      waktu: 'Hingga 23.59 WIB', lokasi: 'Daring — portal kemenlh.go.id', unit: 'Direktorat Rehabilitasi Pesisir',
+      waktu: 'Hingga 23.59 WIB', lokasi: 'Daring (portal kemenlh.go.id)', unit: 'Direktorat Rehabilitasi Pesisir',
       desc: 'Tenggat pengunggahan rencana kegiatan penanaman mangrove bagi pemda dan komunitas peserta aksi serentak Hari Mangrove Sedunia. (Konten contoh)' },
+    { d: '2026-07-15', label: 'Audiensi Forum DAS Nasional dengan Menteri LH', jenis: 'agenda',
+      waktu: '16.00–17.30 WIB', lokasi: 'Kantor KLH Jakarta', unit: 'Sekretariat Jenderal',
+      desc: 'Audiensi perwakilan Forum DAS Nasional membahas rencana aksi pemulihan daerah aliran sungai prioritas. (Konten contoh)' },
     { d: '2026-07-26', label: 'Aksi Serentak Hari Mangrove Sedunia (pusat: Bali)', jenis: 'hari-besar',
       waktu: '07.00 WITA', lokasi: 'Pantai Serangan, Denpasar (pusat) & seluruh daerah', unit: 'Biro Humas KLH/BPLH',
       desc: 'Penanaman mangrove serentak nasional memperingati Hari Mangrove Sedunia; seluruh daerah diajak menanam di lokasi masing-masing. (Konten contoh)' },
@@ -420,11 +430,11 @@
 
   /* ---------- Galeri Video & Podcast ---------- */
   KLH.videos = [
-    { id: 'v1', jenis: 'Video', durasi: '12:40', ph: 'ph', icon: 'play', title: 'Dokumenter: Kampung Iklim Wonolelo — Mandiri Energi & Pangan', views: 21400, date: '2026-06-12' },
-    { id: 'v2', jenis: 'Podcast', durasi: '38:05', ph: 'ph--earth', icon: 'micro', title: 'Bincang Bumi Ep. 14 — Karbon Biru dan Masa Depan Pesisir', views: 8730, date: '2026-06-03' },
+    { id: 'v1', jenis: 'Video', durasi: '12:40', ph: 'ph', icon: 'play', title: 'Dokumenter Kampung Iklim Wonolelo: Mandiri Energi & Pangan', views: 21400, date: '2026-06-12' },
+    { id: 'v2', jenis: 'Podcast', durasi: '38:05', ph: 'ph--earth', icon: 'micro', title: 'Bincang Bumi Ep. 14: Karbon Biru dan Masa Depan Pesisir', views: 8730, date: '2026-06-03' },
     { id: 'v3', jenis: 'Video', durasi: '06:18', ph: 'ph--sky', icon: 'play', title: 'Tutorial: Cara Mengajukan Permohonan Informasi via PPID Online', views: 15210, date: '2026-05-27' },
     { id: 'v4', jenis: 'Video', durasi: '09:52', ph: 'ph--mist', icon: 'play', title: 'Di Balik Layar Laboratorium Pusarpedal: Menguji Kualitas Air Sungai', views: 6480, date: '2026-05-18' },
-    { id: 'v5', jenis: 'Podcast', durasi: '41:30', ph: 'ph', icon: 'micro', title: 'Bincang Bumi Ep. 13 — Ekonomi Sirkular untuk UMKM', views: 7902, date: '2026-05-06' },
+    { id: 'v5', jenis: 'Podcast', durasi: '41:30', ph: 'ph', icon: 'micro', title: 'Bincang Bumi Ep. 13: Ekonomi Sirkular untuk UMKM', views: 7902, date: '2026-05-06' },
     { id: 'v6', jenis: 'Video', durasi: '04:45', ph: 'ph--earth', icon: 'play', title: 'Sorotan PROPER 2025: Kisah Peringkat Emas', views: 11930, date: '2026-04-29' }
   ];
 
@@ -442,7 +452,7 @@
   KLH.fmtViews = function (n) {
     return n >= 1000 ? (n / 1000).toFixed(1).replace('.', ',') + ' rb' : String(n);
   };
-  /* Konten contoh — angka suka & komentar dummy menunggu CMS;
+  /* Konten contoh - angka suka & komentar dummy menunggu CMS;
      bisa dioverride per artikel via field `likes` / `comments`. */
   KLH.likesOf = function (a) { return a.likes != null ? a.likes : Math.round(a.views * 0.032); };
   KLH.commentsOf = function (a) { return a.comments != null ? a.comments : 3; };

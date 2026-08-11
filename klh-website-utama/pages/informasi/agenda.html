@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agenda &amp; Kalender Lingkungan — KLH/BPLH</title>
+<title>Agenda &amp; Kalender Lingkungan | KLH/BPLH</title>
 <meta name="description" content="Kalender hari besar lingkungan hidup, agenda kegiatan, dan libur nasional KLH/BPLH.">
 <link rel="icon" type="image/png" href="../../assets/img/klh-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -128,11 +128,17 @@
       var iso = y + '-' + pad(m + 1) + '-' + pad(d);
       var evts = evtsOn(iso);
       var isToday = (y === today.getFullYear() && m === today.getMonth() && d === today.getDate());
+      /* Maks 2 agenda per sel (3 baris termasuk tombol "lainnya"); judul panjang dipotong, hover menampilkan judul lengkap */
+      var MAKS_TAMPIL = 2;
+      var pills = evts.slice(0, MAKS_TAMPIL).map(function (e) {
+        return '<button type="button" class="cal__evt ' + JENIS[e.jenis][0] + '" data-agx="' + KLH.agenda.indexOf(e) + '" data-tip="' + e.label.replace(/"/g, '&quot;') + '">' + e.label + '</button>';
+      }).join('');
+      if (evts.length > MAKS_TAMPIL) {
+        pills += '<button type="button" class="cal__evt cal__evt--more" data-lihat-semua data-tip="Lihat semua agenda tanggal ini pada daftar bulan">+' + (evts.length - MAKS_TAMPIL) + ' lainnya</button>';
+      }
       html += '<div class="cal__cell' + (evts.length ? ' has' : '') + (isToday ? ' today' : '') + '">' +
         '<span class="d">' + d + (isToday ? '<span class="sr-only"> (hari ini)</span>' : '') + '</span>' +
-        evts.map(function (e) {
-          return '<button type="button" class="cal__evt ' + JENIS[e.jenis][0] + '" data-agx="' + KLH.agenda.indexOf(e) + '">' + e.label + '</button>';
-        }).join('') + '</div>';
+        pills + '</div>';
     }
     var tail = (7 - (lead + days) % 7) % 7;
     for (var t = 0; t < tail; t++) html += '<div class="cal__cell" aria-hidden="true"></div>';
@@ -211,6 +217,44 @@
   document.addEventListener('click', function (ev) {
     var btn = ev.target.closest && ev.target.closest('[data-agx]');
     if (btn) dlgOpen(KLH.agenda[parseInt(btn.getAttribute('data-agx'), 10)], btn);
+  });
+
+  /* ---------- Tooltip judul lengkap (hover & fokus keyboard) ---------- */
+  var tip = document.createElement('div');
+  tip.className = 'cal-tip';
+  tip.setAttribute('role', 'tooltip');
+  tip.hidden = true;
+  document.body.appendChild(tip);
+  function tipTampil(el) {
+    tip.textContent = el.getAttribute('data-tip');
+    tip.hidden = false;
+    var r = el.getBoundingClientRect();
+    var t = tip.getBoundingClientRect();
+    var x = Math.min(Math.max(r.left + r.width / 2 - t.width / 2, 8), window.innerWidth - t.width - 8);
+    var y = r.top - t.height - 8;
+    if (y < 8) y = r.bottom + 8; /* ruang atas sempit: tampil di bawah */
+    tip.style.left = x + 'px';
+    tip.style.top = y + 'px';
+  }
+  function tipSembunyi() { tip.hidden = true; }
+  document.addEventListener('mouseover', function (e) {
+    var el = e.target.closest && e.target.closest('[data-tip]');
+    if (el) tipTampil(el); else tipSembunyi();
+  });
+  document.addEventListener('focusin', function (e) {
+    var el = e.target.closest && e.target.closest('[data-tip]');
+    if (el) tipTampil(el); else tipSembunyi();
+  });
+  document.addEventListener('scroll', tipSembunyi, true);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') tipSembunyi(); });
+
+  /* "+N lainnya": arahkan ke daftar agenda bulan berjalan */
+  document.addEventListener('click', function (ev) {
+    if (!ev.target.closest || !ev.target.closest('[data-lihat-semua]')) return;
+    var pertama = document.querySelector('#cal-list > button');
+    if (!pertama) return;
+    pertama.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    pertama.focus({ preventScroll: true });
   });
 
   document.getElementById('cal-prev').addEventListener('click', function () {

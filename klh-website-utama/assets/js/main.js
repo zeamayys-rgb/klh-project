@@ -1,5 +1,5 @@
 /* ============================================================
-   main.js — perekat halaman (dimuat terakhir di setiap halaman)
+   main.js, perekat halaman (dimuat terakhir di setiap halaman)
    - Reveal-on-scroll ringan (hormati prefers-reduced-motion)
    - Util render kartu berita (dipakai beranda & indeks)
    ============================================================ */
@@ -28,7 +28,7 @@
     });
   }
 
-  /* ---- Dialog serah-terima tautan eksternal — delegasi global [data-ext]
+  /* ---- Dialog serah-terima tautan eksternal - delegasi global [data-ext]
          (A1-03) + loop fokus & kembalikan fokus ke pemicu (A1-07) ---- */
   var hoDlg = null, hoTrigger = null;
   function hoBuild() {
@@ -39,7 +39,7 @@
       '<div role="dialog" aria-modal="true" aria-labelledby="ho-title" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(440px,calc(100vw - 32px));background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--sh-3);padding:var(--s8)">' +
         '<span class="svc-card__icon svc-card__icon--sky" style="margin-bottom:var(--s4)">' + KLH.iconSVG('external') + '</span>' +
         '<h3 id="ho-title" style="font-size:var(--t-h3)">Anda akan diarahkan ke <span data-ho-name>situs lain</span></h3>' +
-        '<p style="color:var(--ink-500);font-size:var(--t-sm)">Halaman berikutnya berada di luar kemenlh.go.id dan memiliki tampilan berbeda. Layanan tetap resmi — Anda dapat kembali kapan saja.</p>' +
+        '<p style="color:var(--ink-500);font-size:var(--t-sm)">Halaman berikutnya berada di luar kemenlh.go.id dan memiliki tampilan berbeda. Layanan tetap resmi; Anda dapat kembali kapan saja.</p>' +
         '<div style="display:flex;gap:var(--s3);margin-top:var(--s6);flex-wrap:wrap">' +
           '<a class="btn btn-primary" data-ho-go target="_blank" rel="noopener noreferrer">Lanjutkan ' + KLH.iconSVG('arrowright', 'icon icon--sm') + '</a>' +
           '<button class="btn btn-outline" type="button" data-ho-close>Batal</button>' +
@@ -58,7 +58,7 @@
     if (!hoDlg || hoDlg.hidden) return;
     hoDlg.hidden = true; hoDlg.classList.remove('open');
     if (hoTrigger && hoTrigger.focus) {
-      /* Pemicu di mega menu yang sudah menutup (focusout) tak bisa dipegangi —
+      /* Pemicu di mega menu yang sudah menutup (focusout) tak bisa dipegangi -
          fokuskan tombol nav induknya agar fokus tidak jatuh ke skip link */
       var item = hoTrigger.closest('.nav-item');
       if (item && !item.classList.contains('open')) {

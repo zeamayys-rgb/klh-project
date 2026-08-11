@@ -1,7 +1,7 @@
 /* ============================================================
    App Shell Modul 04 — <klh-sidebar> + <klh-topbar> (CMS Konten)
-   Adaptasi appshell Modul 03: navigasi konten lintas 3 produk,
-   notifikasi antrean review, pencarian global artikel/DIP.
+   Adaptasi appshell Modul 03: navigasi konten Website Utama,
+   notifikasi antrean review, pencarian global artikel/agenda.
    Urutan muat: icons.js → data/cms.js → cmsshell.js → markup.
    ============================================================ */
 (function () {
@@ -26,8 +26,10 @@
       { href: 'index.html', icon: 'grid', label: 'Dashboard' },
       { href: 'konten.html', icon: 'newspaper', label: 'Website Utama', badge: 'review' },
       { href: 'agenda.html', icon: 'calendar', label: 'Agenda & Kegiatan' },
-      { href: 'ppid.html', icon: 'document', label: 'PPID · DIP & FAQ', badge: 'ppid' },
       { href: 'media.html', icon: 'folder', label: 'Pustaka Media' }
+    ]},
+    { label: 'Layanan', items: [
+      { href: 'ppid.html', icon: 'ticket', label: 'Tiket PPID', badge: 'ppid' }
     ]},
     { label: 'Administrasi', items: [
       { href: 'pengguna.html', icon: 'people', label: 'Pengguna & Peran' }
@@ -56,9 +58,7 @@
       return KLH.cms.artikel.filter(function (a) { return a.status === 'review'; }).length;
     }
     if (jenis === 'ppid') {
-      return KLH.cms.dip.filter(function (d) { return d.status === 'review'; }).length +
-             KLH.cms.faq.filter(function (f) { return f.status === 'review'; }).length +
-             KLH.cms.regulasi.filter(function (r) { return r.status === 'review'; }).length;
+      return KLH.cms.ppid.tiket.filter(function (t) { return t.status === 'baru'; }).length;
     }
     return 0;
   }
@@ -133,7 +133,7 @@
 
         '<div class="tb-search" role="search">' +
           ic('search', 'icon icon--sm') +
-          '<input type="search" id="tb-cari" placeholder="Cari artikel, DIP, agenda…" aria-label="Pencarian global" autocomplete="off">' +
+          '<input type="search" id="tb-cari" placeholder="Cari artikel, agenda…" aria-label="Pencarian global" autocomplete="off">' +
           '<div class="tb-sr" id="tb-sr" hidden></div>' +
         '</div>' +
 
@@ -273,7 +273,7 @@
       renderNotif();
     });
 
-    /* -- Pencarian global (demo: artikel + DIP + agenda) -- */
+    /* -- Pencarian global (demo: artikel + agenda) -- */
     var cari = el.querySelector('#tb-cari');
     var hasil = el.querySelector('#tb-sr');
     cari.addEventListener('input', function () {
@@ -282,18 +282,12 @@
       var art = KLH.cms.artikel.filter(function (a) {
         return (a.judul + ' ' + a.id + ' ' + a.kategori).toLowerCase().indexOf(q) !== -1;
       }).slice(0, 4);
-      var dip = KLH.cms.dip.filter(function (d) {
-        return (d.judul + ' ' + d.id).toLowerCase().indexOf(q) !== -1;
-      }).slice(0, 3);
       var agd = KLH.cms.agenda.filter(function (g) {
         return (g.judul + ' ' + g.id).toLowerCase().indexOf(q) !== -1;
       }).slice(0, 3);
       var html = '';
       if (art.length) html += '<span class="tb-sr__head">Konten Website</span>' + art.map(function (a) {
         return '<a href="konten-edit.html?id=' + a.id + '">' + ic('newspaper', 'icon icon--sm') + '<span><strong>' + a.id + '</strong> ' + a.judul + '</span></a>';
-      }).join('');
-      if (dip.length) html += '<span class="tb-sr__head">PPID · DIP</span>' + dip.map(function (d) {
-        return '<a href="ppid.html">' + ic('document', 'icon icon--sm') + '<span><strong>' + d.id + '</strong> ' + d.judul + '</span></a>';
       }).join('');
       if (agd.length) html += '<span class="tb-sr__head">Agenda</span>' + agd.map(function (g) {
         return '<a href="agenda.html">' + ic('calendar', 'icon icon--sm') + '<span><strong>' + KLH.fmtDate(g.mulai) + '</strong> ' + g.judul + '</span></a>';

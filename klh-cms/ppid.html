@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Konten PPID — CMS Konten KLH/BPLH</title>
-<meta name="description" content="Kelola Daftar Informasi Publik (DIP), regulasi, dan FAQ Portal PPID KLH/BPLH dengan klasifikasi UU 14/2008.">
+<title>Tiket PPID — CMS Konten KLH/BPLH</title>
+<meta name="description" content="Kelola pengajuan informasi publik (tiket PPID): verifikasi Humas, penerusan ke unit terkait, tindak lanjut, dan penolakan beralasan.">
 <link rel="icon" type="image/png" href="assets/img/klh-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,91 +23,73 @@
 
 <klh-sidebar></klh-sidebar>
 <div class="app-main">
-  <klh-topbar judul="Konten PPID"></klh-topbar>
+  <klh-topbar judul="Tiket PPID"></klh-topbar>
 
   <main id="konten" class="content">
     <div class="page-head" data-reveal>
       <div>
-        <h1>Konten PPID</h1>
-        <p class="lead">DIP, regulasi, dan FAQ yang tayang di <strong>Portal PPID</strong>. Perubahan wajib disetujui <strong>Verifikator PPID</strong> sebelum terbit (UU 14/2008).</p>
+        <h1>Tiket PPID</h1>
+        <p class="lead">Pengajuan informasi publik dari <strong>Portal PPID</strong>. Humas memverifikasi tiket masuk — menolak dengan alasan, atau meneruskan ke unit terkait untuk ditindaklanjuti.</p>
       </div>
       <div class="aksi">
-        <button class="btn btn-primary" type="button" id="btn-unggah"><klh-icon name="download" class="icon icon--sm"></klh-icon> Unggah dokumen DIP</button>
+        <button class="btn btn-secondary" type="button" id="btn-atur-deadline"><klh-icon name="settings" class="icon icon--sm"></klh-icon> Pengaturan deadline</button>
       </div>
     </div>
 
-    <div class="tabs" role="tablist" aria-label="Jenis konten PPID" data-reveal style="margin-bottom:var(--s5)">
-      <button class="tab active" role="tab" id="tab-dip" aria-selected="true" aria-controls="panel-dip">Daftar Informasi Publik <span class="badge bg-brand" id="n-dip">0</span></button>
-      <button class="tab" role="tab" id="tab-reg" aria-selected="false" aria-controls="panel-reg">Regulasi <span class="badge bg-neutral" id="n-reg">0</span></button>
-      <button class="tab" role="tab" id="tab-faq" aria-selected="false" aria-controls="panel-faq">FAQ <span class="badge bg-neutral" id="n-faq">0</span></button>
+    <div class="toolbar panel" data-reveal style="margin-bottom:var(--s5)">
+      <div class="filterbar" style="border:0;background:none;padding:0" role="group" aria-label="Filter status tiket">
+        <button class="fchip on" type="button" data-st="" aria-pressed="true">Semua</button>
+        <button class="fchip" type="button" data-st="baru" aria-pressed="false">Menunggu Verifikasi</button>
+        <button class="fchip" type="button" data-st="diteruskan" aria-pressed="false">Diproses Unit</button>
+        <button class="fchip" type="button" data-st="selesai" aria-pressed="false">Selesai</button>
+        <button class="fchip" type="button" data-st="ditolak" aria-pressed="false">Ditolak</button>
+      </div>
+      <label class="sr-only" for="f-unit">Filter unit terkait</label>
+      <select class="select" id="f-unit" style="width:auto;min-width:170px">
+        <option value="">Semua unit</option>
+      </select>
+      <label class="sr-only" for="f-deadline">Filter deadline</label>
+      <select class="select" id="f-deadline" style="width:auto;min-width:150px">
+        <option value="">Semua deadline</option>
+        <option value="aman">Aman (&gt; 2 hari)</option>
+        <option value="segera">Segera (≤ 2 hari)</option>
+        <option value="lewat">Lewat deadline</option>
+        <option value="panjang">Diperpanjang</option>
+      </select>
+      <p class="toolbar__hasil" id="hasil-info" aria-live="polite"></p>
     </div>
 
-    <!-- ===== DIP ===== -->
-    <section id="panel-dip" role="tabpanel" aria-labelledby="tab-dip" data-reveal>
-      <div class="toolbar panel" style="margin-bottom:var(--s5)">
-        <div class="filterbar" style="border:0;background:none;padding:0" role="group" aria-label="Filter klasifikasi">
-          <button class="fchip on" type="button" data-kl="semua" aria-pressed="true">Semua</button>
-          <button class="fchip" type="button" data-kl="berkala" aria-pressed="false">Berkala</button>
-          <button class="fchip" type="button" data-kl="serta-merta" aria-pressed="false">Serta-merta</button>
-          <button class="fchip" type="button" data-kl="setiap-saat" aria-pressed="false">Setiap saat</button>
-          <button class="fchip" type="button" data-kl="dikecualikan" aria-pressed="false">Dikecualikan</button>
-        </div>
-      </div>
-      <div class="tbl-wrap" style="border:0">
-        <table class="tbl" aria-label="Daftar Informasi Publik">
-          <thead><tr><th scope="col">Dokumen</th><th scope="col">Klasifikasi</th><th scope="col">Berkas</th><th scope="col">Diperbarui</th><th scope="col">Status</th></tr></thead>
-          <tbody id="tb-dip"></tbody>
-        </table>
-      </div>
-      <p class="demo-note" style="margin-top:var(--s4)"><klh-icon name="lock" class="icon icon--sm"></klh-icon> Klasifikasi <strong>dikecualikan</strong> hanya mencantumkan judul &amp; dasar hukum — berkas tidak dipublikasikan (Pasal 17 UU 14/2008).</p>
-    </section>
+    <div class="tbl-wrap" data-reveal>
+      <table class="tbl" aria-label="Daftar tiket PPID — klik judul kolom untuk mengurutkan">
+        <thead><tr>
+          <th scope="col"><button class="th-sort" type="button" data-sort="id">Tiket</button></th>
+          <th scope="col"><button class="th-sort" type="button" data-sort="info">Informasi yang diminta</button></th>
+          <th scope="col"><button class="th-sort" type="button" data-sort="t">Diajukan</button></th>
+          <th scope="col"><button class="th-sort" type="button" data-sort="unit">Unit terkait</button></th>
+          <th scope="col"><button class="th-sort" type="button" data-sort="deadline">Deadline</button></th>
+          <th scope="col" style="width:175px;min-width:175px"><button class="th-sort" type="button" data-sort="status">Status</button></th>
+        </tr></thead>
+        <tbody id="tb-tiket"></tbody>
+      </table>
+    </div>
 
-    <!-- ===== Regulasi ===== -->
-    <section id="panel-reg" role="tabpanel" aria-labelledby="tab-reg" hidden>
-      <div class="panel">
-        <div class="panel__body" style="padding-top:var(--s3)">
-          <div class="tbl-wrap" style="border:0">
-            <table class="tbl" aria-label="Daftar regulasi">
-              <thead><tr><th scope="col">Regulasi</th><th scope="col">Jenis</th><th scope="col">Ditetapkan</th><th scope="col">Status</th></tr></thead>
-              <tbody id="tb-reg"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== FAQ ===== -->
-    <section id="panel-faq" role="tabpanel" aria-labelledby="tab-faq" hidden>
-      <div id="faq-list"></div>
-    </section>
-
-    <!-- Dialog unggah DIP -->
-    <dialog id="dlg-unggah" class="card" style="max-width:520px;border:0;border-radius:var(--r-lg);box-shadow:var(--sh-3);padding:var(--s6)">
-      <h2 style="margin-bottom:var(--s2)">Unggah dokumen DIP</h2>
-      <p style="font-size:var(--t-sm);color:var(--ink-500);margin-bottom:var(--s4)">Dokumen baru berstatus <strong>Menunggu Review</strong> hingga disetujui Verifikator PPID.</p>
+    <!-- Dialog: pengaturan deadline global -->
+    <dialog id="dlg-atur" class="card" style="max-width:460px;border:0;border-radius:var(--r-lg);box-shadow:var(--sh-3);padding:var(--s6)">
+      <h2 style="margin-bottom:var(--s2)">Pengaturan deadline</h2>
+      <p style="font-size:var(--t-sm);color:var(--ink-500);margin-bottom:var(--s4)">Sistem men-set deadline setiap pengajuan PPID secara umum. Ubah rentang waktunya di sini — berlaku untuk seluruh tiket <strong>tanpa deadline khusus</strong> (tiket yang deadline-nya sudah diubah manual tidak terpengaruh).</p>
       <div class="field">
-        <label for="u-judul">Judul dokumen <span class="req" aria-hidden="true">*</span></label>
-        <input class="input" id="u-judul" placeholder="mis. Laporan Akses Informasi Publik 2026">
-      </div>
-      <div class="field">
-        <label for="u-klas">Klasifikasi</label>
-        <select class="select" id="u-klas">
-          <option value="berkala">Berkala</option>
-          <option value="serta-merta">Serta-merta</option>
-          <option value="setiap-saat">Setiap saat</option>
-          <option value="dikecualikan">Dikecualikan (tanpa berkas)</option>
-        </select>
-      </div>
-      <div class="dropzone" role="button" tabindex="0" aria-label="Pilih berkas PDF atau XLSX">
-        <div><klh-icon name="download" class="icon icon--lg"></klh-icon><br><strong>Pilih berkas</strong> PDF / XLSX · maks 10 MB</div>
+        <label for="f-default-hari">Deadline umum (hari sejak pengajuan) <span class="req" aria-hidden="true">*</span></label>
+        <input class="input" id="f-default-hari" type="number" min="1" step="1" inputmode="numeric" aria-describedby="err-default">
+        <p class="errmsg" id="err-default" hidden>Isi jumlah hari yang valid (minimal 1).</p>
       </div>
       <div style="display:flex;justify-content:flex-end;gap:var(--s2);margin-top:var(--s5)">
-        <button class="btn btn-ghost" type="button" id="u-batal">Batal</button>
-        <button class="btn btn-primary" type="button" id="u-kirim">Kirim ke review</button>
+        <button class="btn btn-ghost" type="button" id="btn-atur-batal">Batal</button>
+        <button class="btn btn-primary" type="button" id="btn-atur-ok">Simpan pengaturan</button>
       </div>
     </dialog>
 
-    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — unggah &amp; persetujuan pada prototipe ini bersifat simulasi.</p>
+    <p class="demo-note" style="margin-top:var(--s4)"><klh-icon name="lock" class="icon icon--sm"></klh-icon> Tindak lanjut berkategori <strong>dikecualikan</strong> tidak tayang di daftar publik — jawaban dikirim personal ke akun pemohon.</p>
+    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — seluruh tiket dan aksi pada prototipe ini bersifat simulasi.</p>
   </main>
 </div>
 
@@ -115,85 +97,112 @@
 <script>
 (function () {
   'use strict';
-  var C = KLH.cms;
-  var KLAS = {
-    'berkala': ['bg-brand', 'Berkala'],
-    'serta-merta': ['bg-warning', 'Serta-merta'],
-    'setiap-saat': ['bg-info', 'Setiap saat'],
-    'dikecualikan': ['bg-danger', 'Dikecualikan']
-  };
-  document.getElementById('n-dip').textContent = C.dip.length;
-  document.getElementById('n-reg').textContent = C.regulasi.length;
-  document.getElementById('n-faq').textContent = C.faq.length;
+  var P = KLH.cms.ppid;
+  var body = document.getElementById('tb-tiket');
+  var info = document.getElementById('hasil-info');
+  var chips = Array.prototype.slice.call(document.querySelectorAll('[data-st]'));
+  var selUnit = document.getElementById('f-unit');
+  var selDl = document.getElementById('f-deadline');
+  var aktif = '';
+  var sortCol = 't', sortAsc = false;
 
-  /* ---- Tab ---- */
-  var tabs = document.querySelectorAll('[role="tab"]');
-  Array.prototype.forEach.call(tabs, function (t) {
-    t.addEventListener('click', function () {
-      Array.prototype.forEach.call(tabs, function (x) {
-        var on = x === t;
-        x.classList.toggle('active', on);
-        x.setAttribute('aria-selected', String(on));
-        document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
-      });
+  selUnit.innerHTML += P.unit.map(function (u) { return '<option>' + u + '</option>'; }).join('');
+
+  var STATUS_URUT = { baru: 0, diteruskan: 1, selesai: 2, ditolak: 3 };
+  function nilaiSort(t) {
+    switch (sortCol) {
+      case 'id': return t.id;
+      case 'info': return t.info.toLowerCase();
+      case 'unit': return t.unit || '';
+      case 'deadline': return KLH.ppidDeadline(t);
+      case 'status': return STATUS_URUT[t.status];
+      default: return t.t;
+    }
+  }
+  function cocokDeadline(t) {
+    if (!selDl.value) return true;
+    if (selDl.value === 'panjang') return (t.deadlineHari || KLH.ppidDefaultHari()) > KLH.ppidDefaultHari();
+    if (t.status === 'selesai' || t.status === 'ditolak') return false;
+    var s = KLH.ppidSisaHari(t);
+    return selDl.value === 'lewat' ? s < 0 : selDl.value === 'segera' ? (s >= 0 && s <= 2) : s > 2;
+  }
+
+  function render() {
+    var rows = P.tiket.filter(function (t) {
+      return (!aktif || t.status === aktif) &&
+             (!selUnit.value || t.unit === selUnit.value) &&
+             cocokDeadline(t);
+    });
+    rows.sort(function (a, b) {
+      var x = nilaiSort(a), y = nilaiSort(b);
+      return (x < y ? -1 : x > y ? 1 : 0) * (sortAsc ? 1 : -1);
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('.th-sort'), function (btn) {
+      var on = btn.getAttribute('data-sort') === sortCol;
+      btn.closest('th').setAttribute('aria-sort', on ? (sortAsc ? 'ascending' : 'descending') : 'none');
+    });
+    info.textContent = 'Menampilkan ' + rows.length + ' dari ' + P.tiket.length + ' tiket · deadline umum ' + KLH.ppidDefaultHari() + ' hari.';
+    body.innerHTML = rows.map(function (t) {
+      return '<tr>' +
+        '<td style="white-space:nowrap"><a href="ppid-tiket.html?id=' + t.id + '" class="mono" style="font-weight:600;font-size:var(--t-xs)">' + t.id + '</a><br><span style="font-size:var(--t-xs);color:var(--ink-500)">' + t.pemohon.nama + '</span></td>' +
+        '<td style="font-weight:600;min-width:260px">' + t.info + '</td>' +
+        '<td style="white-space:nowrap;color:var(--ink-500)">' + KLH.fmtDate(t.t) + '</td>' +
+        '<td style="color:var(--ink-500)">' + (t.unit || '—') + '</td>' +
+        '<td style="white-space:nowrap">' + KLH.fmtDate(KLH.ppidDeadline(t)) + ' ' + KLH.deadlineBadge(t) + '</td>' +
+        '<td>' + KLH.ppidBadge(t.status) + '</td>' +
+      '</tr>';
+    }).join('') || '<tr><td colspan="6" style="text-align:center;color:var(--ink-400);padding:var(--s8)">Tidak ada tiket pada filter ini.</td></tr>';
+  }
+
+  /* Sort per kolom — klik judul untuk urut naik/turun */
+  Array.prototype.forEach.call(document.querySelectorAll('.th-sort'), function (btn) {
+    btn.addEventListener('click', function () {
+      var col = btn.getAttribute('data-sort');
+      if (sortCol === col) { sortAsc = !sortAsc; }
+      else { sortCol = col; sortAsc = true; }
+      render();
     });
   });
-  if (location.hash === '#faq') document.getElementById('tab-faq').click();
+  selUnit.addEventListener('change', render);
+  selDl.addEventListener('change', render);
 
-  /* ---- DIP ---- */
-  var klAktif = 'semua';
-  var dip = C.dip.slice();
-  function renderDip() {
-    var rows = dip.filter(function (d) { return klAktif === 'semua' || d.klas === klAktif; });
-    document.getElementById('tb-dip').innerHTML = rows.map(function (d) {
-      var k = KLAS[d.klas] || ['bg-neutral', d.klas];
-      return '<tr><td><strong>' + d.judul + '</strong><br><span class="mono" style="font-family:var(--font-mono);font-size:var(--t-xs);color:var(--ink-400)">' + d.id + '</span></td>' +
-        '<td><span class="badge ' + k[0] + '">' + k[1] + '</span></td>' +
-        '<td class="mono" style="font-family:var(--font-mono);font-size:var(--t-xs);white-space:nowrap">' + d.format + (d.ukuran !== '—' ? ' · ' + d.ukuran : '') + '</td>' +
-        '<td class="mono" style="font-family:var(--font-mono);font-size:var(--t-xs);white-space:nowrap">' + KLH.fmtDate(d.t) + '</td>' +
-        '<td>' + KLH.statusBadge(d.status) + '</td></tr>';
-    }).join('') || '<tr><td colspan="5">Tidak ada dokumen pada klasifikasi ini.</td></tr>';
-  }
-  Array.prototype.forEach.call(document.querySelectorAll('[data-kl]'), function (c) {
+  /* Pengaturan deadline umum (berlaku global untuk tiket tanpa deadline khusus) */
+  var dlgAtur = document.getElementById('dlg-atur');
+  var inDefault = document.getElementById('f-default-hari');
+  document.getElementById('btn-atur-deadline').addEventListener('click', function () {
+    inDefault.value = KLH.ppidDefaultHari();
+    dlgAtur.showModal();
+  });
+  document.getElementById('btn-atur-batal').addEventListener('click', function () { dlgAtur.close(); });
+  document.getElementById('btn-atur-ok').addEventListener('click', function () {
+    var n = parseInt(inDefault.value, 10);
+    var err = document.getElementById('err-default');
+    if (!n || n < 1) { err.hidden = false; inDefault.focus(); return; }
+    err.hidden = true;
+    P.defaultHari = n;
+    dlgAtur.close();
+    if (KLH.toast) KLH.toast('Deadline umum diubah menjadi <strong>' + n + ' hari</strong> untuk seluruh pengajuan PPID.');
+    render();
+  });
+
+  chips.forEach(function (c) {
     c.addEventListener('click', function () {
-      klAktif = c.getAttribute('data-kl');
-      Array.prototype.forEach.call(document.querySelectorAll('[data-kl]'), function (x) {
+      chips.forEach(function (x) {
         x.classList.toggle('on', x === c);
         x.setAttribute('aria-pressed', String(x === c));
       });
-      renderDip();
+      aktif = c.getAttribute('data-st');
+      render();
     });
   });
-  renderDip();
 
-  /* ---- Regulasi ---- */
-  document.getElementById('tb-reg').innerHTML = C.regulasi.map(function (r) {
-    return '<tr><td><strong>' + r.judul + '</strong></td><td>' + r.jenis + '</td>' +
-      '<td class="mono" style="font-family:var(--font-mono);font-size:var(--t-xs)">' + KLH.fmtDate(r.t) + '</td>' +
-      '<td>' + KLH.statusBadge(r.status) + '</td></tr>';
-  }).join('');
-
-  /* ---- FAQ ---- */
-  document.getElementById('faq-list').innerHTML = C.faq.map(function (f) {
-    return '<div class="faq-row">' +
-      '<div class="q"><h3>' + f.q + '</h3><span class="aksi">' + KLH.statusBadge(f.status) + '</span></div>' +
-      '<p>' + f.a + '</p></div>';
-  }).join('');
-
-  /* ---- Dialog unggah ---- */
-  var dlg = document.getElementById('dlg-unggah');
-  document.getElementById('btn-unggah').addEventListener('click', function () { dlg.showModal(); });
-  document.getElementById('u-batal').addEventListener('click', function () { dlg.close(); });
-  document.getElementById('u-kirim').addEventListener('click', function () {
-    var judul = document.getElementById('u-judul').value.trim();
-    if (!judul) { document.getElementById('u-judul').focus(); return; }
-    var klas = document.getElementById('u-klas').value;
-    dip.unshift({ id: 'DIP-BARU', judul: judul, klas: klas, format: klas === 'dikecualikan' ? '—' : 'PDF', ukuran: klas === 'dikecualikan' ? '—' : '1,0 MB', t: '2026-07-07', status: 'review' });
-    renderDip();
-    dlg.close();
-    document.getElementById('u-judul').value = '';
-    KLH.toast('Dokumen dikirim ke antrean review Verifikator PPID (simulasi).');
-  });
+  /* Dukungan ?status= dari notifikasi/tautan lain */
+  var st = KLH.qs('status');
+  if (st) {
+    var chip = chips.filter(function (x) { return x.getAttribute('data-st') === st; })[0];
+    if (chip) chip.click();
+  }
+  render();
 })();
 </script>
 </body>

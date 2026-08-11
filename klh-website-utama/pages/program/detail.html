@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Detail Program — KLH/BPLH</title>
+<title>Detail Program | KLH/BPLH</title>
 <meta name="description" content="Detail program lingkungan KLH/BPLH beserta panduan cara ikut serta.">
 <link rel="icon" type="image/png" href="../../assets/img/klh-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -92,7 +92,7 @@
   var slug = KLH.qs('p') || 'proper';
   var p = KLH.programs.find(function (x) { return x.slug === slug; }) || KLH.programs[0];
 
-  document.title = p.name + ' — Program Lingkungan KLH/BPLH';
+  document.title = p.name + ' | Program Lingkungan KLH/BPLH';
   document.getElementById('bc-current').textContent = p.name;
   document.getElementById('p-name').textContent = p.name;
   document.getElementById('p-tagline').textContent = p.tagline;
@@ -107,7 +107,7 @@
       '<div><h3 style="font-size:var(--t-sm);margin-bottom:2px">Manfaat</h3><p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">' + m + '</p></div></div>';
   }).join('');
 
-  /* Konten kaya (richtext dari data — sumber kemenlh.go.id) */
+  /* Konten kaya (richtext dari data - sumber kemenlh.go.id) */
   if (p.konten) {
     var k = document.getElementById('p-konten');
     k.style.cssText = 'display:grid;gap:var(--s6);margin-top:var(--s10)';

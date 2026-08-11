@@ -157,18 +157,15 @@
     'setiap-saat': { href: 'permohonan.html', cta: 'Ajukan permohonan' },
     'dikecualikan': { href: 'dik.html', cta: 'Lihat daftar DIK' }
   };
-  var TONE = { green: 'tonal tonal--green', sky: 'tonal tonal--sky', earth: 'tonal tonal--earth', neutral: 'tonal' };
+  var ICON_TONE = { sky: ' svc-card__icon--sky', earth: ' svc-card__icon--earth', neutral: ' svc-card__icon--neutral' };
   document.getElementById('kategori-grid').innerHTML = KLH.ppid.kategori.map(function (k) {
     var t = TARGET[k.slug];
-    var toneCls = TONE[k.tone] || 'tonal';
-    var extra = k.tone === 'neutral' ? ';background:var(--surface-2);color:var(--ink-500);border-color:var(--line)' : '';
-    return '<div class="card ppid-cat" data-reveal>' +
-      '<span class="' + toneCls + '" style="width:44px;height:44px;display:grid;place-items:center;border-radius:var(--r-md)' + extra + '">' + KLH.iconSVG(k.icon) + '</span>' +
+    return '<a class="card card__body svc-card" href="' + t.href + '" data-reveal>' +
+      '<span class="svc-card__icon' + (ICON_TONE[k.tone] || '') + '">' + KLH.iconSVG(k.icon) + '</span>' +
       '<h3 class="h4">' + k.label + '</h3>' +
-      '<p style="font-size:var(--t-sm);color:var(--ink-500);margin:0">' + k.desc + '</p>' +
-      '<a href="' + t.href + '" style="font-size:var(--t-sm);font-weight:600;margin-top:auto">' + t.cta + ' ' +
-        KLH.iconSVG('arrowright', 'icon').replace('class="icon"', 'class="icon" style="width:14px;height:14px;vertical-align:-2px"') + '</a>' +
-      '</div>';
+      '<p>' + k.desc + '</p>' +
+      '<span class="svc-card__foot">' + t.cta + ' ' + KLH.iconSVG('arrowright', 'icon icon--sm') + '</span>' +
+      '</a>';
   }).join('');
 })();
 </script>
