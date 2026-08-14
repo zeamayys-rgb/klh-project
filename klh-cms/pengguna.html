@@ -32,7 +32,7 @@
         <p class="lead">Empat peran: <strong>Admin, Kontributor, Verifikator, dan Verifikator PPID</strong>. Kontributor tidak dapat menerbitkan: semua tulisan melewati review.</p>
       </div>
       <div class="aksi">
-        <button class="btn btn-primary" type="button" id="btn-undang"><klh-icon name="people" class="icon icon--sm"></klh-icon> Undang pengguna</button>
+        <button class="btn btn-primary" type="button" id="btn-undang"><klh-icon name="people" class="icon icon--sm"></klh-icon> Tambah Pengguna</button>
       </div>
     </div>
 
@@ -64,7 +64,7 @@
 
 
     <dialog class="rte-dlg" id="dlg-pengguna" aria-labelledby="dlg-pengguna-judul">
-      <h2 id="dlg-pengguna-judul" style="margin:0 0 var(--s4);font-size:var(--t-h4)"><klh-icon name="people" class="icon icon--sm"></klh-icon> Undang Pengguna</h2>
+      <h2 id="dlg-pengguna-judul" style="margin:0 0 var(--s4);font-size:var(--t-h4)"><klh-icon name="people" class="icon icon--sm"></klh-icon> Tambah Pengguna</h2>
       <form id="form-pengguna" novalidate>
         <div class="field">
           <label for="u-nama">Nama <span class="req" aria-hidden="true">*</span></label>
@@ -201,7 +201,7 @@
     editUser = u || null;
     judulDlg.innerHTML = u
       ? KLH.iconSVG('pencil', 'icon icon--sm') + ' Edit Pengguna'
-      : KLH.iconSVG('people', 'icon icon--sm') + ' Undang Pengguna';
+      : KLH.iconSVG('people', 'icon icon--sm') + ' Tambah Pengguna';
     ['u-nama', 'u-email', 'u-sandi'].forEach(function (fid) { setErr(fid, false); });
     setLihat(false);
     document.getElementById('u-nama').value = u ? u.nama : '';
