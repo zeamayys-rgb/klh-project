@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agenda & Kegiatan — CMS Konten KLH/BPLH</title>
+<title>Agenda & Kalender — CMS Konten KLH/BPLH</title>
 <meta name="description" content="Kelola agenda, hari lingkungan, dan hari libur yang tampil di kalender Website Utama KLH/BPLH.">
 <link rel="icon" type="image/png" href="assets/img/klh-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,25 +23,23 @@
 
 <klh-sidebar></klh-sidebar>
 <div class="app-main">
-  <klh-topbar judul="Agenda &amp; Kegiatan"></klh-topbar>
+  <klh-topbar judul="Agenda &amp; Kalender"></klh-topbar>
 
   <main id="konten" class="content">
     <div class="page-head" data-reveal>
       <div>
-        <h1>Agenda &amp; Kegiatan</h1>
-        <p class="lead">Entri di sini tampil pada <strong>kalender agenda Website Utama</strong> — tiga jenis: agenda kegiatan, hari lingkungan, dan hari libur.</p>
+        <h1>Agenda &amp; Kalender</h1>
+        <p class="lead">Entri di sini tampil pada <strong>kalender agenda Website Utama</strong>.</p>
       </div>
     </div>
 
     <div class="dash-grid" data-reveal>
       <section class="panel" aria-label="Daftar agenda">
-        <div class="panel__head"><h2>Daftar entri — Juli 2026</h2>
-          <span class="ket"><span class="badge bg-info">agenda</span> <span class="badge bg-success">hari lingkungan</span> <span class="badge bg-danger">libur</span></span>
-        </div>
+        <div class="panel__head"><h2>Daftar entri — Juli 2026</h2></div>
         <div class="panel__body" style="padding-top:var(--s3)">
           <div class="tbl-wrap" style="border:0">
             <table class="tbl" aria-label="Daftar agenda dan kegiatan">
-              <thead><tr><th scope="col">Tanggal</th><th scope="col">Judul</th><th scope="col">Jenis</th><th scope="col">Lokasi</th><th scope="col">Status</th><th scope="col"><span class="sr-only">Aksi</span></th></tr></thead>
+              <thead><tr><th scope="col">Tanggal</th><th scope="col">Agenda + Lokasi</th><th scope="col"><span class="sr-only">Aksi</span></th></tr></thead>
               <tbody id="tb-agenda"></tbody>
             </table>
           </div>
@@ -57,27 +55,21 @@
               <input class="input" id="a-judul" placeholder="Nama kegiatan / peringatan" aria-describedby="a-judul-err">
               <span class="errmsg" id="a-judul-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Judul wajib diisi.</span>
             </div>
-            <div class="field">
-              <label for="a-tgl">Tanggal mulai <span class="req" aria-hidden="true">*</span></label>
-              <input class="input" id="a-tgl" type="date" min="2026-07-01" aria-describedby="a-tgl-err">
-              <span class="errmsg" id="a-tgl-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Pilih tanggal mulai kegiatan.</span>
-            </div>
-            <div class="field">
-              <label for="a-tgl-selesai">Tanggal selesai (opsional)</label>
-              <input class="input" id="a-tgl-selesai" type="date" min="2026-07-01" aria-describedby="a-tgl-selesai-err">
-              <span class="errmsg" id="a-tgl-selesai-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Tanggal selesai tidak boleh sebelum tanggal mulai.</span>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:0 var(--s3)">
+              <div class="field">
+                <label for="a-tgl">Tanggal mulai <span class="req" aria-hidden="true">*</span></label>
+                <input class="input" id="a-tgl" type="date" min="2026-07-01" aria-describedby="a-tgl-err">
+                <span class="errmsg" id="a-tgl-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Pilih tanggal mulai kegiatan.</span>
+              </div>
+              <div class="field">
+                <label for="a-tgl-selesai">Tanggal selesai (opsional)</label>
+                <input class="input" id="a-tgl-selesai" type="date" min="2026-07-01" aria-describedby="a-tgl-selesai-err">
+                <span class="errmsg" id="a-tgl-selesai-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Tanggal selesai tidak boleh sebelum tanggal mulai.</span>
+              </div>
             </div>
             <div class="field">
               <label for="a-deskripsi">Deskripsi (opsional)</label>
               <textarea class="textarea" id="a-deskripsi" rows="3" placeholder="Ringkasan singkat kegiatan / peringatan"></textarea>
-            </div>
-            <div class="field">
-              <label for="a-jenis">Jenis</label>
-              <select class="select" id="a-jenis">
-                <option value="agenda">Agenda kegiatan</option>
-                <option value="hari">Hari lingkungan</option>
-                <option value="libur">Hari libur</option>
-              </select>
             </div>
             <div class="field">
               <label for="a-lokasi">Lokasi (opsional)</label>
@@ -89,14 +81,14 @@
                 <option value="">— Pilih PIC —</option>
               </select>
             </div>
-            <button class="btn btn-primary" type="submit" style="width:100%"><klh-icon name="calendar" class="icon icon--sm"></klh-icon> Tambahkan ke kalender</button>
-            <p class="hint" style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s3)">Entri baru berstatus <strong>Menunggu Review</strong> hingga disetujui Editor.</p>
+            <button class="btn btn-primary" type="submit" id="ag-simpan" style="width:100%"><klh-icon name="calendar" class="icon icon--sm"></klh-icon> Tambahkan ke kalender</button>
+            <button class="btn btn-ghost" type="button" id="ag-batal" hidden style="width:100%;margin-top:var(--s2)"><klh-icon name="close" class="icon icon--sm"></klh-icon> Batal sunting</button>
+            <p class="hint" style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s3)">Entri baru berstatus <strong>Menunggu Review</strong> hingga disetujui Verifikator.</p>
           </form>
         </div>
       </section>
     </div>
 
-    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — penambahan/penghapusan agenda bersifat simulasi prototipe.</p>
   </main>
 </div>
 
@@ -106,8 +98,6 @@
   'use strict';
   var data = KLH.cms.agenda.slice().sort(function (a, b) { return a.mulai < b.mulai ? -1 : 1; });
   var tb = document.getElementById('tb-agenda');
-  var JB = { agenda: 'bg-info', hari: 'bg-success', libur: 'bg-danger' };
-  var JL = { agenda: 'Agenda', hari: 'Hari lingkungan', libur: 'Libur' };
 
   /* Dropdown PIC dari KLH.cms.pic (nama + eselon) */
   document.getElementById('a-pic').innerHTML = '<option value="">— Pilih PIC —</option>' +
@@ -117,20 +107,57 @@
 
   function render() {
     tb.innerHTML = data.map(function (g, i) {
+      var rentang = g.selesai && g.selesai !== g.mulai
+        ? KLH.fmtDate(g.mulai) + ' –<br>' + KLH.fmtDate(g.selesai)
+        : KLH.fmtDate(g.mulai);
       return '<tr>' +
-        '<td class="mono" style="font-family:var(--font-mono);white-space:nowrap">' + KLH.fmtDate(g.mulai) + (g.selesai && g.selesai !== g.mulai ? ' – ' + KLH.fmtDate(g.selesai) : '') + '</td>' +
-        '<td><strong>' + g.judul + '</strong>' + (g.deskripsi ? '<br><span style="font-size:var(--t-xs);color:var(--ink-500);font-weight:400">' + g.deskripsi + '</span>' : '') + '</td>' +
-        '<td><span class="badge ' + (JB[g.jenis] || 'bg-neutral') + '">' + (JL[g.jenis] || g.jenis) + '</span></td>' +
-        '<td>' + g.lokasi + '</td>' +
-        '<td>' + KLH.statusBadge(g.status) + '</td>' +
-        '<td><div class="row-aksi"><button type="button" class="hapus" data-i="' + i + '" aria-label="Hapus ' + g.judul + '" title="Hapus">' + KLH.iconSVG('close', 'icon icon--sm') + '</button></div></td></tr>';
+        '<td class="mono" style="font-family:var(--font-mono);white-space:nowrap">' + rentang + '</td>' +
+        '<td><strong>' + g.judul + '</strong>' +
+          (g.lokasi && g.lokasi !== '—' ? '<br><span style="font-size:var(--t-xs);color:var(--ink-500);font-weight:400;display:inline-flex;align-items:center;gap:4px">' + KLH.iconSVG('pin', 'icon icon--sm') + ' ' + g.lokasi + '</span>' : '') +
+          (g.deskripsi ? '<br><span style="font-size:var(--t-xs);color:var(--ink-500);font-weight:400">' + g.deskripsi + '</span>' : '') + '</td>' +
+        '<td><div class="row-aksi">' +
+          '<button type="button" data-edit="' + i + '" aria-label="Sunting ' + g.judul + '" title="Sunting">' + KLH.iconSVG('pencil', 'icon icon--sm') + '</button>' +
+          '<button type="button" class="hapus" data-i="' + i + '" aria-label="Hapus ' + g.judul + '" title="Hapus">' + KLH.iconSVG('close', 'icon icon--sm') + '</button>' +
+        '</div></td></tr>';
     }).join('');
   }
+
+  /* ---- Sunting entri: panel "Tambah entri" berubah menjadi form sunting ---- */
+  var editIdx = null;
+  var judulPanel = document.getElementById('h-tambah');
+  var btnSimpan = document.getElementById('ag-simpan');
+  var btnBatal = document.getElementById('ag-batal');
+  function mulaiSunting(i) {
+    var g = data[i];
+    editIdx = i;
+    document.getElementById('a-judul').value = g.judul;
+    document.getElementById('a-tgl').value = g.mulai;
+    document.getElementById('a-tgl-selesai').value = g.selesai || '';
+    document.getElementById('a-deskripsi').value = g.deskripsi || '';
+    document.getElementById('a-lokasi').value = g.lokasi === '—' ? '' : g.lokasi;
+    document.getElementById('a-pic').value = g.pic && g.pic !== '—' ? g.pic : '';
+    judulPanel.textContent = 'Sunting entri';
+    btnSimpan.innerHTML = KLH.iconSVG('check', 'icon icon--sm') + ' Simpan perubahan';
+    btnBatal.hidden = false;
+    document.getElementById('a-judul').focus();
+  }
+  function selesaiSunting() {
+    editIdx = null;
+    judulPanel.textContent = 'Tambah entri';
+    btnSimpan.innerHTML = KLH.iconSVG('calendar', 'icon icon--sm') + ' Tambahkan ke kalender';
+    btnBatal.hidden = true;
+    document.getElementById('form-agenda').reset();
+  }
+  btnBatal.addEventListener('click', selesaiSunting);
+
   tb.addEventListener('click', function (e) {
+    var edit = e.target.closest('[data-edit]');
+    if (edit) { mulaiSunting(parseInt(edit.getAttribute('data-edit'), 10)); return; }
     var btn = e.target.closest('[data-i]');
     if (!btn) return;
     var i = parseInt(btn.getAttribute('data-i'), 10);
     if (window.confirm('Hapus "' + data[i].judul + '"? Aksi ini simulasi prototipe.')) {
+      if (editIdx !== null) selesaiSunting(); /* ponytail: indeks bergeser setelah hapus — reset mode sunting */
       data.splice(i, 1); render();
       KLH.toast('Entri agenda dihapus (simulasi).');
     }
@@ -155,20 +182,22 @@
     ok = setErr('a-tgl', !tgl.value) && ok;
     ok = setErr('a-tgl-selesai', selesai.value && tgl.value && selesai.value < tgl.value) && ok;
     if (!ok) { this.querySelector('[aria-invalid="true"]').focus(); return; }
-    data.push({
-      id: 'AGD-BARU', judul: judul.value.trim(),
-      jenis: document.getElementById('a-jenis').value,
-      mulai: tgl.value,
-      selesai: selesai.value || '',
-      deskripsi: document.getElementById('a-deskripsi').value.trim(),
-      lokasi: document.getElementById('a-lokasi').value.trim() || '—',
-      pic: document.getElementById('a-pic').value || '—',
-      status: 'review'
-    });
+    var isi = editIdx !== null ? data[editIdx] : { id: 'AGD-BARU', jenis: 'agenda' };
+    isi.judul = judul.value.trim();
+    isi.mulai = tgl.value;
+    isi.selesai = selesai.value || '';
+    isi.deskripsi = document.getElementById('a-deskripsi').value.trim();
+    isi.lokasi = document.getElementById('a-lokasi').value.trim() || '—';
+    isi.pic = document.getElementById('a-pic').value || '—';
+    isi.status = 'review';
+    var sunting = editIdx !== null;
+    if (!sunting) data.push(isi);
     data.sort(function (a, b) { return a.mulai < b.mulai ? -1 : 1; });
+    selesaiSunting();
     render();
-    this.reset();
-    KLH.toast('Entri ditambahkan dengan status <strong>Menunggu Review</strong> (simulasi).');
+    KLH.toast(sunting
+      ? 'Perubahan disimpan dengan status <strong>Menunggu Review</strong> (simulasi).'
+      : 'Entri ditambahkan dengan status <strong>Menunggu Review</strong> (simulasi).');
   });
 
   render();

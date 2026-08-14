@@ -61,7 +61,7 @@ JetBrains Mono) dimuat daring; tanpa koneksi, fallback sans-serif tetap terbaca.
 | A | Konfirmasi (`?id=PPID-2026-XXXXXX`) | `konfirmasi.html` |
 | A | Lacak Permohonan — **timeline sesuai WF-03**, jalur Ditolak → keberatan | `lacak.html` |
 | B (Should) | Profil PPID · Regulasi · DIP (filter+cari) · FAQ (accordion) | `profil-ppid.html` `regulasi.html` `dip.html` `faq.html` |
-| B | Riwayat & Notifikasi (perlu login demo) · Pengajuan Keberatan (WF-17) | `riwayat.html` `keberatan.html` |
+| B | Riwayat Permohonan (perlu login demo) · Pengajuan Keberatan (WF-17) | `riwayat.html` `keberatan.html` |
 | B | Chat Bot AI PPID — widget `<klh-widgets>` (FAB kanan bawah, semua halaman) | `assets/js/components/widgets.js` |
 | C (Could) | DIK · Laporan Kinerja · Permohonan Konsultasi | `dik.html` `laporan-kinerja.html` `konsultasi.html` |
 

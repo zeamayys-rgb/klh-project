@@ -15,6 +15,7 @@
       { id: 'dip',      label: 'Daftar Informasi',  href: 'dip.html' },
       { id: 'profil',   label: 'Profil PPID',       href: 'profil-ppid.html' },
       { id: 'regulasi', label: 'Regulasi',          href: 'regulasi.html' },
+      { id: 'riwayat',  label: 'Riwayat',           href: 'riwayat.html' },
       { id: 'faq',      label: 'FAQ',               href: 'faq.html' }
     ],
 
@@ -31,7 +32,7 @@
           links: [
             { label: 'Ajukan Permohonan', href: 'permohonan.html' },
             { label: 'Lacak Permohonan', href: 'lacak.html' },
-            { label: 'Riwayat & Notifikasi', href: 'riwayat.html' },
+            { label: 'Riwayat Permohonan', href: 'riwayat.html' },
             { label: 'Pengajuan Keberatan', href: 'keberatan.html' },
             { label: 'Permohonan Konsultasi', href: 'konsultasi.html' }
           ]

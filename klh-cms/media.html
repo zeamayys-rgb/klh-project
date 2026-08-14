@@ -29,32 +29,40 @@
     <div class="page-head" data-reveal>
       <div>
         <h1>Pustaka Media</h1>
-        <p class="lead">Foto &amp; berkas yang dipakai lintas produk. <strong>Teks alternatif wajib</strong> di setiap unggahan — syarat WCAG 2.1 AA.</p>
+        <p class="lead">Foto &amp; berkas yang dipakai lintas produk. <strong>Teks alternatif wajib</strong> di setiap unggahan.</p>
       </div>
     </div>
 
     <div class="dash-grid dash-grid--rev" data-reveal>
-      <section class="panel" aria-labelledby="h-unggah">
+      <section class="panel" aria-labelledby="h-unggah" style="align-self:start">
         <div class="panel__head"><h2 id="h-unggah">Unggah media</h2></div>
         <div class="panel__body">
-          <div class="dropzone" role="button" tabindex="0" aria-label="Unggah media — klik atau seret berkas">
-            <div><klh-icon name="download" class="icon icon--lg"></klh-icon><br><strong>Seret berkas ke sini</strong> atau klik untuk memilih<br><span style="font-size:var(--t-xs)">JPG/PNG/PDF · maks 5 MB</span></div>
+          <div class="dropzone" id="mz-drop" role="button" tabindex="0" aria-label="Unggah media — klik atau seret berkas, bisa lebih dari satu">
+            <div><klh-icon name="download" class="icon icon--lg"></klh-icon><br><strong>Seret berkas ke sini</strong> atau klik untuk memilih<br><span style="font-size:var(--t-xs)">JPG/PNG/PDF · maks 5 MB · bisa pilih beberapa sekaligus</span></div>
           </div>
-          <div class="field" style="margin-top:var(--s4)">
-            <label for="m-alt">Teks alternatif <span class="req" aria-hidden="true">*</span></label>
-            <input class="input" id="m-alt" placeholder="Deskripsi isi gambar untuk pembaca layar" aria-describedby="m-alt-err">
-            <span class="errmsg" id="m-alt-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Teks alternatif wajib diisi sebelum mengunggah.</span>
-          </div>
-          <button class="btn btn-primary" type="button" id="btn-unggah" style="width:100%">Unggah (simulasi)</button>
-          <p class="hint" style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s3)">Unggahan tanpa teks alternatif ditolak sistem — bukan sekadar imbauan.</p>
+          <input type="file" id="mz-file" accept="image/jpeg,image/png,application/pdf" multiple hidden aria-hidden="true">
+          <div id="mz-list" role="list" aria-label="Berkas siap unggah" style="display:grid;gap:var(--s3);margin-top:var(--s3)"></div>
+          <span class="errmsg" id="mz-err" hidden style="display:flex;align-items:center;gap:5px;color:var(--danger);font-size:var(--t-xs);font-weight:500;margin-top:var(--s2)"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Pilih berkas terlebih dahulu.</span>
+          <span class="errmsg" id="mz-alt-err" hidden style="display:flex;align-items:center;gap:5px;color:var(--danger);font-size:var(--t-xs);font-weight:500;margin-top:var(--s2)"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Semua berkas wajib memiliki teks alternatif.</span>
+          <button class="btn btn-primary" type="button" id="btn-unggah" style="width:100%;margin-top:var(--s4)">Unggah semua (simulasi)</button>
+          <p class="hint" style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s3)">Teks alternatif wajib untuk tiap berkas — unggahan tanpa alt ditolak sistem, bukan sekadar imbauan.</p>
         </div>
       </section>
 
       <section class="panel" aria-labelledby="h-galeri">
-        <div class="panel__head"><h2 id="h-galeri">Semua media <span class="badge bg-neutral" id="n-media">0</span></h2>
-          <div class="tb-search" role="search" style="max-width:240px">
-            <klh-icon name="search" class="icon icon--sm"></klh-icon>
-            <input type="search" id="m-cari" placeholder="Cari nama/alt…" aria-label="Cari media">
+        <div class="panel__head head-satu-baris"><h2 id="h-galeri" style="white-space:nowrap">Semua media <span class="badge bg-neutral" id="n-media">0</span></h2>
+          <div style="display:flex;align-items:center;gap:var(--s2);flex:1;justify-content:flex-end;min-width:0">
+            <div class="tb-search" role="search" style="max-width:240px;margin-left:0">
+              <klh-icon name="search" class="icon icon--sm"></klh-icon>
+              <input type="search" id="m-cari" placeholder="Cari nama/alt…" aria-label="Cari media">
+            </div>
+            <select class="select" id="m-sort" aria-label="Urutkan media" style="width:auto;flex:none;font-size:var(--t-sm)">
+              <option value="baru">Urutkan: Terbaru</option>
+              <option value="az">Nama A–Z</option>
+              <option value="za">Nama Z–A</option>
+              <option value="besar">Ukuran terbesar</option>
+              <option value="kecil">Ukuran terkecil</option>
+            </select>
           </div>
         </div>
         <div class="panel__body">
@@ -64,7 +72,24 @@
       </section>
     </div>
 
-    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — 9 foto berasal dari pustaka berita prototipe Website Utama.</p>
+    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — 9 foto berasal dari pustaka berita prototipe Website Utama; unggahan baru bersifat simulasi lokal.</p>
+
+    <dialog class="rte-dlg" id="dlg-alt" aria-labelledby="dlg-alt-judul">
+      <h2 id="dlg-alt-judul" style="margin:0 0 var(--s4);font-size:var(--t-h4)"><klh-icon name="pencil" class="icon icon--sm"></klh-icon> Edit teks alternatif</h2>
+      <div style="display:flex;gap:var(--s3);align-items:flex-start;margin-bottom:var(--s4)">
+        <img id="alt-img" src="" alt="" style="width:104px;height:70px;object-fit:cover;border-radius:var(--r-sm);border:1px solid var(--line)">
+        <span id="alt-file" style="font-family:var(--font-mono);font-size:var(--t-xs);color:var(--ink-500);word-break:break-all"></span>
+      </div>
+      <div class="field">
+        <label for="alt-teks">Teks alternatif <span class="req" aria-hidden="true">*</span></label>
+        <textarea class="textarea" id="alt-teks" rows="3" style="min-height:0" aria-describedby="alt-teks-err"></textarea>
+        <span class="errmsg" id="alt-teks-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Teks alternatif tidak boleh kosong.</span>
+      </div>
+      <div style="display:flex;gap:var(--s3);justify-content:flex-end">
+        <button class="btn btn-ghost" type="button" data-batal>Batal</button>
+        <button class="btn btn-primary" type="button" id="btn-alt-simpan"><klh-icon name="check" class="icon icon--sm"></klh-icon> Simpan alt</button>
+      </div>
+    </dialog>
   </main>
 </div>
 
@@ -74,17 +99,33 @@
   'use strict';
   var data = KLH.cms.media.slice();
   var grid = document.getElementById('media-grid');
-  var q = '';
+  var q = '', sortAktif = 'baru';
+
+  function srcMedia(m) { return m.url || 'assets/img/media/' + m.file; }
+  /* '1,1 MB' / '412 KB' → angka KB untuk pembanding */
+  function ukuranKB(m) {
+    var v = parseFloat(String(m.ukuran).replace(',', '.'));
+    return /MB/i.test(m.ukuran) ? v * 1024 : v;
+  }
 
   function render() {
-    var rows = data.filter(function (m) {
-      return !q || (m.file + ' ' + m.alt).toLowerCase().indexOf(q) !== -1;
+    var rows = data.map(function (m, i) { return { m: m, i: i }; }).filter(function (r) {
+      return !q || (r.m.file + ' ' + r.m.alt).toLowerCase().indexOf(q) !== -1;
     });
-    grid.innerHTML = rows.map(function (m) {
+    if (sortAktif === 'az') rows.sort(function (a, b) { return a.m.file.localeCompare(b.m.file, 'id'); });
+    else if (sortAktif === 'za') rows.sort(function (a, b) { return b.m.file.localeCompare(a.m.file, 'id'); });
+    else if (sortAktif === 'besar') rows.sort(function (a, b) { return ukuranKB(b.m) - ukuranKB(a.m); });
+    else if (sortAktif === 'kecil') rows.sort(function (a, b) { return ukuranKB(a.m) - ukuranKB(b.m); });
+    grid.innerHTML = rows.map(function (r) {
+      var m = r.m;
       return '<figure class="media-card">' +
-        '<img src="assets/img/media/' + m.file + '" alt="' + m.alt + '" loading="lazy">' +
+        (m.pdf
+          ? '<span style="display:grid;place-items:center;aspect-ratio:16/10;background:var(--surface-2);color:var(--ink-400)">' + KLH.iconSVG('document', 'icon icon--lg') + '</span>'
+          : '<img src="' + srcMedia(m) + '" alt="' + m.alt + '" loading="lazy">') +
         '<figcaption><span class="fname">' + m.file + '</span><span class="falt">' + m.alt + '</span>' +
-        '<span class="fmeta"><span>' + m.ukuran + '</span><span>' + KLH.fmtDate(m.t) + '</span></span></figcaption></figure>';
+        '<span class="fmeta"><span>' + m.ukuran + '</span><span>' + KLH.fmtDate(m.t) + '</span></span>' +
+        '<button class="btn btn-ghost btn-sm btn-alt" type="button" data-i="' + r.i + '" aria-label="Edit teks alternatif ' + m.file + '" style="margin-top:var(--s2);justify-content:center">' + KLH.iconSVG('pencil', 'icon icon--sm') + ' Edit alt</button>' +
+        '</figcaption></figure>';
     }).join('');
     document.getElementById('n-media').textContent = rows.length;
     document.getElementById('m-kosong').hidden = rows.length > 0;
@@ -92,17 +133,132 @@
   document.getElementById('m-cari').addEventListener('input', function () {
     q = this.value.trim().toLowerCase(); render();
   });
+  document.getElementById('m-sort').addEventListener('change', function () {
+    sortAktif = this.value; render();
+  });
+
+  /* ---- Dropzone multi-berkas: klik / keyboard / seret-lepas ---- */
+  var drop = document.getElementById('mz-drop');
+  var file = document.getElementById('mz-file');
+  var list = document.getElementById('mz-list');
+  var pendings = [];
+  function esc(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function renderPending() {
+    list.innerHTML = pendings.map(function (p, i) {
+      return '<div role="listitem" style="display:flex;gap:var(--s3);align-items:flex-start">' +
+        (p.pdf
+          ? '<span style="display:grid;place-items:center;width:72px;height:48px;flex:none;background:var(--surface-2);color:var(--ink-400);border-radius:var(--r-sm);border:1px solid var(--line)">' + KLH.iconSVG('document', 'icon icon--sm') + '</span>'
+          : '<img src="' + p.url + '" alt="" style="width:72px;height:48px;object-fit:cover;border-radius:var(--r-sm);border:1px solid var(--line);flex:none">') +
+        '<div class="field" style="flex:1;min-width:0;margin:0">' +
+          '<span style="font-family:var(--font-mono);font-size:var(--t-xs);color:var(--ink-500);word-break:break-all">' + p.nama + ' · ' + p.kb + ' KB</span>' +
+          '<input class="input" data-alt="' + i + '" value="' + esc(p.alt) + '" placeholder="Teks alternatif berkas ini *" aria-label="Teks alternatif ' + esc(p.nama) + '" style="margin-top:var(--s1);padding:8px 10px;font-size:var(--t-xs)">' +
+        '</div>' +
+        '<button class="btn btn-ghost btn-sm" type="button" data-buang="' + i + '" aria-label="Buang ' + esc(p.nama) + '" style="flex:none">' + KLH.iconSVG('close', 'icon icon--sm') + '</button>' +
+      '</div>';
+    }).join('');
+  }
+  list.addEventListener('input', function (e) {
+    var i = e.target.getAttribute('data-alt');
+    if (i !== null) {
+      pendings[+i].alt = e.target.value;
+      e.target.closest('.field').classList.remove('err');
+    }
+  });
+  list.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-buang]');
+    if (!b) return;
+    pendings.splice(+b.getAttribute('data-buang'), 1);
+    renderPending();
+  });
+  function terimaBanyak(files) {
+    var masuk = 0;
+    Array.prototype.forEach.call(files, function (berkas) {
+      if (!/^(image\/(jpeg|png)|application\/pdf)$/.test(berkas.type)) {
+        KLH.toast('<strong>' + esc(berkas.name) + '</strong> dilewati — pilih JPG, PNG, atau PDF.', 'warning'); return;
+      }
+      if (berkas.size > 5 * 1024 * 1024) {
+        KLH.toast('<strong>' + esc(berkas.name) + '</strong> dilewati — melebihi 5 MB.', 'warning'); return;
+      }
+      pendings.push({
+        nama: berkas.name, kb: Math.max(1, Math.round(berkas.size / 1024)),
+        alt: '', pdf: berkas.type === 'application/pdf',
+        url: berkas.type === 'application/pdf' ? '' : URL.createObjectURL(berkas)
+      });
+      masuk++;
+    });
+    if (masuk) {
+      document.getElementById('mz-err').hidden = true;
+      renderPending();
+    }
+    file.value = '';
+  }
+  drop.addEventListener('click', function () { file.click(); });
+  drop.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); file.click(); }
+  });
+  drop.addEventListener('dragover', function (e) { e.preventDefault(); });
+  drop.addEventListener('drop', function (e) {
+    e.preventDefault();
+    if (e.dataTransfer.files.length) terimaBanyak(e.dataTransfer.files);
+  });
+  file.addEventListener('change', function () { if (file.files.length) terimaBanyak(file.files); });
 
   document.getElementById('btn-unggah').addEventListener('click', function () {
-    var alt = document.getElementById('m-alt');
-    var err = document.getElementById('m-alt-err');
-    if (!alt.value.trim()) {
-      err.hidden = false; alt.closest('.field').classList.add('err'); alt.setAttribute('aria-invalid', 'true'); alt.focus();
+    var altErr = document.getElementById('mz-alt-err');
+    if (!pendings.length) { document.getElementById('mz-err').hidden = false; drop.focus(); return; }
+    var adaKosong = false;
+    pendings.forEach(function (p, i) {
+      var input = list.querySelector('[data-alt="' + i + '"]');
+      var kosong = !p.alt.trim();
+      input.closest('.field').classList.toggle('err', kosong);
+      input.setAttribute('aria-invalid', String(kosong));
+      if (kosong && !adaKosong) { input.focus(); adaKosong = true; }
+    });
+    altErr.hidden = !adaKosong;
+    if (adaKosong) return;
+    var hariIni = new Date().toISOString().slice(0, 10);
+    for (var i = pendings.length - 1; i >= 0; i--) {
+      var p = pendings[i];
+      var baru = { file: p.nama, alt: p.alt.trim(), ukuran: p.kb + ' KB', t: hariIni, url: p.url, pdf: p.pdf };
+      data.unshift(baru);
+      KLH.cms.media.unshift(baru);
+    }
+    KLH.toast(pendings.length + ' media diunggah dengan alt terisi (simulasi).');
+    pendings = [];
+    renderPending();
+    render();
+  });
+
+  /* ---- Edit teks alternatif per kartu ---- */
+  var dlgAlt = document.getElementById('dlg-alt');
+  var altAktif = null;
+  grid.addEventListener('click', function (e) {
+    var b = e.target.closest('.btn-alt');
+    if (!b) return;
+    altAktif = data[+b.getAttribute('data-i')];
+    document.getElementById('alt-img').src = altAktif.pdf ? '' : srcMedia(altAktif);
+    document.getElementById('alt-img').hidden = !!altAktif.pdf;
+    document.getElementById('alt-file').textContent = altAktif.file;
+    var teks = document.getElementById('alt-teks');
+    teks.value = altAktif.alt;
+    document.getElementById('alt-teks-err').hidden = true;
+    teks.closest('.field').classList.remove('err');
+    dlgAlt.showModal();
+  });
+  dlgAlt.querySelector('[data-batal]').addEventListener('click', function () { dlgAlt.close(); });
+  document.getElementById('btn-alt-simpan').addEventListener('click', function () {
+    var teks = document.getElementById('alt-teks');
+    if (!teks.value.trim()) {
+      document.getElementById('alt-teks-err').hidden = false;
+      teks.closest('.field').classList.add('err'); teks.focus();
       return;
     }
-    err.hidden = true; alt.closest('.field').classList.remove('err'); alt.setAttribute('aria-invalid', 'false');
-    KLH.toast('Media diunggah dengan alt: <strong>' + alt.value.trim() + '</strong> (simulasi).');
-    alt.value = '';
+    altAktif.alt = teks.value.trim();
+    dlgAlt.close();
+    render();
+    KLH.toast('Teks alternatif <strong>' + altAktif.file + '</strong> diperbarui (simulasi).');
   });
 
   render();

@@ -20,19 +20,22 @@
   var ic = function (n, cls) { return KLH.iconSVG(n, cls || 'icon'); };
   var halaman = (location.pathname.split('/').pop() || 'index.html');
 
-  /* ---- Struktur navigasi CMS ---- */
+  /* ---- Struktur navigasi CMS ----
+     Kategori konten = satu template konten.html?kategori=<slug>,
+     daftarnya terpusat di KLH.cms.kategoriKonten. ---- */
   var NAV = [
-    { label: 'Konten', items: [
-      { href: 'index.html', icon: 'grid', label: 'Dashboard' },
-      { href: 'konten.html', icon: 'newspaper', label: 'Website Utama', badge: 'review' },
-      { href: 'agenda.html', icon: 'calendar', label: 'Agenda & Kegiatan' },
-      { href: 'media.html', icon: 'folder', label: 'Pustaka Media' }
-    ]},
+    { label: 'Konten', items: KLH.cms.kategoriKonten.map(function (k) {
+        return { href: 'konten.html?kategori=' + k.slug, icon: k.icon, label: k.label };
+      }).concat([
+        { href: 'agenda.html', icon: 'calendar', label: 'Agenda & Kalender' },
+        { href: 'struktur.html', icon: 'institution', label: 'Struktur Organisasi' },
+        { href: 'media.html', icon: 'image', label: 'Pustaka Media' }
+      ]) },
     { label: 'Layanan', items: [
       { href: 'ppid.html', icon: 'ticket', label: 'Tiket PPID', badge: 'ppid' }
     ]},
-    { label: 'Administrasi', items: [
-      { href: 'pengguna.html', icon: 'people', label: 'Pengguna & Peran' }
+    { label: 'Admin', items: [
+      { href: 'pengguna.html', icon: 'people', label: 'Manajemen Pengguna' }
     ]}
   ];
 
@@ -69,7 +72,9 @@
   Sidebar.prototype.connectedCallback = function () {
     var grup = NAV.map(function (g) {
       var lis = g.items.map(function (it) {
-        var aktif = halaman === it.href;
+        var bagian = it.href.split('?');
+        var aktif = halaman === bagian[0] &&
+          (bagian[1] || '').replace('kategori=', '') === (bagian[1] ? KLH.qs('kategori') : '');
         var badge = it.badge ? hitungBadge(it.badge) : 0;
         return '<li><a class="sb-link" href="' + it.href + '"' +
           (aktif ? ' aria-current="page"' : '') + ' title="' + it.label + '">' +
@@ -83,33 +88,24 @@
     this.innerHTML =
       '<div class="sb-scrim" data-sb-close hidden></div>' +
       '<aside class="sidebar" id="sidebar">' +
-        '<a class="sb-brand" href="index.html">' +
+        '<button class="sb-brand" type="button" aria-pressed="false" title="Ciutkan" aria-label="Ciutkan sidebar">' +
           '<img class="brand__logo" src="' + (window.KLH_ROOT || '') + 'assets/img/klh-logo.png" alt="Lambang KLH/BPLH">' +
           '<span class="sb-lbl"><strong>CMS Konten</strong><small>KLH/BPLH · Internal</small></span>' +
-        '</a>' +
+          ic('chevleft', 'icon icon--sm sb-brand-chev') +
+        '</button>' +
         '<nav class="sb-nav" aria-label="Navigasi utama">' + grup + '</nav>' +
-        '<div class="sb-foot">' +
-          '<p class="sb-note sb-lbl">Prototipe internal — seluruh data adalah <strong>konten contoh</strong>.</p>' +
-          '<button class="sb-link sb-collapse" type="button" aria-pressed="false" title="Ciutkan sidebar">' +
-            ic('arrowleft', 'icon icon--sm') + '<span class="sb-lbl">Ciutkan</span>' +
-          '</button>' +
-          '<a class="sb-link" href="login.html" data-keluar title="Keluar">' +
-            ic('logout', 'icon icon--sm') + '<span class="sb-lbl">Keluar</span>' +
-          '</a>' +
-        '</div>' +
       '</aside>';
 
     var el = this;
-    el.querySelector('.sb-collapse').addEventListener('click', function () {
+    var brand = el.querySelector('.sb-brand');
+    brand.addEventListener('click', function () {
       var mini = document.body.classList.toggle('sb-mini');
-      this.setAttribute('aria-pressed', String(mini));
-      this.title = mini ? 'Bentangkan sidebar' : 'Ciutkan sidebar';
+      brand.setAttribute('aria-pressed', String(mini));
+      brand.title = mini ? 'Bentangkan' : 'Ciutkan';
+      brand.setAttribute('aria-label', mini ? 'Bentangkan sidebar' : 'Ciutkan sidebar');
     });
     el.querySelector('[data-sb-close]').addEventListener('click', function () {
       KLH.setDrawer(false);
-    });
-    el.querySelector('[data-keluar]').addEventListener('click', function () {
-      KLH.session.clear();
     });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && document.body.classList.contains('sb-open')) KLH.setDrawer(false);
@@ -169,6 +165,9 @@
             '</div>' +
           '</div>' +
 
+          '<a class="tb-btn" href="media.html" aria-label="Pustaka media"' +
+            (halaman === 'media.html' ? ' aria-current="page"' : '') + '>' + ic('image') + '</a>' +
+
           '<div class="tb-pop-wrap">' +
             '<button class="tb-btn tb-user" type="button" data-pop="profil" aria-expanded="false">' +
               '<span class="avatar" aria-hidden="true">' + (admin.inisial || 'AD') + '</span>' +
@@ -178,7 +177,7 @@
             '<div class="tb-pop user-pop" hidden>' +
               '<div class="user-pop__head"><span class="avatar">' + (admin.inisial || 'AD') + '</span>' +
                 '<div><strong>' + (admin.nama || 'Admin') + '</strong><small>' + (admin.email || '') + '</small></div></div>' +
-              '<a class="user-pop__item" href="pengguna.html">' + ic('user', 'icon icon--sm') + ' Pengguna &amp; peran</a>' +
+              '<a class="user-pop__item" href="pengguna.html">' + ic('user', 'icon icon--sm') + ' Manajemen pengguna</a>' +
               '<a class="user-pop__item user-pop__keluar" href="login.html" data-keluar>' + ic('logout', 'icon icon--sm') + ' Keluar</a>' +
             '</div>' +
           '</div>' +

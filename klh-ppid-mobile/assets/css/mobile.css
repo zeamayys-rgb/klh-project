@@ -23,7 +23,7 @@
 }
 .stage__hint {
   position: fixed; left: 50%; bottom: var(--s4); transform: translateX(-50%);
-  font-size: var(--t-xs); color: var(--ink-400); background: var(--surface);
+  font-size: var(--t-xs); color: var(--ink-500); background: var(--surface);
   border: 1px solid var(--line); border-radius: var(--r-pill);
   padding: 6px 14px; box-shadow: var(--sh-1); z-index: 5;
 }
@@ -67,7 +67,7 @@
   border-bottom: 1px solid var(--line); position: relative; z-index: 20;
 }
 .appbar__title { font-family: var(--font-display); font-weight: 700; font-size: var(--t-h4); margin: 0; }
-.appbar__sub { display: block; font-family: var(--font-body); font-weight: 500; font-size: var(--t-xs); color: var(--ink-400); }
+.appbar__sub { display: block; font-family: var(--font-body); font-weight: 500; font-size: var(--t-xs); color: var(--ink-500); }
 .appbar__spacer { flex: 1 1 auto; }
 .iconbtn {
   flex: none; width: 44px; height: 44px; display: inline-grid; place-items: center;
@@ -93,7 +93,7 @@
 .botnav__item {
   flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 3px;
   padding: 6px 2px; min-height: 56px; justify-content: center;
-  color: var(--ink-400); text-decoration: none; font-size: 11px; font-weight: 600;
+  color: var(--ink-500); text-decoration: none; font-size: 11px; font-weight: 600;
   border-radius: var(--r-md); position: relative;
 }
 .botnav__item .icon { width: 24px; height: 24px; }
@@ -126,9 +126,9 @@
 }
 .splash__mark { margin: auto auto var(--s2); width: 96px; height: 96px; display: grid; place-items: center;
   background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16); border-radius: 28px; }
-.splash__mark .leafmark { width: 60px; height: 60px; color: #7CDED6; }
+.splash__mark .leafmark { width: 60px; height: 60px; color: var(--g-300); }
 .splash__brand { color: #EAFBF8; font-family: var(--font-display); font-weight: 800; font-size: 1.75rem; margin: 0 0 var(--s2); line-height: 1.15; }
-.splash__tag { font-size: var(--t-sm); color: #B8EAE6; margin: 0 auto var(--s6); max-width: 30ch; line-height: var(--lh-body); }
+.splash__tag { font-size: var(--t-sm); color: var(--g-200); margin: 0 auto var(--s6); max-width: 30ch; line-height: var(--lh-body); }
 .splash__spacer { flex: 1 1 auto; }
 .splash__dots { display: flex; gap: 7px; justify-content: center; margin: 0 0 var(--s6); }
 .splash__dots i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.3); }
@@ -144,7 +144,7 @@
 /* Sapaan beranda */
 .greet { display: flex; align-items: center; gap: var(--s3); margin-bottom: var(--s5); }
 .greet__avatar { flex: none; width: 46px; height: 46px; border-radius: 50%; background: var(--g-100); color: var(--g-700); display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; }
-.greet__hi { font-size: var(--t-xs); color: var(--ink-400); margin: 0; }
+.greet__hi { font-size: var(--t-xs); color: var(--ink-500); margin: 0; }
 .greet__name { font-family: var(--font-display); font-weight: 700; font-size: var(--t-h4); margin: 0; }
 
 /* Kartu ringkas status (beranda) */
@@ -168,7 +168,7 @@
 .qa__ic--orange { background: var(--o-100); color: var(--o-700); }
 .qa__ic--neutral { background: var(--surface-3); color: var(--ink-700); }
 .qa__t { font-family: var(--font-display); font-weight: 700; font-size: var(--t-sm); }
-.qa__d { font-size: var(--t-xs); color: var(--ink-400); line-height: 1.4; }
+.qa__d { font-size: var(--t-xs); color: var(--ink-500); line-height: 1.4; }
 
 /* Judul seksi kecil */
 .sec-head { display: flex; align-items: baseline; justify-content: space-between; margin: var(--s6) 0 var(--s3); }
@@ -183,7 +183,7 @@
 }
 .rowitem:hover { border-color: var(--g-300); box-shadow: var(--sh-1); }
 .rowitem__main { min-width: 0; flex: 1; }
-.rowitem__id { font-family: var(--font-mono); font-size: var(--t-xs); color: var(--ink-400); }
+.rowitem__id { font-family: var(--font-mono); font-size: var(--t-xs); color: var(--ink-500); }
 .rowitem__t { font-size: var(--t-sm); font-weight: 600; line-height: 1.35; margin: 2px 0 0; }
 .rowitem__chev { flex: none; color: var(--ink-300); }
 .rowitem__chev .icon { width: 20px; height: 20px; }
@@ -205,7 +205,7 @@
 .dropz .icon { width: 32px; height: 32px; color: var(--g-600); }
 .filechip { display: flex; align-items: center; gap: var(--s2); padding: var(--s2) var(--s3); border: 1px solid var(--line); border-radius: var(--r-sm); font-size: var(--t-sm); margin-top: var(--s2); background: var(--surface); }
 .filechip .icon { width: 18px; height: 18px; color: var(--g-600); }
-.filechip button { margin-left: auto; border: 0; background: transparent; color: var(--ink-400); cursor: pointer; display: grid; place-items: center; width: 28px; height: 28px; }
+.filechip button { margin-left: auto; border: 0; background: transparent; color: var(--ink-500); cursor: pointer; display: grid; place-items: center; width: 28px; height: 28px; }
 
 /* ============================================================
    Layar Chat Bot AI
@@ -232,7 +232,7 @@
 }
 .toast .icon { width: 20px; height: 20px; color: var(--g-300); flex: none; margin-top: 1px; }
 .toast strong { display: block; font-family: var(--font-display); font-size: var(--t-sm); }
-.toast small { color: #B8EAE6; }
+.toast small { color: var(--g-200); }
 @keyframes toastin { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .toast { animation: none; } }
 
@@ -243,7 +243,7 @@
 .auth-top p { font-size: var(--t-sm); color: var(--ink-500); margin: 0; }
 .auth-alt { text-align: center; font-size: var(--t-sm); color: var(--ink-500); margin-top: var(--s5); }
 .auth-alt a { color: var(--b-700); font-weight: 600; text-decoration: none; }
-.divider { display: flex; align-items: center; gap: var(--s3); color: var(--ink-400); font-size: var(--t-xs); margin: var(--s5) 0; }
+.divider { display: flex; align-items: center; gap: var(--s3); color: var(--ink-500); font-size: var(--t-xs); margin: var(--s5) 0; }
 .divider::before, .divider::after { content: ""; height: 1px; background: var(--line); flex: 1; }
 
 /* Kelompok field 2 kolom (identitas) */

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Struktur Organisasi — CMS Konten KLH/BPLH</title>
+<meta name="description" content="Kelola susunan pejabat pada halaman Struktur Organisasi dan Detail Jabatan Website Utama KLH/BPLH.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="app">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/cms.js"></script>
+<script src="assets/js/components/cmsshell.js"></script>
+
+<klh-sidebar></klh-sidebar>
+<div class="app-main">
+  <klh-topbar judul="Struktur Organisasi"></klh-topbar>
+
+  <main id="konten" class="content">
+    <div class="page-head" data-reveal>
+      <div>
+        <h1>Struktur Organisasi</h1>
+        <p class="lead">Entri di sini tampil pada halaman <strong>Struktur Organisasi</strong> dan <strong>Detail Jabatan</strong> Website Utama, bagan pimpinan, profil, biografi, pendidikan, riwayat karier, dan status LHKPN.</p>
+      </div>
+      <div class="aksi">
+        <a class="btn btn-primary" href="struktur-edit.html"><klh-icon name="user" class="icon icon--sm"></klh-icon> Tambah pejabat</a>
+      </div>
+    </div>
+
+    <section class="panel" aria-label="Daftar pejabat" data-reveal>
+      <div class="panel__head"><h2>Susunan pejabat</h2>
+        <span class="ket"><span class="badge bg-brand">Pimpinan</span> <span class="badge bg-info">Eselon I</span> <span class="badge bg-neutral">Eselon II</span></span>
+      </div>
+      <div class="panel__body" style="padding-top:var(--s3)">
+        <div class="tbl-wrap" style="border:0">
+          <table class="tbl" aria-label="Susunan pejabat struktur organisasi">
+            <thead><tr><th scope="col">Pejabat</th><th scope="col">Level</th><th scope="col">LHKPN</th><th scope="col">Status</th><th scope="col"><span class="sr-only">Aksi</span></th></tr></thead>
+            <tbody id="tb-pejabat"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh: penyuntingan susunan pejabat bersifat simulasi prototipe. Pratinjau menunjuk Website Utama dan berfungsi bila folder modul berdampingan.</p>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var data = KLH.cms.pejabat;
+  var tb = document.getElementById('tb-pejabat');
+  var LEVEL = { 1: ['Pimpinan', 'bg-brand'], 2: ['Eselon I', 'bg-info'], 3: ['Eselon II', 'bg-neutral'] };
+
+  function inisial(nama) {
+    var kata = nama.replace(/^(Dr|Drs|Prof|Ir)\.?\s+/g, '').split(' ').filter(Boolean);
+    return ((kata[0] || 'P')[0] + (kata[1] ? kata[1][0] : '')).toUpperCase();
+  }
+  function lhkpnBadge(v) {
+    return v === 'belum'
+      ? '<span class="badge bg-warning"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Belum lapor</span>'
+      : '<span class="badge bg-success"><klh-icon name="check" class="icon icon--sm"></klh-icon> Lapor ' + v + '</span>';
+  }
+
+  tb.innerHTML = data.map(function (p) {
+    var lv = LEVEL[p.level] || LEVEL[2];
+    return '<tr>' +
+      '<td><div style="display:flex;align-items:center;gap:var(--s3)">' +
+        '<span class="avatar" aria-hidden="true">' + inisial(p.nama) + '</span>' +
+        '<span><strong>' + p.nama + '</strong><br><span style="font-size:var(--t-xs);color:var(--ink-500)">' + p.jabatan + '</span></span></div></td>' +
+      '<td><span class="badge ' + lv[1] + '">' + lv[0] + '</span></td>' +
+      '<td>' + lhkpnBadge(p.lhkpn) + '</td>' +
+      '<td>' + KLH.statusBadge(p.status) + '</td>' +
+      '<td><div class="row-aksi">' +
+        '<a href="struktur-edit.html?id=' + p.id + '" aria-label="Sunting ' + p.nama + '" title="Sunting">' + KLH.iconSVG('pencil', 'icon icon--sm') + '</a>' +
+        '<a href="../klh-website-utama/pages/profil/detail-jabatan.html?id=' + p.id + '" target="_blank" rel="noopener" aria-label="Pratinjau detail jabatan ' + p.jabatan + ' (tab baru)" title="Pratinjau">' + KLH.iconSVG('eye', 'icon icon--sm') + '</a>' +
+      '</div></td></tr>';
+  }).join('');
+})();
+</script>
+</body>
+</html>

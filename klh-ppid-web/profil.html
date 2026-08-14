@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profil Akun — PPID KLH/BPLH</title>
+<meta name="description" content="Kelola data akun pemohon informasi publik: perbarui identitas dan ajukan penggantian kata sandi melalui email.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/menu.js"></script>
+<script src="assets/js/data/ppid.js"></script>
+<script src="assets/js/components/navbar.js"></script>
+<script src="assets/js/components/footer.js"></script>
+<script src="assets/js/components/widgets.js"></script>
+
+<klh-navbar></klh-navbar>
+
+<main id="konten">
+  <section class="page-hero" style="padding-block:var(--s10) var(--s10)">
+    <div class="container">
+      <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+        <li><a href="index.html">Beranda</a></li>
+        <li aria-current="page">Profil Akun</li>
+      </ol></nav>
+      <span class="eyebrow">Akun Pemohon</span>
+      <h1 id="judul-hal">Profil Akun</h1>
+      <p class="lead" id="sapa">Perbarui data identitas Anda dan kelola keamanan akun.</p>
+    </div>
+  </section>
+
+  <!-- Belum masuk: ajakan login -->
+  <section class="section" id="panel-guest" hidden>
+    <div class="container" style="max-width:560px;text-align:center">
+      <span class="tonal tonal--sky" style="width:64px;height:64px;display:inline-grid;place-items:center;border-radius:var(--r-lg)"><klh-icon name="lock" class="icon icon--lg"></klh-icon></span>
+      <h2 style="margin-top:var(--s5)">Masuk untuk Melihat Profil</h2>
+      <p style="color:var(--ink-500)">Profil terhubung dengan akun Anda. Silakan masuk terlebih dahulu — pada prototipe ini, email &amp; sandi apa pun yang valid diterima.</p>
+      <div style="display:flex;gap:var(--s3);justify-content:center;flex-wrap:wrap;margin-top:var(--s6)">
+        <a class="btn btn-primary btn-lg" href="masuk.html?lanjut=profil.html"><klh-icon name="user" class="icon icon--sm"></klh-icon> Masuk</a>
+        <a class="btn btn-outline btn-lg" href="daftar.html">Daftar Akun</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sudah masuk: data akun + keamanan -->
+  <section class="section section--tight" id="panel-user" hidden>
+    <div class="container" style="max-width:720px">
+
+      <form class="card auth-card" id="form-profil" novalidate style="margin-bottom:var(--s6)">
+        <div class="section-head" style="margin-bottom:var(--s4)">
+          <h2 class="h3" style="margin:0">Data Akun</h2>
+          <span class="tonal" id="chip-jenis" style="padding:var(--s1) var(--s3);border-radius:var(--r-pill);font-size:var(--t-xs);display:inline-flex;align-items:center;gap:var(--s1)"></span>
+        </div>
+
+        <div class="field">
+          <label for="nama" id="nama-lbl">Nama Lengkap</label>
+          <input class="input" id="nama" name="nama" type="text" autocomplete="name" aria-describedby="nama-err">
+          <span class="errmsg" id="nama-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Nama wajib diisi.</span>
+        </div>
+
+        <div class="field" id="field-nik">
+          <label for="nik">NIK (16 digit)</label>
+          <input class="input" id="nik" name="nik" type="text" inputmode="numeric" maxlength="16" placeholder="Contoh: 3171xxxxxxxxxxxx" style="font-family:var(--font-mono)" aria-describedby="nik-err">
+          <span class="errmsg" id="nik-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> NIK harus 16 digit angka.</span>
+        </div>
+
+        <div class="field" id="field-akta" hidden>
+          <label for="akta">Nomor Akta Pendirian / SK Badan Hukum</label>
+          <input class="input" id="akta" name="akta" type="text" placeholder="Contoh: AHU-0001234.AH.01.01 Tahun 2020">
+        </div>
+
+        <div class="field">
+          <label for="alamat">Alamat</label>
+          <textarea class="textarea" id="alamat" name="alamat" autocomplete="street-address" placeholder="Alamat lengkap sesuai identitas" style="min-height:76px"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input class="input" id="email" name="email" type="email" readonly aria-describedby="email-hint" style="background:var(--surface-2);color:var(--ink-500)">
+          <span class="hint" id="email-hint">Email adalah identitas akun dan tidak dapat diubah pada prototipe ini.</span>
+        </div>
+
+        <div class="field">
+          <label for="hp">No. Telepon/WA <span style="font-weight:400;color:var(--ink-400)">(opsional)</span></label>
+          <input class="input" id="hp" name="hp" type="tel" autocomplete="tel" inputmode="numeric" placeholder="08xxxxxxxxxx">
+        </div>
+
+        <div class="form-foot">
+          <button class="btn btn-primary" type="submit"><klh-icon name="check" class="icon icon--sm"></klh-icon> Simpan Perubahan</button>
+          <a href="riwayat.html" style="font-size:var(--t-sm)">Lihat Riwayat Permohonan</a>
+        </div>
+        <div id="profil-alert" aria-live="polite"></div>
+      </form>
+
+      <div class="card auth-card">
+        <div style="display:flex;gap:var(--s4);align-items:flex-start">
+          <span class="tonal tonal--sky" style="width:52px;height:52px;flex:none;display:grid;place-items:center;border-radius:var(--r-md)"><klh-icon name="shield" class="icon"></klh-icon></span>
+          <div style="flex:1;min-width:0">
+            <h2 class="h3" style="margin:0 0 var(--s2)">Keamanan Akun</h2>
+            <p style="color:var(--ink-500);font-size:var(--t-sm);margin:0 0 var(--s4)">Penggantian kata sandi dilakukan melalui email: kami mengirim tautan aman ke alamat email terdaftar Anda.</p>
+            <button class="btn btn-outline" type="button" id="btn-sandi"><klh-icon name="envelope" class="icon icon--sm"></klh-icon> Kirim Tautan Ganti Sandi</button>
+            <div id="sandi-alert" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s4)">Prototipe — data akun adalah <strong>data contoh</strong> yang tersimpan lokal di peramban Anda, tanpa server sebenarnya.</p>
+    </div>
+  </section>
+</main>
+
+<klh-footer></klh-footer>
+<klh-widgets></klh-widgets>
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var sesi = KLH.session.get();
+  if (!sesi) {
+    document.getElementById('panel-guest').hidden = false;
+    return;
+  }
+  document.getElementById('panel-user').hidden = false;
+  document.getElementById('sapa').textContent = 'Halo, ' + sesi.nama + ' — perbarui data identitas Anda dan kelola keamanan akun.';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var badan = sesi.jenis === 'badan-hukum';
+
+  /* Prefill dari data sign-up di sesi; akun login-saja punya field kosong */
+  $('chip-jenis').innerHTML = KLH.iconSVG(badan ? 'institution' : 'idcard', 'icon icon--sm') + (badan ? ' Badan Hukum' : ' Perorangan');
+  $('nama-lbl').textContent = badan ? 'Nama Badan Hukum' : 'Nama Lengkap';
+  $('field-nik').hidden = badan;
+  $('field-akta').hidden = !badan;
+  $('nama').value = sesi.nama || '';
+  $('nik').value = sesi.nik || '';
+  $('akta').value = sesi.akta || '';
+  $('alamat').value = sesi.alamat || '';
+  $('email').value = sesi.email || '';
+  $('hp').value = sesi.hp || '';
+
+  function setErr(id, on) {
+    $(id).closest('.field').classList.toggle('err', on);
+    $(id + '-err').hidden = !on;
+    return !on;
+  }
+
+  document.getElementById('form-profil').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var ok = setErr('nama', !$('nama').value.trim());
+    /* NIK divalidasi hanya bila diisi — akun login-saja belum punya NIK */
+    if (!badan) ok = setErr('nik', !!$('nik').value.trim() && !/^\d{16}$/.test($('nik').value.trim())) && ok;
+    if (!ok) return;
+
+    sesi.nama = $('nama').value.trim();
+    if (badan) sesi.akta = $('akta').value.trim();
+    else sesi.nik = $('nik').value.trim();
+    sesi.alamat = $('alamat').value.trim();
+    sesi.hp = $('hp').value.trim();
+    KLH.session.set(sesi);
+
+    var accName = document.querySelector('.nav-acc-name');
+    if (accName) accName.textContent = sesi.nama;
+    $('profil-alert').innerHTML =
+      '<div class="alert alert-success" style="margin-top:var(--s5)">' + KLH.iconSVG('check', 'icon icon--sm') +
+      '<div><strong>Perubahan disimpan.</strong>Data akun Anda telah diperbarui (simulasi lokal).</div></div>';
+  });
+
+  document.getElementById('btn-sandi').addEventListener('click', function () {
+    $('sandi-alert').innerHTML =
+      '<div class="alert alert-info" style="margin-top:var(--s4)">' + KLH.iconSVG('envelope', 'icon icon--sm') +
+      '<div><strong>Tautan dikirim (simulasi) ke ' + String(sesi.email).replace(/</g, '&lt;') + '.</strong>Pada sistem sebenarnya, tautan ganti sandi berlaku 30 menit.</div></div>';
+  });
+})();
+</script>
+</body>
+</html>

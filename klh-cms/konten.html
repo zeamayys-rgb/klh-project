@@ -29,7 +29,7 @@
     <div class="page-head" data-reveal>
       <div>
         <h1>Konten Website Utama</h1>
-        <p class="lead">Berita, pengumuman, dan materi program yang tayang di <strong>Website Utama KLH/BPLH</strong>. Alur: Draf → Review → Terbit/Terjadwal.</p>
+        <p class="lead">Berita, pengumuman, dan materi program yang tayang di <strong>Website Utama KLH/BPLH</strong>.</p>
       </div>
       <div class="aksi">
         <a class="btn btn-primary" href="konten-edit.html"><klh-icon name="newspaper" class="icon icon--sm"></klh-icon> Tulis konten</a>
@@ -46,18 +46,13 @@
         <button class="fchip" type="button" data-st="terbit" aria-pressed="false">Terbit</button>
         <button class="fchip" type="button" data-st="review" aria-pressed="false">Menunggu Review</button>
       </div>
-      <label class="sr-only" for="f-kat">Filter kategori</label>
-      <select class="select" id="f-kat" style="max-width:180px">
-        <option value="">Semua kategori</option>
-        <option>Berita</option><option>Pengumuman</option><option>Program</option>
-      </select>
     </div>
 
     <section data-reveal aria-label="Daftar konten">
       <div class="tbl-wrap" style="border:0">
         <table class="tbl" aria-label="Daftar konten Website Utama">
           <thead><tr>
-            <th scope="col">Judul</th><th scope="col">Kategori</th><th scope="col">Penulis</th>
+            <th scope="col">Judul</th><th scope="col">Penulis</th>
             <th scope="col">Status</th><th scope="col">Diperbarui</th><th scope="col"><span class="sr-only">Aksi</span></th>
           </tr></thead>
           <tbody id="tb-konten"></tbody>
@@ -66,7 +61,19 @@
       <p id="kosong" class="demo-note" hidden><klh-icon name="search" class="icon icon--sm"></klh-icon> Tidak ada konten yang cocok dengan filter/kata kunci.</p>
     </section>
 
-    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — aksi hapus/terbitkan pada prototipe ini bersifat simulasi dan tidak menyimpan permanen.</p>
+    <dialog class="rte-dlg" id="dlg-publish" aria-label="Konfirmasi publikasi">
+      <h2 style="margin:0 0 var(--s3);font-size:var(--t-h4)"><klh-icon name="globe" class="icon icon--sm"></klh-icon> Publikasikan konten</h2>
+      <p id="publish-judul" style="font-size:var(--t-sm);color:var(--ink-700);margin:0 0 var(--s4)">—</p>
+      <label style="display:flex;align-items:flex-start;gap:var(--s3);cursor:pointer;margin-bottom:var(--s5)">
+        <input type="checkbox" id="publish-cek" style="margin-top:3px;width:18px;height:18px;accent-color:var(--g-600);flex:none">
+        <span style="font-size:var(--t-sm)">Saya memastikan konten ini sudah diperiksa dan akan <strong>dipublikasikan di Website Utama KLH/BPLH</strong>.</span>
+      </label>
+      <div style="display:flex;gap:var(--s3);justify-content:flex-end">
+        <button class="btn btn-ghost" type="button" data-batal>Batal</button>
+        <button class="btn btn-primary" type="button" id="publish-ok" disabled><klh-icon name="globe" class="icon icon--sm"></klh-icon> Publikasikan</button>
+      </div>
+    </dialog>
+
   </main>
 </div>
 
@@ -80,6 +87,20 @@
   var tb = document.getElementById('tb-konten');
   var kosong = document.getElementById('kosong');
 
+  /* ---- Mode halaman kategori (?kategori=<slug>) ---- */
+  var KAT = KLH.cms.kategoriKonten;
+  var kd = KAT.filter(function (k) { return k.slug === KLH.qs('kategori'); })[0];
+  if (kd) {
+    kat = kd.label;
+    document.querySelector('.page-head h1').textContent = kd.label;
+    document.title = kd.label + ' — CMS Konten KLH/BPLH';
+    var tbJudul = document.querySelector('.tb-title strong');
+    if (tbJudul) tbJudul.textContent = kd.label;
+    var btnTulis = document.querySelector('.page-head .aksi .btn-primary');
+    btnTulis.href = 'konten-edit.html?kategori=' + kd.slug;
+    btnTulis.innerHTML = '<klh-icon name="' + kd.icon + '" class="icon icon--sm"></klh-icon> Tulis ' + kd.label;
+  }
+
   function render() {
     var rows = data.filter(function (a) {
       return (stAktif === 'semua' || a.status === stAktif) &&
@@ -89,12 +110,15 @@
     tb.innerHTML = rows.map(function (a) {
       return '<tr data-id="' + a.id + '">' +
         '<td><strong>' + a.judul + '</strong><br><span class="mono" style="font-family:var(--font-mono);font-size:var(--t-xs);color:var(--ink-400)">' + a.id + '</span></td>' +
-        '<td>' + a.kategori + '</td>' +
         '<td>' + a.penulis + '</td>' +
         '<td>' + KLH.statusBadge(a.status) + '</td>' +
         '<td class="mono" style="font-family:var(--font-mono);font-size:var(--t-xs);white-space:nowrap">' + KLH.fmtDateTime(a.t) + '</td>' +
         '<td><div class="row-aksi">' +
           '<a href="konten-edit.html?id=' + a.id + '" aria-label="Sunting ' + a.id + '" title="Sunting">' + KLH.iconSVG('document', 'icon icon--sm') + '</a>' +
+          /* ponytail: publish tampil untuk semua peran — pembatasan verifikator/admin menyusul dari engineer */
+          (a.status !== 'terbit'
+            ? '<button type="button" data-publish="' + a.id + '" aria-label="Publikasikan ' + a.id + '" title="Publikasikan">' + KLH.iconSVG('globe', 'icon icon--sm') + '</button>'
+            : '') +
           '<button type="button" class="hapus" data-hapus="' + a.id + '" aria-label="Hapus ' + a.id + '" title="Hapus">' + KLH.iconSVG('close', 'icon icon--sm') + '</button>' +
         '</div></td></tr>';
     }).join('');
@@ -118,11 +142,37 @@
   var qsStatus = KLH.qs('status');
   if (qsStatus && document.querySelector('[data-st="' + qsStatus + '"]')) setStatus(qsStatus);
 
-  document.getElementById('f-kat').addEventListener('change', function () { kat = this.value; render(); });
   document.getElementById('cari').addEventListener('input', function () { q = this.value.trim().toLowerCase(); render(); });
+
+  /* Publikasikan: konfirmasi checkbox sebelum tayang di Website Utama */
+  var dlgPub = document.getElementById('dlg-publish');
+  var cekPub = document.getElementById('publish-cek');
+  var okPub = document.getElementById('publish-ok');
+  var idPub = null;
+  cekPub.addEventListener('change', function () { okPub.disabled = !cekPub.checked; });
+  dlgPub.querySelector('[data-batal]').addEventListener('click', function () { dlgPub.close(); });
+  okPub.addEventListener('click', function () {
+    var item = data.filter(function (a) { return a.id === idPub; })[0];
+    if (item) {
+      item.status = 'terbit';
+      render();
+      KLH.toast('Konten <strong>' + item.id + '</strong> dipublikasikan di Website Utama (simulasi).');
+    }
+    dlgPub.close();
+  });
 
   /* Hapus (simulasi + konfirmasi) */
   tb.addEventListener('click', function (e) {
+    var pub = e.target.closest('[data-publish]');
+    if (pub) {
+      idPub = pub.getAttribute('data-publish');
+      var target = data.filter(function (a) { return a.id === idPub; })[0];
+      document.getElementById('publish-judul').textContent = target ? target.judul + ' (' + target.id + ')' : '—';
+      cekPub.checked = false;
+      okPub.disabled = true;
+      dlgPub.showModal();
+      return;
+    }
     var btn = e.target.closest('[data-hapus]');
     if (!btn) return;
     var id = btn.getAttribute('data-hapus');

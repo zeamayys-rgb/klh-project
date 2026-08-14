@@ -104,10 +104,10 @@
     KLH.session.set({
       nama: nama || 'Admin CMS',
       inisial: (nama.match(/\b\w/g) || ['A', 'D']).slice(0, 2).join('').toUpperCase(),
-      peran: 'Editor Konten',
+      peran: 'Verifikator',
       email: email.value.trim()
     });
-    location.href = 'index.html';
+    location.href = 'konten.html?kategori=berita';
   });
 })();
 </script>

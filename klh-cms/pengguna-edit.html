@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detail Pengguna — CMS Konten KLH/BPLH</title>
+<meta name="description" content="Tambah atau undang pengguna CMS KLH/BPLH: nama, email, role, dan status akun.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="app">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/cms.js"></script>
+<script src="assets/js/components/cmsshell.js"></script>
+
+<klh-sidebar></klh-sidebar>
+<div class="app-main">
+  <klh-topbar judul="Manajemen Pengguna · Detail"></klh-topbar>
+
+  <main id="konten" class="content">
+    <div class="page-head" data-reveal>
+      <div>
+        <a class="btn btn-ghost btn-sm" id="tautan-kembali" href="pengguna.html" style="margin-bottom:var(--s3)"><klh-icon name="arrowleft" class="icon icon--sm"></klh-icon> Kembali ke Manajemen Pengguna</a>
+        <h1>Detail Pengguna</h1>
+        <p class="lead">Undangan dikirim ke email kedinasan; akun aktif setelah pengguna mengatur kata sandi.</p>
+      </div>
+    </div>
+
+    <div class="dash-grid dash-grid--rev" data-reveal>
+      <section class="panel" aria-labelledby="h-detil">
+        <div class="panel__head"><h2 id="h-detil">Data pengguna</h2></div>
+        <div class="panel__body">
+          <form id="form-pengguna" novalidate>
+            <div class="field">
+              <label for="u-nama">Nama <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" id="u-nama" type="text" placeholder="Nama lengkap pegawai" aria-describedby="u-nama-err">
+              <span class="errmsg" id="u-nama-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Nama wajib diisi.</span>
+            </div>
+            <div class="field">
+              <label for="u-email">Email <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" id="u-email" type="email" placeholder="nama@klh.go.id" aria-describedby="u-email-err">
+              <span class="errmsg" id="u-email-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Masukkan alamat email yang valid.</span>
+            </div>
+            <div class="field">
+              <label for="u-sandi">Kata sandi <span class="req" aria-hidden="true">*</span></label>
+              <div style="position:relative">
+                <input class="input" id="u-sandi" type="password" placeholder="Minimal 8 karakter" autocomplete="new-password" aria-describedby="u-sandi-err u-sandi-hint" style="padding-right:56px">
+                <button class="btn btn-ghost" type="button" id="u-sandi-lihat" aria-pressed="false" aria-label="Tampilkan kata sandi" style="position:absolute;top:2px;right:2px;bottom:2px;min-height:0;min-width:44px;padding:0 12px;border-radius:calc(var(--r-sm) - 2px)"><klh-icon name="eye" class="icon icon--sm"></klh-icon></button>
+              </div>
+              <p class="hint" id="u-sandi-hint" style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s2)">Dibuat oleh Super Admin; pengguna diminta menggantinya saat masuk pertama kali.</p>
+              <span class="errmsg" id="u-sandi-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Kata sandi minimal 8 karakter.</span>
+            </div>
+            <div class="field">
+              <label for="u-role">Role</label>
+              <select class="select" id="u-role"></select>
+              <p class="hint" id="u-role-hint" style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s2)"></p>
+            </div>
+            <div class="field" id="field-status" hidden>
+              <label for="u-status">Status</label>
+              <select class="select" id="u-status">
+                <option value="active">Aktif (active)</option>
+                <option value="non-active">Nonaktif (non-active)</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" type="submit" id="btn-simpan" style="width:100%"><klh-icon name="send" class="icon icon--sm"></klh-icon> Simpan &amp; kirim undangan</button>
+          </form>
+        </div>
+      </section>
+
+      <aside class="side-panel">
+        <section class="panel" aria-label="Mapping role dan akses">
+          <div class="panel__head"><h2>Mapping Role</h2><span class="ket">Ya = diizinkan · — = tidak</span></div>
+          <div class="panel__body" style="padding-top:var(--s3)">
+            <div class="tbl-wrap" style="border:0">
+              <table class="tbl" aria-label="Mapping role dan akses">
+                <thead><tr id="mx-head"><th scope="col">Nama Role/Akses</th></tr></thead>
+                <tbody id="mx-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh: penyimpanan pengguna bersifat simulasi prototipe.</p>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var C = KLH.cms;
+  var role = document.getElementById('u-role');
+  role.innerHTML = C.peran.map(function (p) {
+    return '<option value="' + p.kode + '">' + p.nama + '</option>';
+  }).join('');
+
+  /* Hint kode role + ringkasan akses mengikuti pilihan */
+  function perbaruiRole() {
+    var p = C.peran.filter(function (x) { return x.kode === role.value; })[0];
+    document.getElementById('u-role-hint').innerHTML =
+      'Kode role: <code style="font-family:var(--font-mono)">' + p.kode + '</code> · ' + p.ket;
+  }
+  role.addEventListener('change', perbaruiRole);
+  perbaruiRole();
+
+  /* Mapping Role: baris = peran, kolom = akses (sama dengan pengguna.html) */
+  var head = document.getElementById('mx-head');
+  C.izin.forEach(function (z) {
+    var th = document.createElement('th');
+    th.scope = 'col'; th.textContent = z.label;
+    head.appendChild(th);
+  });
+  document.getElementById('mx-body').innerHTML = C.peran.map(function (p) {
+    var sel = C.izin.map(function (z) {
+      return '<td>' + (p.akses.indexOf(z.id) !== -1
+        ? '<span class="matrix-ya">' + KLH.iconSVG('check', 'icon icon--sm') + ' Ya</span>'
+        : '<span class="matrix-tidak">— Tidak</span>') + '</td>';
+    }).join('');
+    return '<tr><td><strong>' + p.nama + '</strong></td>' + sel + '</tr>';
+  }).join('');
+
+  /* Mode edit via ?id=<indeks C.pengguna>: prefill + tampilkan field Status */
+  var idx = new URLSearchParams(location.search).get('id');
+  var editUser = idx !== null ? C.pengguna[+idx] : null;
+  if (editUser) {
+    document.querySelector('h1').textContent = 'Edit Pengguna';
+    document.querySelector('.lead').textContent = 'Perbarui data akun; perubahan berlaku setelah disimpan.';
+    document.getElementById('field-status').hidden = false;
+    document.getElementById('u-nama').value = editUser.nama;
+    document.getElementById('u-email').value = editUser.email;
+    document.getElementById('u-status').value = editUser.status === 'aktif' ? 'active' : 'non-active';
+    var pu = C.peran.filter(function (x) { return x.nama === editUser.peran; })[0];
+    if (pu) role.value = pu.kode;
+    document.getElementById('u-sandi-hint').textContent = 'Kosongkan bila tidak ingin mengganti kata sandi.';
+    document.querySelector('label[for="u-sandi"] .req').hidden = true;
+    document.getElementById('btn-simpan').innerHTML = KLH.iconSVG('check', 'icon icon--sm') + ' Simpan perubahan';
+    perbaruiRole();
+  }
+
+  /* Toggle masking kata sandi */
+  var sandiEl = document.getElementById('u-sandi');
+  var lihat = document.getElementById('u-sandi-lihat');
+  lihat.addEventListener('click', function () {
+    var tampil = sandiEl.type === 'password';
+    sandiEl.type = tampil ? 'text' : 'password';
+    lihat.setAttribute('aria-pressed', String(tampil));
+    lihat.setAttribute('aria-label', tampil ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi');
+    lihat.innerHTML = KLH.iconSVG(tampil ? 'eyeoff' : 'eye', 'icon icon--sm');
+  });
+
+  function setErr(fid, tampil) {
+    var input = document.getElementById(fid);
+    var err = document.getElementById(fid + '-err');
+    input.closest('.field').classList.toggle('err', !!tampil);
+    if (err) err.hidden = !tampil;
+    input.setAttribute('aria-invalid', String(!!tampil));
+    return !tampil;
+  }
+  document.getElementById('form-pengguna').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var nama = document.getElementById('u-nama');
+    var email = document.getElementById('u-email');
+    var sandi = document.getElementById('u-sandi');
+    var ok = true;
+    ok = setErr('u-nama', !nama.value.trim()) && ok;
+    ok = setErr('u-email', !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value.trim())) && ok;
+    /* Sandi wajib saat tambah; saat edit hanya divalidasi bila diisi */
+    ok = setErr('u-sandi', (editUser ? sandi.value.length > 0 : true) && sandi.value.length < 8) && ok;
+    if (!ok) { this.querySelector('[aria-invalid="true"]').focus(); return; }
+    var p = C.peran.filter(function (x) { return x.kode === role.value; })[0];
+    var status = document.getElementById('u-status').value === 'active' ? 'aktif' : 'nonaktif';
+    if (editUser) {
+      editUser.nama = nama.value.trim();
+      editUser.inisial = (nama.value.trim().match(/\b\w/g) || ['P']).slice(0, 2).join('').toUpperCase();
+      editUser.email = email.value.trim();
+      editUser.peran = p.nama;
+      editUser.status = status;
+      KLH.toast('Perubahan akun <strong>' + email.value.trim() + '</strong> disimpan (simulasi).');
+    } else {
+      C.pengguna.unshift({
+        nama: nama.value.trim(),
+        inisial: (nama.value.trim().match(/\b\w/g) || ['P']).slice(0, 2).join('').toUpperCase(),
+        email: email.value.trim(), peran: p.nama, unit: '—',
+        aktif: C.now, status: status
+      });
+      KLH.toast('Undangan untuk <strong>' + email.value.trim() + '</strong> dikirim (simulasi).');
+    }
+    setTimeout(function () { location.href = 'pengguna.html'; }, 900);
+  });
+})();
+</script>
+</body>
+</html>

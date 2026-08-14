@@ -28,11 +28,13 @@
   <main id="konten" class="content">
     <div class="page-head" data-reveal>
       <div>
-        <p class="lead" style="margin-bottom:var(--s1)"><a href="konten.html">← Konten Website Utama</a></p>
+        <a class="btn btn-ghost btn-sm" id="tautan-kembali" href="konten.html" style="margin-bottom:var(--s3)"><klh-icon name="arrowleft" class="icon icon--sm"></klh-icon> Kembali ke Konten</a>
         <h1 id="judul-halaman">Tulis Konten Baru</h1>
       </div>
       <div class="aksi">
+        <span class="status-now" id="st-badge"></span>
         <button class="btn btn-ghost" type="button" id="btn-pratinjau"><klh-icon name="globe" class="icon icon--sm"></klh-icon> Pratinjau</button>
+        <button class="btn btn-ghost" type="button" id="btn-info"><klh-icon name="list" class="icon icon--sm"></klh-icon> Info entri</button>
         <button class="btn btn-outline" type="button" id="btn-draf"><klh-icon name="document" class="icon icon--sm"></klh-icon> Simpan draf</button>
         <button class="btn btn-primary" type="button" id="btn-review"><klh-icon name="eye" class="icon icon--sm"></klh-icon> Kirim ke review</button>
       </div>
@@ -43,6 +45,24 @@
       <div style="display:grid;gap:var(--s5)">
         <section class="panel">
           <div class="panel__body">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0 var(--s4)">
+              <div class="field" id="w-jenis" hidden>
+                <label id="l-jenis">Jenis Konten</label>
+                <div role="radiogroup" aria-labelledby="l-jenis" style="display:flex;align-items:center;gap:var(--s5);min-height:44px">
+                  <label style="display:inline-flex;align-items:center;gap:var(--s2);cursor:pointer;font-weight:400"><input type="radio" name="f-jenis" value="video" checked> Video</label>
+                  <label style="display:inline-flex;align-items:center;gap:var(--s2);cursor:pointer;font-weight:400"><input type="radio" name="f-jenis" value="podcast"> Podcast</label>
+                </div>
+              </div>
+              <div class="field">
+                <label for="f-tanggal" id="l-tanggal">Tanggal agenda/kegiatan/berita <span class="req" aria-hidden="true">*</span></label>
+                <input class="input" id="f-tanggal" type="date" aria-describedby="f-tanggal-err">
+                <span class="errmsg" id="f-tanggal-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Tanggal wajib diisi.</span>
+              </div>
+              <div class="field">
+                <label for="f-tag">Tag (pisahkan dengan koma)</label>
+                <input class="input" id="f-tag" placeholder="mangrove, rehabilitasi, pesisir">
+              </div>
+            </div>
             <div class="field">
               <label for="f-judul">Judul <span class="req" aria-hidden="true">*</span></label>
               <input class="input" id="f-judul" style="font-family:var(--font-display);font-weight:700;font-size:var(--t-h4)" placeholder="Judul konten yang jelas dan informatif" aria-describedby="f-judul-err">
@@ -52,11 +72,11 @@
               <klh-icon name="external" class="icon icon--sm"></klh-icon>
               kemenlh.go.id/informasi/<span id="slug">judul-konten</span>
             </div>
-            <div class="field">
-              <label for="f-ringkas">Ringkasan (tampil di kartu berita)</label>
-              <textarea class="textarea" id="f-ringkas" rows="2" maxlength="180" placeholder="Satu–dua kalimat inti berita, maksimal 180 karakter."></textarea>
+            <div class="field" id="w-media" hidden>
+              <label for="f-media">Tautan media (YouTube/Spotify)</label>
+              <input class="input" id="f-media" type="url" placeholder="https://youtube.com/watch?v=&#8230;">
             </div>
-            <div class="field" style="margin-bottom:0">
+            <div class="field" id="w-isi" style="margin-bottom:0">
               <label for="f-isi">Isi konten <span class="req" aria-hidden="true">*</span></label>
               <div class="rte-bar" role="toolbar" aria-label="Format teks">
                 <button type="button" data-cmd="undo" title="Urungkan (Ctrl+Z)" aria-label="Urungkan"><klh-icon name="arrowleft" class="icon icon--sm"></klh-icon></button>
@@ -84,27 +104,72 @@
               <span class="errmsg" id="f-isi-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Isi konten wajib diisi.</span>
               <p class="hint" style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s2)">Struktur mengikuti penulisan blog/email: judul bagian, daftar, kutipan, tautan, dan gambar dari pustaka (alt otomatis terisi).</p>
             </div>
+
+            <!-- Mode dokumen (Peraturan Menteri / Surat Keputusan / Publikasi & Buku) -->
+            <div class="field" id="w-ph" hidden>
+              <label for="fd-placeholder">Deskripsi</label>
+              <textarea class="textarea" id="fd-placeholder" rows="3" placeholder="Teks pengantar singkat dokumen"></textarea>
+              <p class="hint" style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s2)">Tampil pada daftar dokumen di Website Utama sebagai pengantar.</p>
+            </div>
+            <div class="field" id="w-link" hidden>
+              <label for="fd-link">Link Dokumen</label>
+              <input class="input" id="fd-link" type="url" placeholder="https://jdih.kemenlh.go.id/&#8230;">
+              <p class="hint" style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s2)">Tautan JDIH atau sumber resmi dokumen.</p>
+            </div>
+            <div class="field" id="w-file" hidden style="margin-bottom:0">
+              <label for="fd-file">Upload Dokumen</label>
+              <input class="input" id="fd-file" type="file" accept="application/pdf">
+              <p class="hint" style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s2)">PDF, maks 10 MB. Isi Link Dokumen, unggah berkas, atau keduanya.</p>
+            </div>
           </div>
         </section>
 
-        <section class="panel">
-          <div class="panel__head"><h2>Foto unggulan</h2><span class="ket">Rasio 16:10 · alt text wajib</span></div>
+        <section class="panel" id="panel-foto">
+          <div class="panel__head"><h2>Foto unggulan</h2><span class="ket">Rasio 16:10 · alt text wajib · bisa pilih beberapa</span></div>
           <div class="panel__body">
-            <div class="dropzone" role="button" tabindex="0" aria-label="Unggah foto unggulan — klik atau seret berkas">
-              <div><klh-icon name="download" class="icon icon--lg"></klh-icon><br><strong>Seret berkas ke sini</strong> atau klik untuk memilih<br><span style="font-size:var(--t-xs)">JPG/PNG · maks 2 MB</span></div>
-            </div>
-            <p style="font-size:var(--t-xs);color:var(--ink-400);margin:var(--s3) 0 0">Atau pilih dari pustaka media:</p>
-            <div class="foto-pilih" id="foto-pilih" role="group" aria-label="Pilih foto dari pustaka"></div>
-            <div class="field" style="margin:var(--s4) 0 0">
-              <label for="f-alt">Teks alternatif foto <span class="req" aria-hidden="true">*</span></label>
-              <input class="input" id="f-alt" placeholder="Deskripsi singkat isi foto untuk pembaca layar">
+            <div class="foto-split">
+              <!-- Kiri: foto terpilih + teks alternatif (digabung) -->
+              <div>
+                <h3 id="l-alt" style="margin:0;font-size:var(--t-sm)">Foto terpilih &amp; teks alternatif <span class="req" aria-hidden="true">*</span></h3>
+                <p style="font-size:var(--t-xs);color:var(--ink-400);margin:var(--s2) 0 0">Seret thumbnail untuk mengurutkan, atau klik untuk menjadikannya <strong>unggulan</strong> (foto pertama). Teks alternatif wajib untuk tiap foto — dari pustaka terisi otomatis. Maks 10 foto.</p>
+                <div id="foto-sel" role="list" aria-labelledby="l-alt" style="display:grid;gap:var(--s2);margin-top:var(--s3)"></div>
+                <p id="foto-sel-kosong" style="font-size:var(--t-xs);color:var(--ink-400);margin:var(--s3) 0 0">Belum ada foto dipilih — pilih lewat panel di samping.</p>
+                <span class="errmsg" id="alt-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Semua foto wajib memiliki teks alternatif.</span>
+              </div>
+
+              <!-- Kanan: proses memilih foto (tab unggah / pustaka) -->
+              <div class="foto-kanan">
+                <div class="tabs" role="tablist" aria-label="Sumber foto">
+                  <button class="tab" type="button" role="tab" id="src-unggah" aria-selected="false" aria-controls="pane-unggah"><klh-icon name="download" class="icon icon--sm"></klh-icon> Unggah foto</button>
+                  <button class="tab active" type="button" role="tab" id="src-galeri" aria-selected="true" aria-controls="pane-galeri"><klh-icon name="folder" class="icon icon--sm"></klh-icon> Pilih dari pustaka</button>
+                </div>
+
+                <div id="pane-unggah" role="tabpanel" aria-labelledby="src-unggah" hidden>
+                  <div class="dropzone" id="foto-drop" role="button" tabindex="0" aria-label="Unggah foto unggulan — klik atau seret berkas, bisa lebih dari satu" style="margin-top:var(--s3)">
+                    <div><klh-icon name="download" class="icon icon--lg"></klh-icon><br><strong>Seret berkas ke sini</strong> atau klik untuk memilih<br><span style="font-size:var(--t-xs)">JPG/PNG · maks 2 MB per foto · maks 10 foto</span></div>
+                  </div>
+                  <input type="file" id="foto-file" accept="image/jpeg,image/png" multiple hidden aria-hidden="true">
+                </div>
+
+                <div id="pane-galeri" role="tabpanel" aria-labelledby="src-galeri">
+                  <input class="input" id="foto-cari" type="search" placeholder="Cari foto di pustaka&#8230;" aria-label="Cari foto di pustaka" style="margin-top:var(--s3)">
+                  <div class="foto-pilih foto-pilih--galeri" id="foto-pilih" role="group" aria-label="Pilih foto dari pustaka, bisa lebih dari satu"></div>
+                  <p id="foto-cari-kosong" hidden style="font-size:var(--t-xs);color:var(--ink-400);margin:var(--s2) 0 0">Tidak ada foto yang cocok dengan kata kunci.</p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        <section class="panel">
-          <div class="panel__head"><h2>Thumbnail berita</h2><span class="ket">300×200 px</span></div>
+        <section class="panel" id="panel-thumb">
+          <div class="panel__head"><h2 id="thumb-judul">Thumbnail berita</h2><span class="ket">300×200 px</span></div>
           <div class="panel__body">
+            <div id="thumb-default" hidden>
+              <div style="display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s4)">
+                <div id="thumb-default-tile" style="flex:none;width:104px;height:70px;border-radius:var(--r-sm);background:var(--g-100);display:grid;place-items:center;color:var(--g-700)"></div>
+                <p style="font-size:var(--t-xs);color:var(--ink-400);margin:0">Tanpa thumbnail terpilih, <strong>gambar default kategori</strong> ini yang tampil pada halaman detail Website Utama.</p>
+              </div>
+            </div>
             <div class="dropzone" id="thumb-drop" role="button" tabindex="0" aria-label="Unggah gambar thumbnail — klik atau seret berkas">
               <div><klh-icon name="download" class="icon icon--lg"></klh-icon><br><strong>Seret berkas ke sini</strong> atau klik untuk memilih<br><span style="font-size:var(--t-xs)">JPG/PNG · 300×200 px · maks 2 MB</span></div>
             </div>
@@ -116,48 +181,10 @@
       </div>
 
       <!-- ===== Panel samping ===== -->
-      <div class="side-panel">
-        <section class="panel">
-          <div class="panel__head"><h2>Status &amp; alur</h2></div>
-          <div class="panel__body">
-            <div class="status-now"><span style="font-size:var(--t-sm);color:var(--ink-500)">Status saat ini</span><span id="st-badge"></span></div>
-            <ul class="alur-list">
-              <li><klh-icon name="check" class="icon icon--sm"></klh-icon> Draf — dapat disunting penulis</li>
-              <li><klh-icon name="eye" class="icon icon--sm"></klh-icon> Review — diperiksa Editor/Verifikator</li>
-              <li><klh-icon name="megaphone" class="icon icon--sm"></klh-icon> Terbit — tayang di Website Utama</li>
-            </ul>
-            <hr style="border:0;border-top:1px dashed var(--line);margin:var(--s4) 0">
-            <div class="field" style="margin-bottom:0">
-              <label for="f-tanggal">Tanggal agenda/kegiatan/berita <span class="req" aria-hidden="true">*</span></label>
-              <input class="input" id="f-tanggal" type="date" aria-describedby="f-tanggal-err">
-              <span class="errmsg" id="f-tanggal-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Tanggal wajib diisi.</span>
-              <p class="hint" style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s2)">Tanggal yang tampil pada berita/agenda di Website Utama.</p>
-            </div>
-          </div>
-        </section>
-
-        <section class="panel">
-          <div class="panel__head"><h2>Klasifikasi</h2></div>
-          <div class="panel__body">
-            <div class="field">
-              <label for="f-kategori">Kategori</label>
-              <select class="select" id="f-kategori"><option>Berita</option><option>Pengumuman</option><option>Program</option></select>
-            </div>
-            <div class="field" style="margin-bottom:0">
-              <label for="f-tag">Tag (pisahkan dengan koma)</label>
-              <input class="input" id="f-tag" placeholder="mangrove, rehabilitasi, pesisir">
-            </div>
-          </div>
-        </section>
-
-        <section class="panel">
-          <div class="panel__head"><h2>Info entri</h2></div>
-          <div class="panel__body" style="font-size:var(--t-sm);color:var(--ink-500);display:grid;gap:var(--s2)">
-            <div style="display:flex;justify-content:space-between;gap:var(--s3)"><span>ID</span><strong class="mono" id="inf-id" style="font-family:var(--font-mono)">—</strong></div>
-            <div style="display:flex;justify-content:space-between;gap:var(--s3)"><span>Penulis</span><strong id="inf-penulis">—</strong></div>
-            <div style="display:flex;justify-content:space-between;gap:var(--s3)"><span>Diperbarui</span><strong class="mono" id="inf-t" style="font-family:var(--font-mono);font-size:var(--t-xs)">—</strong></div>
-            <div style="display:flex;justify-content:space-between;gap:var(--s3)"><span>Produk</span><span class="badge bg-brand">Website Utama</span></div>
-          </div>
+      <div class="side-panel" hidden>
+        <section class="panel" id="panel-khusus" hidden>
+          <div class="panel__head"><h2 id="khusus-judul">Khusus kategori</h2></div>
+          <div class="panel__body" id="khusus-body"></div>
         </section>
       </div>
     </form>
@@ -168,6 +195,19 @@
         <button class="btn btn-ghost btn-sm" type="button" data-tutup aria-label="Tutup pratinjau"><klh-icon name="close" class="icon icon--sm"></klh-icon> Tutup</button>
       </div>
       <iframe id="pratinjau-frame" title="Pratinjau berita pada halaman detail Website Utama"></iframe>
+    </dialog>
+
+    <dialog class="rte-dlg" id="dlg-info" aria-label="Info entri">
+      <h2 style="margin:0 0 var(--s4);font-size:var(--t-h4)"><klh-icon name="list" class="icon icon--sm"></klh-icon> Info entri</h2>
+      <div style="font-size:var(--t-sm);color:var(--ink-500);display:grid;gap:var(--s2)">
+        <div style="display:flex;justify-content:space-between;gap:var(--s3)"><span>ID</span><strong class="mono" id="inf-id" style="font-family:var(--font-mono)">—</strong></div>
+        <div style="display:flex;justify-content:space-between;gap:var(--s3)"><span>Penulis</span><strong id="inf-penulis">—</strong></div>
+        <div style="display:flex;justify-content:space-between;gap:var(--s3)"><span>Diperbarui</span><strong class="mono" id="inf-t" style="font-family:var(--font-mono);font-size:var(--t-xs)">—</strong></div>
+        <div style="display:flex;justify-content:space-between;gap:var(--s3)"><span>Produk</span><span class="badge bg-brand">Website Utama</span></div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:var(--s4)">
+        <button class="btn btn-ghost" type="button" data-batal>Tutup</button>
+      </div>
     </dialog>
 
     <dialog class="rte-dlg" id="dlg-tautan" aria-label="Sisipkan tautan">
@@ -211,7 +251,6 @@
       </div>
     </dialog>
 
-    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — penyimpanan pada prototipe ini bersifat simulasi (tidak permanen).</p>
   </main>
 </div>
 
@@ -223,26 +262,94 @@
   var art = KLH.cms.artikel.filter(function (a) { return a.id === id; })[0] || null;
   var status = art ? art.status : 'draf';
 
+  /* ---- Kategori: ditentukan dari URL/artikel (mega menu), tanpa dropdown ---- */
+  var KAT = KLH.cms.kategoriKonten;
+  var kd = (art
+    ? KAT.filter(function (k) { return k.label === art.kategori; })[0]
+    : KAT.filter(function (k) { return k.slug === KLH.qs('kategori'); })[0]) || KAT[0];
+  var modeVideo = kd.slug === 'video-podcast';
+  var modeDok = !!kd.dokumen;
+
+  var back = document.getElementById('tautan-kembali');
+  back.href = 'konten.html?kategori=' + kd.slug;
+  back.innerHTML = '<klh-icon name="arrowleft" class="icon icon--sm"></klh-icon> Kembali ke ' + kd.label;
+
+  function renderKhusus() {
+    var panel = document.getElementById('panel-khusus');
+    var body = document.getElementById('khusus-body');
+    var samping = document.querySelector('.side-panel');
+    /* Video & Podcast: tanpa panel khusus — tautan media pindah ke bawah judul */
+    var fields = modeVideo ? [] : kd.fields;
+    samping.hidden = !fields.length;
+    if (!fields.length) { panel.hidden = true; body.innerHTML = ''; return; }
+    document.getElementById('khusus-judul').textContent = 'Khusus ' + kd.label;
+    body.innerHTML = fields.map(function (f, i) {
+      var input = f.type === 'file'
+        ? '<input class="input" id="' + f.id + '" type="file" accept="application/pdf">'
+        : '<input class="input" id="' + f.id + '" type="' + (f.type || 'text') + '"' + (f.ph ? ' placeholder="' + f.ph + '"' : '') + '>';
+      return '<div class="field"' + (i === fields.length - 1 ? ' style="margin-bottom:0"' : '') + '>' +
+        '<label for="' + f.id + '">' + f.label + '</label>' + input +
+        (f.hint ? '<p class="hint" style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s2)">' + f.hint + '</p>' : '') +
+        '</div>';
+    }).join('');
+    panel.hidden = false;
+  }
+  /* Mode per kelompok kategori:
+     A (berita/siaran pers/pengumuman/artikel) = editor lengkap;
+     B (video & podcast) = jenis konten + tautan media, tanpa isi & foto unggulan;
+     C (dokumen) = deskripsi + link/upload dokumen + thumbnail ber-default */
+  function terapkanMode() {
+    document.getElementById('w-isi').hidden = modeDok || modeVideo;
+    document.getElementById('w-ph').hidden = !modeDok;
+    document.getElementById('w-link').hidden = !modeDok;
+    document.getElementById('w-file').hidden = !modeDok;
+    document.getElementById('w-jenis').hidden = !modeVideo;
+    document.getElementById('w-media').hidden = !modeVideo;
+    if (kd.slug === 'pengumuman') {
+      document.getElementById('l-tanggal').innerHTML = 'Tanggal pengumuman <span class="req" aria-hidden="true">*</span>';
+    }
+    document.getElementById('panel-foto').hidden = modeDok || modeVideo;
+    document.getElementById('thumb-judul').textContent =
+      modeVideo ? 'Thumbnail video/podcast' : modeDok ? 'Thumbnail dokumen' : 'Thumbnail berita';
+    document.getElementById('thumb-default').hidden = !modeDok;
+    if (modeDok) document.getElementById('thumb-default-tile').innerHTML = KLH.iconSVG(kd.icon, 'icon icon--lg');
+  }
+  renderKhusus();
+  terapkanMode();
+  if (art && kd.dokumen) document.getElementById('fd-placeholder').value = art.ringkas || '';
+
   /* ---- Prefill mode sunting ---- */
   if (art) {
     document.getElementById('judul-halaman').textContent = 'Sunting: ' + art.id;
     document.title = 'Sunting ' + art.id + ' — CMS Konten KLH/BPLH';
     document.getElementById('f-judul').value = art.judul;
-    document.getElementById('f-ringkas').value = art.ringkas;
     document.getElementById('f-isi').innerHTML =
       '<p>' + art.ringkas + '</p><h2>Latar belakang</h2><p>(Isi lengkap artikel — konten contoh prototipe.)</p>';
-    document.getElementById('f-kategori').value = art.kategori;
     document.getElementById('inf-id').textContent = art.id;
     document.getElementById('inf-penulis').textContent = art.penulis;
     document.getElementById('inf-t').textContent = KLH.fmtDateTime(art.t);
     document.getElementById('f-tanggal').value = String(art.t).split('T')[0];
-    if (art.foto) document.getElementById('f-alt').value = (KLH.cms.media.filter(function (m) { return m.file === art.foto; })[0] || {}).alt || '';
   } else {
+    document.getElementById('judul-halaman').textContent = 'Tulis ' + kd.label + ' Baru';
+    document.title = 'Tulis ' + kd.label + ' — CMS Konten KLH/BPLH';
     document.getElementById('inf-penulis').textContent = (KLH.session.get() || KLH.cms.admin).nama;
   }
 
+  /* Penjelasan alur, tampil sebagai tooltip saat badge status di-hover/fokus */
+  var KET_STATUS = {
+    draf: 'Dapat disunting penulis (kontributor, verifikator, dan super admin)',
+    review: 'Sedang diverifikasi oleh Verifikator',
+    terbit: 'Konten sudah tayang di Website Utama'
+  };
   function renderStatus() {
-    document.getElementById('st-badge').innerHTML = KLH.statusBadge(status);
+    var wrap = document.getElementById('st-badge');
+    wrap.innerHTML = KLH.statusBadge(status);
+    var ket = KET_STATUS[status];
+    var b = wrap.firstElementChild;
+    if (!ket || !b) return;
+    b.setAttribute('data-tip', ket);
+    b.tabIndex = 0;
+    b.insertAdjacentHTML('beforeend', '<span class="sr-only">. ' + ket + '</span>');
   }
   renderStatus();
 
@@ -256,21 +363,163 @@
   fJudul.addEventListener('input', updateSlug);
   updateSlug();
 
-  /* ---- Pilih foto dari pustaka ---- */
+  /* ---- Pilih foto dari pustaka: multi-pilih + urutkan (seret / klik) ----
+     fotoSel = daftar terurut; indeks 0 = foto unggulan. ---- */
   var wrap = document.getElementById('foto-pilih');
-  wrap.innerHTML = KLH.cms.media.slice(0, 6).map(function (m) {
-    var on = art && art.foto === m.file;
-    return '<button type="button" aria-pressed="' + on + '" data-f="' + m.file + '" aria-label="Pilih foto: ' + m.alt + '">' +
+  var selWrap = document.getElementById('foto-sel');
+  var selKosong = document.getElementById('foto-sel-kosong');
+  var fotoSel = art && art.foto ? [art.foto] : [];
+  var dragIdx = null;
+  var MAKS_FOTO = 10;
+  var unggahan = {}; /* nama berkas unggahan → object URL (pratinjau lokal) */
+  var altMap = {};   /* nama berkas → teks alternatif (pustaka terisi otomatis, unggahan diisi manual) */
+
+  function mediaInfo(f) { return KLH.cms.media.filter(function (x) { return x.file === f; })[0]; }
+  function srcFoto(f) { return unggahan[f] || 'assets/img/media/' + f; }
+
+  wrap.innerHTML = KLH.cms.media.map(function (m) {
+    return '<button type="button" aria-pressed="false" data-f="' + m.file + '" data-cari="' + (m.alt + ' ' + m.file).toLowerCase() + '" aria-label="Pilih foto: ' + m.alt + '">' +
       '<img src="assets/img/media/' + m.file + '" alt="" loading="lazy"></button>';
   }).join('');
+
+  function renderFoto() {
+    Array.prototype.forEach.call(wrap.querySelectorAll('button[data-f]'), function (b) {
+      b.setAttribute('aria-pressed', String(fotoSel.indexOf(b.getAttribute('data-f')) !== -1));
+    });
+    selWrap.innerHTML = fotoSel.map(function (f, i) {
+      if (altMap[f] === undefined) altMap[f] = (mediaInfo(f) || {}).alt || '';
+      var alt = altMap[f] || f;
+      var val = altMap[f].replace(/"/g, '&quot;');
+      return '<div role="listitem" data-i="' + i + '" style="display:flex;align-items:center;gap:var(--s2)">' +
+        '<button type="button" draggable="true" data-utama="' + i + '" title="' + (i === 0 ? 'Foto unggulan saat ini' : 'Jadikan foto unggulan') + '" ' +
+          'aria-label="' + (i === 0 ? 'Foto unggulan: ' : 'Jadikan foto unggulan: ') + alt + '" style="flex:none;position:relative;display:block;padding:0;border:0;background:none;cursor:grab">' +
+          '<img src="' + srcFoto(f) + '" alt="" style="display:block;width:88px;height:56px;object-fit:cover;border-radius:var(--r-sm);border:2px solid ' + (i === 0 ? 'var(--g-600)' : 'var(--line)') + '">' +
+          (i === 0 ? '<span class="badge bg-brand" style="position:absolute;left:3px;bottom:3px">Unggulan</span>' : '') +
+        '</button>' +
+        '<input class="input" data-alt="' + f + '" value="' + val + '" placeholder="Teks alternatif foto" aria-label="Teks alternatif foto ' + (i + 1) + (i === 0 ? ' (unggulan)' : '') + '" style="flex:1;min-width:0">' +
+        '<button type="button" data-buang="' + i + '" title="Hapus dari pilihan" aria-label="Hapus dari pilihan: ' + alt + '" ' +
+          'style="flex:none;width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:var(--surface,#fff);display:grid;place-items:center;cursor:pointer">' +
+          KLH.iconSVG('close', 'icon icon--sm') + '</button>' +
+        '</div>';
+    }).join('');
+    selKosong.hidden = fotoSel.length > 0;
+  }
+  selWrap.addEventListener('input', function (e) {
+    var inp = e.target.closest('[data-alt]');
+    if (inp) altMap[inp.getAttribute('data-alt')] = inp.value;
+  });
+
   wrap.addEventListener('click', function (e) {
     var btn = e.target.closest('button[data-f]');
     if (!btn) return;
-    Array.prototype.forEach.call(wrap.querySelectorAll('button'), function (b) {
-      b.setAttribute('aria-pressed', String(b === btn));
+    var f = btn.getAttribute('data-f');
+    var i = fotoSel.indexOf(f);
+    if (i === -1) {
+      if (fotoSel.length >= MAKS_FOTO) { KLH.toast('Maksimal ' + MAKS_FOTO + ' foto.', 'warning'); return; }
+      fotoSel.push(f);
+    } else fotoSel.splice(i, 1);
+    renderFoto();
+  });
+
+  selWrap.addEventListener('click', function (e) {
+    var utama = e.target.closest('[data-utama]');
+    var buang = e.target.closest('[data-buang]');
+    if (buang) {
+      fotoSel.splice(parseInt(buang.getAttribute('data-buang'), 10), 1);
+    } else if (utama) {
+      var dari = parseInt(utama.getAttribute('data-utama'), 10);
+      if (dari === 0) return;
+      fotoSel.unshift(fotoSel.splice(dari, 1)[0]);
+      KLH.toast('Foto unggulan diperbarui.');
+    } else return;
+    renderFoto();
+  });
+
+  /* Seret untuk mengurutkan (posisi 1 = unggulan) */
+  selWrap.addEventListener('dragstart', function (e) {
+    var it = e.target.closest('[data-i]');
+    if (!it) return;
+    dragIdx = parseInt(it.getAttribute('data-i'), 10);
+    e.dataTransfer.effectAllowed = 'move';
+    try { e.dataTransfer.setData('text/plain', String(dragIdx)); } catch (err) {}
+  });
+  selWrap.addEventListener('dragover', function (e) { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; });
+  selWrap.addEventListener('drop', function (e) {
+    e.preventDefault();
+    var it = e.target.closest('[data-i]');
+    if (!it || dragIdx === null) return;
+    var ke = parseInt(it.getAttribute('data-i'), 10);
+    fotoSel.splice(ke, 0, fotoSel.splice(dragIdx, 1)[0]);
+    dragIdx = null;
+    renderFoto();
+  });
+
+  renderFoto();
+
+  /* ---- Sumber foto: tab Unggah / Pilih dari pustaka (default: pustaka) ---- */
+  var srcUnggah = document.getElementById('src-unggah');
+  var srcGaleri = document.getElementById('src-galeri');
+  function pilihSumber(unggah) {
+    document.getElementById('pane-unggah').hidden = !unggah;
+    document.getElementById('pane-galeri').hidden = unggah;
+    srcUnggah.classList.toggle('active', unggah);
+    srcGaleri.classList.toggle('active', !unggah);
+    srcUnggah.setAttribute('aria-selected', String(unggah));
+    srcGaleri.setAttribute('aria-selected', String(!unggah));
+  }
+  srcUnggah.addEventListener('click', function () { pilihSumber(true); });
+  srcGaleri.addEventListener('click', function () { pilihSumber(false); });
+
+  /* ---- Unggah foto unggulan: banyak berkas sekaligus, maks 10 total ---- */
+  var fotoDrop = document.getElementById('foto-drop');
+  var fotoFile = document.getElementById('foto-file');
+  function terimaFotoBanyak(files) {
+    var masuk = 0;
+    Array.prototype.forEach.call(files, function (berkas) {
+      if (!/^image\/(jpeg|png)$/.test(berkas.type)) {
+        KLH.toast('<strong>' + berkas.name + '</strong> dilewati — pilih berkas JPG atau PNG.', 'warning'); return;
+      }
+      if (berkas.size > 2 * 1024 * 1024) {
+        KLH.toast('<strong>' + berkas.name + '</strong> dilewati — melebihi 2 MB.', 'warning'); return;
+      }
+      if (fotoSel.length >= MAKS_FOTO) return;
+      unggahan[berkas.name] = URL.createObjectURL(berkas);
+      if (fotoSel.indexOf(berkas.name) === -1) fotoSel.push(berkas.name);
+      masuk++;
     });
-    var m = KLH.cms.media.filter(function (x) { return x.file === btn.getAttribute('data-f'); })[0];
-    if (m) document.getElementById('f-alt').value = m.alt;
+    if (files.length && fotoSel.length >= MAKS_FOTO && masuk < files.length) {
+      KLH.toast('Maksimal ' + MAKS_FOTO + ' foto — sebagian berkas tidak ditambahkan.', 'warning');
+    }
+    if (masuk) {
+      renderFoto();
+      KLH.toast(masuk + ' foto ditambahkan (pratinjau lokal — simulasi). Tambah lagi via unggahan atau pustaka.');
+    }
+    fotoFile.value = '';
+  }
+  fotoDrop.addEventListener('click', function () { fotoFile.click(); });
+  fotoDrop.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fotoFile.click(); }
+  });
+  fotoDrop.addEventListener('dragover', function (e) { e.preventDefault(); });
+  fotoDrop.addEventListener('drop', function (e) {
+    e.preventDefault();
+    if (e.dataTransfer.files.length) terimaFotoBanyak(e.dataTransfer.files);
+  });
+  fotoFile.addEventListener('change', function () {
+    if (fotoFile.files.length) terimaFotoBanyak(fotoFile.files);
+  });
+
+  /* ---- Cari foto pustaka ---- */
+  var fotoCari = document.getElementById('foto-cari');
+  fotoCari.addEventListener('input', function () {
+    var q = fotoCari.value.trim().toLowerCase();
+    var ada = 0;
+    Array.prototype.forEach.call(wrap.querySelectorAll('button[data-cari]'), function (b) {
+      var cocok = !q || b.getAttribute('data-cari').indexOf(q) !== -1;
+      b.hidden = !cocok;
+      if (cocok) ada++;
+    });
+    document.getElementById('foto-cari-kosong').hidden = ada > 0;
   });
 
   /* ---- Pilih thumbnail berita (200×300) dari pustaka ---- */
@@ -335,6 +584,11 @@
   });
   dlgPratinjau.querySelector('[data-tutup]').addEventListener('click', function () { dlgPratinjau.close(); });
   dlgPratinjau.addEventListener('close', function () { framePratinjau.src = 'about:blank'; });
+
+  /* ---- Info entri: modal (dipindah dari panel samping) ---- */
+  var dlgInfo = document.getElementById('dlg-info');
+  document.getElementById('btn-info').addEventListener('click', function () { dlgInfo.showModal(); });
+  dlgInfo.querySelector('[data-batal]').addEventListener('click', function () { dlgInfo.close(); });
 
   /* ---- Editor teks kaya (contenteditable + execCommand, tanpa dependensi) ---- */
   var rte = document.getElementById('f-isi');
@@ -473,8 +727,18 @@
     var ok = true;
     ok = setErr('f-judul', fJudul.value.trim().length < 10) && ok;
     var rteEl = document.getElementById('f-isi');
-    ok = setErr('f-isi', !rteEl.textContent.trim() && !rteEl.querySelector('img')) && ok;
+    ok = setErr('f-isi', !modeDok && !modeVideo && !rteEl.textContent.trim() && !rteEl.querySelector('img')) && ok;
     ok = setErr('f-tanggal', !document.getElementById('f-tanggal').value) && ok;
+    if (!document.getElementById('panel-foto').hidden) {
+      var adaAltKosong = false;
+      Array.prototype.forEach.call(document.querySelectorAll('#foto-sel [data-alt]'), function (inp) {
+        var kosong = !inp.value.trim();
+        inp.setAttribute('aria-invalid', String(kosong));
+        if (kosong) adaAltKosong = true;
+      });
+      document.getElementById('alt-err').hidden = !adaAltKosong;
+      ok = ok && !adaAltKosong;
+    }
     if (!ok) {
       var pertama = document.querySelector('[aria-invalid="true"]');
       if (pertama) pertama.focus();

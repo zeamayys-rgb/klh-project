@@ -15,7 +15,7 @@
 
   function accountHTML(sesi) {
     if (sesi) {
-      return '<a class="btn btn-secondary btn-sm" href="' + href('riwayat.html') + '">' + ic('user') +
+      return '<a class="btn btn-secondary btn-sm" href="' + href('profil.html') + '">' + ic('user') +
           '<span class="nav-acc-name">' + String(sesi.nama).replace(/</g, '&lt;') + '</span></a>' +
         '<button class="btn btn-ghost btn-sm" type="button" data-logout>Keluar</button>';
     }
@@ -71,7 +71,7 @@
             '<a class="drawer__link" href="' + href('lacak.html') + '">Lacak Permohonan ' + ic('search') + '</a>' +
             '<a class="drawer__link" href="' + href('permohonan.html') + '">Ajukan Permohonan ' + ic('document') + '</a>' +
             (sesi
-              ? '<a class="drawer__link" href="' + href('riwayat.html') + '">Riwayat &amp; Notifikasi ' + ic('bell') + '</a>' +
+              ? '<a class="drawer__link" href="' + href('profil.html') + '">Profil Akun ' + ic('user') + '</a>' +
                 '<button class="drawer__link" type="button" data-logout style="width:100%">Keluar ' + ic('arrowright') + '</button>'
               : '<a class="drawer__link" href="' + href('masuk.html') + '">Masuk / Daftar ' + ic('user') + '</a>') +
             '<hr><a class="drawer__link" href="../klh-website-utama/index.html">' + '← Situs Utama KLH/BPLH</a>' +

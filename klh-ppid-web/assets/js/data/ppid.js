@@ -109,8 +109,7 @@
       { no: 'UU No. 32 Tahun 2009', judul: 'Perlindungan dan Pengelolaan Lingkungan Hidup', ket: 'Menjamin hak masyarakat atas informasi lingkungan hidup (Pasal 65).', tahun: 2009, jenis: 'Undang-Undang' },
       { no: 'PP No. 61 Tahun 2010', judul: 'Pelaksanaan UU Keterbukaan Informasi Publik', ket: 'Ketentuan teknis pelaksanaan UU KIP: kewajiban badan publik dan penetapan PPID.', tahun: 2010, jenis: 'Peraturan Pemerintah' },
       { no: 'Perki No. 1 Tahun 2021', judul: 'Standar Layanan Informasi Publik', ket: 'Standar layanan, jangka waktu 10+7 hari kerja, format permohonan, dan maklumat pelayanan.', tahun: 2021, jenis: 'Peraturan Komisi Informasi' },
-      { no: 'Perki No. 1 Tahun 2013', judul: 'Prosedur Penyelesaian Sengketa Informasi Publik', ket: 'Tata cara pengajuan dan penyelesaian sengketa informasi di Komisi Informasi.', tahun: 2013, jenis: 'Peraturan Komisi Informasi' },
-      { no: 'Permen LH (contoh)', judul: 'Pedoman Pengelolaan Informasi & Dokumentasi KLH/BPLH', ket: 'Penanda konten contoh — SK penetapan PPID dan pedoman internal pengelolaan informasi.', tahun: 2024, jenis: 'Peraturan Menteri' }
+      { no: 'Perki No. 1 Tahun 2013', judul: 'Prosedur Penyelesaian Sengketa Informasi Publik', ket: 'Tata cara pengajuan dan penyelesaian sengketa informasi di Komisi Informasi.', tahun: 2013, jenis: 'Peraturan Komisi Informasi' }
     ],
 
     /* ---- Permohonan (≥6, status bervariasi) untuk lacak & riwayat ----

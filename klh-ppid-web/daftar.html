@@ -198,7 +198,14 @@
     setErr('kode', false);
     var nama = document.getElementById('nama').value.trim();
     var email = document.getElementById('email').value.trim();
-    KLH.session.set({ nama: nama, email: email, masuk: new Date().toISOString() });
+    KLH.session.set({
+      nama: nama, email: email, masuk: new Date().toISOString(),
+      jenis: form.jenis.value,
+      nik: document.getElementById('nik').value.trim(),
+      akta: document.getElementById('akta').value.trim(),
+      alamat: document.getElementById('alamat').value.trim(),
+      hp: document.getElementById('hp').value.trim()
+    });
     document.getElementById('verif-alert').innerHTML =
       '<div class="alert alert-success" style="margin-top:var(--s4)">' + KLH.iconSVG('check', 'icon icon--sm') +
       '<div><strong>Akun berhasil dibuat.</strong>Anda kini masuk — mengalihkan ke formulir permohonan…</div></div>';

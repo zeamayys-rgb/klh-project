@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Riwayat &amp; Notifikasi — PPID KLH/BPLH</title>
-<meta name="description" content="Daftar permohonan informasi Anda beserta status terkini dan notifikasi layanan.">
+<title>Riwayat Permohonan — PPID KLH/BPLH</title>
+<meta name="description" content="Daftar permohonan informasi Anda beserta status terkininya.">
 <link rel="icon" type="image/png" href="assets/img/klh-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,11 +30,11 @@
     <div class="container">
       <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
         <li><a href="index.html">Beranda</a></li>
-        <li aria-current="page">Riwayat &amp; Notifikasi</li>
+        <li aria-current="page">Riwayat Permohonan</li>
       </ol></nav>
       <span class="eyebrow">Akun Pemohon</span>
-      <h1 id="judul-hal">Riwayat &amp; Notifikasi</h1>
-      <p class="lead" id="sapa">Pantau seluruh permohonan Anda dan notifikasi terbarunya di satu tempat.</p>
+      <h1 id="judul-hal">Riwayat Permohonan</h1>
+      <p class="lead" id="sapa">Pantau seluruh permohonan Anda dan status terbarunya di satu tempat.</p>
     </div>
   </section>
 
@@ -51,21 +51,23 @@
     </div>
   </section>
 
-  <!-- Sudah masuk: riwayat + notifikasi -->
+  <!-- Sudah masuk: daftar riwayat -->
   <section class="section section--tight" id="panel-user" hidden>
-    <div class="container" style="display:grid;grid-template-columns:1.5fr 1fr;gap:var(--gutter);align-items:start">
-      <div>
-        <div class="section-head" style="margin-bottom:var(--s4)">
-          <h2 class="h3" style="margin:0">Permohonan Saya</h2>
-          <a class="btn btn-primary btn-sm" href="permohonan.html"><klh-icon name="document" class="icon icon--sm"></klh-icon> Ajukan Baru</a>
-        </div>
-        <div class="card" id="req-list"></div>
-        <p style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s4)">Daftar permohonan = <strong>data contoh</strong> prototipe, sama untuk semua akun demo.</p>
+    <div class="container">
+      <div class="section-head" style="margin-bottom:var(--s4)">
+        <h2 class="h3" style="margin:0">Permohonan Saya</h2>
+        <a class="btn btn-primary btn-sm" href="permohonan.html"><klh-icon name="document" class="icon icon--sm"></klh-icon> Ajukan Baru</a>
       </div>
-      <aside>
-        <h2 class="h3" style="margin-bottom:var(--s4)">Notifikasi</h2>
-        <div class="card card__body" id="notif-list" style="padding-block:var(--s3)"></div>
-      </aside>
+      <div class="dip-toolbar">
+        <div class="dip-search">
+          <klh-icon name="search" class="icon icon--sm"></klh-icon>
+          <input type="search" id="cari-req" placeholder="Cari nomor atau judul permohonan…" aria-label="Cari nomor atau judul permohonan">
+        </div>
+      </div>
+      <p id="hasil-req" aria-live="polite" style="font-size:var(--t-sm);color:var(--ink-500);margin-bottom:var(--s3)"></p>
+      <div class="card" id="req-list"></div>
+      <nav class="pager" id="req-pager" aria-label="Navigasi halaman permohonan" style="margin-top:var(--s6)"></nav>
+      <p style="font-size:var(--t-xs);color:var(--ink-400);margin-top:var(--s4)">Daftar permohonan = <strong>data contoh</strong> prototipe, sama untuk semua akun demo.</p>
     </div>
   </section>
 </main>
@@ -82,36 +84,71 @@
     return;
   }
   document.getElementById('panel-user').hidden = false;
-  document.getElementById('sapa').textContent = 'Halo, ' + sesi.nama + ' — berikut permohonan dan notifikasi terbaru Anda.';
+  document.getElementById('sapa').textContent = 'Halo, ' + sesi.nama + ' — berikut permohonan terbaru Anda.';
 
-  /* Daftar permohonan (data contoh terpusat) */
-  document.getElementById('req-list').innerHTML = KLH.ppid.permohonan.map(function (p) {
-    return '<a class="req-item" href="lacak.html?id=' + encodeURIComponent(p.id) + '">' +
-      '<div style="flex:1;min-width:0">' +
-        '<span class="rid">' + p.id + '</span>' +
-        '<h3>' + p.info + '</h3>' +
-        '<span class="rmeta">Diajukan ' + KLH.fmtDate(p.tanggal) + ' · estimasi ' + KLH.fmtDate(p.estimasi) + '</span>' +
-      '</div>' + KLH.statusBadge(p.status) + '</a>';
-  }).join('');
+  /* Daftar permohonan (data contoh terpusat) + cari & paginasi */
+  var PER_HAL = 5;
+  var listEl = document.getElementById('req-list');
+  var pagerEl = document.getElementById('req-pager');
+  var infoEl = document.getElementById('hasil-req');
+  var cariEl = document.getElementById('cari-req');
+  var hal = 1;
 
-  /* Notifikasi diturunkan dari riwayat terakhir tiap permohonan */
-  var IC = { 'Selesai': ['check', 'tonal--green'], 'Ditolak': ['warning', 'tonal--earth'], 'Diproses': ['clock', 'tonal--sky'], 'Verifikasi': ['eye', 'tonal--sky'], 'Diterima': ['inbox', 'tonal--green'] };
-  var notif = KLH.ppid.permohonan.slice().sort(function (a, b) {
-    return b.riwayat[b.riwayat.length - 1].t.localeCompare(a.riwayat[a.riwayat.length - 1].t);
-  }).slice(0, 6);
-  document.getElementById('notif-list').innerHTML = notif.map(function (p) {
-    var last = p.riwayat[p.riwayat.length - 1];
-    var ic = IC[p.status] || IC.Diterima;
-    return '<div class="notif-item">' +
-      '<span class="tonal ' + ic[1] + '">' + KLH.iconSVG(ic[0], 'icon icon--sm') + '</span>' +
-      '<div><strong style="font-size:var(--t-sm);font-family:var(--font-display)">' + last.label + '</strong>' +
-        '<span style="display:block;color:var(--ink-500)">' + p.id + ' · ' + last.ket + '</span>' +
-        '<time datetime="' + last.t + '">' + KLH.fmtDate(last.t) + '</time></div></div>';
-  }).join('');
+  function terfilter() {
+    var q = cariEl.value.trim().toLowerCase();
+    if (!q) return KLH.ppid.permohonan;
+    return KLH.ppid.permohonan.filter(function (p) {
+      return (p.id + ' ' + p.info + ' ' + p.status).toLowerCase().indexOf(q) > -1;
+    });
+  }
+
+  function render() {
+    var data = terfilter();
+    var maxHal = Math.max(1, Math.ceil(data.length / PER_HAL));
+    if (hal > maxHal) hal = maxHal;
+    var mulai = (hal - 1) * PER_HAL;
+    var potong = data.slice(mulai, mulai + PER_HAL);
+
+    listEl.innerHTML = potong.length ? potong.map(function (p) {
+      return '<a class="req-item" href="lacak.html?id=' + encodeURIComponent(p.id) + '">' +
+        '<div style="flex:1;min-width:0">' +
+          '<span class="rid">' + p.id + '</span>' +
+          '<h3>' + p.info + '</h3>' +
+          '<span class="rmeta">Diajukan ' + KLH.fmtDate(p.tanggal) + ' · estimasi ' + KLH.fmtDate(p.estimasi) + '</span>' +
+        '</div>' + KLH.statusBadge(p.status) + '</a>';
+    }).join('') : '<div class="card__body"><p style="margin:0;color:var(--ink-500)">Tidak ada permohonan yang cocok dengan pencarian Anda.</p></div>';
+
+    infoEl.textContent = data.length
+      ? 'Menampilkan ' + (mulai + 1) + '–' + (mulai + potong.length) + ' dari ' + data.length + ' permohonan'
+      : '0 permohonan ditemukan';
+
+    /* ponytail: nomor halaman ditampilkan penuh, jumlah data contoh kecil */
+    pagerEl.hidden = maxHal < 2;
+    var html = '<a href="#" data-h="' + (hal - 1) + '" aria-label="Halaman sebelumnya"' + (hal === 1 ? ' aria-disabled="true"' : '') + '>' + KLH.iconSVG('arrowleft', 'icon icon--sm') + '</a>';
+    for (var i = 1; i <= maxHal; i++) {
+      html += i === hal
+        ? '<span class="on" aria-current="page">' + i + '</span>'
+        : '<a href="#" data-h="' + i + '">' + i + '</a>';
+    }
+    html += '<a href="#" data-h="' + (hal + 1) + '" aria-label="Halaman berikutnya"' + (hal === maxHal ? ' aria-disabled="true"' : '') + '>' + KLH.iconSVG('arrowright', 'icon icon--sm') + '</a>';
+    pagerEl.innerHTML = html;
+  }
+
+  pagerEl.addEventListener('click', function (e) {
+    var a = e.target.closest('a[data-h]');
+    if (!a) return;
+    e.preventDefault();
+    var t = parseInt(a.getAttribute('data-h'), 10);
+    var maxHal = Math.max(1, Math.ceil(terfilter().length / PER_HAL));
+    if (t < 1 || t > maxHal || t === hal) return;
+    hal = t;
+    render();
+    listEl.scrollIntoView({ block: 'start' });
+  });
+
+  cariEl.addEventListener('input', function () { hal = 1; render(); });
+  render();
 })();
 </script>
-<style>
-@media (max-width: 1024px) { #panel-user .container { grid-template-columns: 1fr !important; } }
-</style>
 </body>
 </html>
