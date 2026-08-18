@@ -219,3 +219,20 @@
 .org-line .role { font-size: var(--t-xs); font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--klh-green-700); font-family: var(--font-display); }
 .org-line .joint { display: flex; justify-content: center; }
 .org-line .joint span { width: 2px; height: 22px; background: var(--line-strong); border-radius: 2px; }
+
+/* ============ BERANDA — PROSEDUR DETAIL + PENAMPIL INFOGRAFIK ============ */
+.prosedur-figure { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--sh-2); aspect-ratio: 1600/996; position: relative; margin-top: var(--s6); }
+.prosedur-figure:focus-visible { outline: 3px solid var(--klh-green-600); outline-offset: 3px; }
+.prosedur-figure__hint { position: absolute; right: var(--s4); bottom: var(--s4); display: inline-flex; align-items: center; gap: 6px; min-height: 32px; background: rgba(0, 0, 0, .65); color: #fff; font-size: var(--t-sm); font-weight: 600; font-family: var(--font-display); padding: 6px 14px; border-radius: var(--r-pill); pointer-events: none; }
+.prosedur-steps { list-style: none; counter-reset: prosedur; margin: var(--s8) 0 0; padding: 0; display: grid; gap: var(--s4); max-width: 72ch; }
+.prosedur-steps li { counter-increment: prosedur; position: relative; padding-left: 52px; line-height: 1.65; }
+.prosedur-steps li::before { content: counter(prosedur); position: absolute; left: 0; top: 0; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: var(--klh-green-100); color: var(--klh-green-800); font-family: var(--font-mono); font-weight: 500; }
+
+/* Penampil layar penuh: <dialog> native, overlay gelap, X ≥44px */
+.img-viewer { border: 0; padding: 0; background: transparent; max-width: min(1100px, 94vw); overflow: visible; }
+.img-viewer::backdrop { background: rgba(10, 15, 13, .85); }
+.img-viewer img { display: block; max-width: 100%; max-height: 86vh; margin-inline: auto; border-radius: var(--r-lg); box-shadow: var(--sh-3); }
+.img-viewer__close { position: absolute; top: calc(-1 * var(--s2)); right: calc(-1 * var(--s2)); transform: translate(50%, -50%); width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: 50%; background: #fff; color: var(--ink-900); cursor: pointer; box-shadow: var(--sh-2); }
+.img-viewer__close:hover { background: var(--klh-green-100); }
+.img-viewer__close:focus-visible { outline: 3px solid var(--klh-green-600); outline-offset: 2px; }
+@media (max-width: 640px) { .img-viewer__close { transform: none; top: var(--s2); right: var(--s2); } }

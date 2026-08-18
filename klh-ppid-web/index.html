@@ -22,6 +22,7 @@
 <script src="assets/js/components/navbar.js"></script>
 <script src="assets/js/components/footer.js"></script>
 <script src="assets/js/components/widgets.js"></script>
+<script src="assets/js/vendor/image-slot.js"></script>
 
 <klh-navbar active="beranda"></klh-navbar>
 
@@ -51,6 +52,32 @@
       </form>
     </div>
     <span id="hero-leaf"></span>
+  </section>
+
+  <!-- Prosedur permintaan informasi (detail) + jalur keberatan -->
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">Prosedur Layanan</span>
+      <div class="section-head">
+        <div><h2>Cara Mengajukan Permohonan Informasi</h2>
+        <p class="lead">Alur lengkap sesuai UU No. 14 Tahun 2008 — dari menyiapkan berkas sampai menerima jawaban, termasuk jalur keberatan bila Anda tidak puas.</p></div>
+      </div>
+      <button type="button" class="prosedur-figure" id="btn-zoom-permintaan" aria-haspopup="dialog" data-reveal>
+        <image-slot id="prosedur-permintaan" shape="rect" src="assets/img/media/prosedur-permintaan-informasi-publik.jpg" placeholder="Infografik prosedur permintaan informasi publik"></image-slot>
+        <span class="prosedur-figure__hint"><klh-icon name="eye" class="icon icon--sm"></klh-icon> Perbesar</span>
+      </button>
+      <ol class="prosedur-steps">
+        <li data-reveal><strong>Siapkan identitas dan rincian permintaan.</strong> NIK untuk perorangan atau akta/SK untuk badan hukum, rincian informasi yang diminta, tujuan penggunaan, serta cara memperoleh informasi yang Anda inginkan.</li>
+        <li data-reveal><strong>Ajukan secara daring.</strong> Isi formulir 4 langkah pada halaman <a href="permohonan.html">Ajukan Permohonan</a> dan unggah dokumen pendukung bila diperlukan.</li>
+        <li data-reveal><strong>Petugas memverifikasi kelengkapan.</strong> Bila persyaratan belum lengkap, lengkapi paling lambat <strong>3 hari kerja</strong> agar permohonan tetap ditindaklanjuti.</li>
+        <li data-reveal><strong>Terima jawaban tertulis.</strong> Paling lambat <strong>10 hari kerja</strong>, dapat diperpanjang 7 hari kerja dengan pemberitahuan tertulis. Pantau prosesnya di halaman <a href="lacak.html">Lacak Permohonan</a>.</li>
+        <li data-reveal><strong>Tidak puas dengan jawaban?</strong> Ajukan keberatan kepada Atasan PPID paling lambat <strong>30 hari kerja</strong> sejak jawaban diterima. Lihat alurnya pada infografik prosedur keberatan di bawah.</li>
+      </ol>
+      <div style="display:flex;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s8)">
+        <a class="btn btn-primary" href="permohonan.html"><klh-icon name="document" class="icon icon--sm"></klh-icon> Ajukan Permohonan</a>
+        <button class="btn btn-outline" type="button" id="btn-zoom-keberatan" aria-haspopup="dialog"><klh-icon name="scale" class="icon icon--sm"></klh-icon> Lihat Prosedur Pengajuan Keberatan</button>
+      </div>
+    </div>
   </section>
 
   <!-- 4 kategori informasi wajib UU KIP -->
@@ -142,6 +169,12 @@
   </section>
 </main>
 
+<!-- Penampil infografik layar penuh (overlay gelap; klik overlay / tombol X / Esc untuk menutup) -->
+<dialog class="img-viewer" id="img-viewer">
+  <button class="img-viewer__close" type="button" aria-label="Tutup tampilan penuh"><klh-icon name="close" class="icon"></klh-icon></button>
+  <img id="img-viewer-img" src="" alt="">
+</dialog>
+
 <klh-footer></klh-footer>
 <klh-widgets></klh-widgets>
 <script src="assets/js/main.js"></script>
@@ -167,6 +200,23 @@
       '<span class="svc-card__foot">' + t.cta + ' ' + KLH.iconSVG('arrowright', 'icon icon--sm') + '</span>' +
       '</a>';
   }).join('');
+
+  /* ---- Penampil infografik prosedur (fullscreen <dialog> native) ---- */
+  var viewer = document.getElementById('img-viewer');
+  var viewerImg = document.getElementById('img-viewer-img');
+  function openViewer(src, alt) {
+    viewerImg.src = src;
+    viewerImg.alt = alt;
+    viewer.showModal();
+  }
+  document.getElementById('btn-zoom-permintaan').addEventListener('click', function () {
+    openViewer('assets/img/media/prosedur-permintaan-informasi-publik.jpg', 'Infografik prosedur permintaan informasi publik — tampilan penuh');
+  });
+  document.getElementById('btn-zoom-keberatan').addEventListener('click', function () {
+    openViewer('assets/img/media/prosedur-pengajuan-keberatan.jpg', 'Infografik prosedur pengajuan keberatan — tampilan penuh');
+  });
+  viewer.querySelector('.img-viewer__close').addEventListener('click', function () { viewer.close(); });
+  viewer.addEventListener('click', function (e) { if (e.target === viewer) viewer.close(); }); /* klik overlay = tutup */
 })();
 </script>
 </body>

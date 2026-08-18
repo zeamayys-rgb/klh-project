@@ -77,6 +77,15 @@
 
 /* Strip statistik menempel di bawah hero */
 .stat-pull { margin-top: calc(-1 * var(--s12)); position: relative; z-index: 2; }
+.stat-head { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); padding: var(--s2) var(--s5) 0; }
+.stat-head__note { font-size: var(--t-xs); color: var(--ink-400); }
+.stat-switch {
+  display: inline-flex; align-items: center; gap: var(--s2); min-height: 44px;
+  padding: var(--s1) var(--s3); border: 1px solid var(--line); border-radius: var(--r-pill);
+  background: none; font: inherit; font-size: var(--t-sm); font-weight: 600; color: var(--klh-green-700);
+  cursor: pointer; transition: background var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease);
+}
+.stat-switch:hover { background: var(--g-50); border-color: var(--g-300); }
 
 /* Info terkini: 3 kolom */
 .info-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); }
@@ -340,6 +349,7 @@ button.agenda-row:hover { box-shadow: var(--sh-2); }
 
 /* ============ PPID ENTRI ============ */
 .ppid-cat { display: flex; flex-direction: column; gap: var(--s3); padding: var(--s6); height: 100%; }
+.ppid-cat h3 { margin-bottom: 0; } /* gap flex sudah memberi jarak; margin bawaan h3 bikin spasi ganda */
 .ppid-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gutter); }
 @media (max-width: 1024px) { .ppid-steps { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px) { .ppid-steps { grid-template-columns: 1fr; } }

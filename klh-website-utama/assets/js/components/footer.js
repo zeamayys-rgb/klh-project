@@ -41,9 +41,6 @@
           '</div>' +
           '<div class="footer-bottom">' +
             '<span class="gov">' + ic('institution') + ' © 2026 Kementerian Lingkungan Hidup / BPLH, Republik Indonesia</span>' +
-            '<span>' + f.legal.map(function (l) {
-              return '<a href="' + href(l.href) + '" style="margin-left:var(--s4)">' + l.label + '</a>';
-            }).join('') + '</span>' +
           '</div>' +
         '</div>' +
       '</footer>';

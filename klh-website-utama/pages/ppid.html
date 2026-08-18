@@ -13,6 +13,23 @@
 <link rel="stylesheet" href="../assets/css/base.css">
 <link rel="stylesheet" href="../assets/css/components.css">
 <link rel="stylesheet" href="../assets/css/pages.css">
+<style>
+/* Hero 2 kolom dengan infografik prosedur - pola kal-hero__grid */
+.ppid-hero__grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: var(--s12); align-items: center; position: relative; }
+@media (max-width: 1024px) { .ppid-hero__grid { grid-template-columns: 1fr; } }
+.ppid-hero__photo { display: block; width: 100%; padding: 0; border: 0; background: #fff; cursor: zoom-in; border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--sh-3); aspect-ratio: 3074/1914; position: relative; }
+.ppid-hero__photo:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.ppid-hero__photo .zoom-hint { position: absolute; right: var(--s3); bottom: var(--s3); display: inline-flex; align-items: center; gap: 6px; background: rgba(0, 0, 0, .65); color: #fff; font-size: var(--t-xs); font-weight: 600; font-family: var(--font-display); padding: 5px 12px; border-radius: var(--r-pill); pointer-events: none; }
+
+/* Penampil layar penuh: <dialog> native, overlay gelap, X >=44px */
+.img-viewer { border: 0; padding: 0; background: transparent; max-width: min(1100px, 94vw); overflow: visible; }
+.img-viewer::backdrop { background: rgba(10, 15, 13, .85); }
+.img-viewer img { display: block; max-width: 100%; max-height: 86vh; margin-inline: auto; border-radius: var(--r-lg); box-shadow: var(--sh-3); }
+.img-viewer__close { position: absolute; top: calc(-1 * var(--s2)); right: calc(-1 * var(--s2)); transform: translate(50%, -50%); width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: 50%; background: #fff; color: var(--ink-900); cursor: pointer; box-shadow: var(--sh-2); }
+.img-viewer__close:hover { background: var(--klh-green-100); }
+.img-viewer__close:focus-visible { outline: 3px solid var(--klh-green-600); outline-offset: 2px; }
+@media (max-width: 640px) { .img-viewer__close { transform: none; top: var(--s2); right: var(--s2); } }
+</style>
 </head>
 <body>
 <script>window.KLH_ROOT = '../';</script>
@@ -22,23 +39,30 @@
 <script src="../assets/js/components/navbar.js"></script>
 <script src="../assets/js/components/footer.js"></script>
 <script src="../assets/js/components/widgets.js"></script>
+<script src="../assets/js/vendor/image-slot.js"></script>
 
 <klh-navbar></klh-navbar>
 
 <main id="konten">
   <section class="page-hero" style="padding-bottom:var(--s12)">
-    <div class="container">
-      <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
-        <li><a href="../index.html">Beranda</a></li>
-        <li aria-current="page">Informasi Publik (PPID)</li>
-      </ol></nav>
-      <span class="eyebrow">Pejabat Pengelola Informasi &amp; Dokumentasi</span>
-      <h1>Informasi Publik (PPID)</h1>
-      <p class="lead">Setiap warga negara berhak memperoleh informasi publik. PPID KLH/BPLH melayani permohonan informasi sesuai UU No. 14 Tahun 2008 tentang Keterbukaan Informasi Publik.</p>
-      <div style="display:flex;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s6)">
-        <a class="btn btn--inverse btn-lg" href="#ajukan"><klh-icon name="folder" class="icon icon--sm"></klh-icon> Ajukan Permohonan</a>
-        <a class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,.5);color:#fff" href="#lacak"><klh-icon name="search" class="icon icon--sm"></klh-icon> Lacak Permohonan</a>
+    <div class="container ppid-hero__grid">
+      <div>
+        <nav aria-label="Jejak navigasi"><ol class="breadcrumb">
+          <li><a href="../index.html">Beranda</a></li>
+          <li aria-current="page">Informasi Publik (PPID)</li>
+        </ol></nav>
+        <span class="eyebrow">Pejabat Pengelola Informasi &amp; Dokumentasi</span>
+        <h1>Informasi Publik (PPID)</h1>
+        <p class="lead">Setiap warga negara berhak memperoleh informasi publik. PPID KLH/BPLH melayani permohonan informasi sesuai UU No. 14 Tahun 2008 tentang Keterbukaan Informasi Publik.</p>
+        <div style="display:flex;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s6)">
+          <a class="btn btn--inverse btn-lg" href="#ajukan"><klh-icon name="folder" class="icon icon--sm"></klh-icon> Ajukan Permohonan</a>
+          <a class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,.5);color:#fff" href="#lacak"><klh-icon name="search" class="icon icon--sm"></klh-icon> Lacak Permohonan</a>
+        </div>
       </div>
+      <button type="button" class="ppid-hero__photo" id="btn-zoom-prosedur" aria-haspopup="dialog">
+        <image-slot id="ppid-hero" shape="rect" src="../assets/img/media/prosedur-permintaan-informasi-publik.jpg" placeholder="Infografik prosedur permintaan informasi publik"></image-slot>
+        <span class="zoom-hint"><klh-icon name="eye" class="icon icon--sm"></klh-icon> Perbesar</span>
+      </button>
     </div>
     <span id="hero-leaf"></span>
   </section>
@@ -107,6 +131,7 @@
       </div>
       <div style="display:flex;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s8)">
         <a class="btn btn-primary btn-lg" href="../../klh-ppid-web/index.html"><klh-icon name="external" class="icon icon--sm"></klh-icon> Buka Portal PPID Online</a>
+        <button class="btn btn-outline btn-lg" type="button" id="btn-alur-detil" aria-haspopup="dialog"><klh-icon name="eye" class="icon icon--sm"></klh-icon> Pelajari Alur Detil Pengajuan PPID</button>
       </div>
     </div>
   </section>
@@ -151,6 +176,12 @@
   </section>
 </main>
 
+<!-- Penampil infografik layar penuh (overlay gelap; klik overlay / tombol X / Esc untuk menutup) -->
+<dialog class="img-viewer" id="img-viewer">
+  <button class="img-viewer__close" type="button" aria-label="Tutup tampilan penuh"><klh-icon name="close" class="icon"></klh-icon></button>
+  <img id="img-viewer-img" src="" alt="">
+</dialog>
+
 <klh-footer></klh-footer>
 <klh-widgets></klh-widgets>
 <script src="../assets/js/main.js"></script>
@@ -158,6 +189,19 @@
 (function () {
   'use strict';
   document.getElementById('hero-leaf').outerHTML = KLH.leafmark();
+
+  /* ---- Penampil infografik prosedur (fullscreen <dialog> native) ---- */
+  var viewer = document.getElementById('img-viewer');
+  var viewerImg = document.getElementById('img-viewer-img');
+  function openProsedur() {
+    viewerImg.src = '../assets/img/media/prosedur-permintaan-informasi-publik.jpg';
+    viewerImg.alt = 'Infografik prosedur permintaan informasi publik — tampilan penuh';
+    viewer.showModal();
+  }
+  document.getElementById('btn-zoom-prosedur').addEventListener('click', openProsedur);
+  document.getElementById('btn-alur-detil').addEventListener('click', openProsedur);
+  viewer.querySelector('.img-viewer__close').addEventListener('click', function () { viewer.close(); });
+  viewer.addEventListener('click', function (e) { if (e.target === viewer) viewer.close(); }); /* klik overlay = tutup */
 
   /* Demo pelacakan - status statis untuk pratinjau UI */
   document.getElementById('lacak-form').addEventListener('submit', function (e) {
