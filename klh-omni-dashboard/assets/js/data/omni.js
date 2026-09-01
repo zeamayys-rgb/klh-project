@@ -54,15 +54,15 @@
       peran: 'Agen', sejak: '2023-04-17'
     },
 
-    /* ---- 7 kanal resmi ---- */
+    /* ---- 7 kanal resmi (KAK butir g) ---- */
     kanal: [
-      { id: 'wa',    label: 'WhatsApp',    icon: 'chwa',    tone: 'green'  },
-      { id: 'ig',    label: 'Instagram',   icon: 'chig',    tone: 'earth'  },
-      { id: 'fb',    label: 'Facebook',    icon: 'chfb',    tone: 'sky'    },
-      { id: 'x',     label: 'X (Twitter)', icon: 'chx',     tone: 'neutral'},
-      { id: 'email', label: 'Email',       icon: 'envelope',tone: 'sky'    },
-      { id: 'web',   label: 'Web Form',    icon: 'globe',   tone: 'green'  },
-      { id: 'lapor', label: 'SP4N-LAPOR!', icon: 'megaphone', tone: 'earth'}
+      { id: 'chat-kemenlh', label: 'Live Chat Web KLH',  icon: 'speech',       tone: 'green'  },
+      { id: 'chat-ppid',    label: 'Live Chat Web PPID', icon: 'speech',       tone: 'sky'    },
+      { id: 'mobile',       label: 'Mobile App PPID',    icon: 'devicemobile', tone: 'earth'  },
+      { id: 'wa',           label: 'WhatsApp Business',  icon: 'chwa',         tone: 'green'  },
+      { id: 'lapor',        label: 'SP4N-LAPOR!',        icon: 'megaphone',    tone: 'earth'  },
+      { id: 'ig',           label: 'Instagram DM',       icon: 'chig',         tone: 'earth'  },
+      { id: 'email',        label: 'E-mail',             icon: 'envelope',     tone: 'sky'    }
     ],
 
     /* ---- Percakapan Unified Inbox (≥12, lintas 7 kanal) ----
@@ -105,7 +105,7 @@
         ]
       },
       {
-        id: 'C-2137', kanal: 'web', nama: 'Hendro Kusnadi', kontak: 'hendro.kusnadi@mail.com',
+        id: 'C-2137', kanal: 'chat-ppid', nama: 'Hendro Kusnadi', kontak: 'hendro.kusnadi@mail.com',
         subjek: 'Status permohonan informasi PPID-2026-0409', status: 'menunggu', belum: 0,
         waktu: '2026-07-06T16:40:00', tiket: 'TKT-2026-0725',
         pesan: [
@@ -114,7 +114,7 @@
         ]
       },
       {
-        id: 'C-2136', kanal: 'fb', nama: 'Yulia Rahmawati', kontak: 'fb.com/yulia.rahma',
+        id: 'C-2136', kanal: 'chat-kemenlh', nama: 'Yulia Rahmawati', kontak: 'Live Chat Web KLH',
         subjek: 'TPA liar di pinggir jalan kabupaten', status: 'berjalan', belum: 1,
         waktu: '2026-07-06T15:12:00', tiket: 'TKT-2026-0724',
         pesan: [
@@ -124,7 +124,7 @@
         ]
       },
       {
-        id: 'C-2135', kanal: 'x', nama: '@akarsenja', kontak: 'DM X',
+        id: 'C-2135', kanal: 'chat-kemenlh', nama: '@akarsenja', kontak: 'Live Chat Web KLH',
         subjek: 'ISPU Jakarta hari ini tidak update di situs', status: 'selesai', belum: 0,
         waktu: '2026-07-06T11:26:00', tiket: 'TKT-2026-0722',
         pesan: [
@@ -161,7 +161,7 @@
         ]
       },
       {
-        id: 'C-2131', kanal: 'web', nama: 'Andika Prasetyo', kontak: 'andika.pras@mail.com',
+        id: 'C-2131', kanal: 'chat-kemenlh', nama: 'Andika Prasetyo', kontak: 'andika.pras@mail.com',
         subjek: 'Sampah plastik menumpuk di muara pantai', status: 'selesai', belum: 0,
         waktu: '2026-07-04T15:35:00', tiket: 'TKT-2026-0712',
         pesan: [
@@ -198,12 +198,21 @@
         ]
       },
       {
-        id: 'C-2127', kanal: 'fb', nama: 'Karang Taruna Sukamaju', kontak: 'fb.com/kt.sukamaju',
+        id: 'C-2127', kanal: 'chat-kemenlh', nama: 'Karang Taruna Sukamaju', kontak: 'Live Chat Web KLH',
         subjek: 'Permohonan bibit pohon untuk penghijauan desa', status: 'selesai', belum: 0,
         waktu: '2026-07-02T13:05:00', tiket: 'TKT-2026-0705',
         pesan: [
           { dari: 'warga', t: '2026-07-01T16:33:00', isi: 'Kami pemuda Desa Sukamaju ingin mengadakan penghijauan lahan kritis. Apakah bisa mendapat bantuan bibit pohon dari persemaian KLH?' },
-          { dari: 'agen', t: '2026-07-02T13:05:00', isi: 'Bisa! Permohonan bibit gratis diajukan ke Persemaian Permanen terdekat (Rumpin) dengan surat permohonan desa. Panduan lengkap sudah kami kirim via Messenger. Semangat menghijaukan! 🌳' }
+          { dari: 'agen', t: '2026-07-02T13:05:00', isi: 'Bisa! Permohonan bibit gratis diajukan ke Persemaian Permanen terdekat (Rumpin) dengan surat permohonan desa. Panduan lengkap sudah kami kirim di chat ini. Semangat menghijaukan! 🌳' }
+        ]
+      },
+      {
+        id: 'C-2126', kanal: 'mobile', nama: 'Dewi Anggraini', kontak: 'Aplikasi Mobile PPID · +62 878-45xx-2201',
+        subjek: 'Status permohonan salinan dokumen AMDAL PT Sumber Alam', status: 'selesai', belum: 0,
+        waktu: '2026-07-01T10:15:00', tiket: 'TKT-2026-0703',
+        pesan: [
+          { dari: 'warga', t: '2026-07-01T09:00:00', isi: 'Saya mengajukan permohonan salinan dokumen AMDAL PT Sumber Alam lewat aplikasi PPID Mobile minggu lalu, statusnya masih menunggu. Bisa dibantu cek?' },
+          { dari: 'agen', t: '2026-07-01T10:15:00', isi: 'Baik, Ibu Dewi. Dokumen telah disetujui dan siap diunduh melalui menu "Permohonan Saya" pada aplikasi. Terima kasih atas kesabarannya.' }
         ]
       }
     ],
@@ -223,15 +232,15 @@
         pemohon: 'Dr. Nurhayati Sambas', kategori: 'Permohonan Informasi', prioritas: 'Sedang',
         status: 'In Progress', agen: 'Ratna Prameswari', disposisi: 'Pusat Data & Informasi', rating: null,
         dibuat: '2026-07-06T10:10:00', tenggat: '2026-07-09T10:10:00', percakapan: 'C-2139' },
-      { id: 'TKT-2026-0725', subjek: 'Tindak lanjut permohonan PPID-2026-0409', kanal: 'web',
+      { id: 'TKT-2026-0725', subjek: 'Tindak lanjut permohonan PPID-2026-0409', kanal: 'chat-ppid',
         pemohon: 'Hendro Kusnadi', kategori: 'Permohonan Informasi', prioritas: 'Sedang',
         status: 'In Progress', agen: 'Dimas Anggara', disposisi: 'Ditjen Planologi', rating: null,
         dibuat: '2026-07-06T14:12:00', tenggat: '2026-07-08T14:12:00', percakapan: 'C-2137' },
-      { id: 'TKT-2026-0724', subjek: 'TPA liar Jalan Raya Cibarusah', kanal: 'fb',
+      { id: 'TKT-2026-0724', subjek: 'TPA liar Jalan Raya Cibarusah', kanal: 'chat-kemenlh',
         pemohon: 'Yulia Rahmawati', kategori: 'Pengaduan Persampahan', prioritas: 'Sedang',
         status: 'In Progress', agen: 'Ratna Prameswari', disposisi: 'DLH Kab. Bekasi', rating: null,
         dibuat: '2026-07-06T08:50:00', tenggat: '2026-07-07T08:50:00', percakapan: 'C-2136' },
-      { id: 'TKT-2026-0722', subjek: 'Data ISPU DKI tidak diperbarui', kanal: 'x',
+      { id: 'TKT-2026-0722', subjek: 'Data ISPU DKI tidak diperbarui', kanal: 'chat-kemenlh',
         pemohon: '@akarsenja', kategori: 'Gangguan Sistem', prioritas: 'Tinggi',
         status: 'Closed', agen: 'Ratna Prameswari', disposisi: 'Pusat Data & Informasi', rating: 5,
         dibuat: '2026-07-06T09:20:00', tenggat: '2026-07-06T13:20:00', selesai: '2026-07-06T11:26:00', percakapan: 'C-2135' },
@@ -247,7 +256,7 @@
         pemohon: 'Rukmini Handayani', kategori: 'Pengaduan Pencemaran', prioritas: 'Tinggi',
         status: 'In Progress', agen: 'Ratna Prameswari', disposisi: 'Dit. Pengawasan Limbah B3', rating: null,
         dibuat: '2026-07-05T09:00:00', tenggat: '2026-07-07T09:00:00', percakapan: 'C-2132' },
-      { id: 'TKT-2026-0712', subjek: 'Sampah plastik muara Pantai Tirtamaya', kanal: 'web',
+      { id: 'TKT-2026-0712', subjek: 'Sampah plastik muara Pantai Tirtamaya', kanal: 'chat-kemenlh',
         pemohon: 'Andika Prasetyo', kategori: 'Pengaduan Persampahan', prioritas: 'Sedang',
         status: 'Closed', agen: 'Ratna Prameswari', disposisi: 'DLH Kab. Indramayu', rating: 4,
         dibuat: '2026-07-03T09:30:00', tenggat: '2026-07-05T09:30:00', selesai: '2026-07-04T15:35:00', percakapan: 'C-2131' },
@@ -255,10 +264,14 @@
         pemohon: 'Slamet Riyadi', kategori: 'Pengaduan Kebisingan', prioritas: 'Rendah',
         status: 'Closed', agen: 'Fajar Nugroho', disposisi: 'DLH Kota Serang', rating: 5,
         dibuat: '2026-07-03T08:30:00', tenggat: '2026-07-06T08:30:00', selesai: '2026-07-03T14:27:00', percakapan: 'C-2129' },
-      { id: 'TKT-2026-0705', subjek: 'Permohonan bibit pohon penghijauan Desa Sukamaju', kanal: 'fb',
+      { id: 'TKT-2026-0705', subjek: 'Permohonan bibit pohon penghijauan Desa Sukamaju', kanal: 'chat-kemenlh',
         pemohon: 'Karang Taruna Sukamaju', kategori: 'Program & Kemitraan', prioritas: 'Rendah',
         status: 'Closed', agen: 'Ratna Prameswari', disposisi: 'Persemaian Permanen Rumpin', rating: 5,
-        dibuat: '2026-07-01T16:40:00', tenggat: '2026-07-04T16:40:00', selesai: '2026-07-02T13:05:00', percakapan: 'C-2127' }
+        dibuat: '2026-07-01T16:40:00', tenggat: '2026-07-04T16:40:00', selesai: '2026-07-02T13:05:00', percakapan: 'C-2127' },
+      { id: 'TKT-2026-0703', subjek: 'Status permohonan salinan dokumen AMDAL PT Sumber Alam', kanal: 'mobile',
+        pemohon: 'Dewi Anggraini', kategori: 'Permohonan Informasi', prioritas: 'Rendah',
+        status: 'Closed', agen: 'Dimas Anggara', disposisi: 'Ditjen Planologi', rating: 5,
+        dibuat: '2026-07-01T09:00:00', tenggat: '2026-07-04T09:00:00', selesai: '2026-07-01T10:15:00', percakapan: 'C-2126' }
     ],
 
     /* ---- Riwayat aktivitas per tiket (untuk tiket-detail) ---- */
@@ -296,8 +309,8 @@
       selesai: [130, 151, 160, 144, 118, 149, 122]
     },
     distribusiKanal: {
-      label: ['WhatsApp', 'SP4N-LAPOR!', 'Email', 'Web Form', 'Instagram', 'Facebook', 'X (Twitter)'],
-      nilai: [34, 19, 16, 12, 9, 6, 4]
+      label: ['WhatsApp', 'SP4N-LAPOR!', 'Email', 'Live Chat Web KLH', 'Live Chat Web PPID', 'Instagram DM', 'Mobile App PPID'],
+      nilai: [34, 19, 16, 12, 8, 7, 4]
     },
 
     /* ---- 6 peran + matriks izin (role.html) ---- */
@@ -319,12 +332,12 @@
     audit: [
       { t: '2026-07-07T09:24:11', user: 'ratna.prameswari', aksi: 'Membalas percakapan C-2140 (SP4N-LAPOR!)', ip: '10.20.4.31', hasil: 'ok' },
       { t: '2026-07-07T09:02:47', user: 'dimas.anggara', aksi: 'Mengubah status TKT-2026-0725 → In Progress', ip: '10.20.4.18', hasil: 'ok' },
-      { t: '2026-07-07T08:41:03', user: 'sistem', aksi: 'Sinkronisasi kanal X (Twitter) gagal — token kedaluwarsa', ip: '—', hasil: 'gagal' },
+      { t: '2026-07-07T08:41:03', user: 'sistem', aksi: 'Sinkronisasi kanal Mobile App PPID gagal — API push tidak merespons', ip: '—', hasil: 'gagal' },
       { t: '2026-07-07T08:30:00', user: 'sistem', aksi: 'Eskalasi otomatis TKT-2026-0724 (SLA terlewati)', ip: '—', hasil: 'peringatan' },
       { t: '2026-07-07T08:12:39', user: 'ratna.prameswari', aksi: 'Masuk dengan MFA (OTP aplikasi)', ip: '10.20.4.31', hasil: 'ok' },
       { t: '2026-07-07T07:58:21', user: 'admin.harun', aksi: 'Memperbarui template balasan "Pengaduan diterima"', ip: '10.20.2.7', hasil: 'ok' },
       { t: '2026-07-06T22:14:55', user: 'tidak dikenal', aksi: 'Percobaan masuk gagal (5×) akun supervisor.lia', ip: '103.148.xx.9', hasil: 'gagal' },
-      { t: '2026-07-06T17:03:12', user: 'super.wisnu', aksi: 'Menonaktifkan integrasi kanal X (Twitter)', ip: '10.20.1.2', hasil: 'ok' },
+      { t: '2026-07-06T17:03:12', user: 'super.wisnu', aksi: 'Menonaktifkan sementara integrasi kanal Mobile App PPID untuk investigasi', ip: '10.20.1.2', hasil: 'ok' },
       { t: '2026-07-06T16:45:30', user: 'fajar.nugroho', aksi: 'Ekspor laporan mingguan (XLSX)', ip: '10.20.4.22', hasil: 'ok' },
       { t: '2026-07-06T15:38:02', user: 'sistem', aksi: 'Routing otomatis TKT-2026-0730 → Ratna Prameswari', ip: '—', hasil: 'ok' }
     ],
@@ -333,19 +346,33 @@
     notifikasi: [
       { jenis: 'eskalasi', judul: 'SLA terlewati — TKT-2026-0724', isi: 'TPA liar Jalan Raya Cibarusah melewati tenggat 08.50. Segera tindak lanjuti atau eskalasikan.', t: '2026-07-07T08:51:00', url: 'tiket-detail.html?t=TKT-2026-0724', baru: true },
       { jenis: 'eskalasi', judul: 'SLA < 1 jam — TKT-2026-0730', isi: 'Asap pembakaran limbah Jatake mendekati tenggat 10.00. Pelapor baru mengirim pesan tindak lanjut.', t: '2026-07-07T08:47:00', url: 'tiket-detail.html?t=TKT-2026-0730', baru: true },
-      { jenis: 'sistem', judul: 'Kanal X (Twitter) terputus', isi: 'Token integrasi kedaluwarsa sejak 08.41. DM baru tidak masuk ke inbox sampai disambungkan ulang.', t: '2026-07-07T08:41:00', url: 'kanal.html', baru: true },
+      { jenis: 'sistem', judul: 'Kanal Mobile App PPID gangguan', isi: 'API push notifikasi lambat sejak 07.55, antrean 4 pesan. Pesan dari aplikasi mungkin tertunda masuk ke inbox.', t: '2026-07-07T07:55:00', url: 'kanal.html', baru: true },
       { jenis: 'sistem', judul: 'Percobaan masuk mencurigakan diblokir', isi: '5 kali gagal masuk pada akun supervisor.lia dari IP eksternal. Akun dikunci sementara 30 menit.', t: '2026-07-06T22:15:00', url: 'keamanan.html', baru: false },
       { jenis: 'eskalasi', judul: 'Tiket baru prioritas tinggi', isi: 'TKT-2026-0731 pencemaran Sungai Cikembang masuk dari WhatsApp — belum ditetapkan ke agen.', t: '2026-07-07T09:15:00', url: 'tiket-detail.html?t=TKT-2026-0731', baru: true }
+    ],
+
+    /* ---- Opsi target SLA (routing.html) ---- */
+    slaOpsi: ['1 hari', '2 hari', '3 hari', '4 hari', '5 hari', '6 hari', '7 hari', '2 pekan', '1 bulan'],
+
+    /* ---- Unit tujuan disposisi (tiket-detail.html & routing.html) ---- */
+    unitTujuan: [
+      'Ditjen Pengendalian Pencemaran',
+      'Pusat Data & Informasi',
+      'Ditjen Planologi',
+      'Balai Gakkum wilayah',
+      'Dit. Pengawasan Limbah B3',
+      'PTSP',
+      'DLH provinsi/kabupaten terkait'
     ],
 
     /* ---- Routing & auto-reply (routing.html) ---- */
     routingKategori: [
       { nama: 'Pengaduan Pencemaran', kanal: 'Semua kanal', tujuan: 'Tim Pengaduan → Ditjen Pengendalian Pencemaran', sla: '4 jam', prioritas: 'Tinggi', aktif: true },
-      { nama: 'Permohonan Informasi', kanal: 'Email · Web Form', tujuan: 'Tim PPID → unit teknis terkait', sla: '3 hari kerja', prioritas: 'Sedang', aktif: true },
-      { nama: 'Perizinan & PTSP', kanal: 'Email · Web Form', tujuan: 'Tim PTSP', sla: '2 hari kerja', prioritas: 'Sedang', aktif: true },
-      { nama: 'Penegakan Hukum', kanal: 'Semua kanal', tujuan: 'Supervisor → Balai Gakkum wilayah', sla: '1 hari kerja', prioritas: 'Tinggi', aktif: true },
-      { nama: 'Program & Kemitraan', kanal: 'Media sosial', tujuan: 'Tim Humas', sla: '2 hari kerja', prioritas: 'Rendah', aktif: true },
-      { nama: 'Umum / Lainnya', kanal: 'Semua kanal', tujuan: 'Antrean umum agen', sla: '1 hari kerja', prioritas: 'Rendah', aktif: false }
+      { nama: 'Permohonan Informasi', kanal: 'E-mail · Live Chat Web PPID · Mobile App PPID', tujuan: 'Tim PPID → unit teknis terkait', sla: '3 hari', prioritas: 'Sedang', aktif: true },
+      { nama: 'Perizinan & PTSP', kanal: 'E-mail · Live Chat Web KLH', tujuan: 'Tim PTSP', sla: '2 hari', prioritas: 'Sedang', aktif: true },
+      { nama: 'Penegakan Hukum', kanal: 'Semua kanal', tujuan: 'Supervisor → Balai Gakkum wilayah', sla: '1 hari', prioritas: 'Tinggi', aktif: true },
+      { nama: 'Program & Kemitraan', kanal: 'Live Chat Web KLH · Instagram DM', tujuan: 'Tim Humas', sla: '2 hari', prioritas: 'Rendah', aktif: true },
+      { nama: 'Umum / Lainnya', kanal: 'Semua kanal', tujuan: 'Antrean umum agen', sla: '1 hari', prioritas: 'Rendah', aktif: false }
     ],
     template: [
       { nama: 'Pengaduan diterima', kategori: 'Pengaduan Pencemaran', isi: 'Terima kasih atas laporan Anda. Laporan tercatat dengan nomor tiket {{tiket}} dan diteruskan ke {{unit}}. Perkembangan akan kami sampaikan melalui kanal ini.' },
@@ -360,10 +387,10 @@
       { id: 'wa', akun: '+62 811-1500-321 (WhatsApp Business API)', status: 'terhubung', sinkron: '2026-07-07T09:28:00', pesanHariIni: 63 },
       { id: 'lapor', akun: 'Instansi KLH/BPLH — API SP4N-LAPOR!', status: 'terhubung', sinkron: '2026-07-07T09:25:00', pesanHariIni: 35 },
       { id: 'email', akun: 'layanan@klh.go.id (IMAP/SMTP)', status: 'terhubung', sinkron: '2026-07-07T09:29:00', pesanHariIni: 30 },
-      { id: 'web', akun: 'Form kontak situs klh.go.id', status: 'terhubung', sinkron: '2026-07-07T09:30:00', pesanHariIni: 22 },
+      { id: 'chat-kemenlh', akun: 'Widget Live Chat kemenlh.go.id', status: 'terhubung', sinkron: '2026-07-07T09:30:00', pesanHariIni: 26 },
+      { id: 'chat-ppid', akun: 'Widget Live Chat ppid.kemenlh.go.id', status: 'terhubung', sinkron: '2026-07-07T09:30:00', pesanHariIni: 18 },
       { id: 'ig', akun: '@kementerianlh (Instagram Graph API)', status: 'terhubung', sinkron: '2026-07-07T09:27:00', pesanHariIni: 17 },
-      { id: 'fb', akun: 'Kementerian Lingkungan Hidup (Messenger)', status: 'gangguan', sinkron: '2026-07-07T07:55:00', pesanHariIni: 11, ket: 'Webhook lambat — antrean 3 pesan' },
-      { id: 'x', akun: '@KementerianLH (X API v2)', status: 'terputus', sinkron: '2026-07-07T08:41:00', pesanHariIni: 8, ket: 'Token kedaluwarsa — perlu otorisasi ulang' }
+      { id: 'mobile', akun: 'Aplikasi PPID Mobile (Push/API)', status: 'gangguan', sinkron: '2026-07-07T07:55:00', pesanHariIni: 9, ket: 'API push lambat — antrean 4 pesan' }
     ],
 
     /* ---- Laporan periodik (reporting.html) ---- */
@@ -390,6 +417,93 @@
         { path: '/', judul: 'Beranda', kunjungan: 2988, klik: '9,4%', scroll: '52%' },
         { path: '/ppid/lacak', judul: 'Lacak Permohonan', kunjungan: 2410, klik: '31,5%', scroll: '88%' },
         { path: '/informasi/ispu', judul: 'Indeks Kualitas Udara', kunjungan: 1975, klik: '12,1%', scroll: '61%' }
+      ],
+
+      /* ---- Session recording & user journey (analytics.html + session-detail.html) ----
+         Rekaman anonim: tidak ada nama, e-mail, atau IP penuh, hanya id sesi
+         acak, atribut perangkat, dan urutan halaman. `d` = detik sejak sesi
+         mulai, `lama` = detik di halaman, `klik` = jumlah klik, `scroll` = %. */
+      sesi: [
+        {
+          id: 'SES-8F42A1', mulai: '2026-07-07T09:04:12',
+          perangkat: 'Mobile', os: 'Android 14', browser: 'Chrome 126', layar: '412 × 915',
+          lokasi: 'Bekasi, Jawa Barat', sumber: 'Pencarian organik',
+          hasil: 'Mengirim pengaduan', hasilTone: 'success',
+          kanal: 'chat-kemenlh', tiket: 'TKT-2026-0724',
+          jejak: [
+            { d: 0,   lama: 38,  path: '/', judul: 'Beranda', aksi: 'Masuk dari hasil pencarian "lapor tpa liar"', klik: 2, scroll: 48 },
+            { d: 38,  lama: 52,  path: '/layanan', judul: 'Daftar Layanan', aksi: 'Menelusuri kartu layanan', klik: 4, scroll: 72 },
+            { d: 90,  lama: 96,  path: '/layanan/pengaduan', judul: 'Pengaduan & Aspirasi', aksi: 'Membaca syarat pengaduan', klik: 3, scroll: 88 },
+            { d: 186, lama: 41,  path: '/layanan/pengaduan', judul: 'Pengaduan & Aspirasi', aksi: 'Ragu pada unggahan foto, 3 klik berulang di tombol unggah', klik: 6, scroll: 91, sorot: true },
+            { d: 227, lama: 134, path: '/layanan/pengaduan#form', judul: 'Form Pengaduan', aksi: 'Mengisi form dan mengunggah 2 foto', klik: 12, scroll: 100 },
+            { d: 361, lama: 40,  path: '/layanan/pengaduan/selesai', judul: 'Pengaduan Terkirim', aksi: 'Menyalin nomor tiket TKT-2026-0724', klik: 2, scroll: 64 }
+          ]
+        },
+        {
+          id: 'SES-7C10B9', mulai: '2026-07-07T08:47:03',
+          perangkat: 'Desktop', os: 'Windows 11', browser: 'Edge 126', layar: '1920 × 1080',
+          lokasi: 'Jakarta Pusat, DKI Jakarta', sumber: 'Tautan langsung',
+          hasil: 'Mengirim permohonan informasi', hasilTone: 'success',
+          kanal: 'chat-ppid', tiket: 'TKT-2026-0725',
+          jejak: [
+            { d: 0,   lama: 27,  path: '/ppid', judul: 'Beranda PPID', aksi: 'Masuk dari tautan surel undangan', klik: 1, scroll: 35 },
+            { d: 27,  lama: 63,  path: '/ppid/informasi-berkala', judul: 'Informasi Berkala', aksi: 'Mencari dokumen izin lingkungan', klik: 5, scroll: 79 },
+            { d: 90,  lama: 45,  path: '/ppid/permohonan', judul: 'Form Permohonan Informasi', aksi: 'Membaca ketentuan pemohon', klik: 2, scroll: 58 },
+            { d: 135, lama: 188, path: '/ppid/permohonan', judul: 'Form Permohonan Informasi', aksi: 'Mengisi 4 langkah form permohonan', klik: 21, scroll: 100 },
+            { d: 323, lama: 33,  path: '/ppid/permohonan/selesai', judul: 'Permohonan Terkirim', aksi: 'Mengunduh bukti permohonan (PDF)', klik: 3, scroll: 52 }
+          ]
+        },
+        {
+          id: 'SES-5A93D4', mulai: '2026-07-07T08:21:55',
+          perangkat: 'Mobile', os: 'iOS 18', browser: 'Safari 18', layar: '390 × 844',
+          lokasi: 'Tangerang, Banten', sumber: 'Instagram',
+          hasil: 'Keluar tanpa aksi', hasilTone: 'warning',
+          kanal: '', tiket: '',
+          jejak: [
+            { d: 0,   lama: 19, path: '/', judul: 'Beranda', aksi: 'Masuk dari tautan bio Instagram', klik: 1, scroll: 27 },
+            { d: 19,  lama: 44, path: '/layanan/pengaduan', judul: 'Pengaduan & Aspirasi', aksi: 'Membaca alur pengaduan', klik: 2, scroll: 61 },
+            { d: 63,  lama: 71, path: '/layanan/pengaduan#form', judul: 'Form Pengaduan', aksi: 'Berhenti di isian titik lokasi, 5 klik tanpa lanjut', klik: 5, scroll: 46, sorot: true },
+            { d: 134, lama: 12, path: '/layanan/pengaduan#form', judul: 'Form Pengaduan', aksi: 'Menutup halaman (form ditinggalkan)', klik: 0, scroll: 46 }
+          ]
+        },
+        {
+          id: 'SES-2E67F0', mulai: '2026-07-07T07:58:40',
+          perangkat: 'Desktop', os: 'macOS 15', browser: 'Chrome 126', layar: '1512 × 982',
+          lokasi: 'Bandung, Jawa Barat', sumber: 'Pencarian organik',
+          hasil: 'Melacak permohonan', hasilTone: 'info',
+          kanal: '', tiket: 'TKT-2026-0722',
+          jejak: [
+            { d: 0,   lama: 22, path: '/ppid', judul: 'Beranda PPID', aksi: 'Masuk dari pencarian "cek status permohonan ppid"', klik: 1, scroll: 30 },
+            { d: 22,  lama: 58, path: '/ppid/lacak', judul: 'Lacak Permohonan', aksi: 'Memasukkan nomor registrasi', klik: 4, scroll: 74 },
+            { d: 80,  lama: 96, path: '/ppid/lacak?no=PMH-2026-0311', judul: 'Hasil Pelacakan', aksi: 'Membaca linimasa status permohonan', klik: 3, scroll: 100 },
+            { d: 176, lama: 27, path: '/ppid/lacak?no=PMH-2026-0311', judul: 'Hasil Pelacakan', aksi: 'Mengunduh surat tanggapan', klik: 2, scroll: 100 }
+          ]
+        },
+        {
+          id: 'SES-9B31C7', mulai: '2026-07-06T20:12:08',
+          perangkat: 'Tablet', os: 'Android 13', browser: 'Chrome 125', layar: '800 × 1280',
+          lokasi: 'Semarang, Jawa Tengah', sumber: 'WhatsApp',
+          hasil: 'Memulai live chat', hasilTone: 'info',
+          kanal: 'wa', tiket: '',
+          jejak: [
+            { d: 0,   lama: 31,  path: '/', judul: 'Beranda', aksi: 'Masuk dari tautan yang dibagikan di WhatsApp', klik: 2, scroll: 41 },
+            { d: 31,  lama: 64,  path: '/informasi/ispu', judul: 'Indeks Kualitas Udara', aksi: 'Membandingkan ISPU dua kota', klik: 7, scroll: 83 },
+            { d: 95,  lama: 48,  path: '/kontak', judul: 'Kontak & Pengaduan', aksi: 'Mencari nomor layanan', klik: 3, scroll: 66 },
+            { d: 143, lama: 112, path: '/kontak', judul: 'Kontak & Pengaduan', aksi: 'Membuka live chat dan mengirim 3 pesan', klik: 9, scroll: 66 }
+          ]
+        },
+        {
+          id: 'SES-4D08A5', mulai: '2026-07-06T15:33:21',
+          perangkat: 'Mobile', os: 'Android 12', browser: 'Chrome 124', layar: '360 × 800',
+          lokasi: 'Bogor, Jawa Barat', sumber: 'Pencarian organik',
+          hasil: 'Keluar tanpa aksi', hasilTone: 'warning',
+          kanal: '', tiket: '',
+          jejak: [
+            { d: 0,  lama: 14, path: '/', judul: 'Beranda', aksi: 'Masuk dari pencarian "klh"', klik: 1, scroll: 22 },
+            { d: 14, lama: 26, path: '/berita', judul: 'Berita & Siaran Pers', aksi: 'Membaca judul berita teratas', klik: 2, scroll: 38 },
+            { d: 40, lama: 9,  path: '/berita', judul: 'Berita & Siaran Pers', aksi: 'Menutup halaman', klik: 0, scroll: 38 }
+          ]
+        }
       ]
     }
   };
@@ -402,6 +516,24 @@
   };
   KLH.findPercakapan = function (id) {
     return KLH.omni.percakapan.find(function (c) { return c.id === id; }) || null;
+  };
+  KLH.findSesi = function (id) {
+    return KLH.omni.analytics.sesi.find(function (s) {
+      return s.id.toUpperCase() === String(id).trim().toUpperCase();
+    }) || null;
+  };
+  /* Durasi sesi = detik langkah terakhir + lama di halaman terakhir */
+  KLH.sesiDurasi = function (s) {
+    var t = s.jejak[s.jejak.length - 1];
+    return t.d + t.lama;
+  };
+  KLH.fmtDurasi = function (detik) {
+    var m = Math.floor(detik / 60), d = detik % 60;
+    return (m ? m + ' mnt ' : '') + d + ' dtk';
+  };
+  KLH.fmtOfs = function (detik) {
+    var m = Math.floor(detik / 60), d = detik % 60;
+    return (m < 10 ? '0' : '') + m + ':' + (d < 10 ? '0' : '') + d;
   };
   KLH.kanalInfo = function (id) {
     return KLH.omni.kanal.find(function (k) { return k.id === id; }) || KLH.omni.kanal[0];

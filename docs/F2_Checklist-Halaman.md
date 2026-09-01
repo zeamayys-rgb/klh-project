@@ -126,7 +126,8 @@
 - [x] **Detail Tiket** — riwayat + SLA timer + eskalasi · **M** *(parsial di WF-04)* · *(WF-25 · M03 — `tiket-detail.html?t=`, SLA timer hidup + log)*
 
 ### Analytics & reporting
-- [x] **Analytics** — heatmap, click/scroll, session recording, user journey, device/browser · S · *(M03 — `analytics.html`; heatmap grid dummy deterministik, session recording = agregat + catatan produksi)*
+- [x] **Analytics** — heatmap, click/scroll, session recording, user journey, device/browser · S · *(M03 — `analytics.html`; heatmap grid dummy deterministik, tabel 6 sesi terakhir)*
+- [x] **Detail Sesi (session recording)** — perjalanan pengguna per sesi, klik & scroll per halaman, titik hambatan · S · *(M03 — `session-detail.html?s=`; template satu halaman untuk semua sesi, pemutaran langkah simulasi)*
 - [x] **Reporting** — laporan + ekspor PDF/Excel/CSV · **M** · *(WF-26 · M03 — `reporting.html`, ekspor demo)*
 
 ### Pengaturan & akses

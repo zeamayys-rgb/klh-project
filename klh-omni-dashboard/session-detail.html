@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detail Sesi — Omni Channel KLH/BPLH</title>
+<meta name="description" content="Detail rekaman sesi Omni Channel KLH/BPLH — perjalanan pengguna antar halaman, klik, kedalaman scroll, dan titik hambatan.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="app">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/omni.js"></script>
+<script src="assets/js/components/appshell.js"></script>
+
+<klh-sidebar></klh-sidebar>
+<div class="app-main">
+  <klh-topbar judul="Detail Sesi"></klh-topbar>
+
+  <main id="konten" class="content">
+    <nav aria-label="Jejak navigasi"><ol class="breadcrumb breadcrumb--light" style="margin-bottom:var(--s4)">
+      <li><a href="index.html">Dashboard</a></li>
+      <li><a href="analytics.html">Analytics</a></li>
+      <li aria-current="page" id="bc-id">Detail Sesi</li>
+    </ol></nav>
+
+    <div id="ses-404" hidden>
+      <div class="alert alert-warning" style="margin-bottom:var(--s5)">
+        <klh-icon name="warning" class="icon icon--sm"></klh-icon>
+        <div><strong>Sesi tidak ditemukan.</strong>Id sesi pada tautan tidak dikenal, jadi yang tampil adalah sesi terakhir sebagai gantinya.</div>
+      </div>
+    </div>
+
+    <div class="page-head" data-reveal>
+      <div>
+        <h1 id="ses-judul" style="font-size:var(--t-h3)">Memuat…</h1>
+        <p class="lead" id="ses-meta"></p>
+      </div>
+      <div class="aksi" id="ses-badges"></div>
+    </div>
+
+    <div class="tkt-grid">
+      <!-- Kolom kiri: rekaman perjalanan -->
+      <section class="panel" aria-label="Rekaman perjalanan pengguna" data-reveal>
+        <div class="panel__head"><h2>Perjalanan pengguna</h2><span class="ket" id="ses-jumlah"></span></div>
+        <div class="panel__body">
+          <div class="ses-play" style="margin-bottom:var(--s5)">
+            <button class="btn btn-secondary btn-sm" type="button" id="btn-putar">
+              <klh-icon name="play" class="icon icon--sm"></klh-icon> <span id="btn-putar-lbl">Putar ulang</span>
+            </button>
+            <button class="btn btn-ghost btn-sm" type="button" id="btn-semua">Tampilkan semua langkah</button>
+            <span class="ket" id="ses-status" role="status">Semua langkah ditampilkan.</span>
+          </div>
+          <ol class="timeline ses-jejak" id="ses-timeline"></ol>
+        </div>
+      </section>
+
+      <!-- Kolom kanan: info sesi, klik per halaman, catatan privasi -->
+      <div class="tkt-side">
+        <section class="panel" aria-label="Informasi sesi" data-reveal>
+          <div class="panel__head"><h2>Informasi sesi</h2></div>
+          <div class="panel__body"><ul class="info-list" id="ses-info"></ul></div>
+        </section>
+
+        <section class="panel" aria-label="Klik per halaman" data-reveal>
+          <div class="panel__head"><h2>Klik per halaman</h2></div>
+          <div class="panel__body"><ul class="bar-list" id="ses-klik" aria-label="Jumlah klik per halaman"></ul></div>
+        </section>
+
+        <section class="panel" aria-label="Sesi lain" data-reveal>
+          <div class="panel__head"><h2>Sesi lain</h2></div>
+          <div class="panel__body"><ul class="info-list" id="ses-lain"></ul></div>
+        </section>
+      </div>
+    </div>
+
+    <div class="alert alert-info" data-reveal style="margin-top:var(--s5)">
+      <klh-icon name="eye" class="icon icon--sm"></klh-icon>
+      <div><strong>Rekaman anonim.</strong>Sesi tidak memuat nama, surel, atau IP penuh. Isian form tidak direkam, hanya peristiwa navigasi, jumlah klik, dan kedalaman scroll. Retensi maksimal 30 hari.</div>
+    </div>
+
+    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh: pemutaran rekaman pada halaman ini adalah simulasi antarmuka.</p>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var o = KLH.omni;
+  var qs = KLH.qs('s');
+  var s = KLH.findSesi(qs);
+  if (!s) {
+    var b404 = document.getElementById('ses-404');
+    if (!qs) b404.querySelector('.alert > div').innerHTML =
+      '<strong>Tidak ada id sesi pada tautan.</strong>Menampilkan sesi terakhir sebagai pratinjau.';
+    b404.hidden = false;
+    s = o.analytics.sesi[0];
+  }
+  var total = KLH.sesiDurasi(s);
+
+  /* ---- Kepala halaman ---- */
+  document.getElementById('bc-id').textContent = s.id;
+  document.getElementById('ses-judul').textContent = s.id;
+  document.getElementById('ses-meta').innerHTML = KLH.fmtDateTime(s.mulai) + ' · ' + s.lokasi +
+    ' · <strong>' + KLH.fmtDurasi(total) + '</strong> pada ' + s.jejak.length + ' halaman';
+  document.getElementById('ses-badges').innerHTML =
+    '<span class="badge bg-' + s.hasilTone + '">' + s.hasil + '</span> ' +
+    '<span class="badge bg-neutral">' + s.perangkat + '</span>' +
+    (s.kanal ? ' ' + KLH.kanalBadge(s.kanal) : '');
+  document.getElementById('ses-jumlah').textContent = s.jejak.length + ' langkah · ' + KLH.fmtDurasi(total);
+
+  /* ---- Timeline perjalanan ---- */
+  var tl = document.getElementById('ses-timeline');
+  function render(sampai) {
+    tl.innerHTML = s.jejak.map(function (j, i) {
+      var aktif = i === sampai;
+      var lewat = i < sampai;
+      var kelas = (aktif ? 'now' : (lewat || sampai < 0 ? 'done' : 'pending'));
+      return '<li class="' + kelas + '"><span class="dot">' +
+          KLH.iconSVG(j.sorot ? 'warning' : 'arrowright', 'icon').replace('class="icon"', 'class="icon" style="width:13px;height:13px"') +
+        '</span>' +
+        '<h4 style="font-size:var(--t-sm)">' + j.judul +
+          (j.sorot ? ' <span class="badge bg-warning">Titik hambatan</span>' : '') + '</h4>' +
+        '<span class="ses-path">' + j.path + '</span>' +
+        '<p style="font-size:var(--t-sm);color:var(--ink-700);margin:4px 0 0">' + j.aksi + '</p>' +
+        '<span class="ses-meta">' +
+          '<span class="mono">' + KLH.fmtOfs(j.d) + '</span>' +
+          '<span>' + KLH.fmtDurasi(j.lama) + ' di halaman</span>' +
+          '<span>' + j.klik + ' klik</span>' +
+          '<span>scroll ' + j.scroll + '%' +
+            '<span class="bar-track" style="display:inline-block;vertical-align:middle;margin-left:6px" role="img" aria-label="Kedalaman scroll ' + j.scroll + ' persen">' +
+              '<span class="bar-fill" style="width:' + j.scroll + '%;display:block"></span></span>' +
+          '</span>' +
+        '</span></li>';
+    }).join('');
+  }
+  render(-1);
+
+  /* ---- Pemutaran rekaman (simulasi): langkah maju tiap 1,2 dtk.
+     ponytail: interval sederhana, cukup untuk demo; ganti dengan
+     pemutar berbasis timestamp bila rekaman asli tersedia. ---- */
+  var timer = null, idx = -1;
+  var btn = document.getElementById('btn-putar');
+  var lbl = document.getElementById('btn-putar-lbl');
+  var status = document.getElementById('ses-status');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function stop() {
+    clearInterval(timer); timer = null;
+    lbl.textContent = 'Putar ulang';
+    btn.querySelector('.icon').outerHTML = KLH.iconSVG('play', 'icon icon--sm');
+  }
+  function tampilSemua() {
+    stop(); idx = -1; render(-1);
+    status.textContent = 'Semua langkah ditampilkan.';
+  }
+  function maju() {
+    idx++;
+    if (idx >= s.jejak.length) { stop(); status.textContent = 'Pemutaran selesai, ' + s.jejak.length + ' langkah.'; return; }
+    render(idx);
+    var j = s.jejak[idx];
+    status.textContent = 'Langkah ' + (idx + 1) + ' dari ' + s.jejak.length + ' · ' + j.judul;
+  }
+  btn.addEventListener('click', function () {
+    if (timer) { stop(); status.textContent = 'Pemutaran dijeda pada langkah ' + (idx + 1) + '.'; return; }
+    idx = -1;
+    maju();
+    if (reduce) { status.textContent = 'Gerak dikurangi, gunakan tombol untuk maju per langkah.'; return; }
+    timer = setInterval(maju, 1200);
+    lbl.textContent = 'Jeda';
+    btn.querySelector('.icon').outerHTML = KLH.iconSVG('clock', 'icon icon--sm');
+  });
+  document.getElementById('btn-semua').addEventListener('click', tampilSemua);
+
+  /* ---- Info sesi ---- */
+  document.getElementById('ses-info').innerHTML = [
+    ['Id sesi', '<span class="mono">' + s.id + '</span>'],
+    ['Mulai', KLH.fmtDateTime(s.mulai)],
+    ['Durasi', KLH.fmtDurasi(total)],
+    ['Perangkat', s.perangkat + ' · ' + s.layar],
+    ['Sistem operasi', s.os],
+    ['Peramban', s.browser],
+    ['Perkiraan lokasi', s.lokasi],
+    ['Sumber kunjungan', s.sumber],
+    ['Kanal kontak', s.kanal ? KLH.kanalInfo(s.kanal).label : 'Tidak menghubungi kanal'],
+    ['Hasil sesi', s.hasil],
+    ['Tiket terkait', s.tiket ? '<a href="tiket-detail.html?t=' + s.tiket + '">' + s.tiket + '</a>' : '—']
+  ].map(function (r) {
+    return '<li><span class="k">' + r[0] + '</span><span class="v">' + r[1] + '</span></li>';
+  }).join('');
+
+  /* ---- Klik per halaman (agregat langkah dengan judul sama) ---- */
+  var agg = [];
+  s.jejak.forEach(function (j) {
+    var ada = agg.find(function (a) { return a.judul === j.judul; });
+    if (ada) ada.klik += j.klik; else agg.push({ judul: j.judul, klik: j.klik });
+  });
+  var maks = Math.max.apply(null, agg.map(function (a) { return a.klik; })) || 1;
+  document.getElementById('ses-klik').innerHTML = agg.map(function (a) {
+    return '<li><span class="bar-head"><span>' + a.judul + '</span><span class="mono">' + a.klik + '</span></span>' +
+      '<span class="bar-track"><span class="bar-fill" style="width:' + Math.round(a.klik / maks * 100) + '%;display:block"></span></span></li>';
+  }).join('');
+
+  /* ---- Sesi lain ---- */
+  document.getElementById('ses-lain').innerHTML = o.analytics.sesi.filter(function (x) { return x.id !== s.id; })
+    .slice(0, 4).map(function (x) {
+      return '<li><span class="k">' + KLH.fmtDateTime(x.mulai) + ' · ' + x.perangkat + '</span>' +
+        '<span class="v"><a href="session-detail.html?s=' + x.id + '">' + x.id + '</a> · ' + x.hasil + '</span></li>';
+    }).join('');
+})();
+</script>
+</body>
+</html>

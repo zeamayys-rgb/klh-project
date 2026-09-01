@@ -86,13 +86,6 @@
               <label for="disposisi">Disposisi ke unit</label>
               <select class="select" id="disposisi">
                 <option value="">Pilih unit tujuan…</option>
-                <option>Ditjen Pengendalian Pencemaran</option>
-                <option>Pusat Data &amp; Informasi</option>
-                <option>Ditjen Planologi</option>
-                <option>Balai Gakkum wilayah</option>
-                <option>Dit. Pengawasan Limbah B3</option>
-                <option>PTSP</option>
-                <option>DLH provinsi/kabupaten terkait</option>
               </select>
             </div>
             <div class="tkt-aksi">
@@ -208,6 +201,7 @@
 
   /* ---- Aksi ---- */
   document.getElementById('ubah-status').value = t.status;
+  document.getElementById('disposisi').insertAdjacentHTML('beforeend', KLH.unitOptions());
   if (t.disposisi) document.getElementById('disposisi').value = t.disposisi;
 
   document.getElementById('btn-terapkan').addEventListener('click', function () {

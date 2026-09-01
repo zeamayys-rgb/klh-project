@@ -26,7 +26,7 @@ Secara halaman, ketiga Keluaran KAK sudah terealisasi di prototipe. Selisih terb
 |---|---|---|---|---|
 | T1 | ~~PPID Mobile belum dibangun~~ → **✅ TERATASI (level UI):** prototipe `klh-ppid-mobile/` 8 layar HTML/CSS/JS dibuat 21 Jul. Sisa: implementasi Flutter+backend (di luar lingkup UI). | ✅→🔵 | KAK Keluaran #2 | F2 §4.2 kini menandai prototipe UI dibangun |
 | T2 | **3 sub-fitur Analytics Omni belum ada:** Statistik Unjuk Rasa · Monitoring Isu Pengaduan Lingkungan Media Sosial · Accessibility Monitoring | 🔴 | KAK Omni h) Analytics | F2 §5.1 **tidak menyebut** ketiganya |
-| T3 | **Daftar kanal Unified Inbox tidak sama dengan KAK** — build ada *Facebook* (bukan kanal KAK) & **hilang** *Mobile app PPID* + *Website PPID* | 🟠/🔴 | KAK Omni g) 7 kanal | F2 §5.1 menulis 7 kanal versi KAK — **tidak cocok dengan build** |
+| T3 | ~~Daftar kanal Unified Inbox tidak sama dengan KAK~~ → **✅ TERATASI:** `klh-omni-dashboard` kini memakai 7 kanal KAK persis (Live Chat Web KLH · Live Chat Web PPID · Mobile App PPID · WhatsApp Business · SP4N-LAPOR! · Instagram DM · E-mail); Facebook & X dihapus, seluruh data contoh (percakapan, tiket, routing, distribusi kanal, koneksi) diselaraskan — 1 Sep 2026. | ✅ | KAK Omni g) 7 kanal | F2 §5.1 masih perlu disamakan dengan daftar ini |
 | T4 | **Nama Role Management berbeda 3 arah** (KAK ↔ build ↔ F2) | 🟠 | KAK Omni k) 6 peran | F2 §5.2 daftar 5 peran, beda lagi dari build |
 | T5 | **CMS Konten (Modul 04, 8 halaman) tidak ada di F2** sama sekali | 🟠 | Di luar KAK (usulan) | F2 hanya membahas 3 produk |
 | T6 | Restrukturisasi **Layanan → 4 kelompok citizen-centric** vs daftar datar KAK | 🟠 | KAK Website b)/g) | F2 §3.1 sudah menjelaskan (deviasi sadar) — **OK, tinggal validasi PPK** |
@@ -75,13 +75,11 @@ KAK butir h) Analytics menyebut daftar eksplisit. Build (`analytics.html` + `omn
 
 Juga cek **"Indikator analytics"** KAK (tingkat keberhasilan navigasi, halaman paling sering diakses, halaman bounce tinggi, kecepatan loading, responsivitas UI) — pastikan tampil sebagai indikator, bukan hanya heatmap. **Tindak lanjut:** tambah widget/tabel untuk ketiga sub-fitur, atau minta PPK menurunkan prioritas secara tertulis.
 
-### 4.2 Unified Inbox — kanal tidak sama dengan KAK (T3)
+### 4.2 Unified Inbox — kanal tidak sama dengan KAK (T3) — ✅ TERATASI 1 Sep 2026
 KAK butir g) menetapkan **7 kanal**: Live chat website · WhatsApp Business · SP4N-LAPOR! · Instagram DM · E-mail · **Mobile app PPID** · **Website PPID**.
 
-Build (`omni.js`) memakai: Web chat · WhatsApp · Instagram · **Facebook** · SP4N-LAPOR · Email (±6).
-- 🟠 **Ekstra vs KAK:** Facebook (tidak diminta KAK).
-- 🔴 **Hilang vs KAK:** kanal **Mobile app PPID** dan **Website PPID** — padahal justru dua kanal ini yang mengikat Omni ke produk #2 (P3 Ratna membalas permohonan PPID lintas kanal).
-- **Masalah di F2:** §5.1 menulis daftar 7 kanal versi KAK ("…app PPID, web PPID") yang **tidak cocok** dengan build. **Tindak lanjut:** selaraskan — tambah kanal PPID di build **atau** perbarui daftar dan minta keputusan PPK soal Facebook.
+`klh-omni-dashboard/assets/js/data/omni.js` kini memakai persis 7 kanal KAK: `chat-kemenlh` (Live Chat Web KLH), `chat-ppid` (Live Chat Web PPID), `mobile` (Mobile App PPID), `wa` (WhatsApp Business), `lapor` (SP4N-LAPOR!), `ig` (Instagram DM), `email` (E-mail). Facebook & X (di luar KAK) dihapus seluruhnya; data contoh percakapan/tiket yang sebelumnya memakai kanal lama dipetakan ulang ke kanal KAK terdekat (fb/x/web → live chat sesuai isi pesan, satu kasus baru ditambah untuk Mobile App PPID). `distribusiKanal` (chart dashboard), `koneksi` (Manajemen Kanal), `routingKategori`, `notifikasi`, dan `audit` disesuaikan mengikuti.
+- **Sisa pekerjaan:** F2 §5.1 belum disamakan dengan daftar final ini (masih perlu diperbarui terpisah).
 - 🟡 Catatan: PROP hal.10 menuliskan kanal lain lagi (WhatsApp, **Telegram**, Instagram, Facebook, Web, Email, **SMS**) — tidak konsisten dengan KAK. KAK yang mengikat.
 
 ### 4.3 Role Management — nama peran berbeda 3 arah (T4)

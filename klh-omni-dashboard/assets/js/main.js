@@ -105,6 +105,21 @@
     return '<span class="badge ' + s.cls + '">' + icSm(s.icon) + ' ' + p + '</span>';
   };
 
+  /* ---- Opsi unit tujuan disposisi (dipakai tiket-detail & routing) ---- */
+  KLH.esc = function (v) {
+    return String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+  };
+  KLH.opsiHTML = function (daftar, terpilih) {
+    var d = daftar.slice();
+    // nilai lama di luar daftar tetap tampil agar tidak hilang saat diedit
+    if (terpilih && d.indexOf(terpilih) === -1) d.unshift(terpilih);
+    return d.map(function (u) {
+      var e = KLH.esc(u);
+      return '<option' + (u === terpilih ? ' selected' : '') + ' value="' + e + '">' + e + '</option>';
+    }).join('');
+  };
+  KLH.unitOptions = function (terpilih) { return KLH.opsiHTML(KLH.omni.unitTujuan, terpilih); };
+
   /* ---- SLA ----
      "Sekarang" demo = jangkar KLH.omni.now + waktu berjalan sejak
      halaman dimuat, agar timer hidup tetapi data contoh tetap

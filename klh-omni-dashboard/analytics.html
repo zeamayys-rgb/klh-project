@@ -78,9 +78,30 @@
       </section>
     </div>
 
+    <!-- Session recording & user journey -->
+    <section class="panel" data-reveal aria-label="Rekaman sesi dan perjalanan pengguna" style="margin-top:var(--s5)">
+      <div class="panel__head">
+        <h2>Session recording &amp; user journey</h2>
+        <span class="ket">6 sesi terakhir (anonim)</span>
+      </div>
+      <div class="panel__body" style="padding-top:var(--s3)">
+        <p class="ket" style="margin-bottom:var(--s3)">Klik nomor sesi untuk membuka rekaman perjalanan pengguna: urutan halaman, klik per halaman, kedalaman scroll, dan titik pengguna tersendat.</p>
+        <div class="tbl-wrap" style="border:0">
+          <table class="tbl" aria-label="Daftar sesi pengguna terakhir">
+            <thead><tr>
+              <th scope="col">Sesi</th><th scope="col">Perangkat</th>
+              <th scope="col">Alur halaman</th><th scope="col" class="num">Halaman</th>
+              <th scope="col" class="num">Durasi</th><th scope="col">Hasil</th>
+            </tr></thead>
+            <tbody id="sesi-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
     <div class="alert alert-info" data-reveal style="margin-top:var(--s5)">
       <klh-icon name="eye" class="icon icon--sm"></klh-icon>
-      <div><strong>Session recording &amp; user journey.</strong>Pada sistem produksi, klik sesi pada tabel membuka rekaman anonim perjalanan pengguna (heatmap klik per halaman, alur antar halaman). Prototipe ini menampilkan agregatnya saja.</div>
+      <div><strong>Rekaman bersifat anonim.</strong>Sesi tidak menyimpan nama, surel, atau IP penuh, hanya id sesi acak, atribut perangkat, dan urutan halaman. Pada sistem produksi rekaman disimpan maksimal 30 hari lalu dihapus otomatis.</div>
     </div>
 
     <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — heatmap dibangkitkan dari pola deterministik untuk keperluan demo.</p>
@@ -129,6 +150,19 @@
     var v = o.analytics.browser.nilai[i];
     return '<li><span class="bar-head"><span>' + l + '</span><span class="mono">' + v + '%</span></span>' +
       '<span class="bar-track"><span class="bar-fill" style="width:' + v + '%;display:block"></span></span></li>';
+  }).join('');
+
+  /* ---- Tabel sesi (session recording) ---- */
+  document.getElementById('sesi-body').innerHTML = o.analytics.sesi.map(function (s) {
+    var alur = s.jejak.map(function (j) { return j.judul; }).filter(function (v, i, a) { return v !== a[i - 1]; });
+    var ringkas = alur.slice(0, 3).join(' › ') + (alur.length > 3 ? ' › +' + (alur.length - 3) : '');
+    return '<tr><td><a class="tkt-id" href="session-detail.html?s=' + s.id + '">' + s.id + '</a>' +
+      '<span class="tkt-pemohon">' + KLH.fmtDateTime(s.mulai) + ' · ' + s.lokasi + '</span></td>' +
+      '<td>' + s.perangkat + '<span class="tkt-pemohon">' + s.browser + ' · ' + s.os + '</span></td>' +
+      '<td><span class="sesi-alur">' + ringkas + '</span></td>' +
+      '<td class="num">' + s.jejak.length + '</td>' +
+      '<td class="num mono">' + KLH.fmtDurasi(KLH.sesiDurasi(s)) + '</td>' +
+      '<td><span class="badge bg-' + s.hasilTone + '">' + s.hasil + '</span></td></tr>';
   }).join('');
 
   /* ---- Chart perangkat ---- */

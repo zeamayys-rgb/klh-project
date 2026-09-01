@@ -71,6 +71,7 @@ Flag sesi di `localStorage` (`klh-omni-sesi`, try/catch) — bukan data inti.
 | A | Reporting — filter periode, **ekspor PDF/Excel/CSV (demo)**, grafik kategori & tren SLA, tabel periodik | `reporting.html` |
 | B (Should) | Routing & Auto-Reply — 6 aturan kategori (saklar), 5 template balasan bervariabel | `routing.html` |
 | B | Analytics — **heatmap jam×hari (grid dummy deterministik)**, klik/scroll per halaman, device/browser | `analytics.html` |
+| B | Detail Sesi (template `?s=`) — **session recording & user journey**: perjalanan antar halaman, klik & scroll per langkah, titik hambatan, pemutaran langkah (simulasi) | `session-detail.html` |
 | B | Role Management — **6 peran** (Super Admin→Viewer) + matriks 9 izin | `role.html` |
 | B | Keamanan — kebijakan MFA/SSO (saklar), ringkasan 24 jam, **audit trail** ber-filter | `keamanan.html` |
 | B | Manajemen Kanal — status koneksi 7 kanal (terhubung/gangguan/terputus), otorisasi ulang demo | `kanal.html` |

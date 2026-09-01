@@ -72,14 +72,88 @@
   'use strict';
   var o = KLH.omni;
 
+  // ponytail: sel/edit inline pakai contenteditable — cukup untuk prototipe; ganti form modal bila butuh validasi per field
+  function esc(v) { return String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
+
+  function sel(r, i, f, css) {
+    return '<td contenteditable="true" data-i="' + i + '" data-f="' + f + '" style="' + css + '" ' +
+      'aria-label="' + f + ' aturan ' + esc(r.nama) + '">' + esc(r[f]) + '</td>';
+  }
+
+  var SEMUA = 'Semua kanal';
+  var LABEL = o.kanal.map(function (k) { return k.label; });
+
+  // ponytail: dropdown checkbox pakai <details> bawaan — tanpa JS buka/tutup
+  function kanalPicker(nilai, attrs, label) {
+    var pilih = nilai === SEMUA ? LABEL.slice() : String(nilai).split(' · ');
+    return '<details class="kanal-pick" ' + attrs + ' data-nilai="' + esc(nilai) + '">' +
+      '<summary class="select" aria-label="' + esc(label) + '">' + esc(ringkas(pilih)) + '</summary>' +
+      '<div class="kanal-pick__menu" role="group" aria-label="' + esc(label) + '">' +
+        '<label class="kanal-pick__opt kanal-pick__opt--all"><input type="checkbox" class="kanal-all"' +
+          (pilih.length === LABEL.length ? ' checked' : '') + '> <span>Pilih semua kanal</span></label>' +
+        LABEL.map(function (l) {
+          return '<label class="kanal-pick__opt"><input type="checkbox" value="' + esc(l) + '"' +
+            (pilih.indexOf(l) > -1 ? ' checked' : '') + '> <span>' + esc(l) + '</span></label>';
+        }).join('') +
+      '</div></details>';
+  }
+
+  function ringkas(pilih) {
+    if (!pilih.length) return 'Pilih kanal…';
+    if (pilih.length === LABEL.length) return SEMUA;
+    if (pilih.length > 2) return pilih.length + ' kanal dipilih';
+    return pilih.join(' · ');
+  }
+
+  // satu handler untuk semua picker (tabel maupun dialog)
+  document.addEventListener('change', function (e) {
+    var wrap = e.target.closest && e.target.closest('.kanal-pick');
+    if (!wrap) return;
+    var kotak = Array.prototype.slice.call(wrap.querySelectorAll('input[value]'));
+    var all = wrap.querySelector('.kanal-all');
+    if (e.target === all) kotak.forEach(function (c) { c.checked = all.checked; });
+    var pilih = kotak.filter(function (c) { return c.checked; }).map(function (c) { return c.value; });
+    all.checked = pilih.length === LABEL.length;
+    wrap.dataset.nilai = pilih.length === LABEL.length ? SEMUA : pilih.join(' · ');
+    wrap.querySelector('summary').textContent = ringkas(pilih);
+    var i = wrap.getAttribute('data-i');
+    if (i === null) return;
+    o.routingKategori[parseInt(i, 10)].kanal = wrap.dataset.nilai;
+    KLH.toast('<strong>Kanal diperbarui (demo).</strong> ' + wrap.dataset.nilai);
+  });
+
+  // tutup dropdown saat klik di luar
+  document.addEventListener('click', function (e) {
+    Array.prototype.forEach.call(document.querySelectorAll('.kanal-pick[open]'), function (d) {
+      if (!d.contains(e.target)) d.removeAttribute('open');
+    });
+  });
+
+  function slaSelect(r, i) {
+    return '<select class="select rt-sla" data-i="' + i + '" data-f="sla" ' +
+      'aria-label="Target SLA, aturan ' + esc(r.nama) + '">' + KLH.opsiHTML(o.slaOpsi, r.sla) + '</select>';
+  }
+
+  function unitSelect(r, i) {
+    return '<select class="select rt-unit" data-i="' + i + '" data-f="tujuan" ' +
+      'aria-label="Diteruskan ke, aturan ' + esc(r.nama) + '">' + KLH.unitOptions(r.tujuan) + '</select>';
+  }
+
+  function prioSelect(r, i) {
+    return '<select class="select rt-prio" data-i="' + i + '" data-f="prioritas" aria-label="Prioritas aturan ' + esc(r.nama) + '">' +
+      ['Tinggi', 'Sedang', 'Rendah'].map(function (p) {
+        return '<option' + (p === r.prioritas ? ' selected' : '') + '>' + p + '</option>';
+      }).join('') + '</select>';
+  }
+
   function renderRouting() {
     document.getElementById('rt-body').innerHTML = o.routingKategori.map(function (r, i) {
       return '<tr>' +
-        '<td style="font-weight:600">' + r.nama + '</td>' +
-        '<td style="font-size:var(--t-xs)">' + r.kanal + '</td>' +
-        '<td style="font-size:var(--t-xs)">' + r.tujuan + '</td>' +
-        '<td><span class="sla sla--ok"><span class="mono">' + r.sla + '</span></span></td>' +
-        '<td>' + KLH.prioBadge(r.prioritas) + '</td>' +
+        sel(r, i, 'nama', 'font-weight:600') +
+        '<td>' + kanalPicker(r.kanal, 'data-i="' + i + '"', 'Kanal berlaku, aturan ' + esc(r.nama)) + '</td>' +
+        '<td>' + unitSelect(r, i) + '</td>' +
+        '<td>' + slaSelect(r, i) + '</td>' +
+        '<td>' + prioSelect(r, i) + '</td>' +
         '<td><button type="button" class="switch" role="switch" aria-checked="' + r.aktif + '" data-i="' + i + '" aria-label="Aktifkan aturan ' + r.nama + '"></button></td>' +
       '</tr>';
     }).join('');
@@ -95,15 +169,18 @@
     KLH.toast('<strong>Aturan "' + r.nama + '" ' + (r.aktif ? 'diaktifkan' : 'dinonaktifkan') + ' (demo).</strong>');
   });
 
+  function renderTemplate() {
   document.getElementById('tmpl-grid').innerHTML = o.template.map(function (t, i) {
-    return '<div class="card tmpl-card" data-reveal>' +
-      '<h3>' + t.nama + ' <span class="badge bg-neutral">' + t.kategori + '</span></h3>' +
-      '<p class="isi">' + t.isi.replace(/{{(\w+)}}/g, '<code>{{$1}}</code>') + '</p>' +
+    return '<div class="card tmpl-card is-in">' +
+      '<h3>' + esc(t.nama) + ' <span class="badge bg-neutral">' + esc(t.kategori) + '</span></h3>' +
+      '<p class="isi">' + esc(t.isi).replace(/{{(\w+)}}/g, '<code>{{$1}}</code>') + '</p>' +
       '<div style="display:flex;gap:var(--s2);margin-top:var(--s1)">' +
         '<button class="btn btn-ghost btn-sm" type="button" data-edit="' + i + '">' + KLH.iconSVG('document', 'icon icon--sm') + ' Ubah</button>' +
         '<button class="btn btn-ghost btn-sm" type="button" data-salin="' + i + '">' + KLH.iconSVG('reply', 'icon icon--sm') + ' Gunakan di inbox</button>' +
       '</div></div>';
   }).join('');
+  }
+  renderTemplate();
 
   document.getElementById('tmpl-grid').addEventListener('click', function (e) {
     var b = e.target.closest('[data-edit],[data-salin]');
@@ -112,11 +189,99 @@
     KLH.toast('<strong>Editor template (simulasi).</strong> Pada sistem sebenarnya, editor template balasan terbuka di sini.', 'info');
   });
 
-  document.getElementById('btn-kategori-baru').addEventListener('click', function () {
-    KLH.toast('<strong>Form aturan baru (simulasi).</strong> Pada sistem sebenarnya, form kategori routing baru terbuka.', 'info');
+  var body = document.getElementById('rt-body');
+
+  body.addEventListener('focusout', function (e) {
+    var td = e.target.closest('td[contenteditable]');
+    if (!td) return;
+    var r = o.routingKategori[parseInt(td.getAttribute('data-i'), 10)];
+    var f = td.getAttribute('data-f');
+    var v = td.textContent.trim();
+    if (!v) { td.textContent = r[f]; return; }   // kosong = batalkan
+    if (v === r[f]) return;
+    r[f] = v;
+    KLH.toast('<strong>Perubahan tersimpan (demo).</strong> ' + f + ': ' + v);
   });
+
+  // Enter = simpan, Esc = batal
+  body.addEventListener('keydown', function (e) {
+    var td = e.target.closest('td[contenteditable]');
+    if (!td) return;
+    if (e.key === 'Enter') { e.preventDefault(); td.blur(); }
+    if (e.key === 'Escape') {
+      td.textContent = o.routingKategori[parseInt(td.getAttribute('data-i'), 10)][td.getAttribute('data-f')];
+      td.blur();
+    }
+  });
+
+  body.addEventListener('change', function (e) {
+    var s = e.target.closest('select[data-f]');
+    if (!s) return;
+    var f = s.getAttribute('data-f');
+    o.routingKategori[parseInt(s.getAttribute('data-i'), 10)][f] = s.value;
+    KLH.toast('<strong>Perubahan tersimpan (demo).</strong> ' + f + ': ' + s.value);
+  });
+
+  /* ---- Dialog form sederhana ---- */
+  function formDialog(judul, fields, onOk) {
+    var dlg = document.createElement('dialog');
+    dlg.style.cssText = 'border:0;border-radius:var(--r-lg);box-shadow:var(--sh-3);padding:var(--s6);max-width:520px;width:calc(100vw - 48px)';
+    dlg.innerHTML = '<h2 style="font-size:var(--t-h3)">' + judul + '</h2>' +
+      '<form method="dialog" style="display:grid;gap:var(--s4);margin-top:var(--s4)">' +
+      fields.map(function (f) {
+        var id = 'fd-' + f.n;
+        var ctl = f.kanal
+          ? kanalPicker(SEMUA, 'data-n="' + f.n + '"', f.l)
+          : f.opsi
+          ? '<select class="select" id="' + id + '" name="' + f.n + '">' + KLH.opsiHTML(f.opsi) + '</select>'
+          : f.area
+            ? '<textarea class="textarea" id="' + id + '" name="' + f.n + '" rows="3" required></textarea>'
+            : '<input class="input" id="' + id + '" name="' + f.n + '" type="text" required>';
+        return '<div class="field">' + (f.kanal ? '<span class="lbl">' + f.l + '</span>'
+          : '<label for="' + id + '">' + f.l + '</label>') + ctl + '</div>';
+      }).join('') +
+      '<div style="display:flex;gap:var(--s3);justify-content:flex-end;margin-top:var(--s2)">' +
+      '<button class="btn btn-ghost" type="button" data-batal>Batal</button>' +
+      '<button class="btn btn-primary" type="submit">Simpan</button></div></form>';
+    document.body.appendChild(dlg);
+    dlg.querySelector('[data-batal]').addEventListener('click', function () { dlg.close(); });
+    dlg.querySelector('form').addEventListener('submit', function () {
+      var d = {};
+      fields.forEach(function (f) {
+        d[f.n] = f.kanal ? dlg.querySelector('[data-n="' + f.n + '"]').dataset.nilai
+                         : dlg.querySelector('[name="' + f.n + '"]').value.trim();
+      });
+      onOk(d);
+    });
+    dlg.addEventListener('close', function () { dlg.remove(); });
+    dlg.showModal();
+  }
+
+  document.getElementById('btn-kategori-baru').addEventListener('click', function () {
+    formDialog('Tambah aturan routing', [
+      { n: 'nama', l: 'Kategori' },
+      { n: 'kanal', l: 'Kanal berlaku', kanal: true },
+      { n: 'tujuan', l: 'Diteruskan ke', opsi: KLH.omni.unitTujuan },
+      { n: 'sla', l: 'Target SLA', opsi: o.slaOpsi },
+      { n: 'prioritas', l: 'Prioritas', opsi: ['Tinggi', 'Sedang', 'Rendah'] }
+    ], function (d) {
+      d.aktif = true;
+      o.routingKategori.push(d);
+      renderRouting();
+      KLH.toast('<strong>Aturan "' + d.nama + '" ditambahkan (demo).</strong>');
+    });
+  });
+
   document.getElementById('btn-tmpl-baru').addEventListener('click', function () {
-    KLH.toast('<strong>Form template baru (simulasi).</strong>', 'info');
+    formDialog('Template balasan baru', [
+      { n: 'nama', l: 'Nama template' },
+      { n: 'kategori', l: 'Kategori' },
+      { n: 'isi', l: 'Isi balasan', area: true }
+    ], function (d) {
+      o.template.push(d);
+      renderTemplate();
+      KLH.toast('<strong>Template "' + d.nama + '" ditambahkan (demo).</strong>');
+    });
   });
 })();
 </script>
