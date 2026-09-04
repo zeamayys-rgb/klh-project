@@ -75,18 +75,6 @@
 }
 .slideshow__dot.on { background: #fff; width: 26px; border-radius: var(--r-pill); }
 
-/* Strip statistik menempel di bawah hero */
-.stat-pull { margin-top: calc(-1 * var(--s12)); position: relative; z-index: 2; }
-.stat-head { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); padding: var(--s2) var(--s5) 0; }
-.stat-head__note { font-size: var(--t-xs); color: var(--ink-400); }
-.stat-switch {
-  display: inline-flex; align-items: center; gap: var(--s2); min-height: 44px;
-  padding: var(--s1) var(--s3); border: 1px solid var(--line); border-radius: var(--r-pill);
-  background: none; font: inherit; font-size: var(--t-sm); font-weight: 600; color: var(--klh-green-700);
-  cursor: pointer; transition: background var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease);
-}
-.stat-switch:hover { background: var(--g-50); border-color: var(--g-300); }
-
 /* Info terkini: 3 kolom */
 .info-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); }
 @media (max-width: 1024px) { .info-cols { grid-template-columns: 1fr; } }

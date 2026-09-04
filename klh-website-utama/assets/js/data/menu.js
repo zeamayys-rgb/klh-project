@@ -11,6 +11,14 @@
 
   KLH.menu = {
 
+    /* Kata kunci pencarian populer (konten contoh) - dipakai panel
+       saran di kolom pencarian navbar. */
+    populer: [
+      'Adipura', 'Izin lingkungan', 'AMDAL', 'Baku mutu air limbah',
+      'Kualitas udara', 'Pengaduan lingkungan', 'Bank sampah',
+      'Proper', 'Beasiswa lingkungan', 'Lowongan CPNS'
+    ],
+
     nav: [
       { id: 'beranda', label: 'Beranda', href: 'index.html' },
 
@@ -87,7 +95,8 @@
               items: [
                 { label: 'Perizinan Lingkungan Hidup (PTSP)', icon: 'institution', href: 'pages/layanan/ptsp.html' },
                 { label: 'OSS (Perizinan Berusaha)', icon: 'external', href: 'https://oss.go.id', ext: true },
-                { label: 'LPSE / SiRUP Pengadaan', icon: 'external', href: 'https://spse.inaproc.id/kemenlh', ext: true }
+                { label: 'LPSE / SiRUP Pengadaan', icon: 'external', href: 'https://spse.inaproc.id/kemenlh', ext: true },
+                { label: 'Amdalnet (Sistem Informasi Amdal)', icon: 'external', href: 'https://amdalnet.kemenlh.go.id/#/', ext: true }
               ]
             },
             {
@@ -114,7 +123,8 @@
               items: [
                 { label: 'ISPU (Kualitas Udara)', icon: 'external', href: 'https://ispu.kemenlh.go.id/webv5/#/', ext: true },
                 { label: 'Onlimo (Kualitas Air)', icon: 'external', href: 'https://onlimo.kemenlh.go.id/app/', ext: true },
-                { label: 'Bursa Karbon (IDXCarbon)', icon: 'external', href: 'https://idxcarbon.co.id', ext: true }
+                { label: 'Bursa Karbon (IDXCarbon)', icon: 'external', href: 'https://idxcarbon.co.id', ext: true },
+                { label: 'Satu Data Lingkungan Hidup', icon: 'external', href: 'https://satudata.kemenlh.go.id/', ext: true }
               ]
             }
           ],

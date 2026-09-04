@@ -96,7 +96,18 @@
           '<ul class="nav-menu">' + navLis + '</ul>' +
           '<form class="nav-search" role="search" action="' + href('pages/pencarian.html') + '" method="get">' +
             ic('search') +
-            '<input type="search" name="q" placeholder="Cari berita, layanan, peraturan…" aria-label="Cari di seluruh situs">' +
+            '<input type="search" name="q" placeholder="Cari berita, layanan, peraturan…" aria-label="Cari di seluruh situs"' +
+              ' autocomplete="off" role="combobox" aria-expanded="false" aria-controls="nav-search-saran" aria-autocomplete="list">' +
+            '<div class="nav-search__panel" id="nav-search-saran" hidden>' +
+              '<p class="nav-search__label" id="nav-search-label">Pencarian populer</p>' +
+              '<ul class="nav-search__list" role="listbox" aria-labelledby="nav-search-label">' +
+                (KLH.menu.populer || []).map(function (kw, i) {
+                  return '<li id="nav-saran-' + i + '" role="option" aria-selected="false" class="nav-search__opt" data-kw="' + kw + '">' +
+                    ic('search') + '<span>' + kw + '</span></li>';
+                }).join('') +
+              '</ul>' +
+              '<p class="nav-search__kosong" hidden>Tekan Enter untuk mencari kata kunci ini.</p>' +
+            '</div>' +
           '</form>' +
           '<button class="nav-burger" aria-label="Buka menu navigasi" aria-expanded="false" data-drawer-open>' + ic('menu', 'icon') + '</button>' +
         '</div></nav>' +
@@ -157,6 +168,73 @@
     }
     requestAnimationFrame(clampPanels);
     window.addEventListener('resize', clampPanels);
+
+    /* ---- Panel saran pencarian (pola Komdigi) ---- */
+    var sForm = el.querySelector('.nav-search');
+    var sInput = sForm.querySelector('input');
+    var sPanel = sForm.querySelector('.nav-search__panel');
+    var sEmpty = sForm.querySelector('.nav-search__kosong');
+    var sLabel = sForm.querySelector('.nav-search__label');
+    var sOpts = Array.prototype.slice.call(sForm.querySelectorAll('.nav-search__opt'));
+    var sIdx = -1;
+
+    function sVisible() { return sOpts.filter(function (o) { return !o.hidden; }); }
+    function sMark(i) {
+      var vis = sVisible();
+      sOpts.forEach(function (o) { o.classList.remove('is-active'); o.setAttribute('aria-selected', 'false'); });
+      sIdx = i;
+      var o = vis[i];
+      if (o) { o.classList.add('is-active'); o.setAttribute('aria-selected', 'true'); sInput.setAttribute('aria-activedescendant', o.id); }
+      else sInput.removeAttribute('aria-activedescendant');
+    }
+    function sOpen(open) {
+      sPanel.hidden = !open;
+      sForm.classList.toggle('is-open', open);
+      sInput.setAttribute('aria-expanded', String(open));
+      if (!open) sMark(-1);
+    }
+    function sFilter() {
+      var q = sInput.value.trim().toLowerCase();
+      sOpts.forEach(function (o) { o.hidden = q ? o.getAttribute('data-kw').toLowerCase().indexOf(q) === -1 : false; });
+      sEmpty.hidden = sVisible().length > 0;
+      /* Kosong = tampilkan kata kunci populer sebagai badge; begitu mengetik,
+         saran berubah jadi daftar teks. */
+      sPanel.classList.toggle('is-badge', !q);
+      sLabel.textContent = q ? 'Saran pencarian' : 'Pencarian populer';
+      sMark(-1);
+    }
+    sInput.addEventListener('focus', function () { sFilter(); sOpen(true); });
+    sInput.addEventListener('input', function () { sFilter(); sOpen(true); });
+    sInput.addEventListener('keydown', function (e) {
+      var vis = sVisible();
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        if (sPanel.hidden) { sFilter(); sOpen(true); }
+        if (!vis.length) return;
+        e.preventDefault();
+        var next = sIdx + (e.key === 'ArrowDown' ? 1 : -1);
+        if (next < 0) next = vis.length - 1;
+        if (next >= vis.length) next = 0;
+        sMark(next);
+      } else if (e.key === 'Enter' && sIdx > -1 && vis[sIdx]) {
+        sInput.value = vis[sIdx].getAttribute('data-kw');
+        sOpen(false);
+      } else if (e.key === 'Escape' && !sPanel.hidden) {
+        /* preventDefault: Chrome mengosongkan input type=search saat Esc,
+           dan event `input` yang menyusul akan membuka panel lagi. */
+        e.preventDefault();
+        e.stopPropagation();
+        sOpen(false);
+      }
+    });
+    sOpts.forEach(function (o) {
+      o.addEventListener('mousedown', function (e) {
+        e.preventDefault();
+        sInput.value = o.getAttribute('data-kw');
+        sOpen(false);
+        sForm.submit();
+      });
+    });
+    document.addEventListener('click', function (e) { if (!sForm.contains(e.target)) sOpen(false); });
 
     /* ---- Drawer mobile ---- */
     var drawer = el.querySelector('.drawer');

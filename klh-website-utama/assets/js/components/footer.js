@@ -9,6 +9,13 @@
   var href = function (h) { return /^https?:/.test(h) ? h : root() + h; };
   var ic = function (n, c) { return KLH.iconSVG(n, c || 'icon icon--sm'); };
 
+  /* Statistik pengunjung (konten contoh), sebaris dengan hak cipta di footer-bottom */
+  var visits = [
+    { v: '648.431', l: 'pengunjung' },
+    { v: '3.011', l: 'hari ini' },
+    { v: '12', l: 'sedang online' }
+  ];
+
   function build(el) {
     var f = KLH.menu.footer;
     var cols = f.cols.map(function (col) {
@@ -41,6 +48,9 @@
           '</div>' +
           '<div class="footer-bottom">' +
             '<span class="gov">' + ic('institution') + ' © 2026 Kementerian Lingkungan Hidup / BPLH, Republik Indonesia</span>' +
+            '<span class="footer-stat-strip" id="footer-stat-strip" aria-label="Statistik pengunjung situs (konten contoh)">' + ic('people') +
+              visits.map(function (s) { return '<span class="footer-stat"><b>' + s.v + '</b> ' + s.l + '</span>'; }).join('<span class="footer-stat__sep" aria-hidden="true">&middot;</span>') +
+            '</span>' +
           '</div>' +
         '</div>' +
       '</footer>';

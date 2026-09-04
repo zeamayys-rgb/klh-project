@@ -41,6 +41,7 @@
     warning: '<path d="M12 4L2.8 19.5h18.4z"/><path d="M12 10v4.2M12 16.8h.01"/>',
     external: '<path d="M9.5 5H5v14h14v-4.5"/><path d="M13.5 4H20v6.5"/><path d="M20 4l-9 9"/>',
     arrowright: '<path d="M4 12h15"/><path d="M13.5 6l6 6-6 6"/>',
+    arrowup: '<path d="M12 20V5"/><path d="M6 10.5l6-6 6 6"/>',
     arrowleft: '<path d="M20 12H5"/><path d="M10.5 18l-6-6 6-6"/>',
     chevdown: '<path d="M6 9.5l6 6 6-6"/>',
     chevright: '<path d="M9.5 6l6 6-6 6"/>',

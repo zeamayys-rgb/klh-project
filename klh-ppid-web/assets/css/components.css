@@ -517,6 +517,7 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
   display: flex; flex-direction: column; gap: var(--s3); align-items: flex-end;
 }
 .fab {
+  position: relative;
   display: grid; place-items: center;
   width: 56px; height: 56px; border-radius: var(--r-pill);
   border: 0; cursor: pointer;
@@ -524,8 +525,40 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
   transition: transform var(--dur-1) var(--ease);
 }
 .fab:hover { transform: translateY(-2px); }
+/* Tooltip FAB (dari data-tip), muncul di kiri tombol saat hover/fokus */
+.fab[data-tip]::before {
+  content: attr(data-tip);
+  position: absolute; right: calc(100% + var(--s3)); top: 50%; transform: translateY(-50%);
+  background: var(--ink-900); color: #fff;
+  padding: 6px 10px; border-radius: var(--r-sm);
+  font-size: var(--t-xs); font-weight: 600; white-space: nowrap;
+  box-shadow: var(--sh-2); pointer-events: none;
+  opacity: 0; visibility: hidden;
+  transition: opacity var(--dur-1) var(--ease), visibility var(--dur-1);
+}
+.fab[data-tip]:hover::before, .fab[data-tip]:focus-visible::before { opacity: 1; visibility: visible; }
+@media (prefers-reduced-motion: reduce) { .fab[data-tip]::before { transition: none; } }
 .fab--chat { background: var(--klh-green-600); color: #fff; }
-.fab--a11y { background: var(--surface); color: var(--klh-green-800); border: 1.5px solid var(--line-strong); width: 48px; height: 48px; }
+/* FAB aksesibilitas: biru solid (konvensi widget a11y) */
+.fab--a11y { position: relative; background: var(--b-600); color: #fff; }
+.fab--a11y:hover { background: var(--b-700); }
+/* Ring denyut 2× saat halaman dimuat untuk menarik perhatian */
+.fab--a11y::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  animation: fab-pulse 1.6s var(--ease) .8s 2;
+}
+@keyframes fab-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(14, 102, 196, .5); }
+  100% { box-shadow: 0 0 0 16px rgba(14, 102, 196, 0); }
+}
+@media (prefers-reduced-motion: reduce) { .fab--a11y::after { animation: none; } }
+.fab--top {
+  background: var(--surface); color: var(--klh-green-800); border: 1.5px solid var(--line-strong); width: 48px; height: 48px;
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: opacity var(--dur-1) var(--ease), transform var(--dur-1) var(--ease), visibility var(--dur-1);
+}
+.fab--top.show { opacity: 1; visibility: visible; transform: none; }
+.fab--top.show:hover { transform: translateY(-2px); }
 
 /* Panel chatbot */
 .chat-panel, .a11y-panel {
@@ -569,6 +602,8 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
 /* Panel aksesibilitas */
 .a11y-panel { padding: var(--s5); }
 .a11y-panel h4 { display: flex; align-items: center; gap: var(--s2); margin-bottom: var(--s4); }
+.a11y-panel__close { margin-left: auto; width: 44px; height: 44px; display: grid; place-items: center; background: none; border: 0; color: var(--ink-500); cursor: pointer; border-radius: var(--r-xs); }
+.a11y-panel__close:hover { background: var(--wash); color: var(--ink-900); }
 .a11y-row { display: flex; align-items: center; justify-content: space-between; gap: var(--s4); padding-block: var(--s3); border-top: 1px solid var(--line); }
 .a11y-row:first-of-type { border-top: 0; }
 .a11y-row .lbl { font-size: var(--t-sm); font-weight: 600; font-family: var(--font-display); }

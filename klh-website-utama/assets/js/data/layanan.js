@@ -17,7 +17,8 @@
         { name: 'Perizinan Lingkungan Hidup (PTSP)', icon: 'institution', desc: 'Pelayanan Terpadu Satu Pintu untuk persetujuan lingkungan, teknis, dan layanan perizinan kementerian.', cta: 'Lihat profil & standar pelayanan', href: 'pages/layanan/ptsp.html', internal: true },
         { name: 'OSS (Perizinan Berusaha)', icon: 'external', desc: 'Pengurusan perizinan berusaha berbasis risiko dilakukan melalui sistem OSS nasional.', href: 'https://oss.go.id', ext: true },
         { name: 'LPSE KLH/BPLH', icon: 'external', desc: 'Layanan Pengadaan Secara Elektronik: paket tender dan non-tender kementerian.', href: 'https://spse.inaproc.id/kemenlh', ext: true },
-        { name: 'SiRUP (Rencana Umum Pengadaan)', icon: 'external', desc: 'Telusuri rencana pengadaan tahunan KLH/BPLH pada portal SiRUP LKPP.', href: 'https://sirup.lkpp.go.id', ext: true }
+        { name: 'SiRUP (Rencana Umum Pengadaan)', icon: 'external', desc: 'Telusuri rencana pengadaan tahunan KLH/BPLH pada portal SiRUP LKPP.', href: 'https://sirup.lkpp.go.id', ext: true },
+        { name: 'Amdalnet (Sistem Informasi Amdal)', icon: 'external', desc: 'Sistem informasi dokumen lingkungan: penyusunan dan penilaian Amdal, UKL-UPL, serta SPPL secara daring.', href: 'https://amdalnet.kemenlh.go.id/#/', ext: true }
       ],
       note: { type: 'info', icon: 'clock', title: 'Standar layanan PTSP', text: 'Kelengkapan berkas diverifikasi maksimal 3 hari kerja. Status permohonan dapat dipantau melalui akun pemohon.' }
     },
@@ -50,7 +51,8 @@
         { name: 'Onlimo (Pemantauan Kualitas Air)', icon: 'external', desc: 'Online Monitoring: data kualitas air sungai prioritas secara kontinu dan real-time.', href: 'https://onlimo.kemenlh.go.id/app/', ext: true },
         { name: 'Laboratorium Pusarpedal', icon: 'external', desc: 'Layanan pengujian parameter lingkungan (air, udara, tanah, limbah) terakreditasi KAN.', href: 'http://pusarpedal.kemenlh.go.id/', ext: true },
         { name: 'SRN PPI (Registri Iklim)', icon: 'external', desc: 'Sistem Registri Nasional Pengendalian Perubahan Iklim: daftarkan aksi mitigasi/adaptasi Anda.', href: 'https://srn.kemenlh.go.id', ext: true },
-        { name: 'Bursa Karbon (IDXCarbon)', icon: 'external', desc: 'Perdagangan unit karbon Indonesia bagi pelaku usaha peserta nilai ekonomi karbon.', href: 'https://idxcarbon.co.id', ext: true }
+        { name: 'Bursa Karbon (IDXCarbon)', icon: 'external', desc: 'Perdagangan unit karbon Indonesia bagi pelaku usaha peserta nilai ekonomi karbon.', href: 'https://idxcarbon.co.id', ext: true },
+        { name: 'Satu Data Lingkungan Hidup', icon: 'external', desc: 'Portal satu data KLH/BPLH: dataset lingkungan hidup lintas unit kerja dalam format terbuka.', href: 'https://satudata.kemenlh.go.id/', ext: true }
       ],
       note: { type: 'info', icon: 'chartline', title: 'Data terbuka', text: 'Sebagian besar dataset tersedia dalam format terbuka (CSV/JSON) dan dapat dimintakan melalui PPID bila belum dipublikasikan.' }
     },
