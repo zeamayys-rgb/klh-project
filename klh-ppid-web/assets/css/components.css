@@ -560,6 +560,30 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
 .fab--top.show { opacity: 1; visibility: visible; transform: none; }
 .fab--top.show:hover { transform: translateY(-2px); }
 
+/* Submenu FAB bantuan (Call Center / Chat Bot) */
+.fab-menu {
+  position: fixed; right: var(--s5); bottom: 92px; z-index: 130;
+  width: min(260px, calc(100vw - 32px));
+  display: flex; flex-direction: column; gap: 2px;
+  padding: var(--s2); background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--sh-3);
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: opacity var(--dur-1) var(--ease), transform var(--dur-1) var(--ease), visibility var(--dur-1);
+}
+.fab-menu.open { opacity: 1; visibility: visible; transform: none; }
+@media (prefers-reduced-motion: reduce) { .fab-menu { transition: none; } }
+.fab-menu__item {
+  display: flex; align-items: center; gap: var(--s3);
+  min-height: 44px; padding: var(--s2) var(--s3);
+  width: 100%; text-align: left; text-decoration: none;
+  background: none; border: 0; border-radius: var(--r-md);
+  color: var(--ink-900); font: inherit; cursor: pointer;
+}
+.fab-menu__item:hover { background: var(--klh-green-50); }
+.fab-menu__item .icon { color: var(--klh-green-600); flex: none; }
+.fab-menu__item strong { display: block; font-size: var(--t-sm); font-weight: 600; }
+.fab-menu__item small { display: block; font-size: var(--t-xs); color: var(--ink-500); }
+
 /* Panel chatbot */
 .chat-panel, .a11y-panel {
   position: fixed; right: var(--s5); bottom: 92px; z-index: 130;

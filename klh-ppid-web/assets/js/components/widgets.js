@@ -27,6 +27,10 @@
 
   /* A2-05 · Aturan spesifik didahulukan; pola generik (ajukan/permohonan)
      paling akhir agar "berapa lama permohonan…" jatuh ke jawaban SLA. */
+  /* Tautan Call Center — ganti dengan URL/nomor resmi saat tersedia.
+     ponytail: placeholder '#', klik dinetralkan sampai URL diisi. */
+  var CALL_CENTER_URL = '#';
+
   var BOT_REPLIES = [
     { k: /lama|berapa hari|sla|waktu/i, a: 'PPID menjawab paling lambat <b>10 hari kerja</b>, dapat diperpanjang <b>7 hari kerja</b> dengan pemberitahuan tertulis (Perki 1/2021).' },
     { k: /lacak|status|registrasi|nomor/i, a: 'Buka menu <b>Lacak</b> dan masukkan nomor registrasi berformat <b>PPID-2026-XXXXXX</b>. Timeline status akan menampilkan posisi permohonan Anda beserta estimasi jawaban.' },
@@ -78,11 +82,19 @@
         '<p class="chat-note">Prototipe — jawaban berbasis skenario, belum terhubung RAG.</p>' +
       '</div>' +
 
+      /* --- Submenu FAB bantuan: Call Center + Chat Bot --- */
+      '<div class="fab-menu" role="menu" aria-label="Pilih kanal bantuan">' +
+        '<a class="fab-menu__item" role="menuitem" href="' + CALL_CENTER_URL + '">' + ic('phone', 'icon icon--sm') +
+          '<span><strong>Call Center</strong><small>Bicara dengan petugas</small></span></a>' +
+        '<button type="button" class="fab-menu__item" role="menuitem" data-open-chat>' + ic('speech', 'icon icon--sm') +
+          '<span><strong>Chat Bot</strong><small>Asisten virtual, 24 jam</small></span></button>' +
+      '</div>' +
+
       /* --- FAB stack --- */
       '<div class="fab-stack">' +
         '<button class="fab fab--top" data-top-fab data-tip="Kembali ke Atas" aria-label="Kembali ke atas halaman">' + ic('arrowup') + '</button>' +
         '<button class="fab fab--a11y" data-a11y-fab data-tip="Aksesibilitas" aria-label="Buka pengaturan aksesibilitas" aria-expanded="false">' + ic('access') + '</button>' +
-        '<button class="fab fab--chat" data-chat-fab data-tip="Chat Bot" aria-label="Buka Chat Bot AI PPID" aria-expanded="false">' + ic('speech') + '</button>' +
+        '<button class="fab fab--chat" data-chat-fab data-tip="Bantuan" aria-label="Buka menu bantuan" aria-haspopup="true" aria-expanded="false">' + ic('speech') + '</button>' +
       '</div>';
 
     var chatPanel = el.querySelector('.chat-panel');
@@ -90,17 +102,24 @@
     var chatFab = el.querySelector('[data-chat-fab]');
     var a11yFab = el.querySelector('[data-a11y-fab]');
 
+    var fabMenu = el.querySelector('.fab-menu');
+
     function toggle(panel, fab, force) {
       var open = force !== undefined ? force : !panel.classList.contains('open');
-      chatPanel.classList.remove('open'); a11yPanel.classList.remove('open');
+      chatPanel.classList.remove('open'); a11yPanel.classList.remove('open'); fabMenu.classList.remove('open');
       chatFab.setAttribute('aria-expanded', 'false'); a11yFab.setAttribute('aria-expanded', 'false');
       if (open) { panel.classList.add('open'); fab.setAttribute('aria-expanded', 'true'); }
     }
-    chatFab.addEventListener('click', function () { toggle(chatPanel, chatFab); });
+    chatFab.addEventListener('click', function () { toggle(fabMenu, chatFab); });
+    el.querySelector('[data-open-chat]').addEventListener('click', function () { toggle(chatPanel, chatFab); });
+    el.querySelector('.fab-menu a').addEventListener('click', function (e) {
+      if (CALL_CENTER_URL === '#') e.preventDefault();
+      toggle(fabMenu, chatFab, false);
+    });
     a11yFab.addEventListener('click', function () { toggle(a11yPanel, a11yFab); });
     el.querySelector('.chat-panel__close').addEventListener('click', function () { toggle(chatPanel, chatFab, false); });
     el.querySelector('.a11y-panel__close').addEventListener('click', function () { toggle(a11yPanel, a11yFab, false); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') toggle(chatPanel, chatFab, false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { toggle(chatPanel, chatFab, false); } });
 
     /* ---- Kembali ke atas: tampil setelah scroll melewati satu layar ---- */
     var topFab = el.querySelector('[data-top-fab]');
