@@ -65,7 +65,7 @@
           <h2 id="layanan-title">Layanan utama untuk Anda</h2>
           <p class="lead">Empat pintu layanan yang paling sering dibutuhkan warga, tautan bertanda <klh-icon name="external" class="icon" style="width:14px;height:14px"></klh-icon> membuka situs lain.</p>
         </div>
-        <a class="btn btn-outline" href="pages/layanan/index.html">Semua Layanan <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></a>
+        <a class="btn btn-outline" aria-label="Lihat lainnya: semua layanan" href="pages/layanan/index.html">Lihat lainnya <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></a>
       </div>
 
       <div class="grid grid--4" id="svc-grid">
@@ -99,7 +99,7 @@
       <div class="cta-band" data-reveal>
         <div>
           <span class="eyebrow" style="color:var(--klh-green-300)">Keterbukaan Informasi</span>
-          <h2>Butuh data atau dokumen resmi? Ajukan lewat PPID.</h2>
+          <h2>Butuh data atau dokumen resmi? Ajukan lewat Pejabat Pengelola Informasi dan Dokumentasi (PPID).</h2>
           <p>Permohonan informasi publik kini daring sepenuhnya, dapat ID pelacakan, notifikasi tiap perubahan status, dan estimasi waktu yang jelas.</p>
         </div>
         <div style="display:grid;gap:var(--s3)">
@@ -119,7 +119,7 @@
           <h2 id="prog-title">Program Lingkungan Hidup</h2>
           <p class="lead">Program lingkungan hidup untuk partisipasi warga, sekolah, komunitas, dan dunia usaha.</p>
         </div>
-        <a class="btn btn-outline" href="pages/program/index.html">Semua Program <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></a>
+        <a class="btn btn-outline" aria-label="Lihat lainnya: semua program" href="pages/program/index.html">Lihat lainnya <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></a>
       </div>
       <div class="grid grid--2" id="prog-grid"></div>
     </div>
@@ -133,30 +133,151 @@
           <span class="eyebrow">Informasi &amp; Publikasi</span>
           <h2 id="info-title">Informasi terkini</h2>
         </div>
-        <a class="btn btn-outline" href="pages/informasi/indeks.html?m=berita">Lihat Semua <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></a>
+        <a class="btn btn-outline" aria-label="Lihat lainnya: semua informasi terkini" href="pages/informasi/indeks.html?m=berita">Lihat lainnya <klh-icon name="arrowright" class="icon icon--sm"></klh-icon></a>
       </div>
       <div class="info-cols">
         <div data-reveal>
           <div class="info-col__head">
             <h3><klh-icon name="newspaper" class="icon icon--sm"></klh-icon> Berita</h3>
-            <a href="pages/informasi/indeks.html?m=berita">Lihat semua</a>
+            <a aria-label="Lihat lainnya: berita" href="pages/informasi/indeks.html?m=berita">Lihat lainnya</a>
           </div>
           <div class="mini-list" id="col-berita"></div>
         </div>
         <div data-reveal>
           <div class="info-col__head">
             <h3><klh-icon name="megaphone" class="icon icon--sm"></klh-icon> Siaran Pers</h3>
-            <a href="pages/informasi/indeks.html?m=siaran-pers">Lihat semua</a>
+            <a aria-label="Lihat lainnya: siaran pers" href="pages/informasi/indeks.html?m=siaran-pers">Lihat lainnya</a>
           </div>
           <div class="mini-list" id="col-pers"></div>
         </div>
         <div data-reveal>
           <div class="info-col__head">
             <h3><klh-icon name="calendar" class="icon icon--sm"></klh-icon> Agenda</h3>
-            <a href="pages/informasi/agenda.html">Lihat semua</a>
+            <a aria-label="Lihat lainnya: agenda" href="pages/informasi/agenda.html">Lihat lainnya</a>
           </div>
           <div class="mini-list" id="col-agenda"></div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Tautan sistem internal & instansi mitra (di atas footer) ===== -->
+  <section class="section section--tight section--alt" aria-labelledby="mitra-title">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Tautan Sistem</span>
+          <h2 id="mitra-title">Sistem internal &amp; layanan mitra</h2>
+          <p class="lead">Pintasan ke sistem yang dikelola KLH/BPLH dan layanan instansi mitra, tautan bertanda <klh-icon name="external" class="icon" style="width:14px;height:14px"></klh-icon> membuka situs lain.</p>
+        </div>
+      </div>
+
+      <div class="mitra">
+
+        <!-- Kiri: sistem internal KLH/BPLH -->
+        <section class="mitra__group" aria-labelledby="mitra-internal-title" data-reveal>
+          <h3 class="mitra__group-title" id="mitra-internal-title"><klh-icon name="institution" class="icon icon--sm"></klh-icon> Sistem &amp; Gerakan KLH / BPLH</h3>
+          <ul class="mitra__internal">
+            <li>
+              <a class="mitra-sys" href="https://srnindonesia.kemenlh.go.id/" target="_blank" rel="noopener noreferrer" data-ext="SRN, Sistem Registri Nasional">
+                <span class="mitra-mark" aria-hidden="true">SRN</span>
+                <span class="mitra-sys__txt"><strong>SRN</strong><span>Sistem Registri Nasional</span></span>
+                <klh-icon name="external" class="icon mitra-ext"></klh-icon>
+                <span class="sr-only"> (membuka situs lain)</span>
+              </a>
+            </li>
+            <li>
+              <a class="mitra-sys" href="https://egakkum.kemenlh.go.id/" target="_blank" rel="noopener noreferrer" data-ext="e-Gakkum, Penegakan Hukum Lingkungan Hidup">
+                <span class="mitra-mark mitra-mark--long" aria-hidden="true">GAKKUM</span>
+                <span class="mitra-sys__txt"><strong>e-Gakkum</strong><span>Penegakan Hukum Lingkungan Hidup</span></span>
+                <klh-icon name="external" class="icon mitra-ext"></klh-icon>
+                <span class="sr-only"> (membuka situs lain)</span>
+              </a>
+            </li>
+            <li>
+              <a class="mitra-sys" href="https://ibeq.kemenlh.go.id/" target="_blank" rel="noopener noreferrer" data-ext="IBEQ, Integrated Big Data for Environmental Quality">
+                <span class="mitra-mark" aria-hidden="true">IBEQ</span>
+                <span class="mitra-sys__txt"><strong>IBEQ</strong><span>Integrated Big Data for Environmental Quality</span></span>
+                <klh-icon name="external" class="icon mitra-ext"></klh-icon>
+                <span class="sr-only"> (membuka situs lain)</span>
+              </a>
+            </li>
+            <li>
+              <a class="mitra-sys" href="https://amdalnet.kemenlh.go.id/" target="_blank" rel="noopener noreferrer" data-ext="Amdalnet, Sistem Informasi Dokumen Lingkungan Hidup">
+                <span class="mitra-mark" aria-hidden="true">AMDAL</span>
+                <span class="mitra-sys__txt"><strong>Amdalnet</strong><span>Sistem Informasi Dokumen Lingkungan Hidup</span></span>
+                <klh-icon name="external" class="icon mitra-ext"></klh-icon>
+                <span class="sr-only"> (membuka situs lain)</span>
+              </a>
+            </li>
+          
+            <li class="is-wide">
+              <a class="mitra-sys" href="https://kemenlh.go.id/news/detail/menteri-lh-kampanyekan-gerakan-tobat-ekologis-dua-miliar-pohon-disiapkan-jadi-bagian-untuk-hijaukan-kembali-bumi" target="_blank" rel="noopener noreferrer" data-ext="Gerakan Tobat Ekologis">
+                <span class="mitra-mark" aria-hidden="true">TE</span>
+                <span class="mitra-sys__txt"><strong>Tobat Ekologis</strong><span>Gerakan moral pemulihan lingkungan, disertai inisiatif penanaman dua miliar pohon</span></span>
+                <klh-icon name="external" class="icon mitra-ext"></klh-icon>
+                <span class="sr-only"> (membuka situs lain)</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Kanan: layanan & instansi eksternal -->
+        <section class="mitra__group" aria-labelledby="mitra-eksternal-title" data-reveal>
+          <h3 class="mitra__group-title" id="mitra-eksternal-title"><klh-icon name="external" class="icon icon--sm"></klh-icon> Layanan &amp; Instansi Eksternal</h3>
+          <ul class="mitra__external">
+            <li>
+              <a class="mitra-logo" href="https://sirup.lkpp.go.id/sirup/rekap/klpd/K29" target="_blank" rel="noopener noreferrer" data-ext="SIRUP LKPP">
+                <img src="assets/img/mitra/sirup.png" alt="SIRUP LKPP" width="184" height="120" loading="lazy" decoding="async">
+                <klh-icon name="external" class="icon mitra-ext"></klh-icon>
+                <span class="sr-only"> (membuka situs lain)</span>
+              </a>
+            </li>
+            <li>
+              <a class="mitra-logo" href="https://ukpbj.kemenlh.go.id/" target="_blank" rel="noopener noreferrer" data-ext="LPSE KLH/BPLH">
+                <img src="assets/img/mitra/lpse.png" alt="LPSE KLH/BPLH" width="171" height="120" loading="lazy" decoding="async">
+                <klh-icon name="external" class="icon mitra-ext"></klh-icon>
+                <span class="sr-only"> (membuka situs lain)</span>
+              </a>
+            </li>
+            <li>
+              <a class="mitra-logo" href="https://www.lapor.go.id/" target="_blank" rel="noopener noreferrer" data-ext="SP4N Lapor!">
+                <img src="assets/img/mitra/lapor.png" alt="SP4N Lapor!" width="92" height="120" loading="lazy" decoding="async">
+                <klh-icon name="external" class="icon mitra-ext"></klh-icon>
+                <span class="sr-only"> (membuka situs lain)</span>
+              </a>
+            </li>
+            <li>
+              <a class="mitra-logo" href="https://www.bmkg.go.id/" target="_blank" rel="noopener noreferrer" data-ext="BMKG">
+                <img src="assets/img/mitra/bmkg.png" alt="BMKG" width="194" height="120" loading="lazy" decoding="async">
+                <klh-icon name="external" class="icon mitra-ext"></klh-icon>
+                <span class="sr-only"> (membuka situs lain)</span>
+              </a>
+            </li>
+            <li>
+              <a class="mitra-logo" href="https://elhkpn.kpk.go.id/" target="_blank" rel="noopener noreferrer" data-ext="e-LHKPN KPK">
+                <img src="assets/img/mitra/e-lhkpn.png" alt="e-LHKPN KPK" width="136" height="109" loading="lazy" decoding="async">
+                <klh-icon name="external" class="icon mitra-ext"></klh-icon>
+                <span class="sr-only"> (membuka situs lain)</span>
+              </a>
+            </li>
+            <li>
+              <a class="mitra-logo mitra-logo--icon" href="mailto:layanan@kemenlh.go.id">
+                <img src="assets/img/mitra/email.png" alt="Surel layanan KLH/BPLH" width="645" height="645" loading="lazy" decoding="async">
+                <klh-icon name="external" class="icon mitra-ext"></klh-icon>
+                <span class="sr-only"> (membuka aplikasi surel)</span>
+              </a>
+            </li>
+            <li>
+              <a class="mitra-logo" href="https://oss.go.id/id" target="_blank" rel="noopener noreferrer" data-ext="OSS, Perizinan Berusaha">
+                <img src="assets/img/mitra/oss.svg" alt="OSS, Perizinan Berusaha" width="815" height="244" loading="lazy" decoding="async">
+                <klh-icon name="external" class="icon mitra-ext"></klh-icon>
+                <span class="sr-only"> (membuka situs lain)</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+
       </div>
     </div>
   </section>

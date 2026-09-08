@@ -58,6 +58,9 @@ klh-website-utama/
 │       ├── agenda.html               # Kalender interaktif
 │       └── galeri.html               # Video & podcast + filter
 └── assets/
+    ├── img/mitra/                # Logo instansi mitra (SIRUP, LPSE, SP4N-LAPOR!,
+    │                             #   BMKG, e-LHKPN, surel, OSS) untuk seksi
+    │                             #   "Tautan Sistem" di beranda
     ├── css/
     │   ├── tokens.css                # Design tokens (dari design.md)
     │   ├── base.css                  # Reset, tipografi, grid, section
@@ -77,7 +80,7 @@ klh-website-utama/
 1. **`window.KLH_ROOT`**: setiap halaman mendeklarasikan kedalamannya sebelum memuat skrip bersama: `''` (root), `'../'` (pages/), `'../../'` (pages/&lt;seksi&gt;/). Semua komponen membangun tautan dengan prefiks ini sehingga navbar/footer berfungsi di semua kedalaman.
 2. **Urutan skrip**: icons.js → data (menu/content/layanan) → navbar/footer/widgets → markup → main.js. Komponen berbentuk custom element klasik (tanpa module) agar aman di `file://`.
 3. **Data = "CMS" sementara**: semua konten dummy terkonsentrasi di `assets/js/data/`. Saat integrasi backend, ganti sumber objek `KLH.*` tanpa menyentuh markup.
-4. **Tautan eksternal**: ditandai `data-ext`; dialog serah-terima ("Anda akan diarahkan ke …") mengimplementasikan Flow A F2_UserFlow-IA (SP4N-LAPOR!, OSS, LPSE, dst.).
+4. **Tautan eksternal**: ditandai `data-ext`; dialog serah-terima ("Anda akan diarahkan ke …") mengimplementasikan Flow A F2_UserFlow-IA (SP4N-LAPOR!, OSS, LPSE, dst.). Seksi "Tautan Sistem" di atas footer beranda memakai pola ini untuk 4 sistem internal + 1 gerakan (SRN, e-Gakkum, IBEQ, Amdalnet, dan Tobat Ekologis, ditampilkan sebagai kotak akronim karena tidak punya logo resmi; Tobat Ekologis menaut ke siaran pers SR.154/HUMAS/KLH-BPLH/7/2026) dan 7 layanan/instansi eksternal (logo asli, disalin lokal ke `assets/img/mitra/` agar prototipe tetap jalan via `file://`). Tautan surel memakai `mailto:` langsung tanpa dialog karena bukan situs.
 5. **Aksesibilitas (WCAG 2.1 AA)**: skip link, satu `h1`/halaman, `aria-current`, target sentuh ≥44px, status ikon+teks, panel aksesibilitas (kontras tinggi & ukuran huruf → `localStorage`), `prefers-reduced-motion` dihormati (slideshow beranda).
 6. **Konten contoh**: artikel, pejabat, agenda, dan statistik bersifat *dummy* dan diberi penanda pada UI; menunggu validasi PPK/Tim Teknis sebelum produksi.
 
