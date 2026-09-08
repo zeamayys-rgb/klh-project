@@ -358,7 +358,7 @@ button.agenda-row:hover { box-shadow: var(--sh-2); }
 /* ============ BERANDA, TAUTAN SISTEM & MITRA (di atas footer) ============ */
 .mitra {
   display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  grid-template-columns: minmax(0, 5.5fr) minmax(0, 6fr);
   gap: var(--s10);
 }
 .mitra__group { min-width: 0; }
