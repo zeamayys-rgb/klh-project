@@ -83,8 +83,6 @@
           '<span class="utilbar__actions">' +
             '<button type="button" data-a11y-open aria-label="Aksesibilitas">' + ic('access') + '<span class="utilbar__long"> Aksesibilitas</span></button>' +
             '<span class="sep" aria-hidden="true"></span>' +
-            '<button type="button" aria-label="Ganti bahasa (saat ini Bahasa Indonesia)">' + ic('translate') + ' ID / EN</button>' +
-            '<span class="sep" aria-hidden="true"></span>' +
             '<a class="utilbtn" href="' + href('pages/ppid.html') + '">' + ic('user') + ' Masuk</a>' +
           '</span>' +
         '</div></div>' +
