@@ -22,6 +22,13 @@
   var ic = function (n, cls) { return KLH.iconSVG(n, cls || 'icon'); };
   var halaman = (location.pathname.split('/').pop() || 'index.html');
 
+  /* ---- Jenis notifikasi: ikon + label (ikon + teks, bukan warna saja) ---- */
+  var NOTIF_JENIS = {
+    eskalasi: { icon: 'escalate',  label: 'Eskalasi' },
+    sistem:   { icon: 'settings',  label: 'Sistem' },
+    lapor:    { icon: 'megaphone', label: 'SP4N-LAPOR!' }
+  };
+
   /* ---- Struktur navigasi ---- */
   var NAV = [
     { label: 'Menu Utama', items: [
@@ -170,6 +177,7 @@
                 '<button class="fchip on" type="button" data-nf="semua">Semua</button>' +
                 '<button class="fchip" type="button" data-nf="eskalasi">Eskalasi</button>' +
                 '<button class="fchip" type="button" data-nf="sistem">Sistem</button>' +
+                '<button class="fchip" type="button" data-nf="lapor">SP4N-LAPOR!</button>' +
               '</div>' +
               '<ul class="notif-list" data-notif-list></ul>' +
             '</div>' +
@@ -256,10 +264,11 @@
     function renderNotif() {
       var rows = notif.filter(function (n) { return nfAktif === 'semua' || n.jenis === nfAktif; });
       notifList.innerHTML = rows.length ? rows.map(function (n) {
+        var j = NOTIF_JENIS[n.jenis] || NOTIF_JENIS.sistem;
         return '<li class="notif-item' + (n.baru ? ' is-baru' : '') + '">' +
-          '<span class="notif-ic notif-ic--' + n.jenis + '">' + ic(n.jenis === 'eskalasi' ? 'escalate' : 'settings', 'icon icon--sm') + '</span>' +
+          '<span class="notif-ic notif-ic--' + n.jenis + '">' + ic(j.icon, 'icon icon--sm') + '</span>' +
           '<a href="' + n.url + '"><strong>' + n.judul + '</strong><span>' + n.isi + '</span>' +
-          '<small>' + (n.jenis === 'eskalasi' ? 'Eskalasi' : 'Sistem') + ' · ' + KLH.fmtDateTime(n.t) + '</small></a></li>';
+          '<small>' + j.label + ' · ' + KLH.fmtDateTime(n.t) + '</small></a></li>';
       }).join('') : '<li class="notif-kosong">Tidak ada notifikasi pada filter ini.</li>';
     }
     renderNotif();

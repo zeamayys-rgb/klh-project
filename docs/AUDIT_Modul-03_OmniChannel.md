@@ -54,7 +54,7 @@ Temuan Minor/Saran (dilaporkan, tidak diwajibkan diperbaiki) berpusat pada seman
 
 - **Konsol:** 12 halaman × 1440px — nol error JS (403 Google Fonts diabaikan sesuai protokol); ulang pasca-perbaikan pada index/inbox/kanal/tiket — tetap nol.
 - **Responsif:** 12 halaman × 390px — `scrollWidth` = 390 semua (tidak ada overflow).
-- **`tiket-detail.html?t=`:** `TKT-2026-0728` (aman/ok) · `TKT-2026-0730` (mendekati → kelas `warn`) · `TKT-2026-0724` (lewat → "−00:40:00 melewati tenggat", timer berdetak per detik) · `?t=TIDAK-VALID` dan tanpa query → banner + fallback tiket aktif pertama, nol error.
+- **`tiket-detail.html?t=`:** `TKT-2026-0706-728` (aman/ok) · `TKT-2026-0706-730` (mendekati → kelas `warn`) · `TKT-2026-0706-724` (lewat → "−00:40:00 melewati tenggat", timer berdetak per detik) · `?t=TIDAK-VALID` dan tanpa query → banner + fallback tiket aktif pertama, nol error.
 - **Interaksi:** login validasi kosong → 3 pesan error; login→MFA→redirect + nama sesi di topbar ✓ · filter inbox kanal (15→3 WA) / status / cari + buka percakapan + template variabel terisi + kirim balasan ✓ · tab & filter tiket ✓ · eskalasi/disposisi/ubah status/balas di tiket-detail menambah log ✓ · ekspor PDF/Excel/CSV toast ✓ · panel notifikasi buka/filter/tandai dibaca/Escape ✓ · saklar routing ✓ · matriks 6 peran × 9 izin ✓ · filter audit ✓ · preferensi kontras+teks persist antar halaman ✓.
 - **`file://`:** `login.html` & `index.html` dibuka langsung — render + nol error.
 - **Pasca-perbaikan:** 20 cek verifikasi (A3-01…A3-04 + regresi konsol 4 halaman + sidebar desktop collapse) — semua lulus.

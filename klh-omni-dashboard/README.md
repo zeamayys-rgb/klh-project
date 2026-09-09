@@ -3,7 +3,7 @@
 **Proyek:** Pengembangan Konten User Interface Website KLH/BPLH
 **Vendor:** PT Bening Guru Semesta · **Penyusun:** Abdan (UI/UX Designer)
 **Status:** SELESAI — 7 Jul 2026 · 14 entri checklist / 13 file HTML (Panel Notifikasi = komponen topbar, bukan halaman)
-**Pembaruan 9 Sep 2026:** matriks izin `role.html` dapat diedit + halaman baru `pengguna.html` (Manajemen Pengguna)
+**Pembaruan 9 Sep 2026:** matriks izin `role.html` dapat diedit + halaman baru `pengguna.html` (Manajemen Pengguna) + halaman baru `notifikasi-lapor.html` (Detail Notifikasi SP4N-LAPOR!)
 
 Aplikasi **internal** (persona P3 Ratna — agen layanan) untuk mengelola komunikasi
 warga lintas **7 kanal resmi** — WhatsApp, Instagram, Facebook, X, email, web form,
@@ -77,6 +77,7 @@ Flag sesi di `localStorage` (`klh-omni-sesi`, try/catch) — bukan data inti.
 | B | **Manajemen Pengguna** — daftar 8 akun internal (peran, unit kerja, kanal ditangani, aktif terakhir, status), cari + filter peran/status, dialog tambah/edit tervalidasi, konfirmasi hapus | `pengguna.html` |
 | B | Keamanan — kebijakan MFA/SSO (saklar), ringkasan 24 jam, **audit trail** ber-filter | `keamanan.html` |
 | B | Manajemen Kanal — status koneksi 7 kanal (terhubung/gangguan/terputus), otorisasi ulang demo | `kanal.html` |
+| B | **Detail Notifikasi SP4N-LAPOR!** (template `?n=`): judul laporan, isi laporan, tanggal, instansi tujuan, status di SP4N-LAPOR!, dan tombol "Tanggapi di SP4N-LAPOR!" ke prod.lapor.go.id (dialog serah-terima `data-ext`). SP4N-LAPOR! berbasis tiket, bukan percakapan: Omni Channel hanya menampilkan notifikasi hasil sinkronisasi job (API laporan difilter instansi tujuan KLH/BPLH); tanggapan dan penutupan laporan tetap di aplikasi SP4N-LAPOR!. Dijangkau dari panel notifikasi topbar (filter "SP4N-LAPOR!") | `notifikasi-lapor.html` |
 | C (Could) | Profil Pengguna — data akun (validasi NIP/email), preferensi notifikasi, keamanan akun | `profil.html` |
 | B | **Panel Notifikasi** — komponen topbar (filter Semua/Eskalasi/Sistem, tandai dibaca) | `assets/js/components/appshell.js` |
 
@@ -92,8 +93,8 @@ Seluruh UI berpenanda "konten contoh".
 **Jangkar waktu demo:** `KLH.omni.now = 7 Jul 2026 09.30 WIB` — perhitungan SLA
 (`KLH.slaState`) dan timer detail tiket berjalan dari jangkar ini + waktu nyata sejak
 halaman dimuat, sehingga skenario "mendekati/lewat tenggat" selalu bermakna.
-Tiket demo menarik: `TKT-2026-0730` (sisa <1 jam), `TKT-2026-0724` (lewat tenggat),
-`TKT-2026-0722` (Closed, rating 5).
+Tiket demo menarik: `TKT-2026-0706-730` (sisa <1 jam), `TKT-2026-0706-724` (lewat tenggat),
+`TKT-2026-0706-722` (Closed, rating 5).
 
 ## Arsitektur
 

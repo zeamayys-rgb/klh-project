@@ -125,7 +125,9 @@
   var aktif = null;
 
   /* ---- Isi opsi filter kanal & template ---- */
-  document.getElementById('f-kanal').innerHTML += o.kanal.map(function (k) {
+  document.getElementById('f-kanal').innerHTML += o.kanal.filter(function (k) {
+    return k.id !== 'lapor';
+  }).map(function (k) {
     return '<option value="' + k.id + '">' + k.label + '</option>';
   }).join('');
   document.getElementById('tmpl').innerHTML += o.template.map(function (t, i) {
@@ -293,12 +295,18 @@
       'T' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':00';
   }
 
+  /* Nomor tiket: TKT-<tahun>-<bulantanggal>-<urut>, mis. TKT-2026-0707-732 */
+  function prefixTiket() {
+    var d = new Date(KLH.demoNow());
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+    return 'TKT-' + d.getFullYear() + '-' + pad(d.getMonth() + 1) + pad(d.getDate()) + '-';
+  }
   function nomorTiketBaru() {
     var max = o.tiket.reduce(function (n, t) {
       var v = parseInt(String(t.id).split('-').pop(), 10);
       return v > n ? v : n;
     }, 0);
-    return 'TKT-2026-' + ('000' + (max + 1)).slice(-4);
+    return prefixTiket() + ('00' + (max + 1)).slice(-3);
   }
 
   document.getElementById('form-tiket').addEventListener('submit', function (e) {
@@ -342,7 +350,7 @@
     if (this.value === '') return;
     var t = o.template[parseInt(this.value, 10)];
     var isi = t.isi
-      .replace('{{tiket}}', (aktif && aktif.tiket) || 'TKT-2026-XXXX')
+      .replace('{{tiket}}', (aktif && aktif.tiket) || (prefixTiket() + 'XXX'))
       .replace('{{unit}}', 'unit teknis terkait')
       .replace('{{tautan_rating}}', 'klh.go.id/nilai');
     document.getElementById('balas').value = isi;

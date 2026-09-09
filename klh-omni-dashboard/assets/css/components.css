@@ -366,6 +366,7 @@ a.card:hover, .card--clickable:hover { transform: translateY(-3px); border-color
   padding: 4px 10px; border-radius: var(--r-pill);
   font-size: var(--t-xs); font-weight: 600; line-height: 1.4;
 }
+.badge .icon { width: 14px; height: 14px; }
 .bg-success { background: var(--success-bg); color: var(--success); }
 .bg-warning { background: var(--warning-bg); color: var(--warning); }
 .bg-danger  { background: var(--danger-bg); color: var(--danger); }

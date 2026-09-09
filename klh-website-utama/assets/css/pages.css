@@ -359,22 +359,22 @@ button.agenda-row:hover { box-shadow: var(--sh-2); }
 #mitra-title + .lead { max-width: none; }
 .mitra {
   display: grid;
-  grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
   gap: var(--s10);
 }
 .mitra__group { min-width: 0; }
 .mitra__internal, .mitra__external { list-style: none; margin: 0; padding: 0; }
-.mitra__internal { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s3); }
+.mitra__internal { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s3); }
 /* Butir ganjil (gerakan, bukan sistem) melebar penuh agar grid 2 kolom tetap rapi */
 .mitra__internal > li.is-wide { grid-column: 1 / -1; }
 .mitra__external { display: flex; flex-wrap: wrap; gap: var(--s3); }
-.mitra__external > li { flex: 1 1 120px; min-width: 0; }
+.mitra__external > li { flex: 1 1 100px; min-width: 0; }
 
 /* Baris sistem internal: kotak akronim + nama + keterangan */
 .mitra-sys {
   position: relative;
-  display: flex; align-items: center; gap: var(--s4);
-  min-height: 68px; padding: var(--s3) var(--s4);
+  display: flex; flex-direction: column; align-items: flex-start; gap: var(--s3);
+  min-height: 68px; height: 100%; padding: var(--s4);
   background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md);
   text-decoration: none; color: inherit;
   transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
@@ -417,12 +417,12 @@ button.agenda-row:hover { box-shadow: var(--sh-2); }
 @media (max-width: 1024px) {
   .mitra { grid-template-columns: 1fr; gap: var(--s8); }
   .mitra__group + .mitra__group { padding-top: var(--s8); border-top: 1px solid var(--line-strong); }
-  .mitra__external > li { flex-basis: 180px; }
+  .mitra__external > li { flex-basis: 150px; }
 }
 @media (max-width: 767px) {
   .mitra__external > li { flex-basis: 132px; }
   .mitra__internal { grid-template-columns: 1fr; }
-  .mitra-sys { gap: var(--s3); padding: var(--s3); }
+  .mitra-sys { flex-direction: row; align-items: center; gap: var(--s3); padding: var(--s3); }
   .mitra-mark { width: 64px; height: 44px; }
 }
 @media (prefers-reduced-motion: reduce) {

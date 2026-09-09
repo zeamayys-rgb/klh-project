@@ -220,6 +220,7 @@ body.sb-mini .app-main { margin-left: var(--sb-w-mini); }
 }
 .notif-ic--eskalasi { background: var(--warning-bg); color: var(--warning); }
 .notif-ic--sistem { background: var(--info-bg); color: var(--infoc); }
+.notif-ic--lapor { background: var(--g-100); color: var(--g-700); }
 .notif-kosong { padding: var(--s5); font-size: var(--t-sm); color: var(--ink-500); text-align: center; }
 
 /* Popover profil */

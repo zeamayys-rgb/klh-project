@@ -43,10 +43,18 @@
 
     <!-- Grafik aktivitas + distribusi kanal -->
     <div class="dash-grid">
-      <section class="panel" data-reveal aria-label="Grafik aktivitas 7 hari">
+      <section class="panel" data-reveal aria-label="Grafik aktivitas interaksi">
         <div class="panel__head">
-          <h2>Aktivitas interaksi — 7 hari terakhir</h2>
-          <span class="ket">Masuk vs selesai ditangani</span>
+          <h2>Aktivitas interaksi</h2>
+          <div style="display:flex;gap:var(--s3);align-items:center">
+            <span class="ket" id="akt-ket">Masuk vs selesai ditangani, per hari</span>
+            <label class="sr-only" for="akt-rentang">Rentang waktu grafik aktivitas</label>
+            <select class="select" id="akt-rentang" style="padding:8px 10px;font-size:var(--t-xs)">
+              <option value="7h">7 hari terakhir</option>
+              <option value="bulan">Per bulan</option>
+              <option value="tahun">Per tahun</option>
+            </select>
+          </div>
         </div>
         <div class="panel__body"><div class="chart-box"><canvas id="chart-aktivitas" role="img" aria-label="Grafik garis interaksi masuk dan selesai per hari, 1 sampai 7 Juli 2026"></canvas></div></div>
       </section>
@@ -142,13 +150,17 @@
   /* ---- Chart.js (inline UMD, animation:false) ---- */
   KLH.chartDefaults();
   var pal = KLH.chartPalet;
-  new Chart(document.getElementById('chart-aktivitas'), {
+  var aktKanvas = document.getElementById('chart-aktivitas');
+  var aktPilih = document.getElementById('akt-rentang');
+  var aktKet = document.getElementById('akt-ket');
+  var akt = o.aktivitas[aktPilih.value];
+  var chartAkt = new Chart(aktKanvas, {
     type: 'line',
     data: {
-      labels: o.aktivitas.label,
+      labels: akt.label,
       datasets: [
-        { label: 'Masuk', data: o.aktivitas.masuk, borderColor: pal[0], backgroundColor: 'rgba(0,89,82,.08)', fill: true, tension: .35, pointRadius: 3, borderWidth: 2 },
-        { label: 'Selesai', data: o.aktivitas.selesai, borderColor: pal[1], backgroundColor: 'transparent', tension: .35, pointRadius: 3, borderWidth: 2, borderDash: [5, 4] }
+        { label: 'Masuk', data: akt.masuk, borderColor: pal[0], backgroundColor: 'rgba(0,89,82,.08)', fill: true, tension: .35, pointRadius: 3, borderWidth: 2 },
+        { label: 'Selesai', data: akt.selesai, borderColor: pal[1], backgroundColor: 'transparent', tension: .35, pointRadius: 3, borderWidth: 2, borderDash: [5, 4] }
       ]
     },
     options: {
@@ -156,6 +168,17 @@
       scales: { y: { beginAtZero: true, ticks: { precision: 0 } } },
       plugins: { legend: { position: 'bottom' } }
     }
+  });
+  /* Ganti rentang: 7 hari / per bulan / per tahun */
+  aktPilih.addEventListener('change', function () {
+    var d = o.aktivitas[aktPilih.value];
+    if (!d) return;
+    chartAkt.data.labels = d.label;
+    chartAkt.data.datasets[0].data = d.masuk;
+    chartAkt.data.datasets[1].data = d.selesai;
+    chartAkt.update();
+    aktKet.textContent = d.ket;
+    aktKanvas.setAttribute('aria-label', d.aria);
   });
   new Chart(document.getElementById('chart-kanal'), {
     type: 'doughnut',

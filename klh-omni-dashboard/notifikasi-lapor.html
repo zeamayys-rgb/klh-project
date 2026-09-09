@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detail Notifikasi SP4N-LAPOR! | Omni Channel KLH/BPLH</title>
+<meta name="description" content="Detail notifikasi laporan masuk dari SP4N-LAPOR! pada Omni Channel KLH/BPLH: judul laporan, isi laporan, tanggal, dan tautan tanggapi di SP4N-LAPOR!.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="app">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/omni.js"></script>
+<script src="assets/js/components/appshell.js"></script>
+
+<klh-sidebar></klh-sidebar>
+<div class="app-main">
+  <klh-topbar judul="Detail Notifikasi"></klh-topbar>
+
+  <main id="konten" class="content">
+    <nav aria-label="Jejak navigasi"><ol class="breadcrumb breadcrumb--light" style="margin-bottom:var(--s4)">
+      <li><a href="index.html">Dashboard</a></li>
+      <li aria-current="page">Notifikasi SP4N-LAPOR!</li>
+    </ol></nav>
+
+    <div id="n-404" hidden>
+      <div class="alert alert-warning" style="margin-bottom:var(--s5)">
+        <klh-icon name="warning" class="icon icon--sm"></klh-icon>
+        <div id="n-404-teks"><strong>Notifikasi tidak ditemukan.</strong>Nomor laporan pada tautan tidak dikenal, sehingga yang ditampilkan adalah notifikasi SP4N-LAPOR! terbaru.</div>
+      </div>
+    </div>
+
+    <div class="page-head" data-reveal>
+      <div>
+        <h1 id="n-judul" style="font-size:var(--t-h3)">Memuat…</h1>
+        <p class="lead" id="n-meta"></p>
+      </div>
+      <div class="aksi" id="n-badges"></div>
+    </div>
+
+    <div class="dash-grid">
+      <section class="panel" aria-label="Isi laporan" data-reveal>
+        <div class="panel__head"><h2>Isi laporan</h2><span class="ket">Kutipan hasil sinkronisasi</span></div>
+        <div class="panel__body">
+          <p id="n-isi" style="font-size:var(--t-sm);line-height:1.65;color:var(--ink-700)"></p>
+          <ul class="info-list" id="n-info" style="margin-top:var(--s5)"></ul>
+          <div class="alert alert-info" style="margin-top:var(--s5)">
+            <klh-icon name="bell" class="icon icon--sm"></klh-icon>
+            <div><strong>Hanya notifikasi, bukan percakapan.</strong>SP4N-LAPOR! berbasis tiket. Menanggapi, mendisposisikan, dan menutup laporan tetap dilakukan petugas Humas di aplikasi SP4N-LAPOR!. Omni Channel hanya memberi tahu bahwa ada laporan baru untuk instansi KLH/BPLH.</div>
+          </div>
+          <p style="margin-top:var(--s5)">
+            <a class="btn btn-primary" id="n-ext" href="https://prod.lapor.go.id/" data-ext>
+              <klh-icon name="external" class="icon icon--sm"></klh-icon> Tanggapi di SP4N-LAPOR!
+            </a>
+          </p>
+          <p class="ket" style="margin-top:var(--s3)" id="n-sync"></p>
+        </div>
+      </section>
+
+      <section class="panel" aria-label="Notifikasi SP4N-LAPOR! lainnya" data-reveal>
+        <div class="panel__head"><h2>Notifikasi lainnya</h2></div>
+        <div class="panel__body"><ul class="sys-list" id="n-lain"></ul></div>
+      </section>
+    </div>
+
+    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh: notifikasi ini simulasi tarikan data dari SP4N-LAPOR!, bukan laporan nyata.</p>
+  </main>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var esc = KLH.esc;
+  var sync = KLH.omni.laporSync;
+  var lapor = KLH.omni.notifikasi.filter(function (n) { return n.jenis === 'lapor'; })
+    .sort(function (a, b) { return a.t < b.t ? 1 : -1; });
+
+  var qn = KLH.qs('n');
+  var n = lapor.filter(function (x) { return x.id === qn; })[0];
+  if (!n) {
+    var b404 = document.getElementById('n-404');
+    if (!qn) document.getElementById('n-404-teks').innerHTML =
+      '<strong>Tidak ada nomor laporan pada tautan.</strong>Menampilkan notifikasi SP4N-LAPOR! terbaru sebagai pratinjau.';
+    b404.hidden = false;
+    n = lapor[0];
+  }
+  document.title = n.judul + ' | Omni Channel KLH/BPLH';
+
+  document.getElementById('n-judul').textContent = n.judul;
+  document.getElementById('n-meta').innerHTML =
+    'Masuk <time datetime="' + esc(n.t) + '">' + KLH.fmtDateTime(n.t) + '</time> · nomor laporan <strong class="mono">' + esc(n.id) + '</strong>' +
+    ' · instansi tujuan ' + esc(n.tujuan || sync.instansi);
+  document.getElementById('n-sync').textContent =
+    'Ditarik otomatis dari API SP4N-LAPOR! (filter instansi tujuan ' + sync.instansi + '), job berjalan ' + sync.jeda +
+    '. Sinkronisasi terakhir ' + KLH.fmtDateTime(sync.terakhir) + '.';
+  document.getElementById('n-badges').innerHTML = KLH.kanalBadge('lapor');
+  document.getElementById('n-isi').textContent = n.isi;
+  document.getElementById('n-ext').href = n.ext || 'https://prod.lapor.go.id/';
+
+  document.getElementById('n-info').innerHTML = [
+    ['Judul laporan', n.judul],
+    ['Nomor laporan', n.id],
+    ['Tanggal laporan', KLH.fmtDateTime(n.t)],
+    ['Instansi tujuan', n.tujuan || sync.instansi],
+    ['Status di SP4N-LAPOR!', n.status || 'Perlu ditanggapi'],
+    ['Sumber', 'SP4N-LAPOR! (prod.lapor.go.id)']
+  ].map(function (r) {
+    return '<li><span class="k">' + r[0] + '</span><span class="v">' + esc(r[1]) + '</span></li>';
+  }).join('');
+
+  var lain = lapor.filter(function (x) { return x.id !== n.id; });
+  document.getElementById('n-lain').innerHTML = lain.length ? lain.map(function (x) {
+    return '<li><a href="notifikasi-lapor.html?n=' + encodeURIComponent(x.id) + '">' + esc(x.judul) + '</a>' +
+      '<span class="val"><time datetime="' + esc(x.t) + '">' + KLH.fmtDate(x.t) + '</time></span></li>';
+  }).join('') : '<li><span>Tidak ada notifikasi SP4N-LAPOR! lain.</span></li>';
+})();
+</script>
+</body>
+</html>
