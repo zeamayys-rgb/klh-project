@@ -91,7 +91,7 @@
             <thead><tr>
               <th scope="col">Sesi</th><th scope="col">Perangkat</th>
               <th scope="col">Alur halaman</th><th scope="col" class="num">Halaman</th>
-              <th scope="col" class="num">Durasi</th><th scope="col">Hasil</th>
+              <th scope="col" class="num">Durasi</th>
             </tr></thead>
             <tbody id="sesi-body"></tbody>
           </table>
@@ -103,8 +103,6 @@
       <klh-icon name="eye" class="icon icon--sm"></klh-icon>
       <div><strong>Rekaman bersifat anonim.</strong>Sesi tidak menyimpan nama, surel, atau IP penuh, hanya id sesi acak, atribut perangkat, dan urutan halaman. Pada sistem produksi rekaman disimpan maksimal 30 hari lalu dihapus otomatis.</div>
     </div>
-
-    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh — heatmap dibangkitkan dari pola deterministik untuk keperluan demo.</p>
   </main>
 </div>
 
@@ -161,8 +159,7 @@
       '<td>' + s.perangkat + '<span class="tkt-pemohon">' + s.browser + ' · ' + s.os + '</span></td>' +
       '<td><span class="sesi-alur">' + ringkas + '</span></td>' +
       '<td class="num">' + s.jejak.length + '</td>' +
-      '<td class="num mono">' + KLH.fmtDurasi(KLH.sesiDurasi(s)) + '</td>' +
-      '<td><span class="badge bg-' + s.hasilTone + '">' + s.hasil + '</span></td></tr>';
+      '<td class="num mono">' + KLH.fmtDurasi(KLH.sesiDurasi(s)) + '</td></tr>';
   }).join('');
 
   /* ---- Chart perangkat ---- */

@@ -2,7 +2,8 @@
 
 **Proyek:** Pengembangan Konten User Interface Website KLH/BPLH
 **Vendor:** PT Bening Guru Semesta · **Penyusun:** Abdan (UI/UX Designer)
-**Status:** SELESAI — 7 Jul 2026 · 13 entri checklist / 12 file HTML (Panel Notifikasi = komponen topbar, bukan halaman)
+**Status:** SELESAI — 7 Jul 2026 · 14 entri checklist / 13 file HTML (Panel Notifikasi = komponen topbar, bukan halaman)
+**Pembaruan 9 Sep 2026:** matriks izin `role.html` dapat diedit + halaman baru `pengguna.html` (Manajemen Pengguna)
 
 Aplikasi **internal** (persona P3 Ratna — agen layanan) untuk mengelola komunikasi
 warga lintas **7 kanal resmi** — WhatsApp, Instagram, Facebook, X, email, web form,
@@ -59,7 +60,7 @@ Login demo client-side: email & sandi valid apa pun diterima; OTP MFA menerima
 6 digit apa pun (mis. `246810`); tombol SSO mensimulasikan masuk tunggal instansi.
 Flag sesi di `localStorage` (`klh-omni-sesi`, try/catch) — bukan data inti.
 
-## Halaman (13 entri checklist)
+## Halaman (14 entri checklist)
 
 | Gelombang | Entri | Berkas |
 |---|---|---|
@@ -72,7 +73,8 @@ Flag sesi di `localStorage` (`klh-omni-sesi`, try/catch) — bukan data inti.
 | B (Should) | Routing & Auto-Reply — 6 aturan kategori (saklar), 5 template balasan bervariabel | `routing.html` |
 | B | Analytics — **heatmap jam×hari (grid dummy deterministik)**, klik/scroll per halaman, device/browser | `analytics.html` |
 | B | Detail Sesi (template `?s=`) — **session recording & user journey**: perjalanan antar halaman, klik & scroll per langkah, titik hambatan, pemutaran langkah (simulasi) | `session-detail.html` |
-| B | Role Management — **6 peran** (Super Admin→Viewer) + matriks 9 izin | `role.html` |
+| B | Role Management — **6 peran** (Super Admin→Viewer) + **matriks 9 izin yang dapat diedit** (kotak centang per sel, hitungan izin kartu ikut berubah, tombol Pulihkan) | `role.html` |
+| B | **Manajemen Pengguna** — daftar 8 akun internal (peran, unit kerja, kanal ditangani, aktif terakhir, status), cari + filter peran/status, dialog tambah/edit tervalidasi, konfirmasi hapus | `pengguna.html` |
 | B | Keamanan — kebijakan MFA/SSO (saklar), ringkasan 24 jam, **audit trail** ber-filter | `keamanan.html` |
 | B | Manajemen Kanal — status koneksi 7 kanal (terhubung/gangguan/terputus), otorisasi ulang demo | `kanal.html` |
 | C (Could) | Profil Pengguna — data akun (validasi NIP/email), preferensi notifikasi, keamanan akun | `profil.html` |
@@ -125,7 +127,7 @@ menonaktifkan reveal & transisi.
 
 ## Verifikasi (protokol CLAUDE.md — 7 Jul 2026)
 
-- Playwright Chromium 1440px & 390px: **12 halaman × 2 viewport, nol error JS**
+- Playwright Chromium 1440px & 390px: **13 halaman × 2 viewport, nol error JS**
   (403 Google Fonts di sandbox diabaikan sesuai protokol).
 - Tanpa overflow horizontal pada 390px di seluruh halaman.
 - Link-check: semua `href`/`src` internal valid.

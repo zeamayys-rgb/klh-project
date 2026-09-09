@@ -23,7 +23,7 @@
 | 01 · Website Utama | 24 | 1 (Beranda) | **24 — Prototipe HTML M01 ✓** (+ HF-WEB-01 Beranda) | 6 |
 | 02 · PPID Web | 16 | 2 (Form, Lacak) | **16 — Prototipe HTML M02 ✓** (+ HF-PPID-01 Lacak) | 8 |
 | 02b · PPID Mobile (Flutter) | 8 | 0 | **8 — Prototipe UI HTML M02b ✓** (+ HF-PPID-M01 Lacak) | 6 |
-| 03 · Omni Channel Dashboard | 13 | 1 (Inbox) | **13 — Prototipe HTML M03 ✓** (+ HF-OMNI-01 Dashboard/Inbox) | 7 |
+| 03 · Omni Channel Dashboard | 14 | 1 (Inbox) | **14 — Prototipe HTML M03 ✓** (+ HF-OMNI-01 Dashboard/Inbox) | 7 |
 | **Total** | **61** | **4** | **61** | **27** |
 
 > **Status:** keempat modul prototipe UI (M01, M02, M02b, M03) selesai. Fondasi bersama M01 (`tokens.css` + `base.css` + `components.css` + `icons.js`) dipakai ulang di M02, M02b & M03. **Berikutnya:** implementasi Flutter + backend PPID Mobile (di luar lingkup UI) dan 3 sub-fitur Analytics Omni (T2).
@@ -111,7 +111,7 @@
 
 ---
 
-## 03 · OMNI CHANNEL DASHBOARD (13 halaman) — ✅ SELESAI (Prototipe HTML M03, 7 Jul 2026)
+## 03 · OMNI CHANNEL DASHBOARD (14 halaman) — ✅ SELESAI (Prototipe HTML M03, 7 Jul 2026 · +Manajemen Pengguna 9 Sep 2026)
 
 > Internal (P3 Ratna). Navigasi via sidebar (app shell `<klh-sidebar>` + `<klh-topbar>`). Komponen wajib KAK sudah ada di Design System.
 
@@ -131,7 +131,8 @@
 - [x] **Reporting** — laporan + ekspor PDF/Excel/CSV · **M** · *(WF-26 · M03 — `reporting.html`, ekspor demo)*
 
 ### Pengaturan & akses
-- [x] **Role Management** — 6 peran (Super Admin…Viewer) · S · *(M03 — `role.html`, matriks 9 izin)*
+- [x] **Role Management** — 6 peran (Super Admin…Viewer) · S · *(M03 — `role.html`, matriks 9 izin **dapat diedit** + tombol Pulihkan)*
+- [x] **Manajemen Pengguna** — daftar akun internal, peran, unit kerja, kanal ditangani · S · *(M03 — `pengguna.html`, 9 Sep 2026: cari + filter peran/status, tambah/edit/hapus simulasi)*
 - [x] **Keamanan** — MFA, SSO, audit trail, activity log · S · *(M03 — `keamanan.html`, log ber-filter)*
 - [x] **Profil Pengguna / Akun** · C · *(M03 — `profil.html`)*
 - [x] **Notifikasi (panel)** — escalation & sistem (komponen) · S · *(M03 — komponen topbar di `appshell.js`: filter Semua/Eskalasi/Sistem + tandai dibaca)*

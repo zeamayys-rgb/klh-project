@@ -31,9 +31,6 @@
         <h1>Manajemen Kanal</h1>
         <p class="lead">Status koneksi 7 kanal resmi &amp; sinkronisasi pesan masuk. Data contoh prototipe.</p>
       </div>
-      <div class="aksi">
-        <button class="btn btn-primary" type="button" id="btn-sinkron"><klh-icon name="history" class="icon icon--sm"></klh-icon> Sinkronkan semua</button>
-      </div>
     </div>
 
     <div id="kanal-alert"></div>
@@ -52,7 +49,7 @@
   var STATUS = {
     terhubung: { badge: '<span class="badge bg-success">', icon: 'check', label: 'Terhubung' },
     gangguan:  { badge: '<span class="badge bg-warning">', icon: 'warning', label: 'Gangguan' },
-    terputus:  { badge: '<span class="badge bg-danger">', icon: 'close', label: 'Terputus' }
+    terputus:  { badge: '<span class="badge bg-danger">', icon: 'close', label: 'Tidak terhubung' }
   };
   function badge(st) {
     var s = STATUS[st] || STATUS.terhubung;
@@ -64,7 +61,7 @@
     document.getElementById('kanal-alert').innerHTML =
       '<div class="alert alert-warning" data-reveal style="margin-bottom:var(--s5)">' + KLH.iconSVG('warning', 'icon icon--sm') +
       '<div><strong>' + putus.length + ' kanal butuh perhatian.</strong>' +
-      putus.map(function (k) { return KLH.kanalInfo(k.id).label + ' (' + k.status + ')'; }).join(' · ') +
+      putus.map(function (k) { return KLH.kanalInfo(k.id).label + ' (' + STATUS[k.status].label.toLowerCase() + ')'; }).join(' · ') +
       ' — pesan baru pada kanal terputus tidak masuk ke inbox sampai disambungkan ulang.</div></div>';
   }
 
@@ -110,12 +107,6 @@
     } else {
       KLH.toast('<strong>Pengaturan ' + label + ' (simulasi).</strong> Pada sistem sebenarnya, konfigurasi webhook/token terbuka.', 'info');
     }
-  });
-
-  document.getElementById('btn-sinkron').addEventListener('click', function () {
-    o.koneksi.forEach(function (k) { if (k.status === 'terhubung') k.sinkron = KLH.demoNowIso(); });
-    render();
-    KLH.toast('<strong>Sinkronisasi manual dijalankan (demo)</strong> untuk semua kanal terhubung.');
   });
 })();
 </script>

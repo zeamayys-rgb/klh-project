@@ -555,6 +555,35 @@ body.login { background: var(--bg); }
 .matrix-ya { color: var(--success); display: inline-flex; align-items: center; gap: 4px; font-weight: 600; font-size: var(--t-xs); }
 .matrix-tidak { color: var(--ink-300); display: inline-flex; align-items: center; gap: 4px; font-size: var(--t-xs); }
 
+/* Matriks izin dapat diedit: kotak centang mengisi seluruh sel (target ≥44px) */
+.matrix-wrap .tbl td { padding: 0; }
+.matrix-wrap .tbl td:first-child { padding: 13px 16px; }
+.mx-chk {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: 4px; cursor: pointer;
+}
+.mx-chk input { width: 20px; height: 20px; accent-color: var(--g-600); cursor: pointer; }
+.mx-chk:hover { background: var(--klh-green-50); }
+.mx-chk:has(input:focus-visible) { outline: 2px solid var(--g-600); outline-offset: -2px; }
+.mx-chk:has(input:disabled) { cursor: not-allowed; opacity: .55; }
+.mx-ubah { display: inline-flex; align-items: center; gap: 6px; font-size: var(--t-xs); color: var(--ink-500); }
+
+/* Manajemen Pengguna */
+.field label .req { color: var(--danger); }
+.pgn-sel { display: inline-flex; align-items: center; gap: var(--s3); }
+.pgn-sel small { display: block; font-size: var(--t-xs); color: var(--ink-400); }
+.pgn-kanal { display: flex; flex-wrap: wrap; gap: 4px; max-width: 190px; }
+.pgn-kanal .badge { white-space: nowrap; }
+.pgn-waktu { font-family: var(--font-mono); font-size: var(--t-xs); line-height: 1.5; white-space: nowrap; }
+.pgn-sandi { position: relative; }
+.pgn-sandi .input { padding-right: 56px; }
+.pgn-sandi button {
+  position: absolute; top: 2px; right: 2px; bottom: 2px;
+  min-height: 0; min-width: 44px; padding: 0 12px; border-radius: calc(var(--r-sm) - 2px);
+}
+.pgn-kotak { border: 1px solid var(--line); border-radius: var(--r-sm); padding: var(--s2); }
+#dlg-pengguna { max-height: calc(100dvh - 32px); overflow-y: auto; }
+
 /* Saklar (switch) aksesibel */
 .switch {
   position: relative; width: 46px; height: 26px; flex: none;
@@ -625,7 +654,7 @@ body.login { background: var(--bg); }
 }
 .tbl .select.rt-prio,
 .tbl .select.rt-sla { width: auto; min-width: 104px; min-height: 44px; padding: 8px 10px; }
-.tbl .select.rt-unit { width: auto; max-width: 240px; min-height: 44px; padding: 8px 10px; font-size: var(--t-xs); }
+.tbl .select.rt-unit { width: 100%; min-width: 200px; min-height: 44px; padding: 8px 10px; font-size: var(--t-xs); }
 
 /* ---- Dropdown checkbox kanal ---- */
 .kanal-pick { position: relative; }
@@ -659,3 +688,17 @@ body.login { background: var(--bg); }
 /* menu dropdown tidak boleh terpotong oleh scroll tabel */
 .tbl-wrap:has(.kanal-pick[open]) { overflow: visible; }
 .kanal-pick__menu { max-height: min(420px, 60vh); overflow-y: auto; }
+
+/* ---- Modal "Buat tiket baru" (inbox.html) ---- */
+.dlg {
+  border: 0; border-radius: var(--r-lg); box-shadow: var(--sh-3);
+  padding: var(--s6); width: min(460px, calc(100vw - 32px));
+  background: var(--surface); color: var(--ink-900);
+}
+.dlg::backdrop { background: rgba(0, 33, 30, .45); }
+.dlg__head { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); margin-bottom: var(--s5); }
+.dlg__head h2 { font-size: var(--t-h3); margin: 0; }
+.dlg__aksi { display: flex; gap: var(--s3); justify-content: flex-end; margin-top: var(--s5); }
+.dlg .input[readonly] { background: var(--klh-green-50); color: var(--ink-700); }
+/* nama kontak inbox dapat dikoreksi agen langsung di panel info */
+.input--inline { padding: 6px 10px; min-height: 36px; }

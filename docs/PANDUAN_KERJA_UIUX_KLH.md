@@ -215,6 +215,12 @@ Versi   : tambahkan _v2, _final bila revisi
 
 ### LOG DELIVERABLE
 
+**9 Sep 2026 — M03: matriks izin dapat diedit + halaman Manajemen Pengguna SELESAI** → `klh-omni-dashboard/role.html`, `klh-omni-dashboard/pengguna.html`
+- **`role.html`:** matriks 9 izin × 6 peran kini dapat disunting lewat kotak centang per sel (label tersembunyi "izin untuk peran", target sentuh 44px, toast konfirmasi tiap perubahan); hitungan "n dari 9 izin aktif" pada kartu peran ikut diperbarui; tombol **Pulihkan** mengembalikan matriks ke pengaturan awal. Tombol "Undang pengguna" (`#btn-undang`) dihapus, diganti tautan ke halaman Manajemen Pengguna.
+- **`pengguna.html` (baru, entri checklist ke-14):** pola diadaptasi dari Manajemen Pengguna CMS (Modul 04) dengan kolom yang disesuaikan konteks omni: Pengguna (avatar, nama, email) · Peran · Unit kerja · **Kanal ditangani** (badge kanal, "Seluruh kanal" untuk Super Admin/Admin) · Aktif terakhir · Status · Aksi. Cari (nama/email/unit) + filter peran & status; dialog tambah/edit tervalidasi (nama, email, kata sandi minimal 8 karakter dengan toggle lihat, peran + ringkasan izin, unit kerja, pilihan kanal); konfirmasi hapus terpisah. Semua perubahan simulasi, tanpa persist.
+- Data dummy `pengguna` (8 akun, selaras nama pada audit trail) ditambahkan ke `assets/js/data/omni.js`; ikon `pencil`/`trash`/`eyeoff` ditambahkan ke `icons.js` modul; entri sidebar **Manajemen Pengguna** disisipkan di grup Pengaturan sebelum Role Management.
+- Verifikasi: Playwright 1440px & 390px untuk kedua halaman, **nol error JS**, tabel pengguna tanpa overflow horizontal di 1440px; uji interaksi lolos (centang/pulihkan matriks + sinkron hitungan kartu, cari, filter peran, validasi form kosong, tambah akun, toggle "Seluruh kanal", hapus akun, `aria-current` sidebar). Zip modul belum diperbarui.
+
 **6 Agu 2026 — Revisi M01 dari feedback Kepala Biro Humas (`docs/administrative/Revisi Website KLH.docx`) SELESAI**
 - **Hero beranda:** slider kanan atas kini menampilkan **Pengumuman** (bukan berita); tombol "Lapor Pencemaran" dihapus; tombol "Cek Kualitas Udara & Air" diganti label **Indeks Kualitas Lingkungan Hidup** dengan 3 tautan eksternal: ISPU (udara), Onlimo (air), Bursa Karbon IDXCarbon; deretan quick-link PPID/PTSP/Ikut Program dihapus.
 - **Layanan publik beranda dipangkas jadi 4 kartu:** PTSP Perizinan · Pengaduan Lingkungan Hidup · JDIH · Layanan Lainnya (indeks). Judul section → "Layanan utama untuk Anda".

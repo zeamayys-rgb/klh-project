@@ -80,6 +80,40 @@
   </main>
 </div>
 
+<!-- Modal buat tiket baru (percakapan yang belum bertiket) -->
+<dialog id="dlg-tiket" class="dlg" aria-labelledby="dlg-tiket-h">
+  <form id="form-tiket" method="dialog" novalidate>
+    <div class="dlg__head">
+      <h2 id="dlg-tiket-h">Buat tiket baru</h2>
+      <span id="nt-kanal"></span>
+    </div>
+    <div class="field">
+      <label for="nt-judul">Judul tiket</label>
+      <input class="input" type="text" id="nt-judul" maxlength="120" aria-describedby="nt-judul-err">
+      <span class="errmsg" id="nt-judul-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Judul tiket wajib diisi (maksimal 120 karakter).</span>
+    </div>
+    <div class="field">
+      <label for="nt-kategori">Kategori</label>
+      <select class="select" id="nt-kategori"></select>
+      <span class="hint" id="nt-kategori-hint">Menentukan unit tujuan, prioritas, dan tenggat SLA.</span>
+    </div>
+    <div class="field">
+      <label for="nt-nama">Nama pelapor</label>
+      <input class="input" type="text" id="nt-nama" maxlength="80" aria-describedby="nt-nama-err">
+      <span class="errmsg" id="nt-nama-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Nama pelapor wajib diisi.</span>
+    </div>
+    <div class="field">
+      <label for="nt-kontak">Nomor HP / ID kanal</label>
+      <input class="input" type="text" id="nt-kontak" readonly aria-describedby="nt-kontak-hint">
+      <span class="hint" id="nt-kontak-hint">Diambil otomatis dari kanal asal, tidak dapat diubah.</span>
+    </div>
+    <div class="dlg__aksi">
+      <button class="btn btn-ghost" type="button" id="nt-batal">Batal</button>
+      <button class="btn btn-primary" type="submit"><klh-icon name="ticket" class="icon icon--sm"></klh-icon> Buat tiket</button>
+    </div>
+  </form>
+</dialog>
+
 <script src="assets/js/main.js"></script>
 <script>
 (function () {
@@ -171,7 +205,11 @@
 
     info.innerHTML =
       '<section><h2>Kontak</h2><ul class="info-list">' +
-        '<li><span class="k">Nama</span><span class="v">' + c.nama + '</span></li>' +
+        /* nama bisa dikoreksi agen: sebagian kanal (IG, live chat, LAPOR!) tidak membawa nama asli */
+        '<li><label class="k" for="ib-nama">Nama</label><span class="v">' +
+          '<input class="input input--inline" id="ib-nama" type="text" maxlength="80" value="' + KLH.esc(c.nama) + '"' +
+          ' placeholder="Belum teridentifikasi" aria-describedby="ib-nama-ket">' +
+          '<span class="ket" id="ib-nama-ket">Ubah bila kanal tidak membawa nama asli.</span></span></li>' +
         '<li><span class="k">Kanal</span><span class="v">' + KLH.kanalBadge(c.kanal) + '</span></li>' +
         '<li><span class="k">Alamat / ID kanal</span><span class="v mono">' + c.kontak + '</span></li>' +
         '<li><span class="k">Percakapan</span><span class="v mono">' + c.id + ' · ' + KLH.fmtDateTime(c.waktu) + '</span></li>' +
@@ -192,10 +230,20 @@
         '<a class="btn btn-ghost btn-sm" href="routing.html">' + KLH.iconSVG('route', 'icon icon--sm') + ' Atur routing kanal</a>' +
       '</div></section>';
 
-    var btnTiket = document.getElementById('btn-buat-tiket');
-    if (btnTiket) btnTiket.addEventListener('click', function () {
-      KLH.toast('<strong>Tiket dibuat (simulasi).</strong> Pada sistem sebenarnya, percakapan ' + c.id + ' otomatis tercatat sebagai tiket baru sesuai aturan routing.', 'info');
+    var elNama = document.getElementById('ib-nama');
+    elNama.addEventListener('change', function () {
+      var nama = this.value.trim();
+      if (!nama || nama === c.nama) { this.value = c.nama; return; }
+      c.nama = nama;
+      if (tkt) tkt.pemohon = nama;
+      renderList(); /* perbarui di tempat — jangan render ulang panel, fokus agen tetap di input */
+      head.querySelector('.ib-conv__who strong').textContent = nama;
+      head.querySelector('.avatar').textContent = inisial(nama);
+      KLH.toast('<strong>Nama kontak diperbarui.</strong> Percakapan ' + c.id + ' kini tercatat atas nama ' + KLH.esc(nama) + '.');
     });
+
+    var btnTiket = document.getElementById('btn-buat-tiket');
+    if (btnTiket) btnTiket.addEventListener('click', function () { bukaDlgTiket(c); });
     var btnSelesai = document.getElementById('btn-selesai');
     if (btnSelesai) btnSelesai.addEventListener('click', function () {
       c.status = 'selesai';
@@ -208,6 +256,74 @@
       aktif = null; renderList(); renderConv();
     });
   }
+
+  /* ---- Modal "Buat tiket baru" (percakapan yang belum bertiket) ---- */
+  var dlg = document.getElementById('dlg-tiket');
+  var dlgConv = null;
+  document.getElementById('nt-kategori').innerHTML = KLH.opsiHTML(o.routingKategori.map(function (r) { return r.nama; }));
+
+  function setErr(id, on) {
+    var el = document.getElementById(id);
+    el.closest('.field').classList.toggle('err', on);
+    if (on) el.setAttribute('aria-invalid', 'true'); else el.removeAttribute('aria-invalid');
+    document.getElementById(id + '-err').hidden = !on;
+    return !on;
+  }
+
+  function bukaDlgTiket(c) {
+    dlgConv = c;
+    document.getElementById('nt-kanal').innerHTML = KLH.kanalBadge(c.kanal);
+    document.getElementById('nt-judul').value = c.subjek;
+    document.getElementById('nt-nama').value = c.nama;
+    document.getElementById('nt-kontak').value = c.kontak;
+    setErr('nt-judul', false); setErr('nt-nama', false);
+    dlg.showModal();
+    document.getElementById('nt-judul').focus();
+  }
+
+  document.getElementById('nt-batal').addEventListener('click', function () { dlg.close(); });
+
+  /* tenggat SLA mengikuti aturan routing kategori ("4 jam" / "2 hari") */
+  function tenggatIso(sla) {
+    var m = /(\d+)\s*(jam|hari)/.exec(sla || '');
+    var jam = m ? parseInt(m[1], 10) * (m[2] === 'hari' ? 24 : 1) : 24;
+    var d = new Date(KLH.demoNow() + jam * 3600000);
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) +
+      'T' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':00';
+  }
+
+  function nomorTiketBaru() {
+    var max = o.tiket.reduce(function (n, t) {
+      var v = parseInt(String(t.id).split('-').pop(), 10);
+      return v > n ? v : n;
+    }, 0);
+    return 'TKT-2026-' + ('000' + (max + 1)).slice(-4);
+  }
+
+  document.getElementById('form-tiket').addEventListener('submit', function (e) {
+    var judul = document.getElementById('nt-judul').value.trim();
+    var nama = document.getElementById('nt-nama').value.trim();
+    var ok = setErr('nt-judul', !judul);
+    ok = setErr('nt-nama', !nama) && ok;
+    if (!ok) { e.preventDefault(); return; }   /* method="dialog": batal tutup bila tidak valid */
+
+    var kategori = document.getElementById('nt-kategori').value;
+    var aturan = o.routingKategori.filter(function (r) { return r.nama === kategori; })[0] || {};
+    var baru = {
+      id: nomorTiketBaru(), subjek: judul, kanal: dlgConv.kanal,
+      pemohon: nama, kategori: kategori, prioritas: aturan.prioritas || 'Sedang',
+      status: 'Open', agen: o.agen.nama, disposisi: null, rating: null,
+      dibuat: KLH.demoNowIso(), tenggat: tenggatIso(aturan.sla), percakapan: dlgConv.id
+    };
+    o.tiket.unshift(baru);
+    dlgConv.nama = nama;
+    dlgConv.tiket = baru.id;
+    if (dlgConv.status === 'baru') dlgConv.status = 'berjalan';
+    renderList(); renderConv();
+    KLH.toast('<strong>Tiket ' + baru.id + ' dibuat (demo).</strong> Kategori ' + KLH.esc(kategori) +
+      ' — prioritas ' + baru.prioritas + ', tenggat ' + KLH.fmtDateTime(baru.tenggat) + '.');
+  });
 
   /* ---- Interaksi ---- */
   elList.addEventListener('click', function (e) {

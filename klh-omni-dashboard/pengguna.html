@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manajemen Pengguna — Omni Channel KLH/BPLH</title>
+<meta name="description" content="Manajemen Pengguna Omni Channel KLH/BPLH: kelola akun agen, peran, unit kerja, dan kanal yang ditangani.">
+<link rel="icon" type="image/png" href="assets/img/klh-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="app">
+<a class="skip" href="#konten">Lewati ke konten utama</a>
+<script>window.KLH_ROOT = '';</script>
+<script src="assets/js/components/icons.js"></script>
+<script src="assets/js/data/omni.js"></script>
+<script src="assets/js/components/appshell.js"></script>
+
+<klh-sidebar></klh-sidebar>
+<div class="app-main">
+  <klh-topbar judul="Manajemen Pengguna"></klh-topbar>
+
+  <main id="konten" class="content">
+    <div class="page-head" data-reveal>
+      <div>
+        <h1>Manajemen Pengguna</h1>
+        <p class="lead">Akun internal Omni Channel: <strong>peran, unit kerja, dan kanal yang ditangani</strong>. Izin per peran diatur di Role Management. Data contoh prototipe.</p>
+      </div>
+      <div class="aksi">
+        <a class="btn btn-outline" href="role.html"><klh-icon name="idcard" class="icon icon--sm"></klh-icon> Matriks izin peran</a>
+        <button class="btn btn-primary" type="button" id="btn-tambah"><klh-icon name="people" class="icon icon--sm"></klh-icon> Tambah pengguna</button>
+      </div>
+    </div>
+
+    <div class="toolbar" data-reveal>
+      <div class="ib-cari">
+        <klh-icon name="search" class="icon icon--sm"></klh-icon>
+        <input type="search" id="p-cari" placeholder="Cari nama, email, unit kerja…" aria-label="Cari pengguna">
+      </div>
+      <label class="sr-only" for="p-peran">Filter peran</label>
+      <select class="select" id="p-peran"><option value="">Semua peran</option></select>
+      <label class="sr-only" for="p-status">Filter status akun</label>
+      <select class="select" id="p-status">
+        <option value="">Semua status</option>
+        <option value="aktif">Aktif</option>
+        <option value="nonaktif">Nonaktif</option>
+      </select>
+      <span class="toolbar__hasil" id="p-hasil" aria-live="polite"></span>
+    </div>
+
+    <div class="tbl-wrap" data-reveal>
+      <table class="tbl" aria-label="Daftar pengguna Omni Channel">
+        <thead>
+          <tr>
+            <th scope="col">Pengguna</th>
+            <th scope="col">Peran</th>
+            <th scope="col">Unit kerja</th>
+            <th scope="col">Kanal ditangani</th>
+            <th scope="col">Aktif terakhir</th>
+            <th scope="col">Status</th>
+            <th scope="col">Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="tb-pengguna"></tbody>
+      </table>
+    </div>
+
+    <p class="demo-note"><klh-icon name="warning" class="icon icon--sm"></klh-icon> Konten contoh: penambahan, penyuntingan, dan penghapusan akun pada prototipe ini bersifat simulasi dan tidak tersimpan.</p>
+  </main>
+</div>
+
+<!-- Modal tambah / edit pengguna -->
+<dialog class="dlg" id="dlg-pengguna" aria-labelledby="dlg-pengguna-h">
+  <form id="form-pengguna" novalidate>
+    <div class="dlg__head"><h2 id="dlg-pengguna-h">Tambah pengguna</h2></div>
+    <div class="field">
+      <label for="u-nama">Nama lengkap <span class="req" aria-hidden="true">*</span></label>
+      <input class="input" id="u-nama" type="text" maxlength="80" aria-describedby="u-nama-err">
+      <span class="errmsg" id="u-nama-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Nama wajib diisi.</span>
+    </div>
+    <div class="field">
+      <label for="u-email">Email dinas <span class="req" aria-hidden="true">*</span></label>
+      <input class="input" id="u-email" type="email" placeholder="nama@klh.go.id" aria-describedby="u-email-err">
+      <span class="errmsg" id="u-email-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Masukkan alamat email yang valid.</span>
+    </div>
+    <div class="field">
+      <label for="u-sandi">Kata sandi awal <span class="req" aria-hidden="true">*</span></label>
+      <div class="pgn-sandi">
+        <input class="input" id="u-sandi" type="password" placeholder="Minimal 8 karakter" autocomplete="new-password" aria-describedby="u-sandi-err u-sandi-hint">
+        <button class="btn btn-ghost" type="button" id="u-sandi-lihat" aria-pressed="false" aria-label="Tampilkan kata sandi"><klh-icon name="eye" class="icon icon--sm"></klh-icon></button>
+      </div>
+      <span class="hint" id="u-sandi-hint">Dibuat oleh Super Admin; pengguna diminta menggantinya saat masuk pertama kali.</span>
+      <span class="errmsg" id="u-sandi-err" hidden><klh-icon name="warning" class="icon icon--sm"></klh-icon> Kata sandi minimal 8 karakter.</span>
+    </div>
+    <div class="field">
+      <label for="u-peran">Peran</label>
+      <select class="select" id="u-peran" aria-describedby="u-peran-hint"></select>
+      <span class="hint" id="u-peran-hint"></span>
+    </div>
+    <div class="field">
+      <label for="u-unit">Unit kerja</label>
+      <select class="select" id="u-unit"></select>
+    </div>
+    <div class="field">
+      <span class="lbl" id="u-kanal-lbl">Kanal ditangani</span>
+      <div class="pgn-kotak" id="u-kanal" role="group" aria-labelledby="u-kanal-lbl" aria-describedby="u-kanal-hint"></div>
+      <span class="hint" id="u-kanal-hint">Menentukan percakapan mana yang masuk ke antrean pengguna ini.</span>
+    </div>
+    <div class="field" id="fs-status" hidden>
+      <label for="u-status">Status akun</label>
+      <select class="select" id="u-status">
+        <option value="aktif">Aktif</option>
+        <option value="nonaktif">Nonaktif</option>
+      </select>
+    </div>
+    <div class="dlg__aksi">
+      <button class="btn btn-ghost" type="button" data-batal>Batal</button>
+      <button class="btn btn-primary" type="submit" id="btn-simpan"><klh-icon name="send" class="icon icon--sm"></klh-icon> Simpan &amp; kirim undangan</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Konfirmasi hapus -->
+<dialog class="dlg" id="dlg-hapus" aria-labelledby="dlg-hapus-h">
+  <div class="dlg__head"><h2 id="dlg-hapus-h">Hapus pengguna?</h2></div>
+  <p style="margin:0;font-size:var(--t-sm);color:var(--ink-500)">Akun <strong id="hapus-nama"></strong> akan kehilangan akses Omni Channel. Percakapan dan tiket yang pernah ditanganinya tetap tersimpan atas nama pengguna tersebut.</p>
+  <div class="dlg__aksi">
+    <button class="btn btn-ghost" type="button" data-batal>Batal</button>
+    <button class="btn btn-danger" type="button" id="btn-hapus-ya"><klh-icon name="trash" class="icon icon--sm"></klh-icon> Hapus pengguna</button>
+  </div>
+</dialog>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  var o = KLH.omni;
+  var esc = KLH.esc;
+  var daftar = o.pengguna;
+  var tbody = document.getElementById('tb-pengguna');
+  var hasil = document.getElementById('p-hasil');
+
+  /* Unit kerja: gabungan unit yang sudah dipakai + unit tujuan disposisi */
+  var UNIT = [];
+  daftar.map(function (u) { return u.unit; }).concat(o.unitTujuan).forEach(function (n) {
+    if (UNIT.indexOf(n) === -1) UNIT.push(n);
+  });
+
+  function kanalHTML(u) {
+    if (u.kanal.indexOf('*') !== -1) return '<span class="badge bg-brand">Seluruh kanal</span>';
+    if (!u.kanal.length) return '<span style="color:var(--ink-400)">Tidak menangani percakapan</span>';
+    return u.kanal.map(function (id) { return KLH.kanalBadge(id); }).join(' ');
+  }
+
+  /* ---- Tabel + filter ---- */
+  function render() {
+    var q = document.getElementById('p-cari').value.trim().toLowerCase();
+    var fp = document.getElementById('p-peran').value;
+    var fs = document.getElementById('p-status').value;
+    var baris = daftar.filter(function (u) {
+      var cocok = !q || (u.nama + ' ' + u.email + ' ' + u.unit).toLowerCase().indexOf(q) !== -1;
+      return cocok && (!fp || u.peran === fp) && (!fs || u.status === fs);
+    });
+    hasil.textContent = baris.length + ' dari ' + daftar.length + ' pengguna';
+    tbody.innerHTML = baris.length ? baris.map(function (u) {
+      var i = daftar.indexOf(u);
+      return '<tr>' +
+        '<td><span class="pgn-sel"><span class="avatar" aria-hidden="true">' + esc(u.inisial) + '</span>' +
+          '<span><strong>' + esc(u.nama) + '</strong><small>' + esc(u.email) + '</small></span></span></td>' +
+        '<td>' + esc(u.peran) + '</td>' +
+        '<td>' + esc(u.unit) + '</td>' +
+        '<td><span class="pgn-kanal">' + kanalHTML(u) + '</span></td>' +
+        '<td class="pgn-waktu">' + KLH.fmtDate(u.aktif) + '<br>' + KLH.fmtTime(u.aktif) + '</td>' +
+        '<td>' + (u.status === 'aktif'
+          ? '<span class="badge bg-success">' + KLH.iconSVG('check', 'icon icon--sm') + ' Aktif</span>'
+          : '<span class="badge bg-neutral">' + KLH.iconSVG('lock', 'icon icon--sm') + ' Nonaktif</span>') + '</td>' +
+        '<td><span style="display:inline-flex;gap:var(--s2);white-space:nowrap">' +
+          '<button class="btn btn-ghost btn-sm btn-edit" type="button" data-i="' + i + '" aria-label="Edit ' + esc(u.nama) + '">' + KLH.iconSVG('pencil', 'icon icon--sm') + ' Edit</button>' +
+          '<button class="btn btn-ghost btn-sm btn-hapus" type="button" data-i="' + i + '" style="color:var(--danger)" aria-label="Hapus ' + esc(u.nama) + '">' + KLH.iconSVG('trash', 'icon icon--sm') + ' Hapus</button>' +
+        '</span></td></tr>';
+    }).join('') : '<tr><td colspan="7" style="text-align:center;color:var(--ink-500);padding:var(--s8) var(--s4)">Tidak ada pengguna yang cocok dengan filter.</td></tr>';
+  }
+
+  var peranSel = document.getElementById('p-peran');
+  peranSel.innerHTML += o.peran.map(function (r) {
+    return '<option value="' + esc(r.nama) + '">' + esc(r.nama) + '</option>';
+  }).join('');
+  ['p-cari', 'p-peran', 'p-status'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', render);
+  });
+  render();
+
+  /* ---- Modal tambah / edit ---- */
+  var dlg = document.getElementById('dlg-pengguna');
+  var judul = document.getElementById('dlg-pengguna-h');
+  var uPeran = document.getElementById('u-peran');
+  var uUnit = document.getElementById('u-unit');
+  var uKanal = document.getElementById('u-kanal');
+  var sandi = document.getElementById('u-sandi');
+  var edit = null;
+
+  uPeran.innerHTML = o.peran.map(function (r) {
+    return '<option value="' + esc(r.nama) + '">' + esc(r.nama) + '</option>';
+  }).join('');
+  uUnit.innerHTML = KLH.opsiHTML(UNIT);
+  uKanal.innerHTML =
+    '<label class="kanal-pick__opt kanal-pick__opt--all"><input type="checkbox" value="*"> Seluruh kanal</label>' +
+    o.kanal.map(function (k) {
+      return '<label class="kanal-pick__opt"><input type="checkbox" value="' + esc(k.id) + '"> ' + esc(k.label) + '</label>';
+    }).join('');
+  var kotak = uKanal.querySelectorAll('input');
+  var kotakSemua = kotak[0];
+
+  /* "Seluruh kanal" meniadakan pilihan per kanal */
+  uKanal.addEventListener('change', function () {
+    Array.prototype.slice.call(kotak, 1).forEach(function (c) {
+      c.disabled = kotakSemua.checked;
+      if (kotakSemua.checked) c.checked = false;
+    });
+  });
+
+  function izinRingkas(nama) {
+    var r = o.peran.filter(function (x) { return x.nama === nama; })[0];
+    return r ? r.desc + ' (' + r.izin.filter(Boolean).length + ' dari ' + o.izinDaftar.length + ' izin).' : '';
+  }
+  uPeran.addEventListener('change', function () {
+    document.getElementById('u-peran-hint').textContent = izinRingkas(uPeran.value);
+  });
+
+  function setErr(id, salah) {
+    var el = document.getElementById(id);
+    var err = document.getElementById(id + '-err');
+    el.closest('.field').classList.toggle('err', !!salah);
+    if (err) err.hidden = !salah;
+    el.setAttribute('aria-invalid', String(!!salah));
+    return !salah;
+  }
+
+  var lihat = document.getElementById('u-sandi-lihat');
+  function setLihat(tampil) {
+    sandi.type = tampil ? 'text' : 'password';
+    lihat.setAttribute('aria-pressed', String(tampil));
+    lihat.setAttribute('aria-label', tampil ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi');
+    lihat.innerHTML = KLH.iconSVG(tampil ? 'eyeoff' : 'eye', 'icon icon--sm');
+  }
+  lihat.addEventListener('click', function () { setLihat(sandi.type === 'password'); });
+
+  function buka(u) {
+    edit = u || null;
+    judul.textContent = u ? 'Edit pengguna' : 'Tambah pengguna';
+    ['u-nama', 'u-email', 'u-sandi'].forEach(function (id) { setErr(id, false); });
+    setLihat(false);
+    document.getElementById('u-nama').value = u ? u.nama : '';
+    document.getElementById('u-email').value = u ? u.email : '';
+    sandi.value = '';
+    uPeran.value = u ? u.peran : 'Agen';
+    document.getElementById('u-peran-hint').textContent = izinRingkas(uPeran.value);
+    uUnit.innerHTML = KLH.opsiHTML(UNIT, u ? u.unit : UNIT[0]);
+    kotakSemua.checked = !!u && u.kanal.indexOf('*') !== -1;
+    Array.prototype.slice.call(kotak, 1).forEach(function (c) {
+      c.checked = !!u && u.kanal.indexOf(c.value) !== -1;
+      c.disabled = kotakSemua.checked;
+    });
+    document.getElementById('fs-status').hidden = !u;
+    document.getElementById('u-status').value = u ? u.status : 'aktif';
+    document.querySelector('label[for="u-sandi"] .req').hidden = !!u;
+    document.getElementById('u-sandi-hint').textContent = u
+      ? 'Kosongkan bila tidak ingin mengganti kata sandi.'
+      : 'Dibuat oleh Super Admin; pengguna diminta menggantinya saat masuk pertama kali.';
+    document.getElementById('btn-simpan').innerHTML = KLH.iconSVG(u ? 'check' : 'send', 'icon icon--sm') +
+      (u ? ' Simpan perubahan' : ' Simpan &amp; kirim undangan');
+    dlg.showModal();
+  }
+  document.getElementById('btn-tambah').addEventListener('click', function () { buka(null); });
+  dlg.querySelector('[data-batal]').addEventListener('click', function () { dlg.close(); });
+
+  document.getElementById('form-pengguna').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var nama = document.getElementById('u-nama').value.trim();
+    var email = document.getElementById('u-email').value.trim();
+    var ok = true;
+    ok = setErr('u-nama', !nama) && ok;
+    ok = setErr('u-email', !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) && ok;
+    /* Sandi wajib saat menambah; saat edit hanya divalidasi bila diisi */
+    ok = setErr('u-sandi', (edit ? sandi.value.length > 0 : true) && sandi.value.length < 8) && ok;
+    if (!ok) { this.querySelector('[aria-invalid="true"]').focus(); return; }
+
+    var kanal = kotakSemua.checked ? ['*'] : Array.prototype.slice.call(kotak, 1)
+      .filter(function (c) { return c.checked; })
+      .map(function (c) { return c.value; });
+    if (edit) {
+      edit.nama = nama;
+      edit.inisial = (nama.match(/\b\w/g) || ['P']).slice(0, 2).join('').toUpperCase();
+      edit.email = email;
+      edit.peran = uPeran.value;
+      edit.unit = uUnit.value;
+      edit.kanal = kanal;
+      edit.status = document.getElementById('u-status').value;
+      KLH.toast('Perubahan akun <strong>' + esc(edit.email) + '</strong> disimpan (simulasi).');
+    } else {
+      daftar.unshift({
+        nama: nama, inisial: (nama.match(/\b\w/g) || ['P']).slice(0, 2).join('').toUpperCase(),
+        email: email, peran: uPeran.value, unit: uUnit.value,
+        kanal: kanal, aktif: o.now, status: 'aktif'
+      });
+      KLH.toast('Undangan untuk <strong>' + esc(email) + '</strong> dikirim (simulasi).');
+    }
+    dlg.close();
+    render();
+  });
+
+  /* ---- Hapus (konfirmasi dialog, tanpa persist) ---- */
+  var dlgHapus = document.getElementById('dlg-hapus');
+  var idxHapus = -1;
+  tbody.addEventListener('click', function (e) {
+    var b = e.target.closest('.btn-edit');
+    if (b) { buka(daftar[+b.getAttribute('data-i')]); return; }
+    b = e.target.closest('.btn-hapus');
+    if (!b) return;
+    idxHapus = +b.getAttribute('data-i');
+    document.getElementById('hapus-nama').textContent = daftar[idxHapus].nama;
+    dlgHapus.showModal();
+  });
+  dlgHapus.querySelector('[data-batal]').addEventListener('click', function () { dlgHapus.close(); });
+  document.getElementById('btn-hapus-ya').addEventListener('click', function () {
+    var u = daftar.splice(idxHapus, 1)[0];
+    dlgHapus.close();
+    render();
+    KLH.toast('Akun <strong>' + esc(u.email) + '</strong> dihapus (simulasi).', 'info');
+  });
+})();
+</script>
+</body>
+</html>

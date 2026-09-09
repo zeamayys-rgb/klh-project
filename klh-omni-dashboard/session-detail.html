@@ -113,7 +113,6 @@
   document.getElementById('ses-meta').innerHTML = KLH.fmtDateTime(s.mulai) + ' · ' + s.lokasi +
     ' · <strong>' + KLH.fmtDurasi(total) + '</strong> pada ' + s.jejak.length + ' halaman';
   document.getElementById('ses-badges').innerHTML =
-    '<span class="badge bg-' + s.hasilTone + '">' + s.hasil + '</span> ' +
     '<span class="badge bg-neutral">' + s.perangkat + '</span>' +
     (s.kanal ? ' ' + KLH.kanalBadge(s.kanal) : '');
   document.getElementById('ses-jumlah').textContent = s.jejak.length + ' langkah · ' + KLH.fmtDurasi(total);
@@ -127,11 +126,10 @@
       var kelas = (aktif ? 'now' : (lewat || sampai < 0 ? 'done' : 'pending'));
       return '<li class="' + kelas + '"><span class="dot">' +
           KLH.iconSVG(j.sorot ? 'warning' : 'arrowright', 'icon').replace('class="icon"', 'class="icon" style="width:13px;height:13px"') +
+          (j.sorot ? '<span class="sr-only">Titik hambatan</span>' : '') +
         '</span>' +
-        '<h4 style="font-size:var(--t-sm)">' + j.judul +
-          (j.sorot ? ' <span class="badge bg-warning">Titik hambatan</span>' : '') + '</h4>' +
+        '<h4 style="font-size:var(--t-sm)">' + j.judul + '</h4>' +
         '<span class="ses-path">' + j.path + '</span>' +
-        '<p style="font-size:var(--t-sm);color:var(--ink-700);margin:4px 0 0">' + j.aksi + '</p>' +
         '<span class="ses-meta">' +
           '<span class="mono">' + KLH.fmtOfs(j.d) + '</span>' +
           '<span>' + KLH.fmtDurasi(j.lama) + ' di halaman</span>' +

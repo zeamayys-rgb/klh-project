@@ -34,7 +34,8 @@
       { href: 'routing.html', icon: 'route', label: 'Routing & Auto-Reply' },
       { href: 'analytics.html', icon: 'chartpie', label: 'Analytics' },
       { href: 'kanal.html', icon: 'share', label: 'Manajemen Kanal' },
-      { href: 'role.html', icon: 'people', label: 'Role Management' },
+      { href: 'pengguna.html', icon: 'people', label: 'Manajemen Pengguna' },
+      { href: 'role.html', icon: 'idcard', label: 'Role Management' },
       { href: 'keamanan.html', icon: 'shield', label: 'Keamanan' }
     ]}
   ];

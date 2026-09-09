@@ -32,14 +32,19 @@
         <p class="lead">Enam peran berjenjang — <strong>Super Admin → Viewer</strong> — dengan izin granular per fungsi. Data contoh prototipe.</p>
       </div>
       <div class="aksi">
-        <button class="btn btn-primary" type="button" id="btn-undang"><klh-icon name="people" class="icon icon--sm"></klh-icon> Undang pengguna</button>
+        <a class="btn btn-outline" href="pengguna.html"><klh-icon name="people" class="icon icon--sm"></klh-icon> Manajemen pengguna</a>
       </div>
     </div>
 
     <div class="role-grid" id="role-grid"></div>
 
     <section class="panel matrix-wrap" data-reveal aria-label="Matriks izin per peran">
-      <div class="panel__head"><h2>Matriks izin</h2><span class="ket">✓ = diizinkan · — = tidak</span></div>
+      <div class="panel__head"><h2>Matriks izin</h2>
+        <span style="display:inline-flex;align-items:center;gap:var(--s4)">
+          <span class="ket">Centang untuk memberi izin · perubahan bersifat simulasi</span>
+          <button class="btn btn-ghost btn-sm" type="button" id="mx-reset"><klh-icon name="history" class="icon icon--sm"></klh-icon> Pulihkan</button>
+        </span>
+      </div>
       <div class="panel__body" style="padding-top:var(--s3)">
         <div class="tbl-wrap" style="border:0">
           <table class="tbl" aria-label="Matriks izin per peran">
@@ -59,33 +64,63 @@
 (function () {
   'use strict';
   var o = KLH.omni;
+  var esc = KLH.esc;
   var IKON = { 'Super Admin': 'key', 'Admin': 'settings', 'Supervisor': 'eye', 'Agen': 'speech', 'Analis': 'chartline', 'Viewer': 'user' };
+  /* Snapshot izin awal — dasar tombol "Pulihkan" (prototipe, tanpa persist) */
+  var AWAL = o.peran.map(function (r) { return r.izin.slice(); });
+  var grid = document.getElementById('role-grid');
+  var body = document.getElementById('mx-body');
 
-  document.getElementById('role-grid').innerHTML = o.peran.map(function (r) {
-    var nIzin = r.izin.filter(Boolean).length;
-    return '<div class="card role-card" data-reveal>' +
-      '<h3><span style="display:inline-flex;align-items:center;gap:var(--s2)">' +
-        '<span class="kpi__ic" style="width:36px;height:36px">' + KLH.iconSVG(IKON[r.nama] || 'user', 'icon icon--sm') + '</span>' + r.nama + '</span>' +
-        '<span class="badge bg-brand">' + r.jumlah + ' pengguna</span></h3>' +
-      '<p>' + r.desc + '</p>' +
-      '<p style="font-size:var(--t-xs);color:var(--ink-400)">' + nIzin + ' dari ' + o.izinDaftar.length + ' izin aktif</p>' +
-    '</div>';
-  }).join('');
+  function renderKartu() {
+    grid.innerHTML = o.peran.map(function (r) {
+      var nIzin = r.izin.filter(Boolean).length;
+      return '<div class="card role-card" data-reveal>' +
+        '<h3><span style="display:inline-flex;align-items:center;gap:var(--s2)">' +
+          '<span class="kpi__ic" style="width:36px;height:36px">' + KLH.iconSVG(IKON[r.nama] || 'user', 'icon icon--sm') + '</span>' + r.nama + '</span>' +
+          '<span class="badge bg-brand">' + r.jumlah + ' pengguna</span></h3>' +
+        '<p>' + r.desc + '</p>' +
+        '<p style="font-size:var(--t-xs);color:var(--ink-400)" data-jml="' + esc(r.nama) + '">' + nIzin + ' dari ' + o.izinDaftar.length + ' izin aktif</p>' +
+      '</div>';
+    }).join('');
+  }
+  renderKartu();
 
   document.getElementById('mx-head').innerHTML = '<th scope="col">Izin</th>' + o.peran.map(function (r) {
     return '<th scope="col" style="text-align:center">' + r.nama + '</th>';
   }).join('');
 
-  document.getElementById('mx-body').innerHTML = o.izinDaftar.map(function (izin, i) {
-    return '<tr><td style="font-weight:600">' + izin + '</td>' + o.peran.map(function (r) {
-      return '<td style="text-align:center">' + (r.izin[i]
-        ? '<span class="matrix-ya">' + KLH.iconSVG('check', 'icon icon--sm') + '<span class="sr-only">diizinkan</span></span>'
-        : '<span class="matrix-tidak">—<span class="sr-only">tidak diizinkan</span></span>') + '</td>';
-    }).join('') + '</tr>';
-  }).join('');
+  /* Matriks dapat diedit: satu kotak centang per sel, label tersembunyi
+     agar pembaca layar menyebut "izin — peran" tanpa bergantung posisi kolom */
+  function renderMatriks() {
+    body.innerHTML = o.izinDaftar.map(function (izin, i) {
+      return '<tr><td style="font-weight:600">' + izin + '</td>' + o.peran.map(function (r, j) {
+        var id = 'izin-' + j + '-' + i;
+        return '<td><label class="mx-chk" for="' + id + '">' +
+          '<input type="checkbox" id="' + id + '" data-r="' + j + '" data-i="' + i + '"' + (r.izin[i] ? ' checked' : '') + '>' +
+          '<span class="sr-only">' + esc(izin) + ' untuk peran ' + esc(r.nama) + '</span>' +
+        '</label></td>';
+      }).join('') + '</tr>';
+    }).join('');
+  }
+  renderMatriks();
 
-  document.getElementById('btn-undang').addEventListener('click', function () {
-    KLH.toast('<strong>Undangan pengguna (simulasi).</strong> Pada sistem sebenarnya, form undangan email + pemilihan peran terbuka.', 'info');
+  body.addEventListener('change', function (e) {
+    var c = e.target.closest('input[type="checkbox"]');
+    if (!c) return;
+    var r = o.peran[+c.getAttribute('data-r')];
+    var i = +c.getAttribute('data-i');
+    r.izin[i] = c.checked ? 1 : 0;
+    var jml = document.querySelector('[data-jml="' + esc(r.nama) + '"]');
+    if (jml) jml.textContent = r.izin.filter(Boolean).length + ' dari ' + o.izinDaftar.length + ' izin aktif';
+    KLH.toast('<strong>' + r.nama + '</strong> ' + (c.checked ? 'kini boleh' : 'tidak lagi boleh') +
+      ' &ldquo;' + o.izinDaftar[i] + '&rdquo; (simulasi).', c.checked ? 'success' : 'info');
+  });
+
+  document.getElementById('mx-reset').addEventListener('click', function () {
+    o.peran.forEach(function (r, j) { r.izin = AWAL[j].slice(); });
+    renderKartu();
+    renderMatriks();
+    KLH.toast('Matriks izin dipulihkan ke pengaturan awal (simulasi).', 'info');
   });
 })();
 </script>

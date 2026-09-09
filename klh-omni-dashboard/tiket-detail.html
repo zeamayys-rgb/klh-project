@@ -131,7 +131,7 @@
 
   /* ---- Kepala halaman ---- */
   document.getElementById('bc-id').textContent = t.id;
-  document.getElementById('tkt-judul').textContent = t.id + ' — ' + t.subjek;
+  document.getElementById('tkt-judul').textContent = t.id;
   document.getElementById('tkt-meta').innerHTML = t.pemohon + ' · dibuat ' + KLH.fmtDateTime(t.dibuat) +
     ' · kategori <strong>' + t.kategori + '</strong>';
   function renderBadges() {

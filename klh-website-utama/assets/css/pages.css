@@ -362,12 +362,6 @@ button.agenda-row:hover { box-shadow: var(--sh-2); }
   gap: var(--s10);
 }
 .mitra__group { min-width: 0; }
-.mitra__group-title {
-  display: flex; align-items: center; gap: var(--s2);
-  font-size: var(--t-sm); font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
-  color: var(--ink-500); margin-bottom: var(--s5);
-}
-.mitra__group-title .icon { color: var(--klh-green-600); }
 .mitra__internal, .mitra__external { list-style: none; margin: 0; padding: 0; }
 .mitra__internal { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s3); }
 /* Butir ganjil (gerakan, bukan sistem) melebar penuh agar grid 2 kolom tetap rapi */

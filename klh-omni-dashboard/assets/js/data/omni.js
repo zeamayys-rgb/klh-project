@@ -328,6 +328,27 @@
       { nama: 'Viewer',      jumlah: 9,  desc: 'Hanya melihat dashboard — tanpa aksi apa pun.', izin: [1, 0, 0, 0, 0, 0, 0, 0, 0] }
     ],
 
+    /* ---- Pengguna internal Omni Channel (pengguna.html) ----
+       kanal = id kanal yang ditangani ('*' = seluruh kanal) ---- */
+    pengguna: [
+      { nama: 'Wisnu Baskoro', inisial: 'WB', email: 'wisnu.baskoro@klh.go.id', peran: 'Super Admin',
+        unit: 'Pusat Data & Informasi', kanal: ['*'], aktif: '2026-07-06T17:03:12', status: 'aktif' },
+      { nama: 'Harun Ash-Shiddiq', inisial: 'HA', email: 'harun.ashshiddiq@klh.go.id', peran: 'Admin',
+        unit: 'Biro Hubungan Masyarakat', kanal: ['*'], aktif: '2026-07-07T07:58:21', status: 'aktif' },
+      { nama: 'Lia Kartika', inisial: 'LK', email: 'lia.kartika@klh.go.id', peran: 'Supervisor',
+        unit: 'Biro Hubungan Masyarakat', kanal: ['wa', 'lapor', 'email'], aktif: '2026-07-07T08:55:40', status: 'aktif' },
+      { nama: 'Ratna Prameswari', inisial: 'RP', email: 'ratna.prameswari@klh.go.id', peran: 'Agen',
+        unit: 'Biro Hubungan Masyarakat', kanal: ['wa', 'lapor', 'chat-ppid'], aktif: '2026-07-07T09:24:11', status: 'aktif' },
+      { nama: 'Dimas Anggara', inisial: 'DA', email: 'dimas.anggara@klh.go.id', peran: 'Agen',
+        unit: 'PTSP', kanal: ['email', 'chat-kemenlh'], aktif: '2026-07-07T09:02:47', status: 'aktif' },
+      { nama: 'Fajar Nugroho', inisial: 'FN', email: 'fajar.nugroho@klh.go.id', peran: 'Agen',
+        unit: 'Dit. Pengawasan Limbah B3', kanal: ['ig', 'mobile'], aktif: '2026-07-06T16:45:30', status: 'aktif' },
+      { nama: 'Sekar Ayu Lestari', inisial: 'SA', email: 'sekar.lestari@klh.go.id', peran: 'Analis',
+        unit: 'Pusat Data & Informasi', kanal: [], aktif: '2026-07-04T14:20:08', status: 'aktif' },
+      { nama: 'Bagas Pratama', inisial: 'BP', email: 'bagas.pratama@klh.go.id', peran: 'Viewer',
+        unit: 'Ditjen Planologi', kanal: [], aktif: '2026-05-28T10:11:00', status: 'nonaktif' }
+    ],
+
     /* ---- Audit trail / activity log (keamanan.html) ---- */
     audit: [
       { t: '2026-07-07T09:24:11', user: 'ratna.prameswari', aksi: 'Membalas percakapan C-2140 (SP4N-LAPOR!)', ip: '10.20.4.31', hasil: 'ok' },
@@ -346,7 +367,7 @@
     notifikasi: [
       { jenis: 'eskalasi', judul: 'SLA terlewati — TKT-2026-0724', isi: 'TPA liar Jalan Raya Cibarusah melewati tenggat 08.50. Segera tindak lanjuti atau eskalasikan.', t: '2026-07-07T08:51:00', url: 'tiket-detail.html?t=TKT-2026-0724', baru: true },
       { jenis: 'eskalasi', judul: 'SLA < 1 jam — TKT-2026-0730', isi: 'Asap pembakaran limbah Jatake mendekati tenggat 10.00. Pelapor baru mengirim pesan tindak lanjut.', t: '2026-07-07T08:47:00', url: 'tiket-detail.html?t=TKT-2026-0730', baru: true },
-      { jenis: 'sistem', judul: 'Kanal Mobile App PPID gangguan', isi: 'API push notifikasi lambat sejak 07.55, antrean 4 pesan. Pesan dari aplikasi mungkin tertunda masuk ke inbox.', t: '2026-07-07T07:55:00', url: 'kanal.html', baru: true },
+      { jenis: 'sistem', judul: 'Kanal Mobile App PPID tidak terhubung', isi: 'Token API kedaluwarsa sejak 07.55. Pesan dari aplikasi tidak masuk ke inbox sampai kanal diotorisasi ulang.', t: '2026-07-07T07:55:00', url: 'kanal.html', baru: true },
       { jenis: 'sistem', judul: 'Percobaan masuk mencurigakan diblokir', isi: '5 kali gagal masuk pada akun supervisor.lia dari IP eksternal. Akun dikunci sementara 30 menit.', t: '2026-07-06T22:15:00', url: 'keamanan.html', baru: false },
       { jenis: 'eskalasi', judul: 'Tiket baru prioritas tinggi', isi: 'TKT-2026-0731 pencemaran Sungai Cikembang masuk dari WhatsApp — belum ditetapkan ke agen.', t: '2026-07-07T09:15:00', url: 'tiket-detail.html?t=TKT-2026-0731', baru: true }
     ],
@@ -390,7 +411,7 @@
       { id: 'chat-kemenlh', akun: 'Widget Live Chat kemenlh.go.id', status: 'terhubung', sinkron: '2026-07-07T09:30:00', pesanHariIni: 26 },
       { id: 'chat-ppid', akun: 'Widget Live Chat ppid.kemenlh.go.id', status: 'terhubung', sinkron: '2026-07-07T09:30:00', pesanHariIni: 18 },
       { id: 'ig', akun: '@kementerianlh (Instagram Graph API)', status: 'terhubung', sinkron: '2026-07-07T09:27:00', pesanHariIni: 17 },
-      { id: 'mobile', akun: 'Aplikasi PPID Mobile (Push/API)', status: 'gangguan', sinkron: '2026-07-07T07:55:00', pesanHariIni: 9, ket: 'API push lambat — antrean 4 pesan' }
+      { id: 'mobile', akun: 'Aplikasi PPID Mobile (Push/API)', status: 'terputus', sinkron: '2026-07-07T07:55:00', pesanHariIni: 9, ket: 'Token API kedaluwarsa sejak 07.55 — pesan baru belum masuk ke inbox' }
     ],
 
     /* ---- Laporan periodik (reporting.html) ---- */
