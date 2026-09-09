@@ -356,9 +356,10 @@ button.agenda-row:hover { box-shadow: var(--sh-2); }
 .err-code { font-family: var(--font-display); font-weight: 800; font-size: clamp(5rem, 14vw, 9rem); line-height: 1; color: var(--klh-green-200); letter-spacing: -.03em; }
 
 /* ============ BERANDA, TAUTAN SISTEM & MITRA (di atas footer) ============ */
+#mitra-title + .lead { max-width: none; }
 .mitra {
   display: grid;
-  grid-template-columns: minmax(0, 5.5fr) minmax(0, 6fr);
+  grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
   gap: var(--s10);
 }
 .mitra__group { min-width: 0; }
@@ -396,10 +397,11 @@ button.agenda-row:hover { box-shadow: var(--sh-2); }
 .mitra-sys:hover .mitra-ext, .mitra-logo:hover .mitra-ext { color: var(--klh-green-600); }
 
 /* Ubin logo mitra: tinggi seragam, logo diskalakan proporsional */
+/* 88px = tinggi ubin sistem dua baris (mis. e-Gakkum) agar kedua kolom sejajar */
 .mitra-logo {
   position: relative;
   display: grid; place-items: center;
-  min-height: 104px; padding: var(--s4);
+  min-height: 88px; padding: var(--s4);
   background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md);
   transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
 }
