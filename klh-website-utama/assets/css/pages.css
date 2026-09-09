@@ -423,7 +423,7 @@ button.agenda-row:hover { box-shadow: var(--sh-2); }
   .mitra__external > li { flex-basis: 132px; }
   .mitra__internal { grid-template-columns: 1fr; }
   .mitra-sys { flex-direction: row; align-items: center; gap: var(--s3); padding: var(--s3); }
-  .mitra-mark { width: 64px; height: 44px; }
+  .mitra-mark { width: 76px; height: 44px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .mitra-sys, .mitra-logo { transition: none; }
